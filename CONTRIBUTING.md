@@ -40,4 +40,4 @@ A milestone is achieved once every of its issues are solved. This includes every
 
 - Fabien Roy / ExiledNarwal28
 - Mikaël Valliant / mikaelvalliant
-- Mustapha N'Gom / [username to be added]
+- Mustapha N'Gom / mungo82
