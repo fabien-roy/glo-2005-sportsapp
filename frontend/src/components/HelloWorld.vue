@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <h1>Message from API : {{ msgApi }}</h1>
     <h2>Essential Links</h2>
     <ul>
       <li>
@@ -84,12 +85,21 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      msgApi: 'API did not respond (yet!)'
     }
+  },
+  created: function () {
+    axios.get(process.env.ROOT_API + '/')
+      .then(response => {
+        this.msg = response
+      })
   }
 }
 </script>
