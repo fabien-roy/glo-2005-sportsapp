@@ -24,6 +24,14 @@ Our FrontEnd is built using Vue.js.
 
 ### Run FrontEnd
 
-`npm serve`
+`npm start`
 
 By default, FrontEnd is hosted on port `8080` : [http://localhost.com:8080](http://localhost.com:8080).
+
+### Test FrontEnd
+
+`npm test`
+
+### Check FrontEnd code style
+
+`npm lint`
