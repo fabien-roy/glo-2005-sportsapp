@@ -98,7 +98,7 @@ export default {
   created: function () {
     axios.get(process.env.ROOT_API + '/')
       .then(response => {
-        this.msg = response
+        this.msgApi = response.data
       })
   }
 }
