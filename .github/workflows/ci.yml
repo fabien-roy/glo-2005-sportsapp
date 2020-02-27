@@ -13,5 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Tests and coverage
-        run: pip install -q -r requirements.txt && nose2 -v --with-coverage project.tests
+        run: |
+          pip install -q -r requirements.txt
+          nose2 -v --with-coverage project.tests
         working-directory: ./backend/web
