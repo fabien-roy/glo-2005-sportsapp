@@ -12,8 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Install requirements
+        run: pip install -q -r requirements.txt
+        working-directory: ./backend/web
       - name: Tests and coverage
-        run: |
-          pip install -q -r requirements.txt
-          nose2 -v --with-coverage project.tests
+        run: nose2 -v --with-coverage project.tests
         working-directory: ./backend/web
