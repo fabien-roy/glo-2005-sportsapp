@@ -8,11 +8,35 @@ More information will be added as soon as the project is started.
 
 Our API is built using Flask and Python.
 
-### Run BackEnd
+### Build and run BackEnd
 
-Run `/backend/app.py` using Python 3.8.
+Create the Dockerfile for the postgres service
 
-By default, BackEnd is hosted on port `5000` : [http://localhost.com:5000](http://localhost.com:5000).
+- Go to `/backend/web/`
+- `python create_postgres_dockerfile.py`
+
+Build and run the Docker containers
+
+- Go to `/backend/`
+- `docker-compose build`
+- `docker-compose up -d`
+
+Create or re-initialize the database
+
+- `docker-compose run --rm web python ./instance/db_create.py`
+
+By default, BackEnd is hosted on port `5000` : [http://192.168.69.69:5000](http://192.168.69.69:5000).
+
+Default address is `192.168.69.69`. Check using `docker-machine ip`.
+
+### Test BackEnd
+
+- Go to `/backend`
+- `nose2`
+
+For a specific module : 
+
+- `nose2 -v project.tests.test_users`
 
 ## FrontEnd
 
