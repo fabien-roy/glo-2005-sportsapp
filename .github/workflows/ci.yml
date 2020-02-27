@@ -9,9 +9,9 @@ on:
 
 jobs:
   test:
+    runs-on: docker://python:3.8.1
     steps:
       - name: Test
-        uses: docker://python:3.8.1
         run: |
           pip install -q -r requirements.txt
           nose2 -v --with-coverage project.tests
