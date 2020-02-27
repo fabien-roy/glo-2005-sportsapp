@@ -357,3 +357,17 @@ yarn-error.log
 # Sonarlint plugin
 
 # End of https://www.gitignore.io/api/vuejs,flask,python,pycharm+all,webstorm+all,jetbrains+all
+
+# Custom thingies
+
+# Instance Folder - used for configuration parameters
+/backend/web/instance/db_create_full.py
+/backend/web/instance/flask_full.cfg
+/backend/web/instance/*.db
+
+# Initialization file for Postgress Docker Image
+/backend/mysql/Dockerfile
+
+# Coverage output
+/backend/web/.coverage
+/backend/web/htmlcov/
