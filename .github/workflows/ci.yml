@@ -13,6 +13,6 @@ jobs:
     steps:
       - name: Test
         run: |
+          cd backend/web
           pip install -q -r requirements.txt
           nose2 -v --with-coverage project.tests
-        working-directory: ./backend/web
