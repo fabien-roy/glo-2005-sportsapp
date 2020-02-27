@@ -10,10 +10,10 @@ Our API is built using Flask and Python.
 
 ### Build and run BackEnd
 
-Create the Dockerfile for the postgres service
+Create the Dockerfile for the mysql service
 
 - Go to `/backend/web/`
-- `python create_postgres_dockerfile.py`
+- `python create_mysql_dockerfile.py`
 
 Build and run the Docker containers
 

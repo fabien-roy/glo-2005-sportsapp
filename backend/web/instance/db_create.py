@@ -1,6 +1,3 @@
-# Check the PYTHONPATH environment variable before beginning to ensure that the
-# top-level directory is included.  If not, append the top-level.  This allows
-# the modules within the .../project/ directory to be discovered.
 import sys
 import os
 
