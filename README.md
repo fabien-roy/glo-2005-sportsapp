@@ -31,12 +31,9 @@ Default address is `192.168.69.69`. Check using `docker-machine ip`.
 
 ### Test BackEnd
 
-- Go to `/backend`
-- `nose2`
-
-For a specific module : 
-
-- `nose2 -v project.tests.test_users`
+- Go to `/backend/web`
+- `pip install -q -r requirements.txt` (if needed)
+- `nose2 -v --with-coverage project.tests`
 
 ## FrontEnd
 
