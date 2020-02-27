@@ -1,5 +1,10 @@
 from project import app
+from project.models import ValidationError
 from flask import make_response, jsonify
+
+@app.errorhandler(ValidationError)
+def general_error(e):
+    return bad_request(e)
 
 @app.errorhandler(400)
 def bad_request(e):
