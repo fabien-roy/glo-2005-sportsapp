@@ -1,9 +1,18 @@
-unittests:
-  stage: test
-  image: python:3.8.1
-  script:
-    - cd web
-    - pip install -q -r requirements.txt
-    - nose2 -v --with-coverage project.tests
-  tags:
-    - docker
+name: API Unit test
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    steps:
+      - name: Test
+        uses: docker://python:3.8.1
+        run: |
+          pip install -q -r requirements.txt
+          nose2 -v --with-coverage project.tests
+        working-directory: ./backend/web
