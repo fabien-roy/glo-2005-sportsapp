@@ -15,8 +15,6 @@ jobs:
       - name: Install requirements
         run: pip install -q -r requirements.txt
         working-directory: ./backend/web
-      - name: python-nose-test
-        uses: CyberZHG/github-action-python-test@0.0.1
       - name: Tests and coverage
-        run: nose2 -v --with-coverage project.tests
+        uses: CyberZHG/github-action-python-test@0.0.1 -v --with-coverage project.tests
         working-directory: ./backend/web
