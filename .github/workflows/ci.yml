@@ -19,3 +19,4 @@ jobs:
         run: |
           pip install nose2
           nose2 -v --with-coverage project.tests
+          working-directory: ./backend/web
