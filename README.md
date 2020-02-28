@@ -1,10 +1,10 @@
 # GLO-2005 (H2020) - Team X
 
-![API Unit tests](https://github.com/ExiledNarwal28/glo-2005-project/workflows/API%20Unit%20tests/badge.svg)
-
 This is our project for course GLO-2005 at Laval University.
 
-More information will be added as soon as the project is started.
+This project is about listing sports and practice centers. Users can recommend sports and practice centers. Sports can be practiced at different centers, depending on climate. Sports also requires specific equipment.
+
+Our app also features a list of shops that display announces for equipment.
 
 ## BackEnd
 
