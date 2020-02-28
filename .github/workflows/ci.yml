@@ -16,4 +16,4 @@ jobs:
         run: pip install -q -r requirements.txt
         working-directory: ./backend/web
       - name: Tests and coverage
-        uses: CyberZHG/github-action-python-test@0.0.1 -v --with-coverage project.tests
+        uses: CyberZHG/github-action-python-test@0.0.1 --with-coverage project.tests
