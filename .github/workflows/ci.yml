@@ -16,4 +16,6 @@ jobs:
         run: pip install -q -r requirements.txt
         working-directory: ./backend/web
       - name: Tests and coverage
-        run: nose2 -v --with-coverage project.tests
+        run: |
+          pip install nose2
+          nose2 -v --with-coverage project.tests
