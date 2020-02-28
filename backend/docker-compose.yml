@@ -5,10 +5,10 @@ services:
     restart: always
     build: ./web
     expose:
-      - "8000"
+      - "5000"
     volumes:
       - /home/flask/app/web
-    command: /usr/local/bin/gunicorn -w 2 -b :8000 project:app
+    command: /usr/local/bin/gunicorn -w 2 -b :5000 project:app
     depends_on:
       - mysql
 

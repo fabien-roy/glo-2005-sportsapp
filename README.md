@@ -10,6 +10,12 @@ More information will be added as soon as the project is started.
 
 Our API is built using Flask and Python.
 
+### Installation
+
+First, you will need [Python](https://www.python.org/downloads/).
+
+Then, you are going to need Docker. For UNIX systems, this is quite easy. For Windows, get ready to [walk through hell](https://docs.docker.com/docker-for-windows/install/).
+
 ### Build and run BackEnd
 
 Create the Dockerfile for the mysql service
@@ -20,14 +26,21 @@ Create the Dockerfile for the mysql service
 Build and run the Docker containers
 
 - Go to `/backend/`
+- `docker-machine start default` (if Docker is not started yet)
+- `docker-machine restart default` (if Docker/Windows is being picky)
 - `docker-compose build`
 - `docker-compose up -d`
+
+Stop container
+
+- Go to `/backend/`
+- `docker-compose stop`
 
 Create or re-initialize the database
 
 - `docker-compose run --rm web python ./instance/db_create.py`
 
-By default, BackEnd is hosted on port `5000` : [http://192.168.99.100:5000](http://192.168.99.100:5000).
+By default, web API is hosted on port `8000` : [http://192.168.99.100:8000](http://192.168.99.100:8000).
 
 Default address is `192.168.99.100`. Check using `docker-machine ip`.
 
