@@ -1,6 +1,5 @@
-
-# Created by https://www.gitignore.io/api/vuejs,flask,python,pycharm+all,webstorm+all,jetbrains+all
-# Edit at https://www.gitignore.io/?templates=vuejs,flask,python,pycharm+all,webstorm+all,jetbrains+all
+# Created by https://www.gitignore.io/api/flask,python,pycharm+all,jetbrains+all
+# Edit at https://www.gitignore.io/?templates=flask,python,pycharm+all,jetbrains+all
 
 ### Flask ###
 instance/*
@@ -297,77 +296,4 @@ modules.xml
 
 # Pyre type checker
 
-### Vuejs ###
-# Recommended template: Node.gitignore
-
-node_modules/
-npm-debug.log
-yarn-error.log
-
-### WebStorm+all ###
-# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
-# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
-
-# User-specific stuff
-
-# Generated files
-
-# Sensitive or high-churn files
-
-# Gradle
-
-# Gradle and Maven with auto-import
-# When using Gradle or Maven with auto-import, you should exclude module files,
-# since they will be recreated, and may cause churn.  Uncomment if using
-# auto-import.
-# .idea/modules.xml
-# .idea/*.iml
-# .idea/modules
-# *.iml
-# *.ipr
-
-# CMake
-
-# Mongo Explorer plugin
-
-# File-based project format
-
-# IntelliJ
-
-# mpeltonen/sbt-idea plugin
-
-# JIRA plugin
-
-# Cursive Clojure plugin
-
-# Crashlytics plugin (for Android Studio and IntelliJ)
-
-# Editor-based Rest Client
-
-# Android studio 3.1+ serialized cache file
-
-### WebStorm+all Patch ###
-# Ignores the whole .idea folder and all .iml files
-# See https://github.com/joeblau/gitignore.io/issues/186 and https://github.com/joeblau/gitignore.io/issues/360
-
-
-# Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-249601023
-
-
-# Sonarlint plugin
-
-# End of https://www.gitignore.io/api/vuejs,flask,python,pycharm+all,webstorm+all,jetbrains+all
-
-# Custom thingies
-
-# Instance Folder - used for configuration parameters
-/backend/web/instance/db_create_full.py
-/backend/web/instance/flask_full.cfg
-/backend/web/instance/*.db
-
-# Initialization file for Postgress Docker Image
-/backend/mysql/Dockerfile
-
-# Coverage output
-/backend/web/.coverage
-/backend/web/htmlcov/
+# End of https://www.gitignore.io/api/flask,python,pycharm+all,jetbrains+all

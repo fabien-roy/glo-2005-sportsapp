@@ -3,7 +3,7 @@ version: '2'
 services:
   web:
     restart: always
-    build: ./web
+    build: web
     expose:
       - "5000"
     volumes:
@@ -14,7 +14,7 @@ services:
 
   nginx:
     restart: always
-    build: ./nginx
+    build: nginx
     ports:
       - "80:80"
     volumes:
@@ -32,7 +32,7 @@ services:
 
   mysql:
     restart: always
-    build: ./mysql
+    build: mysql
     volumes_from:
       - data
     expose:
