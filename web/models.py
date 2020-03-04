@@ -126,12 +126,31 @@ class Sport(db.Model):
         self.name = name
 
 
+class SportRecommendations(db.Model):
+
+    __tablename__ = 'sport_recommendations'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    username = db.Column(db.String, nullable=False)
+    id_sport = db.Column(db.Integer, nullable=False)
+    comment = db.Column(db.String, nullable=False)
+    date = db.Column(db.DateTime, nullable=False)
+    note = db.Column(db.Integer, nullable=False)
+
+    def __init__(self, username, id_sport, comment, date, note):
+        self.username = username
+        self.id_sport = id_sport
+        self.comment = comment
+        self.date = date
+        self.note = note
+
+
 class PracticeCenter(db.Model):
     __tablename__ = 'practice_centers'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String, nullable=False, unique=True)
-    address = db.Column(db.string, nullable=False, unique=True) # TODO : Address must be defined in Location model
+    address = db.Column(db.String, nullable=False, unique=True) # TODO : Address must be defined in Location model
     email = db.Column(db.String, nullable=True)
     web_site = db.Column(db.String, nullable=True)
     phone_number = db.Column(db.String, nullable=True)
@@ -142,3 +161,33 @@ class PracticeCenter(db.Model):
         self.email = email
         self.web_site = web_site
         self.phone_number = phone_number
+
+
+class PracticeCenterRecommendations(db.Model):
+
+    __tablename__ = 'practice_center_recommendations'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    username = db.Column(db.String, nullable=False)
+    id_practice_center = db.Column(db.Integer, nullable=False)
+    comment = db.Column(db.String, nullable=False)
+    date = db.Column(db.DateTime, nullable=False)
+    note = db.Column(db.Integer, nullable=False)
+
+    def __init__(self, username, id_practice_center, comment, date, note):
+        self.username = username
+        self.id_practice_center = id_practice_center
+        self.comment = comment
+        self.date = date
+        self.note = note
+
+
+class Climate(db.Model):
+
+    __tablename__ = 'climates'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String, nullable=False, unique=True)
+
+    def __init__(self, name):
+        self.name = name
