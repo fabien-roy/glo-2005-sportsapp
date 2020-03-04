@@ -3,7 +3,6 @@ from sqlalchemy.ext.hybrid import hybrid_method, hybrid_property
 from datetime import datetime
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
-# TODO : Make this file our own by removing what we do not need and adding what we need
 
 class ValidationError(ValueError):
     """Class for handling validation errors during
@@ -11,13 +10,14 @@ class ValidationError(ValueError):
     """
     pass
 
-class User(db.Model):
 
+# TODO : Change User model to fit our own (copied from example)
+class User(db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     email = db.Column(db.String, unique=True, nullable=False)
-    _password = db.Column(db.Binary(60), nullable=False)
+    _password = db.Column(db.Binary(60), nullable=False) # TODO : Move password to another table
     authenticated = db.Column(db.Boolean, default=False)
     email_confirmation_sent_on = db.Column(db.DateTime, nullable=True)
     email_confirmed = db.Column(db.Boolean, nullable=True, default=False)
@@ -26,6 +26,7 @@ class User(db.Model):
     last_logged_in = db.Column(db.DateTime, nullable=True)
     current_logged_in = db.Column(db.DateTime, nullable=True)
     role = db.Column(db.String, default='user')
+
     # recipes = db.relationship('Recipe', backref='user', lazy='dynamic')
 
     def __init__(self, email, plaintext_password, email_confirmation_sent_on=None, role='user'):
@@ -114,29 +115,30 @@ class User(db.Model):
     def __repr__(self):
         return '<User {}>'.format(self.email)
 
-"""Sports model"""
+
 class Sport(db.Model):
-
     __tablename__ = 'sports'
-
-    id = db.Column(db.Integer, primary_key=True,  autoincrement=True)
-    name = db.Column(db.String, nullable=False, unique=True)
-    avg_mark = db.Column(db.integer, nullable=True)
-
-    def __init__(self,name):
-        self.name = name
-
-
-"""Practice center model"""
-class Practice_center(db.Model):
-
-    __tablename__ = 'practice centers'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String, nullable=False, unique=True)
-    address = db.Column(db.string, nullable=False, unique=True)
-    act_climate = db.Column(db.String, nullable=False)
-    avg_mark = db.Column(db.integer, nullable=True)
 
-    def __init__(self,name):
+    def __init__(self, name):
         self.name = name
+
+
+class PracticeCenter(db.Model):
+    __tablename__ = 'practice_centers'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String, nullable=False, unique=True)
+    address = db.Column(db.string, nullable=False, unique=True) # TODO : Address must be defined in Location model
+    email = db.Column(db.String, nullable=True)
+    web_site = db.Column(db.String, nullable=True)
+    phone_number = db.Column(db.String, nullable=True)
+
+    def __init__(self, name, address, email, web_site, phone_number):
+        self.name = name
+        self.address = address
+        self.email = email
+        self.web_site = web_site
+        self.phone_number = phone_number
