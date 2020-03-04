@@ -26,6 +26,33 @@ db.session.add(user2)
 # Commit the changes for the users
 db.session.commit()
 
+# Insert sports data
+sport1 = Sport(name='Randonnée')
+sport2 = Sport(name='Escalade')
+sport3 = Sport(name='Natation')
+db.session.add(sport1)
+db.session.add(sport2)
+db.session.add(sport3)
+
+# Commit the changes for the sports
+db.session.commit()
+
+# Insert practive center data
+center1 = Practice_center(name='Mont-Orford National Park',
+address='3321 Chemin du Parc, Orford, QC J1X 7A2')
+center2 = Practice_center(name='Parc des Montagnards',
+address='333 Chemin du Mont-Shefford, Shefford, QC J2M 1N7')
+center3 = Practice_center(name='Gault Nature Reserve of McGill University'
+address='422 Chemin des Moulins, Mont-Saint-Hilaire, QC J3G 4S6')
+db.session.add(center1)
+db.session.add(center2)
+db.session.add(center3)
+
+# Commit the changes for the practice centers
+db.session.commit()
+
+
+
 # TODO : Remove, but serves as an example
 # Insert recipe data
 # recipe1 = Recipe('Slow-Cooker Tacos', 'Delicious ground beef that has been simmering in taco seasoning and sauce.  Perfect with hard-shelled tortillas!', user2.id, False)

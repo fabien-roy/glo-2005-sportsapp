@@ -113,3 +113,30 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User {}>'.format(self.email)
+
+"""Sports model"""
+class Sport(db.Model):
+
+    __tablename__ = 'sports'
+
+    id = db.Column(db.Integer, primary_key=True,  autoincrement=True)
+    name = db.Column(db.String, nullable=False, unique=True)
+    avg_mark = db.Column(db.integer, nullable=True)
+
+    def __init__(self,name):
+        self.name = name
+
+
+"""Practice center model"""
+class Practice_center(db.Model):
+
+    __tablename__ = 'practice centers'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String, nullable=False, unique=True)
+    address = db.Column(db.string, nullable=False, unique=True)
+    act_climate = db.Column(db.String, nullable=False)
+    avg_mark = db.Column(db.integer, nullable=True)
+
+    def __init__(self,name):
+        self.name = name
