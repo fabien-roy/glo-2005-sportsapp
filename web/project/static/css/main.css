@@ -1,0 +1,26 @@
+/* TODO : Completely change this */
+
+body {
+  padding: 60px 0;
+  background: #ffffff;
+}
+
+.error {
+  color: red;
+  font-size: .8em;
+}
+
+.jumbotron {
+  height: 300px;
+}
+
+.jumbotron h1 {
+  color: #fff;
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.jumbotron p {
+  font-size: 20px;
+  color: #fff;
+}
