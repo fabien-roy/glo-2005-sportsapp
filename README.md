@@ -16,7 +16,7 @@ Then, you are going to need Docker. For UNIX systems, this is quite easy. For Wi
 
 Create the Dockerfile for the mysql service
 
-- `python web/create_mysql_dockerfile.py`
+- `python ./web/create_mysql_dockerfile.py`
 
 Build and run the Docker containers
 

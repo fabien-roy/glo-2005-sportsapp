@@ -30,8 +30,8 @@ def hello_world():
 
 
 @app.errorhandler(400)
-def page_not_found(e):
-    return render_template('400.html'), 404
+def page_bad_request(e):
+    return render_template('400.html'), 400
 
 
 @app.errorhandler(404)
