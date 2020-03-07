@@ -15,5 +15,6 @@ with open(os.path.join(destination_dir, docker_file), 'w') as mysql_dockerfile:
     mysql_dockerfile.write('\n# Set environment variables')
     mysql_dockerfile.write('\nENV MYSQL_USER {}'.format(app.config['MYSQL_USER']))
     mysql_dockerfile.write('\nENV MYSQL_PASSWORD {}'.format(app.config['MYSQL_PASSWORD']))
+    mysql_dockerfile.write('\nENV MYSQL_ROOT_PASSWORD {}'.format(app.config['MYSQL_ROOT_PASSWORD']))
     mysql_dockerfile.write('\nENV MYSQL_DB {}'.format(app.config['MYSQL_DB']))
     mysql_dockerfile.write('\n')
