@@ -1,4 +1,4 @@
-from web.project import db, bcrypt, app
+from project import db, bcrypt, app
 from sqlalchemy.ext.hybrid import hybrid_method, hybrid_property
 from datetime import datetime
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
@@ -14,24 +14,23 @@ class ValidationError(ValueError):
 class User(db.Model):
     __tablename__ = 'users'
 
-    username = db.column(db.String, primary_key=True)
-    email = db.Column(db.String, nullable=False)
-    password = db.column(db.String, nullable=False)
-    last_name = db.column(db.String, nullable=False)
-    first_name = db.column(db.String, nullable=False)
-    telephone = db.column(db.String, nullable=False)
-    creation_date = db.column(db.DateTime, nullable=False)
-    last_logged_in = db.column(db.DateTime, nullable=False)
+    username = db.Column(db.String, primary_key=True)
+    email = db.Column(db.String, unique=True, nullable=False)
+    password = db.Column(db.String, nullable=False)
+    first_name = db.Column(db.String, nullable=False)
+    last_name = db.Column(db.String, nullable=False)
+    telephone = db.Column(db.String, nullable=False)
+    creation_date = db.Column(db.DateTime, nullable=False)
+    last_logged_in = db.Column(db.DateTime, nullable=False)
 
     # recipes = db.relationship('Recipe', backref='user', lazy='dynamic')
 
-    def __init__(self, email, username, password, last_name, first_name,
-                 telephone):
+    def __init__(self, email, username, password, first_name, last_name, telephone):
         self.username = username
         self.email = email
         self.password = password
-        self.last_name = last_name
         self.first_name = first_name
+        self.last_name = last_name
         self.telephone = telephone
 
 

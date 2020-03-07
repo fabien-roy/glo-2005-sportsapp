@@ -5,8 +5,6 @@ from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 
-from web.project.sports.views import sports_blueprint
-
 app = Flask(__name__, instance_relative_config=True)
 if isfile(join('instance', 'flask_full.cfg')):
     app.config.from_pyfile('flask_full.cfg')
@@ -18,6 +16,8 @@ bcrypt = Bcrypt(app)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Blueprints
+
+from project.sports.views import sports_blueprint
 
 app.register_blueprint(sports_blueprint)
 
