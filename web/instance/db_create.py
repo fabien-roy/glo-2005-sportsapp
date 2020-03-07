@@ -22,7 +22,7 @@ db.session.add(user2)
 
 db.session.commit()
 
-sport1 = Sport(name='Randonnée')
+sport1 = Sport(name='Randonnee')
 sport2 = Sport(name='Escalade')
 sport3 = Sport(name='Natation')
 db.session.add(sport1)
@@ -63,7 +63,6 @@ practice_center_recommendation2 = PracticeCenterRecommendations(username='mikmik
                                                                 )
 
 db.session.add(practice_center_recommendation1)
-db.session.add(practice_center_recommendation2)
 
 db.session.commit()
 

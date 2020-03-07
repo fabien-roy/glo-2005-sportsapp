@@ -1,11 +1,10 @@
 import os
 import unittest
 
-from project import app, db
+from web.project import app, db
 
 TEST_DB = 'test.db'
 
-# TODO : Do actual tests
 # TODO : This test class can be used for login/register/logout
 
 class BasicTests(unittest.TestCase):
@@ -25,9 +24,6 @@ class BasicTests(unittest.TestCase):
     # executed after each test
     def tearDown(self):
         pass
-
-    def test_dummy(self):
-        self.assertTrue(True)
 
 if __name__ == "__main__":
     unittest.main()

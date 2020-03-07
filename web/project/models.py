@@ -1,4 +1,4 @@
-from project import db, bcrypt, app
+from web.project import db, bcrypt, app
 from sqlalchemy.ext.hybrid import hybrid_method, hybrid_property
 from datetime import datetime
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
@@ -14,14 +14,14 @@ class ValidationError(ValueError):
 class User(db.Model):
     __tablename__ = 'users'
 
-    username = db.column(db.String, primary_key=true)
-    email = db.Column(db.String, nullable=false)
-    password = db.column(db.String, nullable=false)
-    last_name = db.column(db.String, nullable=false)
-    first_name = db.column(db.String, nullable=false)
-    telephone = db.column(db.String, nullable=false)
-    creation_date = db.column(db.DateTime, nullable=false)
-    last_logged_in = db.column(db.DateTime, nullable=false)
+    username = db.column(db.String, primary_key=True)
+    email = db.Column(db.String, nullable=False)
+    password = db.column(db.String, nullable=False)
+    last_name = db.column(db.String, nullable=False)
+    first_name = db.column(db.String, nullable=False)
+    telephone = db.column(db.String, nullable=False)
+    creation_date = db.column(db.DateTime, nullable=False)
+    last_logged_in = db.column(db.DateTime, nullable=False)
 
     # recipes = db.relationship('Recipe', backref='user', lazy='dynamic')
 
