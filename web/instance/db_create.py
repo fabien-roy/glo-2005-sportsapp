@@ -1,6 +1,5 @@
 import sys
 import os
-from datetime import date
 
 print('Creating database tables for SportsApp...')
 
@@ -15,8 +14,8 @@ db.drop_all()
 
 db.create_all()
 
-user1 = User(email='fabienroy28@gmail.com', plaintext_password='12341234', role='user')
-user2 = User(email='test123@hotmail.ca', plaintext_password='password', role='user')
+user1 = User(username='fabienroy28', email='fabienroy28@gmail.com', plaintext_password='12341234', role='user')
+user2 = User(username='test123', email='test123@hotmail.ca', plaintext_password='password', role='user')
 db.session.add(user1)
 db.session.add(user2)
 
@@ -48,6 +47,8 @@ db.session.add(center3)
 
 db.session.commit()
 
+# TODO : Add Practice Center recommandations
+'''
 practice_center_recommendation1 = PracticeCenterRecommendations(username='fabienroy28',
                                                                 id_practice_center='abcd1234',
                                                                 comment='Pas pire pantoute',
@@ -65,5 +66,6 @@ practice_center_recommendation2 = PracticeCenterRecommendations(username='mikmik
 db.session.add(practice_center_recommendation1)
 
 db.session.commit()
+'''
 
 print('...done!')

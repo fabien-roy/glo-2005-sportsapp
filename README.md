@@ -16,25 +16,26 @@ Then, you are going to need Docker. For UNIX systems, this is quite easy. For Wi
 
 Create the Dockerfile for the mysql service
 
-- Go to `/web/`
-- `python create_mysql_dockerfile.py`
+- `python web/create_mysql_dockerfile.py`
 
 Build and run the Docker containers
 
-- Go to `/`
-- `docker-machine start default` (if Docker is not started yet)
-- `docker-machine restart default` (if Docker/Windows is being picky)
 - `docker-compose build`
 - `docker-compose up -d`
 
 Stop container
 
-- Go to `/`
 - `docker-compose stop`
 
 Create or re-initialize the database
 
 - `docker-compose run --rm web python ./instance/db_create.py`
+
+Omg, but Docker is really being picky
+
+- `docker kill $(docker ps -q)`
+- `docker-compose kill`
+- Whatever you wanted to do
 
 By default, web API is hosted on port `8000` : [http://192.168.99.100:8000](http://192.168.99.100:8000).
 
