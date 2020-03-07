@@ -11,35 +11,30 @@ class ValidationError(ValueError):
     pass
 
 
-# TODO : Change User model to fit our own (copied from example)
 class User(db.Model):
     __tablename__ = 'users'
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    email = db.Column(db.String, unique=True, nullable=False)
-    _password = db.Column(db.Binary(60), nullable=False) # TODO : Move password to another table
-    authenticated = db.Column(db.Boolean, default=False)
-    email_confirmation_sent_on = db.Column(db.DateTime, nullable=True)
-    email_confirmed = db.Column(db.Boolean, nullable=True, default=False)
-    email_confirmed_on = db.Column(db.DateTime, nullable=True)
-    registered_on = db.Column(db.DateTime, nullable=True)
-    last_logged_in = db.Column(db.DateTime, nullable=True)
-    current_logged_in = db.Column(db.DateTime, nullable=True)
-    role = db.Column(db.String, default='user')
+    username = db.column(db.String, primary_key=true)
+    email = db.Column(db.String, nullable=false)
+    password = db.column(db.String, nullable=false)
+    last_name = db.column(db.String, nullable=false)
+    first_name = db.column(db.String, nullable=false)
+    telephone = db.column(db.String, nullable=false)
+    creation_date = db.column(db.DateTime, nullable=false)
+    last_logged_in = db.column(db.DateTime, nullable=false)
 
     # recipes = db.relationship('Recipe', backref='user', lazy='dynamic')
 
-    def __init__(self, email, plaintext_password, email_confirmation_sent_on=None, role='user'):
+    def __init__(self, email, username, password, last_name, first_name,
+                 telephone):
+        self.username = username
         self.email = email
-        self.password = plaintext_password
-        self.authenticated = False
-        self.email_confirmation_sent_on = email_confirmation_sent_on
-        self.email_confirmed = False
-        self.email_confirmed_on = None
-        self.registered_on = datetime.now()
-        self.last_logged_in = None
-        self.current_logged_in = datetime.now()
-        self.role = role
+        self.password = password
+        self.last_name = last_name
+        self.first_name = first_name
+        self.telephone = telephone
+
+
 
     def import_form_data(self, form):
         """Import the data for this recipe that was input via the EditUserForm
