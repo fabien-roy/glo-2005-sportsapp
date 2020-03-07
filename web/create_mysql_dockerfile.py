@@ -1,5 +1,6 @@
 import os
-from project import app
+
+from web.project import app
 
 docker_file = 'Dockerfile'
 source_dir = os.path.abspath(os.curdir)

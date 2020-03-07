@@ -5,6 +5,8 @@ from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 
+from web.project.sports.views import sports_blueprint
+
 app = Flask(__name__, instance_relative_config=True)
 if isfile(join('instance', 'flask_full.cfg')):
     app.config.from_pyfile('flask_full.cfg')
@@ -17,8 +19,6 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Blueprints
 
-from project.sports.views import sports_blueprint
-
 app.register_blueprint(sports_blueprint)
 
 # Routes
@@ -28,9 +28,11 @@ app.register_blueprint(sports_blueprint)
 def hello_world():
     return 'Hello World!'
 
+
 @app.errorhandler(400)
 def page_not_found(e):
     return render_template('400.html'), 404
+
 
 @app.errorhandler(404)
 def page_not_found(e):

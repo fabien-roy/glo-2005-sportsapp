@@ -48,20 +48,18 @@ db.session.add(center3)
 
 db.session.commit()
 
-
-
-practice_center_recommendation1 = PracticeCenterRecommendations(username = 'fabienroy28',
-                                                                id_practice_center = 'abcd1234',
-                                                                comment = 'Pas pire pantoute',
-                                                                date = datetime.date(2020, 2, 20),
-                                                                note = 7
+practice_center_recommendation1 = PracticeCenterRecommendations(username='fabienroy28',
+                                                                id_practice_center='abcd1234',
+                                                                comment='Pas pire pantoute',
+                                                                date=datetime.date(2020, 2, 20),
+                                                                note=7
                                                                 )
 
-practice_center_recommendation2 = PracticeCenterRecommendations(username = 'mikmik123',
-                                                                id_practice_center = '3456defg',
-                                                                comment = 'Good job les boys',
-                                                                date = datetime.date(2020, 1, 12),
-                                                                note = 8
+practice_center_recommendation2 = PracticeCenterRecommendations(username='mikmik123',
+                                                                id_practice_center='3456defg',
+                                                                comment='Good job les boys',
+                                                                date=datetime.date(2020, 1, 12),
+                                                                note=8
                                                                 )
 
 db.session.add(practice_center_recommendation1)

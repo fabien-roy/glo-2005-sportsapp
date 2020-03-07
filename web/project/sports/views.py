@@ -1,6 +1,6 @@
 from flask import render_template, Blueprint
 
-from web.models import Sport
+from web.project.models import Sport
 
 sports_blueprint = Blueprint('sports', __name__)
 
