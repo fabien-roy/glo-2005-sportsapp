@@ -3,8 +3,12 @@ import os
 
 print('Creating database tables for SportsApp...')
 
-from project import conn
-from project.models import User, Sport, PracticeCenter
+if os.path.abspath(os.curdir) not in sys.path:
+    print('...missing directory in PYTHONPATH... added!')
+    sys.path.append(os.path.abspath(os.curdir))
+
+from project import db
+from project.models import User, Sport, PracticeCenter, PracticeCenterRecommendations
 
 db.drop_all()
 
