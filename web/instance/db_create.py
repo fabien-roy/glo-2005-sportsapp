@@ -35,10 +35,16 @@ try:
     conn.commit()
 
     # Fill mocked data
+    # TODO : Add users mocked data
+
     sport1 = Sport(name='Randonnee')
     sport2 = Sport(name='Escalade')
     sport3 = Sport(name='Natation')
-    # TODO : Insert sports
+    SportQuery.add(sport1)
+    SportQuery.add(sport2)
+    SportQuery.add(sport3)
+
+    # TODO : Add practice_centers mocked data
 
 finally:
     conn.close()

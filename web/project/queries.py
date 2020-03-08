@@ -1,6 +1,7 @@
 from project import conn
 from project.models import Sport
 
+
 class UserQuery:
     table_name = 'users'
 
@@ -54,3 +55,14 @@ class SportQuery:
 
         return sport
 
+    def add(self, sport):
+        try:
+            with conn.cursor() as cur:
+                sql = ('INSERT INTO ' + self.table_name +
+                       ' (' + self.name_col + ')' +
+                       ' VALUES (%s)')
+                cur.execute(sql, sport.name)
+
+                conn.commit()
+        finally:
+            conn.close()
