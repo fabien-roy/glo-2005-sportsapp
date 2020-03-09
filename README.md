@@ -12,6 +12,17 @@ First, you will need [Python](https://www.python.org/downloads/).
 
 Then, you will need to create a MySQL database. This database must fit the information displayed in [database/flask.cfg](database/flask.cfg).
 
+## Prepare database
+
+First, check that the MySQL service is well running on `localhost:3306`.
+
+Then, in MySQL Shell (for Windows, UNIX use `mysql` CLI) : 
+
+- `\connect --mysql root@localhost:3306`
+- Enter root password
+- `\mysql CREATE USER 'sportsapp'@'localhost' IDENTIFIED BY 'sportsapp'`
+- `\mysql GRANT ALL PRIVILEGES ON *. * TO 'sportsapp'@'localhost'`
+
 ## Install requirements
 
 - `pip install -q -r requirements.txt`

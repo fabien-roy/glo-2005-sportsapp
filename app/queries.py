@@ -28,7 +28,7 @@ class SportQuery:
             with conn.cursor() as cur:
                 cur.execute('SELECT ' + self.id_col + ', ' + self.name_col +
                             ' FROM ' + self.table_name +
-                            ' ORDER BY ' + self.name_col)
+                            ' ORDER BY ' + self.name_col + ';')
 
                 for (sport_id, name) in cur.fetchall():
                     sport = Sport(sport_id, name)
@@ -45,7 +45,7 @@ class SportQuery:
             with conn.cursor() as cur:
                 sql = ('SELECT ' + self.id_col + ', ' + self.name_col +
                        ' FROM ' + self.table_name +
-                       ' WHERE ' + self.id_col + ' = %s')
+                       ' WHERE ' + self.id_col + ' = %s;')
                 cur.execute(sql, sport_id)
 
                 for (sport_id, name) in cur.fetchone():
@@ -60,7 +60,7 @@ class SportQuery:
             with conn.cursor() as cur:
                 sql = ('INSERT INTO ' + self.table_name +
                        ' (' + self.name_col + ')' +
-                       ' VALUES (%s)')
+                       ' VALUES (%s);')
                 cur.execute(sql, sport.name)
 
                 conn.commit()
