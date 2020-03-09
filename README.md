@@ -10,39 +10,23 @@ Our app also features a list of shops that display announces for equipment. It i
 
 First, you will need [Python](https://www.python.org/downloads/).
 
-Then, you are going to need Docker. For UNIX systems, this is quite easy. For Windows, get ready to [walk through hell](https://docs.docker.com/toolbox/toolbox_install_windows/).
+Then, you will need to create a MySQL database. This database must fit the information displayed in [database/flask.cfg](database/flask.cfg).
+
+## Install requirements
+
+- `pip install -q -r requirements.txt`
+
+## Create database tables and mock data
+
+- `python ./database/create_bd.py`
 
 ## Build and run
 
-Create the Dockerfile for the mysql service
+- `python ./run.py`
 
-- `python ./web/create_mysql_dockerfile.py`
-
-Build and run the Docker containers
-
-- `docker-compose build`
-- `docker-compose up -d`
-
-Stop container
-
-- `docker-compose stop`
-
-Create or re-initialize the database
-
-- `docker-compose run --rm web python ./instance/db_create.py`
-
-Omg, but Docker is really being picky
-
-- `docker kill $(docker ps -q)`
-- `docker-compose kill`
-- Whatever you wanted to do
-
-By default, web API is hosted on port `8000` : [http://192.168.99.100:8000](http://192.168.99.100:8000).
-
-Default address is `192.168.99.100`. Check using `docker-machine ip`.
+By default, web API is hosted on port `8000` : [http://localhost:8000](http://localhost:8000).
 
 ## Run tests
 
-- Go to `/web/`
-- `pip install -q -r requirements.txt` (if needed)
-- `nose2 -v --with-coverage project.tests`
+- Go to `./app/`
+- `nose2 -v --with-coverage app.tests`

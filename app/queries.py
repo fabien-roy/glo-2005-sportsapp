@@ -1,5 +1,5 @@
-from project import conn
-from project.models import Sport
+from app import conn
+from app.models import Sport
 
 
 class UserQuery:

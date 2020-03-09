@@ -2,8 +2,8 @@
 # Edit at https://www.gitignore.io/?templates=flask,python,pycharm+all,jetbrains+all
 
 ### Flask ###
-instance/*
-!instance/.gitignore
+database/*
+!database/.gitignore
 .webassets-cache
 
 ### Flask.Python Stack ###
@@ -88,11 +88,11 @@ celerybeat-schedule
 # SageMath parsed files
 *.sage.py
 
-# Spyder project settings
+# Spyder app settings
 .spyderproject
 .spyproject
 
-# Rope project settings
+# Rope app settings
 .ropeproject
 
 # Mr Developer
@@ -154,7 +154,7 @@ cmake-build-*/
 # Mongo Explorer plugin
 .idea/**/mongoSettings.xml
 
-# File-based project format
+# File-based app format
 *.iws
 
 # IntelliJ
@@ -223,7 +223,7 @@ modules.xml
 
 # Mongo Explorer plugin
 
-# File-based project format
+# File-based app format
 
 # IntelliJ
 
@@ -284,9 +284,9 @@ modules.xml
 
 # SageMath parsed files
 
-# Spyder project settings
+# Spyder app settings
 
-# Rope project settings
+# Rope app settings
 
 # Mr Developer
 

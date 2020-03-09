@@ -1,6 +1,6 @@
 from flask import render_template, Blueprint
 
-from project.queries import SportQuery
+from app.queries import SportQuery
 
 sports_blueprint = Blueprint('sports', __name__)
 
