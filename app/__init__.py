@@ -1,14 +1,9 @@
-from os.path import join, isfile
-
 from flask import Flask, render_template
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 
 app = Flask(__name__, instance_relative_config=True)
-if isfile(join('database', 'flask_full.cfg')):
-    app.config.from_pyfile('flask_full.cfg')
-else:
-    app.config.from_pyfile('flask.cfg')
+app.config.from_pyfile('flask.cfg')
 
 bcrypt = Bcrypt(app)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
