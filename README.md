@@ -1,4 +1,4 @@
-# GLO-2005 (H2020) - Team X
+# GLO-2005 (H2020) - Team 8
 
 This is our project for course GLO-2005 at Laval University.
 
