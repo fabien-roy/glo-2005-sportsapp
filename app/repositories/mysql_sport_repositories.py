@@ -1,7 +1,45 @@
 from app import conn
+from app.climates.models import Climate
 from app.sports.models import Sport
 from app.sports.exceptions import SportNotFoundException
 from app.sports.repositories import SportRepository
+
+
+class MySQLSportClimatesRepository:
+    table_name = 'sport_climates'
+
+    sport_id_col = 'sport_id'
+    climate_name_col = 'climate_name'
+
+    def get_climates(self, sport_id):
+        climates = []
+
+        try:
+            with conn.cursor() as cur:
+                sql = ('SELECT ' + self.climate_name_col +
+                       ' FROM ' + self.table_name +
+                       ' WHERE ' + self.sport_id_col + ' = %s;')
+                cur.execute(sql, sport_id)
+
+                for climate_cur in cur.fetchall():
+                    climate = Climate(climate_cur[self.climate_name_col])
+                    climates.append(climate)
+        finally:
+            cur.close()
+
+        return climates
+
+    def add(self, sport, climate):
+        try:
+            with conn.cursor() as cur:
+                sql = ('INSERT INTO ' + self.table_name +
+                       ' (' + self.sport_id_col + ', ' + self.climate_name_col + ')' +
+                       ' VALUES (%s, %s);')
+                cur.execute(sql, (sport.id, climate.name))
+
+                conn.commit()
+        finally:
+            cur.close()
 
 
 class MySQLSportRepository(SportRepository):
@@ -9,6 +47,8 @@ class MySQLSportRepository(SportRepository):
 
     id_col = 'id'
     name_col = 'name'
+
+    sport_climates_repository = MySQLSportClimatesRepository()
 
     def get_all(self):
         all_sports = []
@@ -39,7 +79,8 @@ class MySQLSportRepository(SportRepository):
 
                 # TODO : Use fetchone (causes integer error)
                 for sport_cur in cur.fetchall():
-                    sport = Sport(sport_cur[self.id_col], sport_cur[self.name_col])
+                    climates = self.sport_climates_repository.get_climates(sport_cur[self.id_col])
+                    sport = Sport(sport_cur[self.id_col], sport_cur[self.name_col], climates)
         finally:
             cur.close()
 
@@ -59,3 +100,7 @@ class MySQLSportRepository(SportRepository):
                 conn.commit()
         finally:
             cur.close()
+
+    def add_climates(self, sport, climates):
+        for climate in climates:
+            self.sport_climates_repository.add(sport, climate)

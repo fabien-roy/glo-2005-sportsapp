@@ -1,7 +1,8 @@
 class Sport:
-    def __init__(self, sport_id, name):
+    def __init__(self, sport_id, name, climates=None):
         self.id = sport_id
         self.name = name
+        self.climates = climates
 
     def __eq__(self, other):
         if isinstance(other, Sport):

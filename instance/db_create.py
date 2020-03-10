@@ -7,6 +7,8 @@ def db_create():
     try:
         # Delete all tables
         with conn.cursor() as cur:
+            cur.execute('DROP TABLE IF EXISTS sport_climates')
+
             # TODO : Drop users table
 
             cur.execute('DROP TABLE IF EXISTS sports')
@@ -36,6 +38,14 @@ def db_create():
 
             cur.execute('CREATE TABLE climates ('
                         'name varchar(50) NOT NULL PRIMARY KEY'
+                        ');')
+
+            cur.execute('CREATE TABLE sport_climates ('
+                        'sport_id int NOT NULL,'
+                        'climate_name varchar(50) NOT NULL,'
+                        'PRIMARY KEY (sport_id, climate_name),'
+                        'FOREIGN KEY (sport_id) REFERENCES sports(id) ON DELETE CASCADE,'
+                        'FOREIGN KEY (climate_name) REFERENCES climates(name) ON DELETE CASCADE'
                         ');')
 
         conn.commit()
