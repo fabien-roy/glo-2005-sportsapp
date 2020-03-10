@@ -88,7 +88,7 @@ class MySQLPracticeCenterRepository(PracticeCenterRepository):
 
                 # TODO : Use fetchone (causes integer error)
                 for practice_center_cur in cur.fetchall():
-                    climates = self.practice_center_climate_repository.get_climates(practice_center[self.id_col])
+                    climates = self.practice_center_climate_repository.get_climates(practice_center_cur[self.id_col])
                     practice_center = PracticeCenter(practice_center_cur[self.id_col],
                                                      practice_center_cur[self.name_col],
                                                      practice_center_cur[self.email_col],
