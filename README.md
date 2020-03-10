@@ -30,15 +30,14 @@ Then, in MySQL Shell (for Windows, UNIX use `mysql` CLI) :
 
 ## Create database tables and mock data
 
-- `python ./instance/create_bd.py`
+- `python ./run.py -d` (or `--db-create`)
 
 ## Build and run
 
 - `python ./run.py`
 
-By default, web API is hosted on port `8000` : [http://localhost:8000](http://localhost:8000).
+By default, web API is hosted on port `5000` : [http://127.0.0.1:5000](http://127.0.0.1:5000).
 
 ## Run tests
 
-- Go to `./app/`
 - `nose2 -v --with-coverage app.tests`
