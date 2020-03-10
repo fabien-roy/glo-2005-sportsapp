@@ -3,7 +3,8 @@ import unittest
 from app import app
 
 
-# TODO : This test class can be used for login/register/logout
+from app.tests.test_db_create import test_db_create
+
 
 class BasicTests(unittest.TestCase):
 
@@ -11,10 +12,13 @@ class BasicTests(unittest.TestCase):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
         app.config['DEBUG'] = False
+        app.config['MYSQL_BD'] = 'test'
 
         self.app = app.test_client()
 
-        self.assertEqual(app.debug, False)
+        test_db_create()
+
+        self.assertEquals(app.debug, False)
 
     def tearDown(self):
         pass
