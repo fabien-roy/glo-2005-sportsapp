@@ -1,8 +1,8 @@
 import os
 import unittest
 
-from project import app, db
-from project.models import Sport
+from app import app, db
+from app.models import Sport
 
 TEST_DB = 'test.db'
 

@@ -10,39 +10,34 @@ Our app also features a list of shops that display announces for equipment. It i
 
 First, you will need [Python](https://www.python.org/downloads/).
 
-Then, you are going to need Docker. For UNIX systems, this is quite easy. For Windows, get ready to [walk through hell](https://docs.docker.com/toolbox/toolbox_install_windows/).
+Then, you will need to create a MySQL database. This database must fit the information displayed in [database/flask.cfg](instance/flask.cfg).
+
+## Prepare database
+
+First, check that the MySQL service is well running on `localhost:3306`.
+
+Then, in MySQL Shell (for Windows, UNIX use `mysql` CLI) : 
+
+- `\connect --mysql root@localhost:3306`
+- Enter root password
+- `\sql CREATE USER 'sportsapp'@'localhost' IDENTIFIED BY 'sportsapp'`
+- `\sql GRANT ALL PRIVILEGES ON *. * TO 'sportsapp'@'localhost'`
+- `\sql CREATE DATABASE 'sportsapp'`
+
+## Install requirements
+
+- `pip install -q -r requirements.txt`
+
+## Create database tables and mock data
+
+- `python ./run.py -d` (or `--db-create`)
 
 ## Build and run
 
-Create the Dockerfile for the mysql service
+- `python ./run.py`
 
-- `python ./web/create_mysql_dockerfile.py`
-
-Build and run the Docker containers
-
-- `docker-compose build`
-- `docker-compose up -d`
-
-Stop container
-
-- `docker-compose stop`
-
-Create or re-initialize the database
-
-- `docker-compose run --rm web python ./instance/db_create.py`
-
-Omg, but Docker is really being picky
-
-- `docker kill $(docker ps -q)`
-- `docker-compose kill`
-- Whatever you wanted to do
-
-By default, web API is hosted on port `8000` : [http://192.168.99.100:8000](http://192.168.99.100:8000).
-
-Default address is `192.168.99.100`. Check using `docker-machine ip`.
+By default, web API is hosted on port `5000` : [http://127.0.0.1:5000](http://127.0.0.1:5000).
 
 ## Run tests
 
-- Go to `/web/`
-- `pip install -q -r requirements.txt` (if needed)
-- `nose2 -v --with-coverage project.tests`
+- `nose2 -v --with-coverage app.tests`
