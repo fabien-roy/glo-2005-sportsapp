@@ -6,6 +6,12 @@ class PracticeCenter:
         self.web_site = web_site
         self.phone_number = phone_number
 
+    def __eq__(self, other):
+        if isinstance(other, PracticeCenter):
+            return self.id == other.id and self.name == other.name and self.email == other.email and \
+                   self.web_site == other.web_site and self.phone_number == other.phone_number
+        return False
+
 
 class PracticeCenterRecommendation:
     def __init__(self, username, practice_center_id, comment, date, note):

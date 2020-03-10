@@ -52,9 +52,9 @@ class MySQLSportRepository(SportRepository):
         try:
             with conn.cursor() as cur:
                 sql = ('INSERT INTO ' + self.table_name +
-                       ' (' + self.name_col + ')' +
-                       ' VALUES (%s);')
-                cur.execute(sql, sport.name)
+                       ' (' + self.id_col + ', ' + self.name_col + ')' +
+                       ' VALUES (%s, %s);')
+                cur.execute(sql, (sport.id, sport.name))
 
                 conn.commit()
         finally:
