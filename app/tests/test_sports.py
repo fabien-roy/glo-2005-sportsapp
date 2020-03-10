@@ -1,7 +1,7 @@
 import unittest
 
 from app.models import Sport
-from app.queries import SportQuery
+from app.sport_repository import SportQuery
 from app.tests import test_basic
 
 

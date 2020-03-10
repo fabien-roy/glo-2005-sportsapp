@@ -1,9 +1,11 @@
 from app import conn
 from app.sports.exceptions import SportNotFoundException
 from app.models import Sport
+from app.sports.repositories import SportRepository
+from app.users.repositories import UserRepository
 
 
-class UserQuery:
+class MySQLUserRepository(UserRepository):
     table_name = 'users'
 
     username_col = 'username'
@@ -16,7 +18,7 @@ class UserQuery:
     # TODO : Rest of UserQuery
 
 
-class SportQuery:
+class MySQLSportRepository(SportRepository):
     table_name = 'sports'
 
     id_col = 'id'
