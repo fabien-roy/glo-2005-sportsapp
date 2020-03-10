@@ -1,5 +1,5 @@
 from app import conn
-from app.exceptions import SportNotFoundException
+from app.sports.exceptions import SportNotFoundException
 from app.models import Sport
 
 

@@ -1,6 +1,6 @@
 from flask import render_template, Blueprint
 
-from app.exceptions import SportNotFoundException
+from app.sports.exceptions import SportNotFoundException
 from app.queries import SportQuery
 
 sports_blueprint = Blueprint('sports', __name__)
