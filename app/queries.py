@@ -30,11 +30,11 @@ class SportQuery:
                             ' FROM ' + self.table_name +
                             ' ORDER BY ' + self.name_col + ';')
 
-                for (sport_id, name) in cur.fetchall():
-                    sport = Sport(sport_id, name)
+                for sport_cur in cur.fetchall():
+                    sport = Sport(sport_cur[self.id_col], sport_cur[self.name_col])
                     all_sports.append(sport)
         finally:
-            conn.close()
+            cur.close()
 
         return all_sports
 
@@ -48,10 +48,10 @@ class SportQuery:
                        ' WHERE ' + self.id_col + ' = %s;')
                 cur.execute(sql, sport_id)
 
-                for (sport_id, name) in cur.fetchone():
-                    sport = Sport(sport_id, name)
+                for sport_cur in cur.fetchall():
+                    sport = Sport(sport_cur[self.id_col], sport_cur[self.name_col])
         finally:
-            conn.close()
+            cur.close()
 
         return sport
 
@@ -65,4 +65,4 @@ class SportQuery:
 
                 conn.commit()
         finally:
-            conn.close()
+            cur.close()
