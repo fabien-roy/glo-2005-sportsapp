@@ -1,15 +1,18 @@
 import unittest
 
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
-from app.repositories.mysql_sport_repositories import MySQLSportRepository
+from app.repositories.mysql_climate_repositories import MySQLClimateRepository
+from app.repositories.mysql_sport_repositories import MySQLSportRepository, MySQLSportClimateRepository
 from app.repositories.mysql_practice_center_repositories import MySQLPracticeCenterRepository
 from app.sports.exceptions import SportNotFoundException
 from app.tests import test_basic
-from app.tests.fakes import sport1, sport2, sport3, center1, center3, center2
+from app.tests.fakes import sport1, sport2, sport3, center1, center3, center2, climate1, climate2, climate3
 from instance.db_create import db_create
 
 sport_repository = MySQLSportRepository()
 practice_center_repository = MySQLPracticeCenterRepository()
+climate_repository = MySQLClimateRepository()
+sport_climate_repository = MySQLSportClimateRepository()
 
 
 def reset_repositories():
@@ -18,6 +21,7 @@ def reset_repositories():
 
 def add_sports():
     reset_repositories()
+    add_climates()
     sport_repository.add(sport1)
     sport_repository.add(sport2)
     sport_repository.add(sport3)
@@ -28,6 +32,12 @@ def add_practice_centers():
     practice_center_repository.add(center1)
     practice_center_repository.add(center2)
     practice_center_repository.add(center3)
+
+
+def add_climates():
+    climate_repository.add(climate1)
+    climate_repository.add(climate2)
+    climate_repository.add(climate3)
 
 
 class SportRepositoryTests(test_basic.BasicTests):
@@ -48,6 +58,15 @@ class SportRepositoryTests(test_basic.BasicTests):
         self.assertEquals(sport2, sport)
         sport = sport_repository.get(sport3.id)
         self.assertEquals(sport3, sport)
+
+    def test_get_should_get_sport_climates(self):
+        add_sports()
+        sport = sport_repository.get(sport1.id)
+        self.assertCountEqual(sport1.climates, sport.climates)
+        sport = sport_repository.get(sport2.id)
+        self.assertCountEqual(sport2.climates, sport.climates)
+        sport = sport_repository.get(sport3.id)
+        self.assertCountEqual(sport3.climates, sport.climates)
 
     def test_get_all_with_no_sport_get_no_sport(self):
         reset_repositories()

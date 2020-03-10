@@ -5,7 +5,7 @@ from app.sports.exceptions import SportNotFoundException
 from app.sports.repositories import SportRepository
 
 
-class MySQLSportClimatesRepository:
+class MySQLSportClimateRepository:
     table_name = 'sport_climates'
 
     sport_id_col = 'sport_id'
@@ -48,7 +48,7 @@ class MySQLSportRepository(SportRepository):
     id_col = 'id'
     name_col = 'name'
 
-    sport_climates_repository = MySQLSportClimatesRepository()
+    sport_climates_repository = MySQLSportClimateRepository()
 
     def get_all(self):
         all_sports = []
@@ -98,9 +98,8 @@ class MySQLSportRepository(SportRepository):
                 cur.execute(sql, (sport.id, sport.name))
 
                 conn.commit()
+
+                for climate in sport.climates:
+                    self.sport_climates_repository.add(sport, climate)
         finally:
             cur.close()
-
-    def add_climates(self, sport, climates):
-        for climate in climates:
-            self.sport_climates_repository.add(sport, climate)

@@ -1,11 +1,17 @@
+from app.climates.models import Climate
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
 from app.practice_centers.models import PracticeCenter
 from app.sports.models import Sport
 from app.sports.exceptions import SportNotFoundException
 
-sport1 = Sport(sport_id=1, name='Randonnee')
-sport2 = Sport(sport_id=2, name='Escalade')
-sport3 = Sport(sport_id=3, name='Natation')
+
+climate1 = Climate('tundra')
+climate2 = Climate('savane')
+climate3 = Climate('aride')
+
+sport1 = Sport(sport_id=1, name='Randonnee', climates=[climate1, climate2])
+sport2 = Sport(sport_id=2, name='Escalade', climates=[climate2, climate3])
+sport3 = Sport(sport_id=3, name='Natation', climates=[climate3])
 
 
 def sports(sport_id):

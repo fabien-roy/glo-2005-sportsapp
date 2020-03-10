@@ -17,9 +17,16 @@ def db_populate():
 
     # TODO : Add users mocked data
 
-    sport1 = Sport(1, name='Randonnee')
-    sport2 = Sport(2, name='Escalade')
-    sport3 = Sport(3, name='Natation')
+    climate1 = Climate('tundra')
+    climate2 = Climate('savane')
+    climate3 = Climate('aride')
+    climate_repository.add(climate1)
+    climate_repository.add(climate2)
+    climate_repository.add(climate3)
+
+    sport1 = Sport(1, name='Randonnee', climates=[climate1, climate2])
+    sport2 = Sport(2, name='Escalade', climates=[climate2, climate3])
+    sport3 = Sport(3, name='Natation', climates=[climate3])
     sport_repository.add(sport1)
     sport_repository.add(sport2)
     sport_repository.add(sport3)
@@ -38,16 +45,5 @@ def db_populate():
     practice_center_repository.add(center1)
     practice_center_repository.add(center2)
     practice_center_repository.add(center3)
-
-    climate1 = Climate('tundra')
-    climate2 = Climate('savane')
-    climate3 = Climate('aride')
-    climate_repository.add(climate1)
-    climate_repository.add(climate2)
-    climate_repository.add(climate3)
-
-    sport_repository.add_climates(sport1, [climate1, climate2])
-    sport_repository.add_climates(sport2, [climate2, climate3])
-    sport_repository.add_climates(sport3, [climate3])
 
     print('...done!')
