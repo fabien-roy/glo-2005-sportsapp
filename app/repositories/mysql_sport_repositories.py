@@ -48,7 +48,7 @@ class MySQLSportRepository(SportRepository):
     id_col = 'id'
     name_col = 'name'
 
-    sport_climates_repository = MySQLSportClimateRepository()
+    sport_climate_repository = MySQLSportClimateRepository()
 
     def get_all(self):
         all_sports = []
@@ -79,7 +79,7 @@ class MySQLSportRepository(SportRepository):
 
                 # TODO : Use fetchone (causes integer error)
                 for sport_cur in cur.fetchall():
-                    climates = self.sport_climates_repository.get_climates(sport_cur[self.id_col])
+                    climates = self.sport_climate_repository.get_climates(sport_cur[self.id_col])
                     sport = Sport(sport_cur[self.id_col], sport_cur[self.name_col], climates)
         finally:
             cur.close()
@@ -100,6 +100,6 @@ class MySQLSportRepository(SportRepository):
                 conn.commit()
 
                 for climate in sport.climates:
-                    self.sport_climates_repository.add(sport, climate)
+                    self.sport_climate_repository.add(sport, climate)
         finally:
             cur.close()
