@@ -2,9 +2,6 @@ from app import conn
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
 from app.practice_centers.models import PracticeCenter
 from app.practice_centers.repositories import PracticeCenterRepository
-from app.sports.models import Sport
-from app.sports.exceptions import SportNotFoundException
-from app.sports.repositories import SportRepository
 
 
 class MySQLPracticeCenterRepository(PracticeCenterRepository):
@@ -49,7 +46,8 @@ class MySQLPracticeCenterRepository(PracticeCenterRepository):
                        ' WHERE ' + self.id_col + ' = %s;')
                 cur.execute(sql, practice_center_id)
 
-                for practice_center_cur in cur.fetchone():
+                # TODO : Use fetchone (causes integer error)
+                for practice_center_cur in cur.fetchall():
                     practice_center = PracticeCenter(practice_center_cur[self.id_col],
                                                      practice_center_cur[self.name_col],
                                                      practice_center_cur[self.email_col],
@@ -70,8 +68,8 @@ class MySQLPracticeCenterRepository(PracticeCenterRepository):
                        ' (' + self.name_col + ', ' + self.email_col + ', ' + self.web_site_col + ', ' +
                        self.phone_number_col + ')' +
                        ' VALUES (%s, %s, %s, %s);')
-                cur.execute(sql, practice_center.name, practice_center.email, practice_center.web_site,
-                            practice_center.phone_number)
+                cur.execute(sql, (practice_center.name, practice_center.email, practice_center.web_site,
+                            practice_center.phone_number))
 
                 conn.commit()
         finally:
