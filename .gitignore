@@ -2,8 +2,6 @@
 # Edit at https://www.gitignore.io/?templates=flask,python,pycharm+all,jetbrains+all
 
 ### Flask ###
-instance/*
-!instance/.gitignore
 .webassets-cache
 
 ### Flask.Python Stack ###
