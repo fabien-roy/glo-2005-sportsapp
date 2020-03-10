@@ -19,8 +19,6 @@ class BasicTests(unittest.TestCase):
 
         self.app = app.test_client()
 
-        db_create()
-
         self.assertEqual(app.debug, False)
 
     def tearDown(self):
