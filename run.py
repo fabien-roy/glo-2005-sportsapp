@@ -3,6 +3,7 @@ import sys
 
 from app import app
 from instance.db_create import db_create
+from instance.db_populate import db_populate
 
 
 def main(argv):
@@ -14,6 +15,7 @@ def main(argv):
     for opt, arg in opts:
         if opt in ("-d", "--db-create"):
             db_create()
+            db_populate()  # TODO : Move in another optional argument
     app.run()
 
 

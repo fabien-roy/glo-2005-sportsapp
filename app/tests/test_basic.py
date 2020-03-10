@@ -1,9 +1,7 @@
 import unittest
 
 from app import app
-
-
-from app.tests.test_db_create import test_db_create
+from instance.db_create import db_create
 
 
 class BasicTests(unittest.TestCase):
@@ -16,7 +14,7 @@ class BasicTests(unittest.TestCase):
 
         self.app = app.test_client()
 
-        test_db_create()
+        db_create()
 
         self.assertEquals(app.debug, False)
 
