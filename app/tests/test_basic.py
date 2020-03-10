@@ -2,6 +2,7 @@ import unittest
 
 from app import app
 
+
 # TODO : This test class can be used for login/register/logout
 
 class BasicTests(unittest.TestCase):
