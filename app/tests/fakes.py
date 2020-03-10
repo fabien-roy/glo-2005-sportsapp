@@ -1,4 +1,4 @@
-from app.models import Sport
+from app.sports.models import Sport
 from app.sports.exceptions import SportNotFoundException
 
 sport1 = Sport(sport_id=1, name='Randonnee')
