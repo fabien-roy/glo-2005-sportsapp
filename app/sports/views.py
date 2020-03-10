@@ -1,6 +1,6 @@
-import injector as inject
 from flask import render_template, Blueprint
 from flask.views import View
+from injector import inject
 
 from app.sports.exceptions import SportNotFoundException
 

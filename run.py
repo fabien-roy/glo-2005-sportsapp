@@ -16,6 +16,7 @@ def main(argv):
         if opt in ("-d", "--db-create"):
             db_create()
             db_populate()  # TODO : Move in another optional argument
+
     app.run()
 
 
