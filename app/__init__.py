@@ -25,6 +25,7 @@ from app.sports.views import sports_blueprint
 
 app.register_blueprint(sports_blueprint)
 
+
 # Routes
 
 # TODO : Remove hello_world route

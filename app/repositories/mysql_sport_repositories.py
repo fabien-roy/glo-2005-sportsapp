@@ -1,22 +1,10 @@
 from app import conn
-from app.exceptions import SportNotFoundException
 from app.models import Sport
+from app.sports.exceptions import SportNotFoundException
+from app.sports.repositories import SportRepository
 
 
-class UserQuery:
-    table_name = 'users'
-
-    username_col = 'username'
-    email_col = 'email'
-    password_col = 'password'  # TODO : Move password to another table
-    first_name_col = 'first_name'
-    last_name_col = 'last_name'
-    telephone_col = 'telephone'
-
-    # TODO : Rest of UserQuery
-
-
-class SportQuery:
+class MySQLSportRepository(SportRepository):
     table_name = 'sports'
 
     id_col = 'id'
