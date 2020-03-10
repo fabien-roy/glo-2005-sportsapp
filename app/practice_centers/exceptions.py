@@ -1,0 +1,2 @@
+class PracticeCenterNotFoundException(Exception):
+    pass

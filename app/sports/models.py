@@ -12,7 +12,7 @@ class Sport:
 class SportRecommendation:
     def __init__(self, username, sport_id, comment, date, note):
         self.username = username
-        self.id_sport = sport_id
+        self.sport_id = sport_id
         self.comment = comment
         self.date = date
         self.note = note

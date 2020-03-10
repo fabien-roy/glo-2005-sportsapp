@@ -22,8 +22,10 @@ conn = pymysql.connect(host=app.config['MYSQL_HOST'],
 # Blueprints
 
 from app.sports.views import sports_blueprint
+from app.practice_centers.views import practice_centers_blueprint
 
 app.register_blueprint(sports_blueprint)
+app.register_blueprint(practice_centers_blueprint)
 
 
 # Routes

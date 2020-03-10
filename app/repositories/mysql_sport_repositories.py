@@ -37,7 +37,7 @@ class MySQLSportRepository(SportRepository):
                        ' WHERE ' + self.id_col + ' = %s;')
                 cur.execute(sql, sport_id)
 
-                for sport_cur in cur.fetchall():
+                for sport_cur in cur.fetchone():
                     sport = Sport(sport_cur[self.id_col], sport_cur[self.name_col])
         finally:
             cur.close()
