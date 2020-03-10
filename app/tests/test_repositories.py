@@ -1,15 +1,18 @@
 import unittest
 
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
-from app.repositories.mysql_sport_repositories import MySQLSportRepository
+from app.repositories.mysql_climate_repositories import MySQLClimateRepository
+from app.repositories.mysql_sport_repositories import MySQLSportRepository, MySQLSportClimateRepository
 from app.repositories.mysql_practice_center_repositories import MySQLPracticeCenterRepository
 from app.sports.exceptions import SportNotFoundException
 from app.tests import test_basic
-from app.tests.fakes import sport1, sport2, sport3, center1, center3, center2
+from app.tests.fakes import sport1, sport2, sport3, center1, center3, center2, climate1, climate2, climate3
 from instance.db_create import db_create
 
 sport_repository = MySQLSportRepository()
 practice_center_repository = MySQLPracticeCenterRepository()
+climate_repository = MySQLClimateRepository()
+sport_climate_repository = MySQLSportClimateRepository()
 
 
 def reset_repositories():
@@ -18,6 +21,7 @@ def reset_repositories():
 
 def add_sports():
     reset_repositories()
+    add_climates()
     sport_repository.add(sport1)
     sport_repository.add(sport2)
     sport_repository.add(sport3)
@@ -25,9 +29,16 @@ def add_sports():
 
 def add_practice_centers():
     reset_repositories()
+    add_climates()
     practice_center_repository.add(center1)
     practice_center_repository.add(center2)
     practice_center_repository.add(center3)
+
+
+def add_climates():
+    climate_repository.add(climate1)
+    climate_repository.add(climate2)
+    climate_repository.add(climate3)
 
 
 class SportRepositoryTests(test_basic.BasicTests):
@@ -43,16 +54,25 @@ class SportRepositoryTests(test_basic.BasicTests):
     def test_get_should_get_sport(self):
         add_sports()
         sport = sport_repository.get(sport1.id)
-        self.assertEquals(sport1, sport)
+        self.assertEqual(sport1, sport)
         sport = sport_repository.get(sport2.id)
-        self.assertEquals(sport2, sport)
+        self.assertEqual(sport2, sport)
         sport = sport_repository.get(sport3.id)
-        self.assertEquals(sport3, sport)
+        self.assertEqual(sport3, sport)
+
+    def test_get_should_get_sport_climates(self):
+        add_sports()
+        sport = sport_repository.get(sport1.id)
+        self.assertCountEqual(sport1.climates, sport.climates)
+        sport = sport_repository.get(sport2.id)
+        self.assertCountEqual(sport2.climates, sport.climates)
+        sport = sport_repository.get(sport3.id)
+        self.assertCountEqual(sport3.climates, sport.climates)
 
     def test_get_all_with_no_sport_get_no_sport(self):
         reset_repositories()
         sports = sport_repository.get_all()
-        self.assertEquals(0, len(sports))
+        self.assertEqual(0, len(sports))
 
     def test_get_all_get_sports(self):
         add_sports()
@@ -75,16 +95,25 @@ class PracticeCenterRepositoryTests(test_basic.BasicTests):
     def test_get_should_get_practice_center(self):
         add_practice_centers()
         practice_center = practice_center_repository.get(center1.id)
-        self.assertEquals(center1, practice_center)
+        self.assertEqual(center1, practice_center)
         practice_center = practice_center_repository.get(center2.id)
-        self.assertEquals(center2, practice_center)
+        self.assertEqual(center2, practice_center)
         practice_center = practice_center_repository.get(center3.id)
-        self.assertEquals(center3, practice_center)
+        self.assertEqual(center3, practice_center)
+
+    def test_get_should_get_practice_center_climates(self):
+        add_practice_centers()
+        practice_center = practice_center_repository.get(center1.id)
+        self.assertCountEqual(center1.climates, practice_center.climates)
+        practice_center = practice_center_repository.get(center2.id)
+        self.assertCountEqual(center2.climates, practice_center.climates)
+        practice_center = practice_center_repository.get(center3.id)
+        self.assertCountEqual(center3.climates, practice_center.climates)
 
     def test_get_all_with_no_practice_center_get_no_practice_center(self):
         reset_repositories()
         practice_centers = practice_center_repository.get_all()
-        self.assertEquals(0, len(practice_centers))
+        self.assertEqual(0, len(practice_centers))
 
     def test_get_all_get_practice_centers(self):
         add_practice_centers()
