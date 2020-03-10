@@ -1,7 +1,6 @@
 from flask import Flask, render_template
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
-from flask_injector import FlaskInjector
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_pyfile('flask.cfg')
@@ -43,10 +42,3 @@ def page_bad_request(e):
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
-
-
-# Injection
-
-from app.bindings import configure
-
-FlaskInjector(app=app, modules=[configure])

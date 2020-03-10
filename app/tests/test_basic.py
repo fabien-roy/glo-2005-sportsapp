@@ -1,6 +1,9 @@
 import unittest
 
+from flask_injector import FlaskInjector
+
 from app import app
+from app.tests.bindings import configure
 from instance.db_create import db_create
 
 
@@ -12,11 +15,13 @@ class BasicTests(unittest.TestCase):
         app.config['DEBUG'] = False
         app.config['MYSQL_BD'] = 'test'
 
+        FlaskInjector(app=app, modules=[configure])
+
         self.app = app.test_client()
 
         db_create()
 
-        self.assertEquals(app.debug, False)
+        self.assertEqual(app.debug, False)
 
     def tearDown(self):
         pass

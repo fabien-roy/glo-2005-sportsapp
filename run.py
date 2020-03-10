@@ -1,7 +1,10 @@
 import getopt
 import sys
 
+from flask_injector import FlaskInjector
+
 from app import app
+from app.bindings import configure
 from instance.db_create import db_create
 from instance.db_populate import db_populate
 
@@ -16,6 +19,8 @@ def main(argv):
         if opt in ("-d", "--db-create"):
             db_create()
             db_populate()  # TODO : Move in another optional argument
+
+    FlaskInjector(app=app, modules=[configure])
 
     app.run()
 
