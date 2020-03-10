@@ -3,7 +3,6 @@ from flask.views import View
 from injector import inject
 
 from app.sports.exceptions import SportNotFoundException
-
 from app.sports.repositories import SportRepository
 
 sports_blueprint = Blueprint('sports', __name__)

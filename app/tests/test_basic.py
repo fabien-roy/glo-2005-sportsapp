@@ -4,7 +4,6 @@ from flask_injector import FlaskInjector
 
 from app import app
 from app.tests.bindings import configure
-from instance.db_create import db_create
 
 
 class BasicTests(unittest.TestCase):
