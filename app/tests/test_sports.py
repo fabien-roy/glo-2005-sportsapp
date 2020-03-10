@@ -1,17 +1,19 @@
 import unittest
 
 from app.models import Sport
-from app.sport_repository import SportQuery
+from app.repositories.mysql_sport_repositories import MySQLSportRepository as SportRepository
 from app.tests import test_basic
+
+# TODO : Solve repository injection in tests
 
 
 def add_sports():
     sport1 = Sport(None, name='Randonnee')
     sport2 = Sport(None, name='Escalade')
     sport3 = Sport(None, name='Natation')
-    SportQuery().add(sport1)
-    SportQuery().add(sport2)
-    SportQuery().add(sport3)
+    SportRepository().add(sport1)
+    SportRepository().add(sport2)
+    SportRepository().add(sport3)
 
 
 class SportsTests(test_basic.BasicTests):
