@@ -1,6 +1,10 @@
 from flask import Flask, render_template
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
+from flask_injector import FlaskInjector
+
+from app.repositories.mysql_sport_repositories import MySQLSportRepository
+from app.sports.repositories import SportRepository
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_pyfile('flask.cfg')
@@ -19,11 +23,24 @@ conn = pymysql.connect(host=app.config['MYSQL_HOST'],
                        charset='utf8mb4',
                        cursorclass=pymysql.cursors.DictCursor)
 
+
+# Injection
+
+def configure(binder):
+    binder.bind(
+        SportRepository,
+        to=MySQLSportRepository(),
+    )
+
+
+FlaskInjector(app=app, modules=[configure])
+
 # Blueprints
 
 from app.sports.views import sports_blueprint
 
 app.register_blueprint(sports_blueprint)
+
 
 # Routes
 
@@ -41,3 +58,7 @@ def page_bad_request(e):
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+
+
+def sport_repository():
+    return None
