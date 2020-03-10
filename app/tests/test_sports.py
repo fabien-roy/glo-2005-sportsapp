@@ -47,9 +47,10 @@ class SportsTests(test_basic.BasicTests):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'Natation', response.data)
 
-    def test_sport_details__without_sport_should_display_not_found(self):
+    def test_sport_details__without_sport_should_respond_404(self):
         response = self.app.get('/sports/1', follow_redirects=True)
         self.assertEqual(response.status_code, 404)
+        self.assertIn(b'Not Found', response.data)
 
 
 if __name__ == "__main__":

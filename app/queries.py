@@ -1,4 +1,5 @@
 from app import conn
+from app.exceptions import SportNotFoundException
 from app.models import Sport
 
 
@@ -39,7 +40,7 @@ class SportQuery:
         return all_sports
 
     def get(self, sport_id):
-        sport = Sport
+        sport = None
 
         try:
             with conn.cursor() as cur:
@@ -52,6 +53,9 @@ class SportQuery:
                     sport = Sport(sport_cur[self.id_col], sport_cur[self.name_col])
         finally:
             cur.close()
+
+        if sport is None:
+            raise SportNotFoundException
 
         return sport
 
