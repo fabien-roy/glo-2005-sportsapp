@@ -13,6 +13,8 @@ def db_create():
 
             cur.execute('DROP TABLE IF EXISTS practice_centers')
 
+            cur.execute('DROP TABLE IF EXISTS climates')
+
         conn.commit()
 
         # Create all tables
@@ -30,6 +32,10 @@ def db_create():
                         'email varchar(100) NULL,'
                         'web_site varchar(200) NULL,'
                         'phone_number varchar(20) NULL'
+                        ');')
+
+            cur.execute('CREATE TABLE climates ('
+                        'name varchar(50) NOT NULL PRIMARY KEY'
                         ');')
 
         conn.commit()
