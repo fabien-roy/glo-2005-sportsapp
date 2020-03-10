@@ -1,10 +1,10 @@
 import os
 import unittest
 
-from app import app, db
+from app import app, conn
 from app.models import Sport
-
-TEST_DB = 'test.db'
+from app.queries import SportQuery
+from app.tests.test_db_create import test_db_create
 
 
 class SportsTests(unittest.TestCase):
@@ -13,11 +13,11 @@ class SportsTests(unittest.TestCase):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
         app.config['DEBUG'] = False
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
-                                                os.path.join(app.config['BASEDIR'], TEST_DB)
+        app.config['MYSQL_BD'] = 'test'
+
         self.app = app.test_client()
-        db.drop_all()
-        db.create_all()
+
+        test_db_create()
 
         self.assertEquals(app.debug, False)
 
@@ -25,13 +25,12 @@ class SportsTests(unittest.TestCase):
         pass
 
     def add_sports(self):
-        sport1 = Sport(name='Randonnee')
-        sport2 = Sport(name='Escalade')
-        sport3 = Sport(name='Natation')
-        db.session.add(sport1)
-        db.session.add(sport2)
-        db.session.add(sport3)
-        db.session.commit()
+        sport1 = Sport(None, name='Randonnee')
+        sport2 = Sport(None, name='Escalade')
+        sport3 = Sport(None, name='Natation')
+        SportQuery().add(sport1)
+        SportQuery().add(sport2)
+        SportQuery().add(sport3)
 
     def test_sports_with_no_sport_should_display_no_sport(self):
         response = self.app.get('/sports/', follow_redirects=True)
