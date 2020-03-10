@@ -20,8 +20,9 @@ Then, in MySQL Shell (for Windows, UNIX use `mysql` CLI) :
 
 - `\connect --mysql root@localhost:3306`
 - Enter root password
-- `\mysql CREATE USER 'sportsapp'@'localhost' IDENTIFIED BY 'sportsapp'`
-- `\mysql GRANT ALL PRIVILEGES ON *. * TO 'sportsapp'@'localhost'`
+- `\sql CREATE USER 'sportsapp'@'localhost' IDENTIFIED BY 'sportsapp'`
+- `\sql GRANT ALL PRIVILEGES ON *. * TO 'sportsapp'@'localhost'`
+- `\sql CREATE DATABASE 'sportsapp'`
 
 ## Install requirements
 
