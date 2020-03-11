@@ -5,11 +5,10 @@ from app.repositories.mysql_user_repositories import MySQLUserRepository
 from app.sports.models import Sport
 from app.repositories.mysql_sport_repositories import MySQLSportRepository
 from app.repositories.mysql_practice_center_repositories import MySQLPracticeCenterRepository
+from app.users.models import User
 
 
 # TODO : Solve repository injection in db_populate.py
-from app.users.models import User
-
 sport_repository = MySQLSportRepository()
 practice_center_repository = MySQLPracticeCenterRepository()
 climate_repository = MySQLClimateRepository()

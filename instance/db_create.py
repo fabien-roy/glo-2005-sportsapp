@@ -9,9 +9,13 @@ def db_create():
         with conn.cursor() as cur:
             cur.execute('DROP TABLE IF EXISTS sport_climates')
 
-            cur.execute('DROP TABLE IF EXISTS practice_center_climates')
+            cur.execute('DROP TABLE IF EXISTS sport_recommendations')
 
             cur.execute('DROP TABLE IF EXISTS sports')
+
+            cur.execute('DROP TABLE IF EXISTS practice_center_climates')
+
+            cur.execute('DROP TABLE IF EXISTS practice_center_recommendations')
 
             cur.execute('DROP TABLE IF EXISTS practice_centers')
 
@@ -75,6 +79,22 @@ def db_create():
                         'note int NOT NULL,'  # TODO : Add trigger so note is always [0,5]
                         'date timestamp NOT NULL,'
                         'FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE'
+                        ');')
+
+            cur.execute('CREATE TABLE sport_recommendations ('
+                        'sport_id int NOT NULL,'
+                        'recommendation_id int NOT NULL,'
+                        'PRIMARY KEY (sport_id, recommendation_id),'
+                        'FOREIGN KEY (sport_id) REFERENCES sports(id) ON DELETE CASCADE,'
+                        'FOREIGN KEY (recommendation_id) REFERENCES recommendations(id) ON DELETE CASCADE'
+                        ');')
+
+            cur.execute('CREATE TABLE practice_center_recommendations ('
+                        'practice_center_id int NOT NULL,'
+                        'recommendation_id int NOT NULL,'
+                        'PRIMARY KEY (practice_center_id, recommendation_id),'
+                        'FOREIGN KEY (practice_center_id) REFERENCES practice_centers(id) ON DELETE CASCADE,'
+                        'FOREIGN KEY (recommendation_id) REFERENCES recommendations(id) ON DELETE CASCADE'
                         ');')
 
         conn.commit()
