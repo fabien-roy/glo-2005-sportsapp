@@ -7,8 +7,6 @@ def db_create():
     try:
         # Delete all tables
         with conn.cursor() as cur:
-            cur.execute('DROP TABLE IF EXISTS users')
-
             cur.execute('DROP TABLE IF EXISTS sport_climates')
 
             cur.execute('DROP TABLE IF EXISTS practice_center_climates')
@@ -20,6 +18,8 @@ def db_create():
             cur.execute('DROP TABLE IF EXISTS climates')
 
             cur.execute('DROP TABLE IF EXISTS recommendations')
+
+            cur.execute('DROP TABLE IF EXISTS users')
 
         conn.commit()
 
