@@ -9,7 +9,6 @@ sports_blueprint = Blueprint('sports', __name__)
 
 
 # TODO : Make sports query params for search
-#        Use Sport.query.filter(Sport.x == x, ...).order_by...
 @sports_blueprint.route('/sports/')
 def sports(sport_repository: SportRepository):
     all_sports = sport_repository.get_all()

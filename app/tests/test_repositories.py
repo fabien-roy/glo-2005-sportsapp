@@ -8,7 +8,7 @@ from app.repositories.mysql_user_repositories import MySQLUserRepository
 from app.sports.exceptions import SportNotFoundException
 from app.tests import test_basic
 from app.tests.fakes import sport1, sport2, sport3, center1, center3, center2, climate1, climate2, climate3, user2, \
-    user1, user3
+    user1, user3, sport1_recommendation1, sport2_recommendation1, sport2_recommendation2, sport3_recommendation1
 from app.users.exceptions import UserNotFoundException
 from instance.db_create import db_create
 
@@ -29,6 +29,16 @@ def add_sports():
     sport_repository.add(sport1)
     sport_repository.add(sport2)
     sport_repository.add(sport3)
+
+
+def add_sports_recommendations():
+    reset_repositories()
+    add_sports()
+    add_users()
+    sport_repository.add_recommendation(sport1, sport1_recommendation1)
+    sport_repository.add_recommendation(sport2, sport2_recommendation1)
+    sport_repository.add_recommendation(sport2, sport2_recommendation2)
+    sport_repository.add_recommendation(sport3, sport3_recommendation1)
 
 
 def add_practice_centers():
@@ -78,6 +88,15 @@ class SportRepositoryTests(test_basic.BasicTests):
         self.assertCountEqual(sport2.climates, sport.climates)
         sport = sport_repository.get(sport3.id)
         self.assertCountEqual(sport3.climates, sport.climates)
+
+    def test_get_should_get_sport_recommendations(self):
+        add_sports_recommendations()
+        sport = sport_repository.get(sport1.id)
+        self.assertCountEqual(sport1.recommendations, sport.recommendations)
+        sport = sport_repository.get(sport2.id)
+        self.assertCountEqual(sport2.recommendations, sport.recommendations)
+        sport = sport_repository.get(sport3.id)
+        self.assertCountEqual(sport3.recommendations, sport.recommendations)
 
     def test_get_all_with_no_sport_get_no_sport(self):
         reset_repositories()

@@ -1,6 +1,7 @@
 from app.climates.models import Climate
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
 from app.practice_centers.models import PracticeCenter
+from app.recommendations.models import Recommendation
 from app.sports.models import Sport
 from app.sports.exceptions import SportNotFoundException
 
@@ -79,3 +80,14 @@ def users(username):
 
 def no_user():
     raise UserNotFoundException
+
+# Recommendations
+
+sport1_recommendation1 = Recommendation(1, username=user1.username, comment='Un super sport. J\' adore.', note=5)
+sport2_recommendation1 = Recommendation(2, username=user3.username, comment='Cool.', note=3)
+sport2_recommendation2 = Recommendation(3, username=user2.username, comment='Pourri.', note=0)
+sport3_recommendation1 = Recommendation(4, username=user1.username, comment=':D', note=5)
+sport1.add_recommendation(sport1_recommendation1)
+sport2.add_recommendation(sport2_recommendation1)
+sport2.add_recommendation(sport2_recommendation2)
+sport3.add_recommendation(sport3_recommendation1)

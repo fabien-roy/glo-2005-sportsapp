@@ -124,9 +124,9 @@ class MySQLSportRepository(SportRepository):
 
                 # TODO : Use fetchone (causes integer error)
                 for sport_cur in cur.fetchall():
-                    climates = self.sport_climate_repository.get_climates(sport_cur[self.id_col])
-                    recommendations = self.sport_recommendation_repository.get_recommendations(sport_cur[self.id_col])
-                    sport = Sport(sport_cur[self.id_col], sport_cur[self.name_col], climates, recommendations)
+                    climates = self.sport_climate_repository.get_climates(sport_id)
+                    recommendations = self.sport_recommendation_repository.get_recommendations(sport_id)
+                    sport = Sport(sport_id, sport_cur[self.name_col], climates, recommendations)
         finally:
             cur.close()
 
@@ -154,4 +154,3 @@ class MySQLSportRepository(SportRepository):
 
     def add_recommendation(self, sport, recommendation):
         self.sport_recommendation_repository.add(sport, recommendation)
-        sport.add_recommendation(recommendation)

@@ -61,6 +61,12 @@ def db_populate():
     user_repository.add(user3)
 
     sport1_recommendation1 = Recommendation(None, username=user1.username, comment='Un super sport. J\' adore.', note=5)
+    sport2_recommendation1 = Recommendation(None, username=user3.username, comment='Cool.', note=3)
+    sport2_recommendation2 = Recommendation(None, username=user2.username, comment='Pourri.', note=0)
+    sport3_recommendation1 = Recommendation(None, username=user1.username, comment=':D', note=5)
     sport_repository.add_recommendation(sport1, sport1_recommendation1)
+    sport_repository.add_recommendation(sport2, sport2_recommendation1)
+    sport_repository.add_recommendation(sport2, sport2_recommendation2)
+    sport_repository.add_recommendation(sport3, sport3_recommendation1)
 
     print('...done!')
