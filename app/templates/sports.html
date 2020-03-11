@@ -2,30 +2,27 @@
 {% block content %}
 
 <!-- TODO : Not "user-profile" -->
-<div class="user-profile">
+<div class="sports-landing">
     <div class="container">
-        <div class="jumbotron">
-            <h1>SportsApp</h1>
+        <div class="jumbotron" id="jumbotron-sports-landing">
+            <h1>Sports</h1>
         </div>
-
-        <h3>Sports</h3>
         {% if sports|length > 0 %}
-        <div class="row">
-            {% for sport in sports %}
-            <div class="col-xs-6 col-md-3">
-                <tr>
-                    <td>
-                        <a href="{{ url_for('sports.sport_details', sport_id=sport.id) }}" class="thumbnail">
-                            {{ sport.name }}
-                        </a>
-                    </td>
-                </tr>
+        <div class="container-landing-sports">
+            <div class="box-landing-sports">
+                {% for sport in sports %}
+
+                <a class="btn btn-outline-dark btn-lg btn-block active"
+                   href="{{ url_for('sports.sport_details', sport_id=sport.id) }}">{{sport.name}}
+                </a>
+
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
         {% endif %}
 
     </div>
 </div>
+
 
 {% endblock %}
