@@ -10,7 +10,7 @@ Our app also features a list of shops that display announces for equipment. It i
 
 First, you will need [Python](https://www.python.org/downloads/).
 
-Then, you will need to create a MySQL database. This database must fit the information displayed in [database/flask.cfg](instance/flask.cfg).
+Then, you will need to create a MySQL database. This database must fit the information displayed in [instance/flask.cfg](instance/flask.cfg).
 
 ## Prepare database
 
