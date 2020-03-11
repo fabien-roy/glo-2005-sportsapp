@@ -26,7 +26,6 @@ def db_create():
             cur.execute('CREATE TABLE users ('
                         'username varchar(50) NOT NULL PRIMARY KEY,'
                         'email varchar(100) NOT NULL UNIQUE,'
-                        'password varchar(50) NOT NULL,'
                         'creation_date timestamp NOT NULL,'
                         'last_login_date timestamp NULL,'
                         'first_name varchar(50) NULL,'
