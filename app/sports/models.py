@@ -1,20 +1,21 @@
 class Sport:
-    def __init__(self, sport_id, name, climates=None):
+    def __init__(self, sport_id, name, climates=None, recommendations=None):
+        if climates is None:
+            climates = []
+
+        if recommendations is None:
+            recommendations = []
+
         self.id = sport_id
         self.name = name
         self.climates = climates
+        self.recommendations = recommendations
 
     def __eq__(self, other):
         if isinstance(other, Sport):
-            # TODO : Also check for climates
+            # TODO : Also check for climates and recommendations
             return self.id == other.id and self.name == other.name
         return False
 
-
-class SportRecommendation:
-    def __init__(self, username, sport_id, comment, date, note):
-        self.username = username
-        self.sport_id = sport_id
-        self.comment = comment
-        self.date = date
-        self.note = note
+    def add_recommendation(self, recommendation):
+        self.recommendations.append(recommendation)

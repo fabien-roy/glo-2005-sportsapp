@@ -1,3 +1,6 @@
 class RecommendationRepository:
-    def add(self, climate):
+    def get(self, recommendation_id):
+        pass
+
+    def add(self, recommendation):
         pass

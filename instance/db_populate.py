@@ -9,8 +9,6 @@ from app.repositories.mysql_sport_repositories import MySQLSportRepository
 from app.repositories.mysql_practice_center_repositories import MySQLPracticeCenterRepository
 from app.users.models import User
 
-# TODO : Do not set id in db_populate
-
 # TODO : Solve repository injection in db_populate.py
 sport_repository = MySQLSportRepository()
 practice_center_repository = MySQLPracticeCenterRepository()
@@ -29,25 +27,25 @@ def db_populate():
     climate_repository.add(climate2)
     climate_repository.add(climate3)
 
-    sport1 = Sport(1, name='Randonnee', climates=[climate1, climate2])
-    sport2 = Sport(2, name='Escalade', climates=[climate2, climate3])
-    sport3 = Sport(3, name='Natation', climates=[climate3])
+    sport1 = Sport(None, name='Randonnee', climates=[climate1, climate2])
+    sport2 = Sport(None, name='Escalade', climates=[climate2, climate3])
+    sport3 = Sport(None, name='Natation', climates=[climate3])
     sport_repository.add(sport1)
     sport_repository.add(sport2)
     sport_repository.add(sport3)
 
-    center1 = PracticeCenter(1,
+    center1 = PracticeCenter(None,
                              name='Mont-Orford National Park',
                              email='parc.mont-orford@sepaq.com',
                              web_site='https://www.sepaq.com/pq/mor/',
                              phone_number='819 843-9855',
                              climates=[climate2])
-    center2 = PracticeCenter(2,
+    center2 = PracticeCenter(None,
                              name='Parc des Montagnards',
                              email='info@censhefford.ca',
                              web_site='https://www.cantonsdelest.com/quoi-faire/980/parc-des-montagnards',
                              climates=[])
-    center3 = PracticeCenter(3,
+    center3 = PracticeCenter(None,
                              name='Gault Nature Reserve of McGill University',
                              climates=[climate1, climate3])
     practice_center_repository.add(center1)
@@ -62,7 +60,7 @@ def db_populate():
     user_repository.add(user2)
     user_repository.add(user3)
 
-    sport1_recommendation1 = Recommendation(1, comment='Un super sport. J\' adore.', note=5)
-    recommendation_repository.add(sport1_recommendation1)
+    sport1_recommendation1 = Recommendation(None, username=user1.username, comment='Un super sport. J\' adore.', note=5)
+    sport_repository.add_recommendation(sport1, sport1_recommendation1)
 
     print('...done!')
