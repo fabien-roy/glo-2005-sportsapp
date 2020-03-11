@@ -19,6 +19,8 @@ def db_create():
 
             cur.execute('DROP TABLE IF EXISTS climates')
 
+            cur.execute('DROP TABLE IF EXISTS recommendations')
+
         conn.commit()
 
         # Create all tables
@@ -64,6 +66,15 @@ def db_create():
                         'PRIMARY KEY (practice_center_id, climate_name),'
                         'FOREIGN KEY (practice_center_id) REFERENCES practice_centers(id) ON DELETE CASCADE,'
                         'FOREIGN KEY (climate_name) REFERENCES climates(name) ON DELETE CASCADE'
+                        ');')
+
+            cur.execute('CREATE TABLE recommendations ('
+                        'id int NOT NULL AUTO_INCREMENT PRIMARY KEY,'
+                        'username varchar(50) NOT NULL,'
+                        'comment varchar(1000) NOT NULL,'
+                        'note int NOT NULL,'  # TODO : Add trigger so note is always [0,5]
+                        'date timestamp NOT NULL,'
+                        'FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE'
                         ');')
 
         conn.commit()
