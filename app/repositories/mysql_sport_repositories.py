@@ -1,9 +1,8 @@
 from app import conn
 from app.climates.models import Climate
-from app.recommendations.models import Recommendation
 from app.repositories.mysql_recommendation_repositories import MySQLRecommendationRepository
-from app.sports.models import Sport
 from app.sports.exceptions import SportNotFoundException
+from app.sports.models import Sport
 from app.sports.repositories import SportRepository
 
 
@@ -50,6 +49,7 @@ class MySQLSportRecommendationRepository:
     sport_id_col = 'sport_id'
     recommendation_id_col = 'recommendation_id'
 
+    # TODO : Inject in repositories
     recommendation_repository = MySQLRecommendationRepository()
 
     def get_recommendations(self, sport_id):
@@ -71,7 +71,7 @@ class MySQLSportRecommendationRepository:
 
         return recommendations
 
-    def add(self, sport, recommendation):
+    def add(self, sport_id, recommendation):
         self.recommendation_repository.add(recommendation)
 
         try:
@@ -79,7 +79,7 @@ class MySQLSportRecommendationRepository:
                 sql = ('INSERT INTO ' + self.table_name +
                        ' (' + self.sport_id_col + ', ' + self.recommendation_id_col + ')' +
                        ' VALUES (%s, %s);')
-                cur.execute(sql, (sport.id, recommendation.id))
+                cur.execute(sql, (sport_id, recommendation.id))
 
                 conn.commit()
         finally:
@@ -152,5 +152,5 @@ class MySQLSportRepository(SportRepository):
         finally:
             cur.close()
 
-    def add_recommendation(self, sport, recommendation):
-        self.sport_recommendation_repository.add(sport, recommendation)
+    def add_recommendation(self, sport_id, recommendation):
+        self.sport_recommendation_repository.add(sport_id, recommendation)

@@ -35,10 +35,10 @@ def add_sports_recommendations():
     reset_repositories()
     add_sports()
     add_users()
-    sport_repository.add_recommendation(sport1, sport1_recommendation1)
-    sport_repository.add_recommendation(sport2, sport2_recommendation1)
-    sport_repository.add_recommendation(sport2, sport2_recommendation2)
-    sport_repository.add_recommendation(sport3, sport3_recommendation1)
+    sport_repository.add_recommendation(sport1.id, sport1_recommendation1)
+    sport_repository.add_recommendation(sport2.id, sport2_recommendation1)
+    sport_repository.add_recommendation(sport2.id, sport2_recommendation2)
+    sport_repository.add_recommendation(sport3.id, sport3_recommendation1)
 
 
 def add_practice_centers():

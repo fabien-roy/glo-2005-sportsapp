@@ -3,6 +3,7 @@ from app.climates.models import Climate
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
 from app.practice_centers.models import PracticeCenter
 from app.practice_centers.repositories import PracticeCenterRepository
+from app.repositories.mysql_recommendation_repositories import MySQLRecommendationRepository
 
 
 class MySQLPracticeCenterClimateRepository:
@@ -42,6 +43,49 @@ class MySQLPracticeCenterClimateRepository:
             cur.close()
 
 
+class MySQLPracticeCenterRecommendationRepository:
+    table_name = 'practice_center_recommendations'
+
+    practice_center_id_col = 'practice_center_id'
+    recommendation_id_col = 'recommendation_id'
+
+    # TODO : Inject in repositories
+    recommendation_repository = MySQLRecommendationRepository()
+
+    def get_recommendations(self, practice_center_id):
+        recommendations = []
+
+        try:
+            with conn.cursor() as cur:
+                sql = ('SELECT ' + self.recommendation_id_col +
+                       ' FROM ' + self.table_name +
+                       ' WHERE ' + self.practice_center_id_col + ' = %s;')
+                cur.execute(sql, practice_center_id)
+
+                # TODO : Solve n+1 problem
+                for recommendation_cur in cur.fetchall():
+                    recommendation = self.recommendation_repository.get(recommendation_cur[self.recommendation_id_col])
+                    recommendations.append(recommendation)
+        finally:
+            cur.close()
+
+        return recommendations
+
+    def add(self, practice_center_id, recommendation):
+        self.recommendation_repository.add(recommendation)
+
+        try:
+            with conn.cursor() as cur:
+                sql = ('INSERT INTO ' + self.table_name +
+                       ' (' + self.practice_center_id_col + ', ' + self.recommendation_id_col + ')' +
+                       ' VALUES (%s, %s);')
+                cur.execute(sql, (practice_center_id, recommendation.id))
+
+                conn.commit()
+        finally:
+            cur.close()
+
+
 class MySQLPracticeCenterRepository(PracticeCenterRepository):
     table_name = 'practice_centers'
 
@@ -52,6 +96,7 @@ class MySQLPracticeCenterRepository(PracticeCenterRepository):
     phone_number_col = 'phone_number'
 
     practice_center_climate_repository = MySQLPracticeCenterClimateRepository()
+    practice_center_recommendation_repository = MySQLPracticeCenterRecommendationRepository()
 
     def get_all(self):
         all_practice_centers = []
@@ -88,13 +133,15 @@ class MySQLPracticeCenterRepository(PracticeCenterRepository):
 
                 # TODO : Use fetchone (causes integer error)
                 for practice_center_cur in cur.fetchall():
-                    climates = self.practice_center_climate_repository.get_climates(practice_center_cur[self.id_col])
-                    practice_center = PracticeCenter(practice_center_cur[self.id_col],
+                    climates = self.practice_center_climate_repository.get_climates(practice_center_id)
+                    recommendations = self.practice_center_recommendation_repository.get_recommendations(practice_center_id)
+                    practice_center = PracticeCenter(practice_center_id,
                                                      practice_center_cur[self.name_col],
                                                      practice_center_cur[self.email_col],
                                                      practice_center_cur[self.web_site_col],
                                                      practice_center_cur[self.phone_number_col],
-                                                     climates)
+                                                     climates,
+                                                     recommendations)
         finally:
             cur.close()
 
@@ -121,3 +168,6 @@ class MySQLPracticeCenterRepository(PracticeCenterRepository):
                     self.practice_center_climate_repository.add(practice_center, climate)
         finally:
             cur.close()
+
+    def add_recommendation(self, practice_center_id, recommendation):
+        self.practice_center_recommendation_repository.add(practice_center_id, recommendation)

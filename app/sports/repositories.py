@@ -7,3 +7,6 @@ class SportRepository:
 
     def add(self, sport):
         pass
+
+    def add_recommendation(self, sport_id, recommendation):
+        pass
