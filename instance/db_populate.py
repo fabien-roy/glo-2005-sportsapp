@@ -1,21 +1,23 @@
 from app.climates.models import Climate
 from app.practice_centers.models import PracticeCenter
 from app.repositories.mysql_climate_repositories import MySQLClimateRepository
+from app.repositories.mysql_user_repositories import MySQLUserRepository
 from app.sports.models import Sport
 from app.repositories.mysql_sport_repositories import MySQLSportRepository
 from app.repositories.mysql_practice_center_repositories import MySQLPracticeCenterRepository
 
 
 # TODO : Solve repository injection in db_populate.py
+from app.users.models import User
+
 sport_repository = MySQLSportRepository()
 practice_center_repository = MySQLPracticeCenterRepository()
 climate_repository = MySQLClimateRepository()
+user_repository = MySQLUserRepository()
 
 
 def db_populate():
     print('Populating database tables for SportsApp...')
-
-    # TODO : Add users mocked data
 
     climate1 = Climate('tundra')
     climate2 = Climate('savane')
@@ -48,5 +50,13 @@ def db_populate():
     practice_center_repository.add(center1)
     practice_center_repository.add(center2)
     practice_center_repository.add(center3)
+
+    user1 = User(username='fabienroy28', email='fabienroy28@gmail.com', first_name='Fabien', last_name='Roy',
+                 phone_number='123-456-7890')
+    user2 = User(username='mikaelvalliant', email='mikaelvalliant@gmail.com', first_name='Mikael', last_name='Valliant')
+    user3 = User(username='getoutmyswamp', email='shrek@swamp.ca', first_name='Shrek', phone_number='1 800-555-0101')
+    user_repository.add(user1)
+    user_repository.add(user2)
+    user_repository.add(user3)
 
     print('...done!')
