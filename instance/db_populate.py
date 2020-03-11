@@ -1,17 +1,21 @@
 from app.climates.models import Climate
 from app.practice_centers.models import PracticeCenter
+from app.recommendations.models import Recommendation
 from app.repositories.mysql_climate_repositories import MySQLClimateRepository
+from app.repositories.mysql_recommendation_repositories import MySQLRecommendationRepository
 from app.repositories.mysql_user_repositories import MySQLUserRepository
 from app.sports.models import Sport
 from app.repositories.mysql_sport_repositories import MySQLSportRepository
 from app.repositories.mysql_practice_center_repositories import MySQLPracticeCenterRepository
 from app.users.models import User
 
+# TODO : Do not set id in db_populate
 
 # TODO : Solve repository injection in db_populate.py
 sport_repository = MySQLSportRepository()
 practice_center_repository = MySQLPracticeCenterRepository()
 climate_repository = MySQLClimateRepository()
+recommendation_repository = MySQLRecommendationRepository()
 user_repository = MySQLUserRepository()
 
 
@@ -57,5 +61,8 @@ def db_populate():
     user_repository.add(user1)
     user_repository.add(user2)
     user_repository.add(user3)
+
+    sport1_recommendation1 = Recommendation(1, comment='Un super sport. J\' adore.', note=5)
+    recommendation_repository.add(sport1_recommendation1)
 
     print('...done!')

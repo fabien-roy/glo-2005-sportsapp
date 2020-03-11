@@ -103,3 +103,5 @@ class MySQLSportRepository(SportRepository):
                     self.sport_climate_repository.add(sport, climate)
         finally:
             cur.close()
+
+        return cur.lastrowid

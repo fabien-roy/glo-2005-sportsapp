@@ -119,3 +119,5 @@ class MySQLPracticeCenterRepository(PracticeCenterRepository):
                     self.practice_center_climate_repository.add(practice_center, climate)
         finally:
             cur.close()
+
+        return cur.lastrowid

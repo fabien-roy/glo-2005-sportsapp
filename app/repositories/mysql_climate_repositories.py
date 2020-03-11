@@ -18,3 +18,5 @@ class MySQLClimateRepository(ClimateRepository):
                 conn.commit()
         finally:
             cur.close()
+
+        return cur.lastrowid

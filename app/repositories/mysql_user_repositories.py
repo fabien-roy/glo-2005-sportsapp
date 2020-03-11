@@ -74,3 +74,5 @@ class MySQLUserRepository(UserRepository):
                 conn.commit()
         finally:
             cur.close()
+
+        return cur.lastrowid
