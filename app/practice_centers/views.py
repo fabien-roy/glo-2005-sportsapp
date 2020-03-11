@@ -9,7 +9,6 @@ practice_centers_blueprint = Blueprint('practice_centers', __name__)
 
 
 # TODO : Make practice centers query params for search
-#        Use PracticeCenter.query.filter(PracticeCenter.x == x, ...).order_by...
 @practice_centers_blueprint.route('/practice-centers/')
 def practice_centers(practice_center_repository: PracticeCenterRepository):
     all_practice_centers = practice_center_repository.get_all()

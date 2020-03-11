@@ -8,7 +8,9 @@ from app.repositories.mysql_user_repositories import MySQLUserRepository
 from app.sports.exceptions import SportNotFoundException
 from app.tests import test_basic
 from app.tests.fakes import sport1, sport2, sport3, center1, center3, center2, climate1, climate2, climate3, user2, \
-    user1, user3, sport1_recommendation1, sport2_recommendation1, sport2_recommendation2, sport3_recommendation1
+    user1, user3, sport1_recommendation1, sport2_recommendation1, sport2_recommendation2, sport3_recommendation1, \
+    center1_recommendation1, center2_recommendation1, center2_recommendation2, center3_recommendation1, \
+    center3_recommendation2
 from app.users.exceptions import UserNotFoundException
 from instance.db_create import db_create
 
@@ -47,6 +49,17 @@ def add_practice_centers():
     practice_center_repository.add(center1)
     practice_center_repository.add(center2)
     practice_center_repository.add(center3)
+
+
+def add_practice_centers_recommendations():
+    reset_repositories()
+    add_practice_centers()
+    add_users()
+    practice_center_repository.add_recommendation(center1.id, center1_recommendation1)
+    practice_center_repository.add_recommendation(center2.id, center2_recommendation1)
+    practice_center_repository.add_recommendation(center2.id, center2_recommendation2)
+    practice_center_repository.add_recommendation(center3.id, center3_recommendation1)
+    practice_center_repository.add_recommendation(center3.id, center3_recommendation2)
 
 
 def add_climates():
@@ -138,6 +151,15 @@ class PracticeCenterRepositoryTests(test_basic.BasicTests):
         self.assertCountEqual(center2.climates, practice_center.climates)
         practice_center = practice_center_repository.get(center3.id)
         self.assertCountEqual(center3.climates, practice_center.climates)
+
+    def test_get_should_get_practice_center_recommendations(self):
+        add_practice_centers_recommendations()
+        practice_center = practice_center_repository.get(center1.id)
+        self.assertCountEqual(center1.recommendations, practice_center.recommendations)
+        practice_center = practice_center_repository.get(center2.id)
+        self.assertCountEqual(center2.recommendations, practice_center.recommendations)
+        practice_center = practice_center_repository.get(center3.id)
+        self.assertCountEqual(center3.recommendations, practice_center.recommendations)
 
     def test_get_all_with_no_practice_center_get_no_practice_center(self):
         reset_repositories()
