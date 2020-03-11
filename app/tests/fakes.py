@@ -4,9 +4,15 @@ from app.practice_centers.models import PracticeCenter
 from app.sports.models import Sport
 from app.sports.exceptions import SportNotFoundException
 
+# Climates
+from app.users.exceptions import UserNotFoundException
+from app.users.models import User
+
 climate1 = Climate('tundra')
 climate2 = Climate('savane')
 climate3 = Climate('aride')
+
+# Sports
 
 sport1 = Sport(sport_id=1, name='Randonnee', climates=[climate1, climate2])
 sport2 = Sport(sport_id=2, name='Escalade', climates=[climate2, climate3])
@@ -24,6 +30,8 @@ def sports(sport_id):
 def no_sport():
     raise SportNotFoundException
 
+
+# Practice Centers
 
 center1 = PracticeCenter(1,
                          name='Mont-Orford National Park',
@@ -51,3 +59,23 @@ def practice_centers(practice_center_id):
 
 def no_practice_center():
     raise PracticeCenterNotFoundException
+
+
+# Users
+
+user1 = User(username='fabienroy28', email='fabienroy28@gmail.com', first_name='Fabien', last_name='Roy',
+             phone_number='123-456-7890')
+user2 = User(username='mikaelvalliant', email='mikaelvalliant@gmail.com', first_name='Mikael', last_name='Valliant')
+user3 = User(username='getoutmyswamp', email='shrek@swamp.ca', first_name='Shrek', phone_number='1 800-555-0101')
+
+
+def users(username):
+    return {
+        'fabienroy28': user1,
+        'mikaelvalliant': user2,
+        'getoutmyswamp': user3
+    }[username]
+
+
+def no_user():
+    raise UserNotFoundException

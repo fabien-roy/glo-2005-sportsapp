@@ -7,7 +7,7 @@ def db_create():
     try:
         # Delete all tables
         with conn.cursor() as cur:
-            # TODO : Drop users table
+            cur.execute('DROP TABLE IF EXISTS users')
 
             cur.execute('DROP TABLE IF EXISTS sport_climates')
 
@@ -23,7 +23,15 @@ def db_create():
 
         # Create all tables
         with conn.cursor() as cur:
-            # TODO : Create users table
+            cur.execute('CREATE TABLE users ('
+                        'username varchar(50) NOT NULL PRIMARY KEY,'
+                        'email varchar(100) NOT NULL UNIQUE,'
+                        'creation_date timestamp NOT NULL,'
+                        'last_login_date timestamp NULL,'
+                        'first_name varchar(50) NULL,'
+                        'last_name varchar(50) NULL,'
+                        'phone_number varchar(20) NULL'
+                        ');')
 
             cur.execute('CREATE TABLE sports ('
                         'id int NOT NULL AUTO_INCREMENT PRIMARY KEY,'

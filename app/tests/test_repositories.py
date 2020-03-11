@@ -4,15 +4,19 @@ from app.practice_centers.exceptions import PracticeCenterNotFoundException
 from app.repositories.mysql_climate_repositories import MySQLClimateRepository
 from app.repositories.mysql_sport_repositories import MySQLSportRepository, MySQLSportClimateRepository
 from app.repositories.mysql_practice_center_repositories import MySQLPracticeCenterRepository
+from app.repositories.mysql_user_repositories import MySQLUserRepository
 from app.sports.exceptions import SportNotFoundException
 from app.tests import test_basic
-from app.tests.fakes import sport1, sport2, sport3, center1, center3, center2, climate1, climate2, climate3
+from app.tests.fakes import sport1, sport2, sport3, center1, center3, center2, climate1, climate2, climate3, user2, \
+    user1, user3
+from app.users.exceptions import UserNotFoundException
 from instance.db_create import db_create
 
 sport_repository = MySQLSportRepository()
 practice_center_repository = MySQLPracticeCenterRepository()
 climate_repository = MySQLClimateRepository()
 sport_climate_repository = MySQLSportClimateRepository()
+user_repository = MySQLUserRepository()
 
 
 def reset_repositories():
@@ -39,6 +43,12 @@ def add_climates():
     climate_repository.add(climate1)
     climate_repository.add(climate2)
     climate_repository.add(climate3)
+
+
+def add_users():
+    user_repository.add(user1)
+    user_repository.add(user2)
+    user_repository.add(user3)
 
 
 class SportRepositoryTests(test_basic.BasicTests):
@@ -121,6 +131,38 @@ class PracticeCenterRepositoryTests(test_basic.BasicTests):
         self.assertIn(center1, practice_centers)
         self.assertIn(center2, practice_centers)
         self.assertIn(center3, practice_centers)
+
+
+class UserRepositoryTests(test_basic.BasicTests):
+
+    def test_get_with_no_user_should_raise_user_not_found_exception(self):
+        reset_repositories()
+        self.assertRaises(UserNotFoundException, user_repository.get, 1)
+
+    def test_get_with_non_existent_user_should_raise_user_not_found_exception(self):
+        add_users()
+        self.assertRaises(UserNotFoundException, user_repository.get, -1)
+
+    def test_get_should_get_user(self):
+        add_users()
+        user = user_repository.get(user1.username)
+        self.assertEqual(user1, user)
+        user = user_repository.get(user2.username)
+        self.assertEqual(user2, user)
+        user = user_repository.get(user3.username)
+        self.assertEqual(user3, user)
+
+    def test_get_all_with_no_practice_center_get_no_practice_center(self):
+        reset_repositories()
+        users = user_repository.get_all()
+        self.assertEqual(0, len(users))
+
+    def test_get_all_get_practice_centers(self):
+        add_users()
+        users = user_repository.get_all()
+        self.assertIn(user1, users)
+        self.assertIn(user2, users)
+        self.assertIn(user3, users)
 
 
 if __name__ == "__main__":
