@@ -1,4 +1,4 @@
-class UserRepository:
+class UsersRepository:
     def get_all(self):
         pass
 

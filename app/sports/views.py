@@ -3,23 +3,22 @@ from flask.views import View
 from injector import inject
 
 from app.sports.exceptions import SportNotFoundException
-from app.sports.repositories import SportRepository
+from app.sports.repositories import SportsRepository
 
 sports_blueprint = Blueprint('sports', __name__)
 
 
 # TODO : Make sports query params for search
-#        Use Sport.query.filter(Sport.x == x, ...).order_by...
 @sports_blueprint.route('/sports/')
-def sports(sport_repository: SportRepository):
-    all_sports = sport_repository.get_all()
+def sports(sports_repository: SportsRepository):
+    all_sports = sports_repository.get_all()
     return render_template('sports.html', sports=all_sports)
 
 
 @sports_blueprint.route('/sports/<sport_id>')
-def sport_details(sport_repository: SportRepository, sport_id):
+def sport_details(sports_repository: SportsRepository, sport_id):
     try:
-        sport = sport_repository.get(sport_id)
+        sport = sports_repository.get(sport_id)
     except SportNotFoundException:
         return render_template('404.html'), 404
 
@@ -31,5 +30,5 @@ class SportView(View):
         pass
 
     @inject
-    def __init__(self, sport_repository: SportRepository):
-        self.sport_repository = sport_repository
+    def __init__(self, sports_repository: SportsRepository):
+        self.sports_repository = sports_repository

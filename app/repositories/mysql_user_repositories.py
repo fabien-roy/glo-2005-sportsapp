@@ -1,12 +1,13 @@
 import datetime
 
 from app import conn
+from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
 from app.users.exceptions import UserNotFoundException
 from app.users.models import User
-from app.users.repositories import UserRepository
+from app.users.repositories import UsersRepository
 
 
-class MySQLUserRepository(UserRepository):
+class MySQLUsersRepository(UsersRepository):
     table_name = 'users'
 
     username_col = 'username'
@@ -16,6 +17,9 @@ class MySQLUserRepository(UserRepository):
     phone_number_col = 'phone_number'
     creation_date_col = 'creation_date'
     last_login_date_col = 'last_login_date'
+
+    # TODO : Inject in repositories
+    recommendation_repository = MySQLRecommendationsRepository()
 
     def get_all(self):
         all_users = []
@@ -48,9 +52,13 @@ class MySQLUserRepository(UserRepository):
 
                 # TODO : Use fetchone (causes integer error)
                 for user_cur in cur.fetchall():
-                    user = User(user_cur[self.username_col], user_cur[self.email_col], user_cur[self.first_name_col],
+                    sport_recommendations = self.recommendation_repository.get_sport_recommendations(username)
+                    practice_center_recommendations = self.recommendation_repository.get_practice_center_recommendations(username)
+                    user = User(username, user_cur[self.email_col], user_cur[self.first_name_col],
                                 user_cur[self.last_name_col], user_cur[self.phone_number_col],
-                                user_cur[self.creation_date_col], user_cur[self.last_login_date_col])
+                                user_cur[self.creation_date_col], user_cur[self.last_login_date_col],
+                                sport_recommendations,
+                                practice_center_recommendations)
         finally:
             cur.close()
 
@@ -74,3 +82,5 @@ class MySQLUserRepository(UserRepository):
                 conn.commit()
         finally:
             cur.close()
+
+        return cur.lastrowid

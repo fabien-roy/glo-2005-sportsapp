@@ -17,7 +17,7 @@ def add_users():
     user_repository.get_all.return_value = [user1, user2, user3]
 
 
-class SportsTests(test_basic.BasicTests):
+class UsersViewsTests(test_basic.BasicTests):
 
     def test_users_with_no_sport_should_display_no_user(self):
         remove_users()

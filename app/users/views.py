@@ -3,22 +3,22 @@ from flask.views import View
 from injector import inject
 
 from app.users.exceptions import UserNotFoundException
-from app.users.repositories import UserRepository
+from app.users.repositories import UsersRepository
 
 users_blueprint = Blueprint('users', __name__)
 
 
 # TODO : Make users query params for search
 @users_blueprint.route('/users/')
-def users(user_repository: UserRepository):
-    all_users = user_repository.get_all()
+def users(users_repository: UsersRepository):
+    all_users = users_repository.get_all()
     return render_template('users.html', users=all_users)
 
 
 @users_blueprint.route('/users/<username>')
-def user_details(user_repository: UserRepository, username):
+def user_details(users_repository: UsersRepository, username):
     try:
-        user = user_repository.get(username)
+        user = users_repository.get(username)
     except UserNotFoundException:
         return render_template('404.html'), 404
 
@@ -30,5 +30,5 @@ class UserView(View):
         pass
 
     @inject
-    def __init__(self, user_repository: UserRepository):
-        self.user_repository = user_repository
+    def __init__(self, users_repository: UsersRepository):
+        self.users_repository = users_repository

@@ -17,7 +17,7 @@ def add_practice_centers():
     practice_center_repository.get_all.return_value = [center1, center2, center3]
 
 
-class PracticeCentersTests(test_basic.BasicTests):
+class PracticeCentersViewsTests(test_basic.BasicTests):
 
     def test_practice_centers_with_no_practice_center_should_display_no_practice_center(self):
         remove_practice_centers()

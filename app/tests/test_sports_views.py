@@ -17,7 +17,7 @@ def add_sports():
     sport_repository.get_all.return_value = [sport1, sport2, sport3]
 
 
-class SportsTests(test_basic.BasicTests):
+class SportsViewsTests(test_basic.BasicTests):
 
     def test_sports_with_no_sport_should_display_no_sport(self):
         remove_sports()
