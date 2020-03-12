@@ -193,12 +193,12 @@ class UserRepositoryTests(test_basic.BasicTests):
         user = user_repository.get(user3.username)
         self.assertEqual(user3, user)
 
-    def test_get_all_with_no_practice_center_get_no_practice_center(self):
+    def test_get_all_with_no_user_center_get_no_user(self):
         reset_repositories()
         users = user_repository.get_all()
         self.assertEqual(0, len(users))
 
-    def test_get_all_get_practice_centers(self):
+    def test_get_all_get_users(self):
         add_users()
         users = user_repository.get_all()
         self.assertIn(user1, users)

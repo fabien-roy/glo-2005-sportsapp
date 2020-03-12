@@ -1,6 +1,9 @@
 class User:
     def __init__(self, username, email, first_name=None, last_name=None, phone_number=None, creation_date=None,
-                 last_login_date=None):
+                 last_login_date=None, sport_recommendations=None):
+        if sport_recommendations is None:
+            sport_recommendations = []
+
         self.username = username
         self.email = email
         self.first_name = first_name
@@ -8,9 +11,11 @@ class User:
         self.phone_number = phone_number
         self.creation_date = creation_date
         self.last_login_date = last_login_date
+        self.sport_recommendations = sport_recommendations
         # TODO : Add passwords (when making login/register)
 
     def __eq__(self, other):
         if isinstance(other, User):
+            # TODO : Also check for everything else omg why
             return self.username == other.username and self.email == other.email
         return False
