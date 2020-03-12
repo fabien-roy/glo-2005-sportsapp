@@ -1,21 +1,31 @@
 {% extends "layout.html" %}
 {% block content %}
-
-<!-- TODO : Not "user-profile" -->
-<div class="user-profile">
+<div class="comments-page">
     <div class="page-header">
         <h2>{{ sport.name }}</h2>
     </div>
 
-
-    <div class="row">
-        <div class="col-xs-6 col-md-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Recommendations</div>
-                <p>TODO</p>
+    {% for recommendation in sport.recommendations %}
+    <ul class="list-unstyled">
+        <li class="media">
+            <div class="media-body">
+                <h5 class="mt-0 mb-1"><a class="mr-2" href="#">{{ recommendation.username }}</a>
+                    {% for i in range(recommendation.note) %}
+                    &bigstar;
+                    {% endfor %}
+                    {% if recommendation.note < 5%}
+                    {% for i in range(5 - recommendation.note) %}
+                    &star;
+                    {% endfor %}
+                    {% endif %}
+                </h5>
+                <small class="text-muted">{{ recommendation.date }}</small>
+                <p class="article-content">{{ recommendation.comment }}
+                </p>
             </div>
-        </div>
-    </div>
-</div>`
+        </li>
+    </ul>
+    {% endfor %}
+</div>
 
 {% endblock %}

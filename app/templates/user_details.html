@@ -2,22 +2,86 @@
 {% block content %}
 
 <!-- TODO : Not "user-profile" -->
-<div class="user-profile">
-    <div class="page-header">
-        <h2>{{ user.username }}</h2>
-        <h3>{{ user.first_name or '' }} {{ user.last_name or '' }}</h3>
-        <h3>{{ user.email }}</h3>
+
+
+<div class="container emp-profile">
+    <div class="profile-head">
+        <h3>
+            u/ {{ user.username }}
+        </h3>
     </div>
+    <ul class="nav nav-tabs" id="profile-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="user-details-tab" data-toggle="tab" href="#details" role="tab"
+               aria-controls="home" aria-selected="true">User details</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="user-practice-centers-recommendations-tab" data-toggle="tab"
+               href="#practice-centers-recommendations" role="tab"
+               aria-controls="profile" aria-selected="false">Practice center recommendations</a>
+        </li>
+    </ul>
 
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="tab-content profile-tab">
+            <div class="tab-pane fade show active" id="details" role="tabpanel" aria-labelledby="user-details-tab">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Username</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{ user.username }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Name</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{ user.first_name or '' }} {{ user.last_name or '' }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Email</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{ user.email }}</p>
+                    </div>
+                </div>
 
-    <div class="row">
-        <div class="col-xs-6 col-md-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Recommendations</div>
-                <p>TODO</p>
+            </div>
+            <div class="tab-pane fade" id="practice-centers-recommendations" role="tabpanel"
+                 aria-labelledby="user-practice-centers-recommendations-tab">
+                <div class="row">
+                    <div class="col-md-6">
+                        {% for recommendation in user.practice_center_recommendations %}
+                        <ul class="list-unstyled">
+                            <li class="media">
+                                <div class="media-body">
+                                    <h5 class="mt-0 mb-1">
+                                        {% for i in range(recommendation.note) %}
+                                        &bigstar;
+                                        {% endfor %}
+                                        {% if recommendation.note < 5%}
+                                        {% for i in range(5 - recommendation.note) %}
+                                        &star;
+                                        {% endfor %}
+                                        {% endif %}
+                                    </h5>
+                                    <small class="text-muted">{{ recommendation.date }}</small>
+                                    <p class="article-content">{{ recommendation.comment }}
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>`
-
+</div>
 {% endblock %}

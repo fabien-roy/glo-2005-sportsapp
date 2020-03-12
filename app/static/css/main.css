@@ -19,6 +19,32 @@
     background-size: cover;
 }
 
+/*Jumbotron Sports landing*/
+#jumbotron-users-landing{
+    background-image: url("https://images.pexels.com/photos/939328/pexels-photo-939328.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+    background-position: center center;
+    background-size: cover;
+}
+
+.article-content {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 5px solid #dddddd;
+  border-radius: 50px;
+  margin-bottom: 20px;
+}
+
+.comments-page{
+padding-top: 5vh;}
+
+.mt-0{
+padding-top: 2vh;}
+
+.profile-head{
+padding-top: 5vh;
+padding-bottom: 5vh;
+}
+
 body {
     padding: 60px 0;
     background: #ffffff;
