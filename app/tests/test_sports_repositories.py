@@ -1,18 +1,18 @@
 from app.repositories.mysql_climate_repositories import MySQLClimateRepository
-from app.repositories.mysql_practice_center_repositories import MySQLPracticeCenterRepository
-from app.repositories.mysql_sport_repositories import MySQLSportRepository, MySQLSportClimateRepository
-from app.repositories.mysql_user_repositories import MySQLUserRepository
+from app.repositories.mysql_practice_center_repositories import MySQLPracticeCentersRepository
+from app.repositories.mysql_sport_repositories import MySQLSportsRepository, MySQLSportClimateRepository
+from app.repositories.mysql_user_repositories import MySQLUsersRepository
 from app.sports.exceptions import SportNotFoundException
 from app.tests import test_basic
 from app.tests.fakes import sport1, sport2, sport3, climate1, climate2, climate3, user2, \
     user1, user3, sport1_recommendation1, sport2_recommendation1, sport2_recommendation2, sport3_recommendation1
 from instance.db_create import db_create
 
-sport_repository = MySQLSportRepository()
-practice_center_repository = MySQLPracticeCenterRepository()
+sport_repository = MySQLSportsRepository()
+practice_center_repository = MySQLPracticeCentersRepository()
 climate_repository = MySQLClimateRepository()
 sport_climate_repository = MySQLSportClimateRepository()
-user_repository = MySQLUserRepository()
+user_repository = MySQLUsersRepository()
 
 
 def reset_repositories():

@@ -1,20 +1,20 @@
 import unittest
 
 from app.repositories.mysql_climate_repositories import MySQLClimateRepository
-from app.repositories.mysql_practice_center_repositories import MySQLPracticeCenterRepository
-from app.repositories.mysql_sport_repositories import MySQLSportRepository, MySQLSportClimateRepository
-from app.repositories.mysql_user_repositories import MySQLUserRepository
+from app.repositories.mysql_practice_center_repositories import MySQLPracticeCentersRepository
+from app.repositories.mysql_sport_repositories import MySQLSportsRepository, MySQLSportClimateRepository
+from app.repositories.mysql_user_repositories import MySQLUsersRepository
 from app.tests import test_basic
 from app.tests.fakes import user2, \
     user1, user3
 from app.users.exceptions import UserNotFoundException
 from instance.db_create import db_create
 
-sport_repository = MySQLSportRepository()
-practice_center_repository = MySQLPracticeCenterRepository()
+sport_repository = MySQLSportsRepository()
+practice_center_repository = MySQLPracticeCentersRepository()
 climate_repository = MySQLClimateRepository()
 sport_climate_repository = MySQLSportClimateRepository()
-user_repository = MySQLUserRepository()
+user_repository = MySQLUsersRepository()
 
 
 def reset_repositories():

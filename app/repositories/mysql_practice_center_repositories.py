@@ -2,8 +2,8 @@ from app import conn
 from app.climates.models import Climate
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
 from app.practice_centers.models import PracticeCenter
-from app.practice_centers.repositories import PracticeCenterRepository
-from app.repositories.mysql_recommendation_repositories import MySQLRecommendationRepository
+from app.practice_centers.repositories import PracticeCentersRepository
+from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
 
 
 class MySQLPracticeCenterClimateRepository:
@@ -50,7 +50,7 @@ class MySQLPracticeCenterRecommendationRepository:
     recommendation_id_col = 'recommendation_id'
 
     # TODO : Inject in repositories
-    recommendation_repository = MySQLRecommendationRepository()
+    recommendation_repository = MySQLRecommendationsRepository()
 
     def get_recommendations(self, practice_center_id):
         recommendations = []
@@ -86,7 +86,7 @@ class MySQLPracticeCenterRecommendationRepository:
             cur.close()
 
 
-class MySQLPracticeCenterRepository(PracticeCenterRepository):
+class MySQLPracticeCentersRepository(PracticeCentersRepository):
     table_name = 'practice_centers'
 
     id_col = 'id'

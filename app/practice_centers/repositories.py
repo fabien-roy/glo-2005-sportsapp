@@ -1,4 +1,4 @@
-class PracticeCenterRepository:
+class PracticeCentersRepository:
     def get_all(self):
         pass
 

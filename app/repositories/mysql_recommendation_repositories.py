@@ -2,10 +2,10 @@ import datetime
 
 from app import conn
 from app.recommendations.models import Recommendation
-from app.recommendations.repositories import RecommendationRepository
+from app.recommendations.repositories import RecommendationsRepository
 
 
-class MySQLRecommendationRepository(RecommendationRepository):
+class MySQLRecommendationsRepository(RecommendationsRepository):
     table_name = 'recommendations'
 
     id_col = 'id'

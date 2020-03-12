@@ -1,13 +1,13 @@
 import datetime
 
 from app import conn
-from app.repositories.mysql_recommendation_repositories import MySQLRecommendationRepository
+from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
 from app.users.exceptions import UserNotFoundException
 from app.users.models import User
-from app.users.repositories import UserRepository
+from app.users.repositories import UsersRepository
 
 
-class MySQLUserRepository(UserRepository):
+class MySQLUsersRepository(UsersRepository):
     table_name = 'users'
 
     username_col = 'username'
@@ -19,7 +19,7 @@ class MySQLUserRepository(UserRepository):
     last_login_date_col = 'last_login_date'
 
     # TODO : Inject in repositories
-    recommendation_repository = MySQLRecommendationRepository()
+    recommendation_repository = MySQLRecommendationsRepository()
 
     def get_all(self):
         all_users = []

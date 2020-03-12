@@ -1,9 +1,9 @@
 from app import conn
 from app.climates.models import Climate
-from app.repositories.mysql_recommendation_repositories import MySQLRecommendationRepository
+from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
 from app.sports.exceptions import SportNotFoundException
 from app.sports.models import Sport
-from app.sports.repositories import SportRepository
+from app.sports.repositories import SportsRepository
 
 
 class MySQLSportClimateRepository:
@@ -50,7 +50,7 @@ class MySQLSportRecommendationRepository:
     recommendation_id_col = 'recommendation_id'
 
     # TODO : Inject in repositories
-    recommendation_repository = MySQLRecommendationRepository()
+    recommendation_repository = MySQLRecommendationsRepository()
 
     def get_recommendations(self, sport_id):
         recommendations = []
@@ -86,7 +86,7 @@ class MySQLSportRecommendationRepository:
             cur.close()
 
 
-class MySQLSportRepository(SportRepository):
+class MySQLSportsRepository(SportsRepository):
     table_name = 'sports'
 
     id_col = 'id'
