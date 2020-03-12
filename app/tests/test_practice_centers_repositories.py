@@ -5,8 +5,8 @@ from app.repositories.mysql_sport_repositories import MySQLSportsRepository, MyS
 from app.repositories.mysql_user_repositories import MySQLUsersRepository
 from app.tests import test_basic
 from app.tests.fakes import center1, center3, center2, climate1, climate2, climate3, user2, \
-    user1, user3, center1_recommendation1, center2_recommendation1, center2_recommendation2, center3_recommendation1, \
-    center3_recommendation2
+    user1, user3, center1_recommendation1_user1, center2_recommendation1_user1, center2_recommendation2_user2, center3_recommendation1_user3, \
+    center3_recommendation2_user1
 from instance.db_create import db_create
 
 sport_repository = MySQLSportsRepository()
@@ -32,11 +32,11 @@ def add_practice_centers_recommendations():
     reset_repositories()
     add_practice_centers()
     add_users()
-    practice_center_repository.add_recommendation(center1.id, center1_recommendation1)
-    practice_center_repository.add_recommendation(center2.id, center2_recommendation1)
-    practice_center_repository.add_recommendation(center2.id, center2_recommendation2)
-    practice_center_repository.add_recommendation(center3.id, center3_recommendation1)
-    practice_center_repository.add_recommendation(center3.id, center3_recommendation2)
+    practice_center_repository.add_recommendation(center1.id, center1_recommendation1_user1)
+    practice_center_repository.add_recommendation(center2.id, center2_recommendation1_user1)
+    practice_center_repository.add_recommendation(center2.id, center2_recommendation2_user2)
+    practice_center_repository.add_recommendation(center3.id, center3_recommendation1_user3)
+    practice_center_repository.add_recommendation(center3.id, center3_recommendation2_user1)
 
 
 def add_climates():

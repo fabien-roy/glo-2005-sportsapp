@@ -19,6 +19,10 @@ sport1 = Sport(sport_id=1, name='Randonnee', climates=[climate1, climate2])
 sport2 = Sport(sport_id=2, name='Escalade', climates=[climate2, climate3])
 sport3 = Sport(sport_id=3, name='Natation', climates=[climate3])
 
+sport1_no_climates = Sport(sport_id=1, name='Randonnee', climates=[])
+sport2_no_climates = Sport(sport_id=2, name='Escalade', climates=[])
+sport3_no_climates = Sport(sport_id=3, name='Natation', climates=[])
+
 
 def sports(sport_id):
     return {
@@ -83,22 +87,27 @@ def no_user():
 
 # Recommendations
 
-sport1_recommendation1 = Recommendation(1, username=user1.username, comment='Un super sport. J\' adore.', note=5)
-sport2_recommendation1 = Recommendation(2, username=user3.username, comment='Cool.', note=3)
-sport2_recommendation2 = Recommendation(3, username=user2.username, comment='Pourri.', note=0)
-sport3_recommendation1 = Recommendation(4, username=user1.username, comment=':D', note=5)
-sport1.add_recommendation(sport1_recommendation1)
-sport2.add_recommendation(sport2_recommendation1)
-sport2.add_recommendation(sport2_recommendation2)
-sport3.add_recommendation(sport3_recommendation1)
+sport1_recommendation1_user1 = Recommendation(1, username=user1.username, comment='Un super sport. J\' adore.', note=5)
+sport2_recommendation1_user3 = Recommendation(2, username=user3.username, comment='Cool.', note=3)
+sport2_recommendation2_user2 = Recommendation(3, username=user2.username, comment='Pourri.', note=0)
+sport3_recommendation1_user1 = Recommendation(4, username=user1.username, comment=':D', note=5)
+sport1.add_recommendation(sport1_recommendation1_user1)
+sport2.add_recommendation(sport2_recommendation1_user3)
+sport2.add_recommendation(sport2_recommendation2_user2)
+sport3.add_recommendation(sport3_recommendation1_user1)
 
-center1_recommendation1 = Recommendation(None, username=user1.username, comment='Un super centre. J\' adore.', note=5)
-center2_recommendation1 = Recommendation(None, username=user1.username, comment='Cool.', note=3)
-center2_recommendation2 = Recommendation(None, username=user2.username, comment='Pourri, mais bon, 2 étoiles.', note=2)
-center3_recommendation1 = Recommendation(None, username=user3.username, comment=':D', note=0)
-center3_recommendation2 = Recommendation(None, username=user1.username, comment='Noice.', note=4)
-center1.add_recommendation(center1_recommendation1)
-center2.add_recommendation(center2_recommendation1)
-center2.add_recommendation(center2_recommendation2)
-center3.add_recommendation(center3_recommendation1)
-center3.add_recommendation(center3_recommendation2)
+center1_recommendation1_user1 = Recommendation(None, username=user1.username, comment='Un super centre. J\' adore.', note=5)
+center2_recommendation1_user1 = Recommendation(None, username=user1.username, comment='Cool.', note=3)
+center2_recommendation2_user2 = Recommendation(None, username=user2.username, comment='Pourri, mais bon, 2 étoiles.', note=2)
+center3_recommendation1_user3 = Recommendation(None, username=user3.username, comment=':D', note=0)
+center3_recommendation2_user1 = Recommendation(None, username=user1.username, comment='Noice.', note=4)
+center1.add_recommendation(center1_recommendation1_user1)
+center2.add_recommendation(center2_recommendation1_user1)
+center2.add_recommendation(center2_recommendation2_user2)
+center3.add_recommendation(center3_recommendation1_user3)
+center3.add_recommendation(center3_recommendation2_user1)
+
+user1.add_sport_recommendation(sport1_recommendation1_user1)
+user1.add_sport_recommendation(sport3_recommendation1_user1)
+user2.add_sport_recommendation(sport2_recommendation2_user2)
+user3.add_sport_recommendation(sport2_recommendation1_user3)

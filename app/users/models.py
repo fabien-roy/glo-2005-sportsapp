@@ -19,3 +19,6 @@ class User:
             # TODO : Also check for everything else omg why
             return self.username == other.username and self.email == other.email
         return False
+
+    def add_sport_recommendation(self, sport_recommendation):
+        self.sport_recommendations.append(sport_recommendation)
