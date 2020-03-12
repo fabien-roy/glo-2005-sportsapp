@@ -15,10 +15,11 @@ class MySQLRecommendationsRepository(RecommendationsRepository):
     note_col = 'note'
     date_col = 'date'
 
-    # TODO : Info about sport_recommendations table is duplicated to avoid circular dependency. That could be improved.
+    # TODO : Info about other tables is duplicated to avoid circular dependency. That could be improved.
     sport_recommendations_table_name = 'sport_recommendations'
-
     sport_recommendations_recommendation_id_col = 'recommendation_id'
+    practice_center_recommendations_table_name = 'practice_center_recommendations'
+    practice_center_recommendations_recommendation_id_col = 'recommendation_id'
 
     def get(self, recommendation_id):
         recommendation = None
@@ -55,6 +56,34 @@ class MySQLRecommendationsRepository(RecommendationsRepository):
                        ' AND ' + self.id_col + ' IN (' +
                        '   SELECT ' + self.sport_recommendations_recommendation_id_col +
                        '   FROM ' + self.sport_recommendations_table_name +
+                       ');')
+                cur.execute(sql, username)
+
+                # TODO : Use fetchone (causes integer error)
+                for recommendation_cur in cur.fetchall():
+                    recommendation = Recommendation(recommendation_cur[self.id_col],
+                                                    recommendation_cur[self.username_col],
+                                                    recommendation_cur[self.comment_col],
+                                                    recommendation_cur[self.note_col],
+                                                    recommendation_cur[self.date_col])
+                    recommendations.append(recommendation)
+        finally:
+            cur.close()
+
+        return recommendations
+
+    def get_practice_center_recommendations(self, username):
+        recommendations = []
+
+        try:
+            with conn.cursor() as cur:
+                sql = ('SELECT ' + self.id_col + ', ' + self.username_col + ', ' + self.comment_col + ', ' +
+                       self.note_col + ', ' + self.date_col +
+                       ' FROM ' + self.table_name +
+                       ' WHERE ' + self.username_col + ' = %s'
+                                                       ' AND ' + self.id_col + ' IN (' +
+                       '   SELECT ' + self.practice_center_recommendations_recommendation_id_col +
+                       '   FROM ' + self.practice_center_recommendations_table_name +
                        ');')
                 cur.execute(sql, username)
 

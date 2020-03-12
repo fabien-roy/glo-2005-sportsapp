@@ -9,7 +9,8 @@ from app.tests.fakes import user2, \
     user1, user3, sport1, sport2, sport3, sport1_recommendation1_user1, sport2_recommendation1_user3, \
     sport2_recommendation2_user2, \
     sport3_recommendation1_user1, climate1, climate2, climate3, sport1_no_climates, sport2_no_climates, \
-    sport3_no_climates
+    sport3_no_climates, center1, center2, center3, center1_recommendation1_user1, center2_recommendation1_user1, \
+    center2_recommendation2_user2, center3_recommendation1_user3, center3_recommendation2_user1
 from app.users.exceptions import UserNotFoundException
 from instance.db_create import db_create
 
@@ -52,6 +53,24 @@ def add_sports_recommendations():
     sport_repository.add_recommendation(sport2.id, sport2_recommendation1_user3)
 
 
+def add_practice_centers():
+    add_users()
+    add_climates()
+    practice_center_repository.add(center1)
+    practice_center_repository.add(center2)
+    practice_center_repository.add(center3)
+
+
+def add_practice_centers_recommendations():
+    add_users()
+    add_practice_centers()
+    practice_center_repository.add_recommendation(center1.id, center1_recommendation1_user1)
+    practice_center_repository.add_recommendation(center2.id, center2_recommendation1_user1)
+    practice_center_repository.add_recommendation(center2.id, center2_recommendation2_user2)
+    practice_center_repository.add_recommendation(center3.id, center3_recommendation1_user3)
+    practice_center_repository.add_recommendation(center3.id, center3_recommendation2_user1)
+
+
 class UsersRepositoryTests(test_basic.BasicTests):
 
     def test_get_with_no_user_should_raise_user_not_found_exception(self):
@@ -79,6 +98,15 @@ class UsersRepositoryTests(test_basic.BasicTests):
         self.assertCountEqual(user2.sport_recommendations, user.sport_recommendations)
         user = user_repository.get(user3.username)
         self.assertCountEqual(user3.sport_recommendations, user.sport_recommendations)
+
+    def test_get_should_get_practice_centers_recommendations(self):
+        add_practice_centers_recommendations()
+        user = user_repository.get(user1.username)
+        self.assertCountEqual(user1.practice_center_recommendations, user.practice_center_recommendations)
+        user = user_repository.get(user2.username)
+        self.assertCountEqual(user2.practice_center_recommendations, user.practice_center_recommendations)
+        user = user_repository.get(user3.username)
+        self.assertCountEqual(user3.practice_center_recommendations, user.practice_center_recommendations)
 
     def test_get_all_with_no_user_center_get_no_user(self):
         reset_repositories()

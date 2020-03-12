@@ -20,6 +20,18 @@ def reset_repositories():
     db_create()
 
 
+def add_climates():
+    climate_repository.add(climate1)
+    climate_repository.add(climate2)
+    climate_repository.add(climate3)
+
+
+def add_users():
+    user_repository.add(user1)
+    user_repository.add(user2)
+    user_repository.add(user3)
+
+
 def add_practice_centers():
     reset_repositories()
     add_climates()
@@ -37,18 +49,6 @@ def add_practice_centers_recommendations():
     practice_center_repository.add_recommendation(center2.id, center2_recommendation2_user2)
     practice_center_repository.add_recommendation(center3.id, center3_recommendation1_user3)
     practice_center_repository.add_recommendation(center3.id, center3_recommendation2_user1)
-
-
-def add_climates():
-    climate_repository.add(climate1)
-    climate_repository.add(climate2)
-    climate_repository.add(climate3)
-
-
-def add_users():
-    user_repository.add(user1)
-    user_repository.add(user2)
-    user_repository.add(user3)
 
 
 class PracticeCenterRepositoryTests(test_basic.BasicTests):

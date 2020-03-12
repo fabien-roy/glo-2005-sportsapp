@@ -53,11 +53,12 @@ class MySQLUsersRepository(UsersRepository):
                 # TODO : Use fetchone (causes integer error)
                 for user_cur in cur.fetchall():
                     sport_recommendations = self.recommendation_repository.get_sport_recommendations(username)
-                    # TODO practice_center_recommendations
+                    practice_center_recommendations = self.recommendation_repository.get_practice_center_recommendations(username)
                     user = User(username, user_cur[self.email_col], user_cur[self.first_name_col],
                                 user_cur[self.last_name_col], user_cur[self.phone_number_col],
                                 user_cur[self.creation_date_col], user_cur[self.last_login_date_col],
-                                sport_recommendations)
+                                sport_recommendations,
+                                practice_center_recommendations)
         finally:
             cur.close()
 
