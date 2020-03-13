@@ -2,19 +2,19 @@ import unittest
 
 from app.tests import test_basic
 from app.tests.fakes import users, user3, user2, user1, no_user
-from app.tests.mocks import user_repository
+from app.tests.mocks import users_repository
 
 
 def remove_users():
-    user_repository.reset_mock()
-    user_repository.get.side_effect = lambda username: no_user()
-    user_repository.get_all.return_value = []
+    users_repository.reset_mock()
+    users_repository.get.side_effect = lambda username: no_user()
+    users_repository.get_all.return_value = []
 
 
 def add_users():
-    user_repository.reset_mock()
-    user_repository.get.side_effect = users
-    user_repository.get_all.return_value = [user1, user2, user3]
+    remove_users()
+    users_repository.get.side_effect = users
+    users_repository.get_all.return_value = [user1, user2, user3]
 
 
 class UsersViewsTests(test_basic.BasicTests):
@@ -50,6 +50,35 @@ class UsersViewsTests(test_basic.BasicTests):
         response = self.app.get('/users/getoutmyswamp', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'getoutmyswamp', response.data)
+
+    # TODO : Add recommended sport names and links in user details
+    def test_user_details_should_display_sport_recommendations(self):
+        add_users()
+        response = self.app.get('/users/fabienroy28', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Un super sport.', response.data)
+        self.assertIn(b':D', response.data)
+        response = self.app.get('/users/mikaelvalliant', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Pourri.', response.data)
+        response = self.app.get('/users/getoutmyswamp', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Cool.', response.data)
+
+    # TODO : Add recommended practice centers names and links in user details
+    def test_user_details_should_display_practice_center_recommendations(self):
+        add_users()
+        response = self.app.get('/users/fabienroy28', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Un super centre.', response.data)
+        self.assertIn(b'Cool.', response.data)
+        self.assertIn(b'Noice.', response.data)
+        response = self.app.get('/users/mikaelvalliant', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Pourri, mais bon, 2 etoiles.', response.data)
+        response = self.app.get('/users/getoutmyswamp', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b':D', response.data)
 
     def test_user_details__without_user_should_respond_not_found(self):
         remove_users()
