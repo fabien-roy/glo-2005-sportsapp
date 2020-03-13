@@ -12,7 +12,7 @@ def remove_users():
 
 
 def add_users():
-    users_repository.reset_mock()
+    remove_users()
     users_repository.get.side_effect = users
     users_repository.get_all.return_value = [user1, user2, user3]
 
@@ -50,6 +50,35 @@ class UsersViewsTests(test_basic.BasicTests):
         response = self.app.get('/users/getoutmyswamp', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'getoutmyswamp', response.data)
+
+    # TODO : Add recommended sport names and links in user details
+    def test_user_details_should_display_sport_recommendations(self):
+        add_users()
+        response = self.app.get('/users/fabienroy28', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Un super sport.', response.data)
+        self.assertIn(b':D', response.data)
+        response = self.app.get('/users/mikaelvalliant', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Pourri.', response.data)
+        response = self.app.get('/users/getoutmyswamp', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Cool.', response.data)
+
+    # TODO : Add recommended practice centers names and links in user details
+    def test_user_details_should_display_practice_center_recommendations(self):
+        add_users()
+        response = self.app.get('/users/fabienroy28', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Un super centre.', response.data)
+        self.assertIn(b'Cool.', response.data)
+        self.assertIn(b'Noice.', response.data)
+        response = self.app.get('/users/mikaelvalliant', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Pourri, mais bon, 2 etoiles.', response.data)
+        response = self.app.get('/users/getoutmyswamp', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b':D', response.data)
 
     def test_user_details__without_user_should_respond_not_found(self):
         remove_users()
