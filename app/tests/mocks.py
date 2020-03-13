@@ -1,5 +1,6 @@
 from unittest import mock
 
-sport_repository = mock.Mock()
-practice_center_repository = mock.Mock()
-user_repository = mock.Mock()
+sports_repository = mock.Mock()
+practice_centers_repository = mock.Mock()
+users_repository = mock.Mock()
+climates_repository = mock.Mock()

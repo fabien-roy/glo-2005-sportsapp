@@ -1,19 +1,24 @@
+from app.climates.repositories import ClimatesRepository
 from app.practice_centers.repositories import PracticeCentersRepository
 from app.sports.repositories import SportsRepository
-from app.tests.mocks import sport_repository, practice_center_repository, user_repository
+from app.tests.mocks import sports_repository, practice_centers_repository, users_repository, climates_repository
 from app.users.repositories import UsersRepository
 
 
 def configure(binder):
     binder.bind(
         SportsRepository,
-        to=sport_repository,
+        to=sports_repository,
     )
     binder.bind(
         PracticeCentersRepository,
-        to=practice_center_repository,
+        to=practice_centers_repository,
     )
     binder.bind(
         UsersRepository,
-        to=user_repository,
+        to=users_repository,
+    )
+    binder.bind(
+        ClimatesRepository,
+        to=climates_repository,
     )

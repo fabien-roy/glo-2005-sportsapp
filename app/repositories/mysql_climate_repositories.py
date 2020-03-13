@@ -1,8 +1,8 @@
 from app import conn
-from app.climates.repositories import ClimateRepository
+from app.climates.repositories import ClimatesRepository
 
 
-class MySQLClimateRepository(ClimateRepository):
+class MySQLClimatesRepository(ClimatesRepository):
     table_name = 'climates'
 
     name_col = 'name'

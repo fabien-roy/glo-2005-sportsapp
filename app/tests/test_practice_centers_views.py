@@ -2,19 +2,19 @@ import unittest
 
 from app.tests import test_basic
 from app.tests.fakes import center1, center2, center3, no_practice_center, practice_centers
-from app.tests.mocks import practice_center_repository
+from app.tests.mocks import practice_centers_repository
 
 
 def remove_practice_centers():
-    practice_center_repository.reset_mock()
-    practice_center_repository.get.side_effect = lambda practice_center_id: no_practice_center()
-    practice_center_repository.get_all.return_value = []
+    practice_centers_repository.reset_mock()
+    practice_centers_repository.get.side_effect = lambda practice_center_id: no_practice_center()
+    practice_centers_repository.get_all.return_value = []
 
 
 def add_practice_centers():
-    practice_center_repository.reset_mock()
-    practice_center_repository.get.side_effect = practice_centers
-    practice_center_repository.get_all.return_value = [center1, center2, center3]
+    practice_centers_repository.reset_mock()
+    practice_centers_repository.get.side_effect = practice_centers
+    practice_centers_repository.get_all.return_value = [center1, center2, center3]
 
 
 class PracticeCentersViewsTests(test_basic.BasicTests):
