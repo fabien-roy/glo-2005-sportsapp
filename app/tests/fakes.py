@@ -98,7 +98,7 @@ sport3.add_recommendation(sport3_recommendation1_user1)
 
 center1_recommendation1_user1 = Recommendation(None, username=user1.username, comment='Un super centre.', note=5)
 center2_recommendation1_user1 = Recommendation(None, username=user1.username, comment='Cool.', note=3)
-center2_recommendation2_user2 = Recommendation(None, username=user2.username, comment='Pourri, mais bon, 2 étoiles.', note=2)
+center2_recommendation2_user2 = Recommendation(None, username=user2.username, comment='Pourri, mais bon, 2 etoiles.', note=2)
 center3_recommendation1_user3 = Recommendation(None, username=user3.username, comment=':D', note=0)
 center3_recommendation2_user1 = Recommendation(None, username=user1.username, comment='Noice.', note=4)
 center1.add_recommendation(center1_recommendation1_user1)
