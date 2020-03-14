@@ -3,7 +3,6 @@
 
 <!-- TODO : Not "user-profile" -->
 
-
 <div class="container emp-profile">
     <div class="profile-head">
         <h3>
@@ -18,7 +17,12 @@
         <li class="nav-item">
             <a class="nav-link" id="user-practice-centers-recommendations-tab" data-toggle="tab"
                href="#practice-centers-recommendations" role="tab"
-               aria-controls="profile" aria-selected="false">Practice center recommendations</a>
+               aria-controls="profile" aria-selected="false">Practice centers recommendations</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="user-sports-recommendations-tab" data-toggle="tab"
+               href="#sports-recommendations" role="tab"
+               aria-controls="profile" aria-selected="false">Sports recommendations</a>
         </li>
     </ul>
 
@@ -43,6 +47,7 @@
                         <p>{{ user.first_name or '' }} {{ user.last_name or '' }}</p>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-md-6">
                         <label>Email</label>
@@ -51,8 +56,8 @@
                         <p>{{ user.email }}</p>
                     </div>
                 </div>
-
             </div>
+
             <div class="tab-pane fade" id="practice-centers-recommendations" role="tabpanel"
                  aria-labelledby="user-practice-centers-recommendations-tab">
                 <div class="row">
@@ -81,7 +86,36 @@
                     </div>
                 </div>
             </div>
+            <div class="tab-pane fade" id="sports-recommendations" role="tabpanel"
+                 aria-labelledby="user-sports-recommendations-tab">
+                <div class="row">
+                    <div class="col-md-6">
+                        {% for recommendation in user.sport_recommendations %}
+                        <ul class="list-unstyled">
+                            <li class="media">
+                                <div class="media-body">
+                                    <h5 class="mt-0 mb-1">
+                                        {% for i in range(recommendation.note) %}
+                                        &bigstar;
+                                        {% endfor %}
+                                        {% if recommendation.note < 5%}
+                                        {% for i in range(5 - recommendation.note) %}
+                                        &star;
+                                        {% endfor %}
+                                        {% endif %}
+                                    </h5>
+                                    <small class="text-muted">{{ recommendation.date }}</small>
+                                    <p class="article-content">{{ recommendation.comment }}
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-{% endblock %}
+
+
+    {% endblock %}

@@ -4,42 +4,99 @@
 <!-- TODO : Display other practice center information -->
 
 <!-- TODO : Not "user-profile" -->
-
-<div class="comments-page">
-    <div class="page-header">
-        <h2>{{ practice_center.name }}</h2>
-        <h10>{% if practice_center.web_site != None %}
-            <a href="{{ practice_center.web_site }}">{{ practice_center.web_site }}</a>
-            {% endif %}
-            {% if practice_center.email != None %}
-            | {{ practice_center.email }}
-            {% endif %}
-            {% if practice_center.phone_number != None %}
-            | {{ practice_center.phone_number }}
-            {% endif %}
-        </h10>
+<div class="container emp-profile">
+    <div class="profile-head">
+        <h3>
+            p/ {{practice_center.name}}
+        </h3>
     </div>
-    {% for recommendation in practice_center.recommendations %}
-    <ul class="list-unstyled">
-        <li class="media">
-            <div class="media-body">
-                <h5 class="mt-0 mb-1"><a class="mr-2" href="">{{ recommendation.username }}</a>
-                    {% for i in range(recommendation.note) %}
-                    &bigstar;
-                    {% endfor %}
-                    {% if recommendation.note < 5%}
-                    {% for i in range(5 - recommendation.note) %}
-                    &star;
-                    {% endfor %}
-                    {% endif %}
-                </h5>
-                <small class="text-muted">{{ recommendation.date }}</small>
-                <p class="article-content">{{ recommendation.comment }}
-                </p>
-            </div>
+    <ul class="nav nav-tabs" id="profile-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="practice_center-details-tab" data-toggle="tab" href="#details" role="tab"
+               aria-controls="home" aria-selected="true">Sport details</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="practice_center-recommendations-tab" data-toggle="tab"
+               href="#practice_center-recommendations" role="tab"
+               aria-controls="profile" aria-selected="false">Recommendations</a>
         </li>
     </ul>
-    {% endfor %}
-</div>
 
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="tab-content profile-tab">
+            <div class="tab-pane fade show active" id="details" role="tabpanel" aria-labelledby="sport-details-tab">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Name</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{ practice_center.name }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Website</label>
+                    </div>
+                    <div class="col-md-6">
+                        {% if practice_center.web_site != None %}
+                        <a href="{{ practice_center.web_site }}">{{ practice_center.web_site }}</a>
+                        {% else %}
+                        <p>Unspecified</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Email</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{ practice_center.email }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Phone number</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{ practice_center.phone_number }}</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="tab-pane fade" id="practice_center-recommendations" role="tabpanel"
+                 aria-labelledby="practice_center-recommendations-tab">
+                <div class="row">
+                    <div class="col-md-6">
+                        {% for recommendation in practice_center.recommendations %}
+                        <ul class="list-unstyled">
+                            <li class="media">
+                                <div class="media-body">
+                                    <h5 class="mt-0 mb-1"><a class="mr-2"
+                                                             href="{{ url_for('users.user_details', username=recommendation.username) }}">{{
+                                        recommendation.username }}</a>
+                                        {% for i in range(recommendation.note) %}
+                                        &bigstar;
+                                        {% endfor %}
+                                        {% if recommendation.note < 5%}
+                                        {% for i in range(5 - recommendation.note) %}
+                                        &star;
+                                        {% endfor %}
+                                        {% endif %}
+                                    </h5>
+                                    <small class="text-muted">{{ recommendation.date }}</small>
+                                    <p class="article-content">{{ recommendation.comment }}
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
