@@ -1,67 +1,59 @@
-/* TODO : Completely change this */
-
-/*Logo circulaire navbar*/
-.website-header img{
-  border-radius:50%;
-}
-
-/*Jumbotron Sports landing*/
-#jumbotron-sports-landing{
-    background-image: url("https://images.pexels.com/photos/848595/pexels-photo-848595.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
-    background-position: center center;
-    background-size: cover;
-}
-
-/*Jumbotron Practice centers landing*/
-#jumbotron-landing-practice-centers{
-    background-image: url("https://images.pexels.com/photos/2403502/pexels-photo-2403502.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
-    background-position: center center;
-    background-size: cover;
-}
-
-/*Jumbotron Sports landing*/
-#jumbotron-users-landing{
-    background-image: url("https://images.pexels.com/photos/939328/pexels-photo-939328.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
-    background-position: center center;
-    background-size: cover;
-}
-
-.article-content {
-  background: #ffffff;
-  padding: 10px 20px;
-  border: 5px solid #dddddd;
-  border-radius: 50px;
-  margin-bottom: 20px;
-}
-
-.comments-page{
-padding-top: 5vh;}
-
-.mt-0{
-padding-top: 2vh;}
-
-.profile-head{
-padding-top: 5vh;
-padding-bottom: 5vh;
-}
-
 body {
     padding: 60px 0;
     background: #ffffff;
 }
 
-.error {
-    color: red;
-    font-size: .8em;
+.website-header img {
+    border-radius: 50%;
 }
 
 .jumbotron {
     height: 400px;
+    background-position: center center;
+    background-size: cover;
+}
+
+#jumbotron-sports-landing {
+    background-image: url("https://images.pexels.com/photos/848595/pexels-photo-848595.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+}
+
+#jumbotron-practice-centers-landing {
+    background-image: url("https://images.pexels.com/photos/2403502/pexels-photo-2403502.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+}
+
+#jumbotron-users-landing {
+    background-image: url("https://images.pexels.com/photos/939328/pexels-photo-939328.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
 }
 
 .jumbotron h1 {
     color: #e65100;
     font-size: 60px;
     font-weight: bold;
+}
+
+.article-content {
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 5px solid #dddddd;
+    border-radius: 50px;
+    margin-bottom: 20px;
+}
+
+.comments-page {
+    padding-top: 5vh;
+}
+
+.mt-0 {
+    padding-top: 2vh;
+}
+
+.profile-head {
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+}
+
+.error {
+    color: red;
+    font-size: .8em;
 }
 
