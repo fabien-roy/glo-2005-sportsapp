@@ -1,4 +1,4 @@
-from app.repositories.mysql_queries import build_query, filter_like, filter_equal
+from app.repositories.mysql_queries import build_query, filter_equal, filter_like
 
 
 class MySQLPracticeCentersQuery:
@@ -15,14 +15,35 @@ class MySQLPracticeCentersQuery:
                      self.web_site_col + ', ' + self.phone_number_col +
                      ' FROM ' + self.table_name)
 
+        inner_filtering = True
+
         if form is None:
             filters = None
         else:
             filters = []
 
+            if form.all is not None:
+                inner_filtering = False
+                filters.append(filter_like(self.name_col, form.all.data))
+                filters.append(filter_like(self.email_col, form.all.data))
+                filters.append(filter_like(self.web_site_col, form.all.data))
+                filters.append(filter_like(self.phone_number_col, form.all.data))
+            else:
+                if form.name is not None:
+                    filters.append(filter_like(self.name_col, form.name.data))
+
+                if form.email is not None:
+                    filters.append(filter_like(self.email_col, form.email.data))
+
+                if form.web_site is not None:
+                    filters.append(filter_like(self.web_site_col, form.web_site.data))
+
+                if form.phone_number is not None:
+                    filters.append(filter_like(self.phone_number_col, form.phone_number.data))
+
         orders = [self.name_col]
 
-        return build_query(operation, filters, orders)
+        return build_query(operation, filters, orders, inner_filtering)
 
     def get(self, practice_center_id):
         operation = ('SELECT ' + self.id_col + ', ' + self.name_col + ', ' + self.email_col + ', ' +
