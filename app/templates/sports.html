@@ -6,6 +6,19 @@
         <div class="jumbotron" id="jumbotron-sports-landing">
             <h1>Sports</h1>
         </div>
+
+        <div class="container-landing-sports">
+            <div class="box-landing-sports">
+                {% from "_formhelpers.html" import render_field %}
+                <form method=post>
+                  <dl>
+                    {{ render_field(form.name) }}
+                  </dl>
+                  {{ form.submit }}
+                </form>
+            </div>
+        </div>
+
         {% if sports|length > 0 %}
         <div class="container-landing-sports">
             <div class="box-landing-sports">

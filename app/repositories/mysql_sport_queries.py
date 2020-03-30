@@ -16,8 +16,8 @@ class MySQLSportsQuery:
         else:
             filters = []
 
-            if form['name'] is not None:
-                filters.append(filter_like(self.name_col, form['name']))
+            if form.name is not None:
+                filters.append(filter_like(self.name_col, form.name.data))
 
         orders = []
         orders.append(self.name_col)
