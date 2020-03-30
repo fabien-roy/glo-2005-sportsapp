@@ -47,8 +47,7 @@ class PracticeCentersViewsTests(test_basic.BasicTests):
         self.assertIn(b'Parc des Montagnards', response.data)
         self.assertIn(b'Gault Nature Reserve of McGill University', response.data)
 
-    @patch('app.practice_centers.views.search_form')
-    def test_practice_centers_with_form_should_display_filtered_practice_centers(self, mock_search_form):
+    def test_practice_centers_with_form_should_display_filtered_practice_centers(self):
         add_practice_centers()
         response = self.app.post('/practice-centers', follow_redirects=True)
         self.assertEqual(response.status_code, 200)

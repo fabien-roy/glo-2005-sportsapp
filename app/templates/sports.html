@@ -7,23 +7,23 @@
             <h1>Sports</h1>
         </div>
 
-        <div class="container-landing-sports">
+        <div class="col-md-6 col-sm-12 container-landing container-landing-sports">
             <div class="box-landing-sports">
                 <form class="form form-horizontal" method="post" role="form">
                     <div class="form-group">
                         <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ form.name.data }}">
                     </div>
-                    <button type="submit" class="btn btn-success">Submit</button>
+                    <button type="submit" class="btn btn-block btn-success">Search</button>
                 </form>
             </div>
         </div>
 
         {% if sports|length > 0 %}
-        <div class="container-landing-sports">
+        <div class="col-md-6 col-sm-12 container-landing container-landing-sports">
             <div class="box-landing-sports">
                 {% for sport in sports %}
 
-                <a class="btn btn-outline-dark btn-lg btn-block active"
+                <a class="btn btn-outline-dark btn-block active"
                    href="{{ url_for('sports.sport_details', sport_id=sport.id) }}">{{sport.name}}
                 </a>
 

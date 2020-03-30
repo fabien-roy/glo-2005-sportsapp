@@ -7,11 +7,11 @@
             <h1>Users</h1>
         </div>
         {% if users|length > 0 %}
-        <div class="container-landing-users">
+        <div class="col-md-6 col-sm-12 container-landing container-landing-users">
             <div class="box-landing-users">
                 {% for user in users %}
 
-                <a class="btn btn-outline-dark btn-lg btn-block active"
+                <a class="btn btn-outline-dark btn-block active"
                    href="{{ url_for('users.user_details', username=user.username) }}">{{user.username}}
                 </a>
 

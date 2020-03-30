@@ -25,6 +25,10 @@ body {
     background-image: url("https://images.pexels.com/photos/939328/pexels-photo-939328.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
 }
 
+.jumbotron {
+    width: 100%;
+}
+
 .jumbotron h1 {
     color: #e65100;
     font-size: 60px;
@@ -57,3 +61,13 @@ body {
     font-size: .8em;
 }
 
+.container .container-landing {
+    display: inline-block;
+    float: left;
+}
+
+.footer {
+    display: inline-block;
+    width: 100%;
+    text-align: right;
+}
