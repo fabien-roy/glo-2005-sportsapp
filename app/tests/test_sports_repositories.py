@@ -3,9 +3,11 @@ from app.repositories.mysql_practice_center_repositories import MySQLPracticeCen
 from app.repositories.mysql_sport_repositories import MySQLSportsRepository, MySQLSportClimateRepository
 from app.repositories.mysql_user_repositories import MySQLUsersRepository
 from app.sports.exceptions import SportNotFoundException
+from app.sports.forms import SportsSearchForm
 from app.tests import test_basic
 from app.tests.fakes import sport1, sport2, sport3, climate1, climate2, climate3, user2, \
     user1, user3, sport1_recommendation1_user1, sport2_recommendation1_user3, sport2_recommendation2_user2, sport3_recommendation1_user1
+from app.tests.forms import FakeSportsForm
 from instance.db_create import db_create
 
 sport_repository = MySQLSportsRepository()
@@ -97,3 +99,11 @@ class SportsRepositoryTests(test_basic.BasicTests):
         self.assertIn(sport1, sports)
         self.assertIn(sport2, sports)
         self.assertIn(sport3, sports)
+
+    def test_get_all_with_name_filter_get_sports(self):
+        add_sports()
+        form = FakeSportsForm(sport1.name)
+        sports = sport_repository.get_all(form)
+        self.assertIn(sport1, sports)
+        self.assertNotIn(sport2, sports)
+        self.assertNotIn(sport3, sports)

@@ -21,7 +21,7 @@ class UsersViewsTests(test_basic.BasicTests):
 
     def test_users_with_no_sport_should_display_no_user(self):
         remove_users()
-        response = self.app.get('/users/', follow_redirects=True)
+        response = self.app.get('/users', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'SportsApp', response.data)
         self.assertIn(b'Users', response.data)
@@ -31,7 +31,7 @@ class UsersViewsTests(test_basic.BasicTests):
 
     def test_users_with_users_should_display_users(self):
         add_users()
-        response = self.app.get('/users/', follow_redirects=True)
+        response = self.app.get('/users', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'SportsApp', response.data)
         self.assertIn(b'Users', response.data)

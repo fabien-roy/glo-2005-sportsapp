@@ -9,7 +9,7 @@ practice_centers_blueprint = Blueprint('practice_centers', __name__)
 
 
 # TODO : Make practice centers query params for search
-@practice_centers_blueprint.route('/practice-centers/')
+@practice_centers_blueprint.route('/practice-centers')
 def practice_centers(practice_centers_repository: PracticeCentersRepository):
     all_practice_centers = practice_centers_repository.get_all()
     return render_template('practice_centers.html', practice_centers=all_practice_centers)

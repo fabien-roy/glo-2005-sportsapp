@@ -9,7 +9,7 @@ users_blueprint = Blueprint('users', __name__)
 
 
 # TODO : Make users query params for search
-@users_blueprint.route('/users/')
+@users_blueprint.route('/users')
 def users(users_repository: UsersRepository):
     all_users = users_repository.get_all()
     return render_template('users.html', users=all_users)

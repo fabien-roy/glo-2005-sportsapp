@@ -21,7 +21,7 @@ class PracticeCentersViewsTests(test_basic.BasicTests):
 
     def test_practice_centers_with_no_practice_center_should_display_no_practice_center(self):
         remove_practice_centers()
-        response = self.app.get('/practice-centers/', follow_redirects=True)
+        response = self.app.get('/practice-centers', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'SportsApp', response.data)
         self.assertIn(b'Practice Centers', response.data)
@@ -31,7 +31,7 @@ class PracticeCentersViewsTests(test_basic.BasicTests):
 
     def test_practice_centers_with_practice_centers_should_display_practice_centers(self):
         add_practice_centers()
-        response = self.app.get('/practice-centers/', follow_redirects=True)
+        response = self.app.get('/practice-centers', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'SportsApp', response.data)
         self.assertIn(b'Practice Centers', response.data)
