@@ -9,12 +9,11 @@
 
         <div class="container-landing-sports">
             <div class="box-landing-sports">
-                {% from "_formhelpers.html" import render_field %}
-                <form method=post>
-                  <dl>
-                    {{ render_field(form.name) }}
-                  </dl>
-                  {{ form.submit }}
+                <form class="form form-horizontal" method="post" role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ form.name.data }}">
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
                 </form>
             </div>
         </div>
