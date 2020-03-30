@@ -1,5 +1,5 @@
 class SportsRepository:
-    def get_all(self, form):
+    def get_all(self, form=None):
         pass
 
     def get(self, sport_id):

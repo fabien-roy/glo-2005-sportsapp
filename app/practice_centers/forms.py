@@ -1,13 +1,29 @@
-from flask_wtf import Form
-from wtforms import StringField
-from wtforms.validators import DataRequired, Length
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import InputRequired, Length
 
 
-# TODO : Is this useful?
-class SearchByName(Form):
-    name = StringField('Name', validators=[DataRequired(), Length(min=2, max=50)])
+class PracticeCentersSearchForm(FlaskForm):
+    class Meta:
+        csrf = False
 
 
-# TODO : Is this useful?
-class SearchByAddress(Form):
-    address = StringField('Address', validators=[DataRequired(), Length(min=2, max=50)])
+class PracticeCentersGeneralSearchForm(PracticeCentersSearchForm):
+    all = StringField('Any field', validators=[InputRequired(), Length(max=200)])
+    submit = SubmitField('Search')
+
+
+class PracticeCentersSpecificSearchForm(PracticeCentersSearchForm):
+    name = StringField('Name', validators=[Length(max=50)])
+    email = StringField('Email', validators=[Length(max=100)])
+    web_site = StringField('Web site', validators=[Length(max=200)])
+    phone_number = StringField('Phone number', validators=[Length(max=20)])
+    submit = SubmitField('Search')
+
+
+def create_practice_centers_form(form=None):
+    if len(form) > 0:
+        if form.all is None:
+            return PracticeCentersSpecificSearchForm(form)
+        else:
+            return PracticeCentersGeneralSearchForm(form)

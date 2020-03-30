@@ -1,5 +1,5 @@
 class PracticeCentersRepository:
-    def get_all(self):
+    def get_all(self, form=None):
         pass
 
     def get(self, practice_center_id):
