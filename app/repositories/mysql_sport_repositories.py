@@ -1,6 +1,7 @@
 from app import conn
 from app.climates.models import Climate
 from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
+from app.repositories.mysql_sport_queries import MySQLSportsQuery
 from app.sports.exceptions import SportNotFoundException
 from app.sports.models import Sport
 from app.sports.repositories import SportsRepository
@@ -87,22 +88,21 @@ class MySQLSportRecommendationRepository:
 
 
 class MySQLSportsRepository(SportsRepository):
-    table_name = 'sports'
+    table_name = MySQLSportsQuery.table_name
 
-    id_col = 'id'
-    name_col = 'name'
+    id_col = MySQLSportsQuery.id_col
+    name_col = MySQLSportsQuery.name_col
 
     sport_climate_repository = MySQLSportClimateRepository()
     sport_recommendation_repository = MySQLSportRecommendationRepository()
 
-    def get_all(self):
+    def get_all(self, form=None):
         all_sports = []
 
         try:
             with conn.cursor() as cur:
-                cur.execute('SELECT ' + self.id_col + ', ' + self.name_col +
-                            ' FROM ' + self.table_name +
-                            ' ORDER BY ' + self.name_col + ';')
+                query = MySQLSportsQuery().get_all(form)
+                cur.execute(query)
 
                 for sport_cur in cur.fetchall():
                     sport = Sport(sport_cur[self.id_col], sport_cur[self.name_col])
@@ -117,10 +117,8 @@ class MySQLSportsRepository(SportsRepository):
 
         try:
             with conn.cursor() as cur:
-                sql = ('SELECT ' + self.id_col + ', ' + self.name_col +
-                       ' FROM ' + self.table_name +
-                       ' WHERE ' + self.id_col + ' = %s;')
-                cur.execute(sql, sport_id)
+                query = MySQLSportsQuery().get(sport_id)
+                cur.execute(query)
 
                 # TODO : Use fetchone (causes integer error)
                 for sport_cur in cur.fetchall():
@@ -138,10 +136,8 @@ class MySQLSportsRepository(SportsRepository):
     def add(self, sport):
         try:
             with conn.cursor() as cur:
-                sql = ('INSERT INTO ' + self.table_name +
-                       ' (' + self.name_col + ')' +
-                       ' VALUES (%s);')
-                cur.execute(sql, sport.name)
+                query = MySQLSportsQuery().add()
+                cur.execute(query, sport.name)
 
                 conn.commit()
 

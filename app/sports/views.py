@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint
+from flask import render_template, Blueprint, request
 from flask.views import View
 from injector import inject
 
@@ -8,10 +8,12 @@ from app.sports.repositories import SportsRepository
 sports_blueprint = Blueprint('sports', __name__)
 
 
-# TODO : Make sports query params for search
-@sports_blueprint.route('/sports/')
+@sports_blueprint.route('/sports')
 def sports(sports_repository: SportsRepository):
-    all_sports = sports_repository.get_all()
+    if len(request.form) == 0:
+        all_sports = sports_repository.get_all(None)
+    else:
+        all_sports = sports_repository.get_all(request.form)
     return render_template('sports.html', sports=all_sports)
 
 

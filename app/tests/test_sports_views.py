@@ -21,7 +21,7 @@ class SportsViewsTests(test_basic.BasicTests):
 
     def test_sports_with_no_sport_should_display_no_sport(self):
         remove_sports()
-        response = self.app.get('/sports/', follow_redirects=True)
+        response = self.app.get('/sports', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'SportsApp', response.data)
         self.assertIn(b'Sports', response.data)
@@ -31,7 +31,7 @@ class SportsViewsTests(test_basic.BasicTests):
 
     def test_sports_with_sports_should_display_sports(self):
         add_sports()
-        response = self.app.get('/sports/', follow_redirects=True)
+        response = self.app.get('/sports', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'SportsApp', response.data)
         self.assertIn(b'Sports', response.data)
