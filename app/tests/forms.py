@@ -4,7 +4,14 @@ class Data:
         self.data = data
 
 
-class FakeSportsForm:
+class FakeForm:
+
+    @staticmethod
+    def validate_on_submit():
+        return True
+
+
+class FakeSportsForm(FakeForm):
 
     def __init__(self, name):
         self.name = Data(name)

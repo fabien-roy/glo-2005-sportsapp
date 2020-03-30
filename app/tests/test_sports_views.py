@@ -8,13 +8,20 @@ from app.tests.mocks import sport_repository
 def remove_sports():
     sport_repository.reset_mock()
     sport_repository.get.side_effect = lambda sport_id: no_sport()
-    sport_repository.get_all.return_value = []
+    sport_repository.get_all.side_effect = lambda form: []
 
 
 def add_sports():
     sport_repository.reset_mock()
     sport_repository.get.side_effect = sports
-    sport_repository.get_all.return_value = [sport1, sport2, sport3]
+    sport_repository.get_all.side_effect = get_all_side_effect
+
+
+def get_all_side_effect(form):
+    if form is None:
+        return [sport1, sport2, sport3]
+    else:
+        return [sport1]
 
 
 class SportsViewsTests(test_basic.BasicTests):
@@ -38,6 +45,16 @@ class SportsViewsTests(test_basic.BasicTests):
         self.assertIn(b'Randonnee', response.data)
         self.assertIn(b'Escalade', response.data)
         self.assertIn(b'Natation', response.data)
+
+    def test_sports_with_form_should_display_filtered_sports(self):
+        add_sports()
+        response = self.app.post('/sports', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'SportsApp', response.data)
+        self.assertIn(b'Sports', response.data)
+        self.assertIn(b'Randonnee', response.data)
+        self.assertNotIn(b'Escalade', response.data)
+        self.assertNotIn(b'Natation', response.data)
 
     def test_sport_details_should_display_sport_details(self):
         add_sports()
