@@ -2,13 +2,20 @@
 <a class="btn btn-outline-dark btn-block active" href="{{ url }}">{{ name }}</a>
 {%- endmacro %}
 
+{% macro nothing() -%}
+<p>There is nothing here...</p>
+{%- endmacro %}
+
 {% macro list(items) -%}
 {% if items|length > 0 %}
-
 
 {% for item in items %}
 {{ item }}
 {% endfor %}
+
+{% else %}
+
+{{ nothing() }}
 
 {% endif %}
 {%- endmacro %}

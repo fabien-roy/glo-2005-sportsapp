@@ -1,0 +1,36 @@
+{% macro stars(note) -%}
+{% for i in range(note) %}
+&bigstar;
+{% endfor %}
+{% if note < 5%}
+{% for i in range(5 - note) %}
+&star;
+{% endfor %}
+{% endif %}
+{%- endmacro %}
+
+{% macro list_item(username, note, date, comment) -%}
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title"><a class="mr-2"
+                              href="{{ url_for('users.user_details', username=username) }}">{{ username }}</a></h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{ stars(note) }}</h6>
+    <h6 class="text-muted">{{ date }}</h6>
+    <p class="card-text">{{ comment }}</p>
+  </div>
+</div>
+{%- endmacro %}
+
+{% macro nothing() -%}
+<p>There is no recommandations yet...</p>
+{%- endmacro %}
+
+{% macro list(recommendations) -%}
+{% if recommendations|length > 0 %}
+{% for recommendation in recommendations %}
+{{ list_item(recommendation.username, recommendation.note, recommendation.date, recommendation.comment) }}
+{% endfor %}
+{% else %}
+{{ nothing() }}
+{% endif %}
+{%- endmacro %}

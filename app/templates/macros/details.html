@@ -1,0 +1,24 @@
+{% macro value_or_unspecified(value) -%}
+{% if value != None %}
+{{ value }}
+{% else %}
+Unspecified
+{% endif %}
+{%- endmacro %}
+
+{% macro detail(name, value) -%}
+<div class="row">
+    <div class="col-md-6">
+        <label class="details-label">{{ name }}</label>
+    </div>
+    <div class="col-md-6">
+        <p>{{ value_or_unspecified(value) }}</p>
+    </div>
+</div>
+{%- endmacro %}
+
+{% macro details(items) -%}
+{% for item in items %}
+{{ item }}
+{% endfor %}
+{%- endmacro %}

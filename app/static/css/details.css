@@ -1,4 +1,4 @@
-.details-head {
-    padding-top: 5vh;
-    padding-bottom: 5vh;
+.details-label {
+    font-weight: bold;
+    float: right;
 }

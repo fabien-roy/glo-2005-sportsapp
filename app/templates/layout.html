@@ -12,16 +12,14 @@
 
 {% include 'partials/header.html' %}
 
+{% block content %}
 <div class="container">
-    <div class="content">
+    {% include 'partials/errors.html' %}
 
-        {% include 'partials/errors.html' %}
-
-        {% block content %}
-        {% endblock %}
-
-    </div>
+    {% block inner_content %}
+    {% endblock %}
 </div>
+{% endblock %}
 
 {% include 'partials/footer.html' %}
 
