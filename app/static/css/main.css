@@ -71,3 +71,7 @@ body {
     width: 100%;
     text-align: right;
 }
+
+.tab-content {
+    padding-top: 1em;
+}
