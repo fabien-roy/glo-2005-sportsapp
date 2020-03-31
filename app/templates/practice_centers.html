@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 {% block content %}
 
 <div class="practice_centers-landing">
@@ -6,12 +7,57 @@
         <div class="jumbotron" id="jumbotron-practice-centers-landing">
             <h1>Practice Centers</h1>
         </div>
+
+        <div class="col-md-6 col-sm-12 container-landing container-landing-practice-centers">
+            <div class="box-landing-practice-centers">
+                <ul class="nav nav-tabs nav-fill" role="tablist">
+                  <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#search-general">General</a></li>
+                  <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#search-advanced">Advanced</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="search-general" class="tab-pane fade show active">
+                        <form class="form form-horizontal" method="post" role="form">
+                            {{ form.hidden_tag() }}
+                            {{ wtf.form_errors(form, hiddens="only") }}
+
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="all" name="all" placeholder="Any field" value="{{ form.all.data }}">
+                            </div>
+                            <button type="submit" class="btn btn-block btn-success">Search</button>
+                        </form>
+                    </div>
+                    <div id="search-advanced" class="tab-pane fade">
+                        <form class="form form-horizontal" method="post" role="form">
+                            {{ form.hidden_tag() }}
+                            {{ wtf.form_errors(form, hiddens="only") }}
+
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ form.name.data }}">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="{{ form.email.data }}">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="web_site" name="web_site" placeholder="Web site" value="{{ form.web_site.data }}">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Phone number" value="{{ form.phone_number.data }}">
+                            </div>
+
+                            <button type="submit" class="btn btn-block btn-success">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         {% if practice_centers|length > 0 %}
-        <div class="container-landing-practice-centers">
+        <div class="col-md-6 col-sm-12 container-landing container-landing-practice-centers">
             <div class="box-landing-practice-centers">
                 {% for practice_center in practice_centers %}
 
-                <a class="btn btn-outline-dark btn-lg btn-block active"
+                <a class="btn btn-outline-dark btn-block active"
                    href="{{ url_for('practice_centers.practice_center_details', practice_center_id=practice_center.id) }}">{{practice_center.name}}
                 </a>
 

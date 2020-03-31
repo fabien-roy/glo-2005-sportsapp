@@ -1,12 +1,14 @@
 from flask import Flask, render_template
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_pyfile('flask.cfg')
 
 bcrypt = Bcrypt(app)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
+Bootstrap(app)
 
 # Database
 

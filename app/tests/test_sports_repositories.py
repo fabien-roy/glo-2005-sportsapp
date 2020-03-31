@@ -100,7 +100,7 @@ class SportsRepositoryTests(test_basic.BasicTests):
         self.assertIn(sport2, sports)
         self.assertIn(sport3, sports)
 
-    def test_get_all_with_name_filter_get_sports(self):
+    def test_get_all_with_name_filter_sports(self):
         add_sports()
         form = FakeSportsForm(sport1.name)
         sports = sport_repository.get_all(form)

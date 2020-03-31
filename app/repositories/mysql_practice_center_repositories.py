@@ -3,6 +3,7 @@ from app.climates.models import Climate
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
 from app.practice_centers.models import PracticeCenter
 from app.practice_centers.repositories import PracticeCentersRepository
+from app.repositories.mysql_practice_center_queries import MySQLPracticeCentersQuery
 from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
 
 
@@ -87,26 +88,24 @@ class MySQLPracticeCenterRecommendationRepository:
 
 
 class MySQLPracticeCentersRepository(PracticeCentersRepository):
-    table_name = 'practice_centers'
+    table_name = MySQLPracticeCentersQuery.table_name
 
-    id_col = 'id'
-    name_col = 'name'
-    email_col = 'email'
-    web_site_col = 'web_site'
-    phone_number_col = 'phone_number'
+    id_col = MySQLPracticeCentersQuery.id_col
+    name_col = MySQLPracticeCentersQuery.name_col
+    email_col = MySQLPracticeCentersQuery.email_col
+    web_site_col = MySQLPracticeCentersQuery.web_site_col
+    phone_number_col = MySQLPracticeCentersQuery.phone_number_col
 
     practice_center_climate_repository = MySQLPracticeCenterClimateRepository()
     practice_center_recommendation_repository = MySQLPracticeCenterRecommendationRepository()
 
-    def get_all(self):
+    def get_all(self, form=None):
         all_practice_centers = []
 
         try:
             with conn.cursor() as cur:
-                cur.execute('SELECT ' + self.id_col + ', ' + self.name_col + ', ' + self.email_col + ', ' +
-                            self.web_site_col + ', ' + self.phone_number_col +
-                            ' FROM ' + self.table_name +
-                            ' ORDER BY ' + self.name_col + ';')
+                query = MySQLPracticeCentersQuery().get_all(form)
+                cur.execute(query)
 
                 for practice_center_cur in cur.fetchall():
                     practice_center = PracticeCenter(practice_center_cur[self.id_col],
@@ -125,16 +124,14 @@ class MySQLPracticeCentersRepository(PracticeCentersRepository):
 
         try:
             with conn.cursor() as cur:
-                sql = ('SELECT ' + self.id_col + ', ' + self.name_col + ', ' + self.email_col + ', ' +
-                       self.web_site_col + ', ' + self.phone_number_col +
-                       ' FROM ' + self.table_name +
-                       ' WHERE ' + self.id_col + ' = %s;')
-                cur.execute(sql, practice_center_id)
+                query = MySQLPracticeCentersQuery().get(practice_center_id)
+                cur.execute(query)
 
                 # TODO : Use fetchone (causes integer error)
                 for practice_center_cur in cur.fetchall():
                     climates = self.practice_center_climate_repository.get_climates(practice_center_id)
-                    recommendations = self.practice_center_recommendation_repository.get_recommendations(practice_center_id)
+                    recommendations = self.practice_center_recommendation_repository.get_recommendations(
+                        practice_center_id)
                     practice_center = PracticeCenter(practice_center_id,
                                                      practice_center_cur[self.name_col],
                                                      practice_center_cur[self.email_col],
@@ -153,12 +150,9 @@ class MySQLPracticeCentersRepository(PracticeCentersRepository):
     def add(self, practice_center):
         try:
             with conn.cursor() as cur:
-                sql = ('INSERT INTO ' + self.table_name +
-                       ' (' + self.name_col + ', ' + self.email_col + ', ' + self.web_site_col +
-                       ', ' + self.phone_number_col + ')' +
-                       ' VALUES (%s, %s, %s, %s);')
-                cur.execute(sql, (practice_center.name, practice_center.email, practice_center.web_site,
-                                  practice_center.phone_number))
+                query = MySQLPracticeCentersQuery().add()
+                cur.execute(query, (practice_center.name, practice_center.email, practice_center.web_site,
+                                    practice_center.phone_number))
 
                 conn.commit()
 

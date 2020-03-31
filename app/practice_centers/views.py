@@ -1,18 +1,24 @@
-from flask import render_template, Blueprint
+from flask import render_template, Blueprint, request
 from flask.views import View
 from injector import inject
 
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
+from app.practice_centers.forms import PracticeCentersSearchForm
 from app.practice_centers.repositories import PracticeCentersRepository
 
 practice_centers_blueprint = Blueprint('practice_centers', __name__)
 
 
-# TODO : Make practice centers query params for search
-@practice_centers_blueprint.route('/practice-centers')
+@practice_centers_blueprint.route('/practice-centers', methods=('GET', 'POST'))
 def practice_centers(practice_centers_repository: PracticeCentersRepository):
-    all_practice_centers = practice_centers_repository.get_all()
-    return render_template('practice_centers.html', practice_centers=all_practice_centers)
+    form = PracticeCentersSearchForm(request.form)
+
+    if request.method == 'POST' and form.validate_on_submit():
+        all_practice_centers = practice_centers_repository.get_all(form)
+    else:
+        all_practice_centers = practice_centers_repository.get_all(None)
+
+    return render_template('practice_centers.html', practice_centers=all_practice_centers, form=form)
 
 
 @practice_centers_blueprint.route('/practice-centers/<practice_center_id>')

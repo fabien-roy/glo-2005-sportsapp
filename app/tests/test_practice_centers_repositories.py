@@ -7,6 +7,7 @@ from app.tests import test_basic
 from app.tests.fakes import center1, center3, center2, climate1, climate2, climate3, user2, \
     user1, user3, center1_recommendation1_user1, center2_recommendation1_user1, center2_recommendation2_user2, center3_recommendation1_user3, \
     center3_recommendation2_user1
+from app.tests.forms import FakePracticeCentersForm
 from instance.db_create import db_create
 
 sport_repository = MySQLSportsRepository()
@@ -99,3 +100,43 @@ class PracticeCenterRepositoryTests(test_basic.BasicTests):
         self.assertIn(center1, practice_centers)
         self.assertIn(center2, practice_centers)
         self.assertIn(center3, practice_centers)
+
+    def test_get_all_with_all_filter_practice_centers(self):
+        add_practice_centers()
+        form = FakePracticeCentersForm(all=center1.name)
+        practice_centers = practice_center_repository.get_all(form)
+        self.assertIn(center1, practice_centers)
+        self.assertNotIn(center2, practice_centers)
+        self.assertNotIn(center3, practice_centers)
+
+    def test_get_all_with_name_filter_practice_centers(self):
+        add_practice_centers()
+        form = FakePracticeCentersForm(name=center1.name)
+        practice_centers = practice_center_repository.get_all(form)
+        self.assertIn(center1, practice_centers)
+        self.assertNotIn(center2, practice_centers)
+        self.assertNotIn(center3, practice_centers)
+
+    def test_get_all_with_email_filter_practice_centers(self):
+        add_practice_centers()
+        form = FakePracticeCentersForm(email=center1.email)
+        practice_centers = practice_center_repository.get_all(form)
+        self.assertIn(center1, practice_centers)
+        self.assertNotIn(center2, practice_centers)
+        self.assertNotIn(center3, practice_centers)
+
+    def test_get_all_with_web_site_filter_practice_centers(self):
+        add_practice_centers()
+        form = FakePracticeCentersForm(web_site=center1.web_site)
+        practice_centers = practice_center_repository.get_all(form)
+        self.assertIn(center1, practice_centers)
+        self.assertNotIn(center2, practice_centers)
+        self.assertNotIn(center3, practice_centers)
+
+    def test_get_all_with_phone_number_filter_practice_centers(self):
+        add_practice_centers()
+        form = FakePracticeCentersForm(phone_number=center1.phone_number)
+        practice_centers = practice_center_repository.get_all(form)
+        self.assertIn(center1, practice_centers)
+        self.assertNotIn(center2, practice_centers)
+        self.assertNotIn(center3, practice_centers)
