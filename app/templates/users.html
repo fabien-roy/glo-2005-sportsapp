@@ -1,27 +1,23 @@
-{% extends "layout.html" %}
-{% block content %}
+{% extends "list.html" %}
+{% from 'macros/jumbotron.html' import jumbotron %}
+{% from 'macros/list.html' import list, list_item %}
 
-<div class="users-landing">
-    <div class="container">
-        <div class="jumbotron" id="jumbotron-users-landing">
-            <h1>Users</h1>
-        </div>
-        {% if users|length > 0 %}
-        <div class="col-md-6 col-sm-12 container-landing container-landing-users">
-            <div class="box-landing-users">
-                {% for user in users %}
+{% block jumbotron %}
+{{ jumbotron('Users', 'users') }}
+{% endblock %}
 
-                <a class="btn btn-outline-dark btn-block active"
-                   href="{{ url_for('users.user_details', username=user.username) }}">{{user.username}}
-                </a>
+{% block search_pane %}
+<!-- TODO : User search pane -->
+{% endblock %}
 
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
+{% block list_pane %}
+{% set items = [] %}
 
-    </div>
+<div class="invisible">
+    {% for user in users %}
+    {{ items.append(list_item(user.username, url_for('users.user_details', username=user.username))) }}
+    {% endfor %}
 </div>
 
-
+{{ list(items) }}
 {% endblock %}
