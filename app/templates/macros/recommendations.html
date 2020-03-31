@@ -1,0 +1,53 @@
+{% macro stars(note) -%}
+{% for i in range(note) %}
+&bigstar;
+{% endfor %}
+{% if note < 5%}
+{% for i in range(5 - note) %}
+&star;
+{% endfor %}
+{% endif %}
+{%- endmacro %}
+
+{% macro list_item(username, note, date, comment) -%}
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title"><a class="mr-2"
+                              href="{{ url_for('users.user_details', username=username) }}">{{ username }}</a></h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{ stars(note) }}</h6>
+    <h6 class="text-muted">{{ date }}</h6>
+    <p class="card-text">{{ comment }}</p>
+  </div>
+</div>
+{%- endmacro %}
+
+{% macro nothing() -%}
+<p>There is no recommandations yet...</p>
+{%- endmacro %}
+
+{% macro list(recommendations) -%}
+{% if recommendations|length > 0 %}
+{% for recommendation in recommendations %}
+{{ list_item(recommendation.username, recommendation.note, recommendation.date, recommendation.comment) }}
+{% endfor %}
+{% else %}
+{{ nothing() }}
+{% endif %}
+{%- endmacro %}
+
+<!-- TODO : Write sport/center name and link URL in user details -->
+{% macro double_list(sport_recommendations, practice_center_recommendations) -%}
+<ul class="nav nav-tabs nav-fill" role="tablist">
+  <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#sport_recommendations">Sport recommendations</a></li>
+  <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#practice_center_recommendations">Practice center recommendations</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="sport_recommendations" class="tab-pane fade show active">
+    {{ list(sport_recommendations) }}
+  </div>
+  <div id="practice_center_recommendations" class="tab-pane fade">
+    {{ list(practice_center_recommendations) }}
+  </div>
+</div>
+{%- endmacro %}

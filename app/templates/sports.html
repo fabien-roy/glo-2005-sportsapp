@@ -1,39 +1,24 @@
-{% extends "layout.html" %}
-{% block content %}
+{% extends "list.html" %}
+{% from 'macros/jumbotron.html' import jumbotron %}
+{% from 'macros/search.html' import input, search_pane %}
+{% from 'macros/list.html' import list, list_item %}
 
-<div class="sports-landing">
-    <div class="container">
-        <div class="jumbotron" id="jumbotron-sports-landing">
-            <h1>Sports</h1>
-        </div>
+{% block jumbotron %}
+{{ jumbotron('Sports', 'sports') }}
+{% endblock %}
 
-        <div class="col-md-6 col-sm-12 container-landing container-landing-sports">
-            <div class="box-landing-sports">
-                <form class="form form-horizontal" method="post" role="form">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ form.name.data }}">
-                    </div>
-                    <button type="submit" class="btn btn-block btn-success">Search</button>
-                </form>
-            </div>
-        </div>
+{% block search_pane %}
+{{ search_pane(form, [input('name', 'Name', form.name.data)]) }}
+{% endblock %}
 
-        {% if sports|length > 0 %}
-        <div class="col-md-6 col-sm-12 container-landing container-landing-sports">
-            <div class="box-landing-sports">
-                {% for sport in sports %}
+{% block list_pane %}
+{% set items = [] %}
 
-                <a class="btn btn-outline-dark btn-block active"
-                   href="{{ url_for('sports.sport_details', sport_id=sport.id) }}">{{sport.name}}
-                </a>
-
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
-
-    </div>
+<div class="invisible">
+    {% for sport in sports %}
+    {{ items.append(list_item(sport.name, url_for('sports.sport_details', sport_id=sport.id))) }}
+    {% endfor %}
 </div>
 
-
+{{ list(items) }}
 {% endblock %}

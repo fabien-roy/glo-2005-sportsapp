@@ -1,0 +1,48 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% macro input(name, placeholder, value) -%}
+<div class="form-group">
+    <input type="text" class="form-control" id="{{ name }}" name="{{ name }}" placeholder="{{ placeholder }}" value="{{ value }}">
+</div>
+{%- endmacro %}
+
+{% macro submit() -%}
+<button type="submit" class="btn btn-block btn-success">Search</button>
+{%- endmacro %}
+
+{% macro search_form(form, inputs) -%}
+<form class="form form-horizontal" method="post" role="form">
+    {{ form.hidden_tag() }}
+    {{ wtf.form_errors(form, hiddens="only") }}
+
+    {% for input in inputs %}
+      {{ input }}
+    {% endfor %}
+
+    {{ submit() }}
+</form>
+{%- endmacro %}
+
+{% macro search_form_general(form) -%}
+{{ search_form(form, [input('all', 'Any field', form.all.data)]) }}
+{%- endmacro %}
+
+{% macro search_pane(form, inputs) -%}
+{{ search_form(form, inputs) }}
+{%- endmacro %}
+
+{% macro search_pane_advanced(form, inputs) -%}
+<ul class="nav nav-tabs nav-fill" role="tablist">
+  <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#search-general">General</a></li>
+  <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#search-advanced">Advanced</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="search-general" class="tab-pane fade show active">
+        {{ search_form_general(form) }}
+    </div>
+    <div id="search-advanced" class="tab-pane fade">
+        {{ search_form(form, inputs) }}
+    </div>
+</div>
+{%- endmacro %}
