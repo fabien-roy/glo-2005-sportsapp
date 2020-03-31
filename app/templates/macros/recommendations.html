@@ -38,7 +38,7 @@
 {% macro practice_center_recommendations_list(recommendations) -%}
 {% if recommendations|length > 0 %}
 {% for recommendation in recommendations %}
-{{ recommendation_item(url_for('practice_centers.practice_center_details', practice_center_id=recommendation.practice_center_id), recommendation.username, recommendation.note, recommendation.date, recommendation.comment) }}
+{{ recommendation_item(url_for('practice_centers.practice_center_details', practice_center_id=recommendation.item_id), recommendation.name, recommendation.note, recommendation.date, recommendation.comment) }}
 {% endfor %}
 {% else %}
 {{ nothing() }}
@@ -48,7 +48,7 @@
 {% macro sport_recommendations_list(recommendations) -%}
 {% if recommendations|length > 0 %}
 {% for recommendation in recommendations %}
-{{ recommendation_item(url_for('sports.sport_details', sport_id=recommendation.sport_id), recommendation.username, recommendation.note, recommendation.date, recommendation.comment) }}
+{{ recommendation_item(url_for('sports.sport_details', sport_id=recommendation.item_id), recommendation.name, recommendation.note, recommendation.date, recommendation.comment) }}
 {% endfor %}
 {% else %}
 {{ nothing() }}
@@ -56,7 +56,6 @@
 {%- endmacro %}
 
 <!-- TODO : Generalize tab template -->
-<!-- TODO : Get sport and practice centers -->
 {% macro double_recommendations_list(sport_recommendations, practice_center_recommendations) -%}
 <ul class="nav nav-tabs nav-fill" role="tablist">
   <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#sport-recommendations">Sport recommendations</a></li>
