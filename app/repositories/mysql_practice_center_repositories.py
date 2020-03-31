@@ -54,23 +54,7 @@ class MySQLPracticeCenterRecommendationRepository:
     recommendation_repository = MySQLRecommendationsRepository()
 
     def get_recommendations(self, practice_center_id):
-        recommendations = []
-
-        try:
-            with conn.cursor() as cur:
-                sql = ('SELECT ' + self.recommendation_id_col +
-                       ' FROM ' + self.table_name +
-                       ' WHERE ' + self.practice_center_id_col + ' = %s;')
-                cur.execute(sql, practice_center_id)
-
-                # TODO : Solve n+1 problem
-                for recommendation_cur in cur.fetchall():
-                    recommendation = self.recommendation_repository.get(recommendation_cur[self.recommendation_id_col])
-                    recommendations.append(recommendation)
-        finally:
-            cur.close()
-
-        return recommendations
+        return self.recommendation_repository.get_practice_center_recommendations(practice_center_id)
 
     def add(self, practice_center_id, recommendation):
         self.recommendation_repository.add(recommendation)

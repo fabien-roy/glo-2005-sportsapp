@@ -85,22 +85,26 @@ def users(username):
 def no_user():
     raise UserNotFoundException
 
+
 # Recommendations
 
-sport1_recommendation1_user1 = Recommendation(1, username=user1.username, comment='Un super sport. J\' adore.', note=5)
-sport2_recommendation1_user3 = Recommendation(2, username=user3.username, comment='Cool.', note=3)
-sport2_recommendation2_user2 = Recommendation(3, username=user2.username, comment='Pourri.', note=0)
-sport3_recommendation1_user1 = Recommendation(4, username=user1.username, comment=':D', note=5)
+sport1_recommendation1_user1 = Recommendation(1, sport1.id, user1.username, 'Un super sport. J\' adore.', 5,
+                                              sport1.name)
+sport2_recommendation1_user3 = Recommendation(2, sport2.id, user3.username, 'Cool.', 3, sport2.name)
+sport2_recommendation2_user2 = Recommendation(3, sport2.id, user2.username, 'Pourri.', 0, sport2.name)
+sport3_recommendation1_user1 = Recommendation(4, sport3.id, user1.username, ':D', 5, sport3.name)
 sport1.add_recommendation(sport1_recommendation1_user1)
 sport2.add_recommendation(sport2_recommendation1_user3)
 sport2.add_recommendation(sport2_recommendation2_user2)
 sport3.add_recommendation(sport3_recommendation1_user1)
 
-center1_recommendation1_user1 = Recommendation(None, username=user1.username, comment='Un super centre. J\' adore.', note=5)
-center2_recommendation1_user1 = Recommendation(None, username=user1.username, comment='Cool.', note=3)
-center2_recommendation2_user2 = Recommendation(None, username=user2.username, comment='Pourri, mais bon, 2 étoiles.', note=2)
-center3_recommendation1_user3 = Recommendation(None, username=user3.username, comment=':D', note=0)
-center3_recommendation2_user1 = Recommendation(None, username=user1.username, comment='Noice.', note=4)
+center1_recommendation1_user1 = Recommendation(1, center1.id, user1.username, 'Un super centre. J\' adore.', 5,
+                                               center1.name)
+center2_recommendation1_user1 = Recommendation(2, center2.id, user1.username, 'Cool.', 3, center2.name)
+center2_recommendation2_user2 = Recommendation(3, center2.id, user2.username, 'Pourri, mais bon, 2 étoiles.', 2,
+                                               center2.name)
+center3_recommendation1_user3 = Recommendation(4, center3.id, user3.username, ':D', 0, center3.name)
+center3_recommendation2_user1 = Recommendation(5, center3.id, user1.username, 'Noice.', 4, center3.name)
 center1.add_recommendation(center1_recommendation1_user1)
 center2.add_recommendation(center2_recommendation1_user1)
 center2.add_recommendation(center2_recommendation2_user2)

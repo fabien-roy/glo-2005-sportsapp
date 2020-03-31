@@ -9,11 +9,11 @@
 {% endif %}
 {%- endmacro %}
 
-{% macro list_item(username, note, date, comment) -%}
+{% macro recommendation_item(url, name, note, date, comment) -%}
 <div class="card">
   <div class="card-body">
     <h5 class="card-title"><a class="mr-2"
-                              href="{{ url_for('users.user_details', username=username) }}">{{ username }}</a></h5>
+                              href="{{ url }}">{{ name }}</a></h5>
     <h6 class="card-subtitle mb-2 text-muted">{{ stars(note) }}</h6>
     <h6 class="text-muted">{{ date }}</h6>
     <p class="card-text">{{ comment }}</p>
@@ -25,29 +25,49 @@
 <p>There is no recommandations yet...</p>
 {%- endmacro %}
 
-{% macro list(recommendations) -%}
+{% macro user_recommendations_list(recommendations) -%}
 {% if recommendations|length > 0 %}
 {% for recommendation in recommendations %}
-{{ list_item(recommendation.username, recommendation.note, recommendation.date, recommendation.comment) }}
+{{ recommendation_item(url_for('users.user_details', username=recommendation.username), recommendation.username, recommendation.note, recommendation.date, recommendation.comment) }}
 {% endfor %}
 {% else %}
 {{ nothing() }}
 {% endif %}
 {%- endmacro %}
 
-<!-- TODO : Write sport/center name and link URL in user details -->
-{% macro double_list(sport_recommendations, practice_center_recommendations) -%}
+{% macro practice_center_recommendations_list(recommendations) -%}
+{% if recommendations|length > 0 %}
+{% for recommendation in recommendations %}
+{{ recommendation_item(url_for('practice_centers.practice_center_details', practice_center_id=recommendation.item_id), recommendation.name, recommendation.note, recommendation.date, recommendation.comment) }}
+{% endfor %}
+{% else %}
+{{ nothing() }}
+{% endif %}
+{%- endmacro %}
+
+{% macro sport_recommendations_list(recommendations) -%}
+{% if recommendations|length > 0 %}
+{% for recommendation in recommendations %}
+{{ recommendation_item(url_for('sports.sport_details', sport_id=recommendation.item_id), recommendation.name, recommendation.note, recommendation.date, recommendation.comment) }}
+{% endfor %}
+{% else %}
+{{ nothing() }}
+{% endif %}
+{%- endmacro %}
+
+<!-- TODO : Generalize tab template -->
+{% macro double_recommendations_list(sport_recommendations, practice_center_recommendations) -%}
 <ul class="nav nav-tabs nav-fill" role="tablist">
-  <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#sport_recommendations">Sport recommendations</a></li>
-  <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#practice_center_recommendations">Practice center recommendations</a></li>
+  <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#sport-recommendations">Sport recommendations</a></li>
+  <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#practice-center-recommendations">Practice center recommendations</a></li>
 </ul>
 
 <div class="tab-content">
-  <div id="sport_recommendations" class="tab-pane fade show active">
-    {{ list(sport_recommendations) }}
+  <div id="sport-recommendations" class="tab-pane fade show active">
+    {{ sport_recommendations_list(sport_recommendations) }}
   </div>
-  <div id="practice_center_recommendations" class="tab-pane fade">
-    {{ list(practice_center_recommendations) }}
+  <div id="practice-center-recommendations" class="tab-pane fade">
+    {{ practice_center_recommendations_list(practice_center_recommendations) }}
   </div>
 </div>
 {%- endmacro %}

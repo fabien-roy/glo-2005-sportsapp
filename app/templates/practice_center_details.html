@@ -1,7 +1,7 @@
 {% extends "details.html" %}
 {% from 'macros/jumbotron.html' import jumbotron %}
 {% from 'macros/details.html' import details, detail, detail_list %}
-{% from 'macros/recommendations.html' import list %}
+{% from 'macros/recommendations.html' import user_recommendations_list %}
 
 {% block jumbotron %}
 {{ jumbotron(practice_center.name, 'practice-centers') }}
@@ -17,5 +17,5 @@ detail_list('Associated climates', practice_center.climates)]) }}
 {% endblock %}
 
 {% block recommendations %}
-{{ list(practice_center.recommendations) }}
+{{ user_recommendations_list(practice_center.recommendations) }}
 {% endblock %}

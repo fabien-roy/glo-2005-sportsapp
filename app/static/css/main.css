@@ -1,5 +1,5 @@
 body {
-    padding: 60px 0;
+    padding: 60px 0 70px;
     background: #ffffff;
 }
 
@@ -12,23 +12,15 @@ body {
 }
 
 .footer {
+    display: inline-block;
     color: white;
     background-color: #343a40;
     padding-top: 1em;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
 }
 
 .error {
     color: red;
     font-size: .8em;
-}
-
-.footer {
-    display: inline-block;
-    width: 100%;
-    text-align: right;
 }
 
 .invisible {
