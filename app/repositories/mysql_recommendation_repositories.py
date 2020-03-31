@@ -5,6 +5,8 @@ from app.recommendations.models import Recommendation
 from app.recommendations.repositories import RecommendationsRepository
 
 # TODO : Test correctly RecommendationsRepository
+from app.repositories.mysql_recommendation_queries import MySQLRecommendationQuery
+
 
 class MySQLRecommendationsRepository(RecommendationsRepository):
     table_name = 'recommendations'
@@ -15,7 +17,6 @@ class MySQLRecommendationsRepository(RecommendationsRepository):
     note_col = 'note'
     date_col = 'date'
 
-    # TODO : Info about other tables is duplicated to avoid circular dependency. That could be improved.
     sport_recommendations_table_name = 'sport_recommendations'
     sport_recommendations_recommendation_id_col = 'recommendation_id'
     practice_center_recommendations_table_name = 'practice_center_recommendations'
@@ -26,11 +27,8 @@ class MySQLRecommendationsRepository(RecommendationsRepository):
 
         try:
             with conn.cursor() as cur:
-                sql = ('SELECT ' + self.username_col + ', ' + self.comment_col + ', ' +
-                       self.note_col + ', ' + self.date_col +
-                       ' FROM ' + self.table_name +
-                       ' WHERE ' + self.id_col + ' = %s;')
-                cur.execute(sql, recommendation_id)
+                query = MySQLRecommendationQuery().get(recommendation_id)
+                cur.execute(query)
 
                 # TODO : Use fetchone (causes integer error)
                 for recommendation_cur in cur.fetchall():
@@ -49,15 +47,8 @@ class MySQLRecommendationsRepository(RecommendationsRepository):
 
         try:
             with conn.cursor() as cur:
-                sql = ('SELECT ' + self.id_col + ', ' + self.username_col + ', ' + self.comment_col + ', ' +
-                       self.note_col + ', ' + self.date_col +
-                       ' FROM ' + self.table_name +
-                       ' WHERE ' + self.username_col + ' = %s'
-                       ' AND ' + self.id_col + ' IN (' +
-                       '   SELECT ' + self.sport_recommendations_recommendation_id_col +
-                       '   FROM ' + self.sport_recommendations_table_name +
-                       ');')
-                cur.execute(sql, username)
+                query = MySQLRecommendationQuery().get_sports(username)
+                cur.execute(query)
 
                 # TODO : Use fetchone (causes integer error)
                 for recommendation_cur in cur.fetchall():
@@ -77,15 +68,8 @@ class MySQLRecommendationsRepository(RecommendationsRepository):
 
         try:
             with conn.cursor() as cur:
-                sql = ('SELECT ' + self.id_col + ', ' + self.username_col + ', ' + self.comment_col + ', ' +
-                       self.note_col + ', ' + self.date_col +
-                       ' FROM ' + self.table_name +
-                       ' WHERE ' + self.username_col + ' = %s'
-                                                       ' AND ' + self.id_col + ' IN (' +
-                       '   SELECT ' + self.practice_center_recommendations_recommendation_id_col +
-                       '   FROM ' + self.practice_center_recommendations_table_name +
-                       ');')
-                cur.execute(sql, username)
+                query = MySQLRecommendationQuery().get_practice_centers(username)
+                cur.execute(query)
 
                 # TODO : Use fetchone (causes integer error)
                 for recommendation_cur in cur.fetchall():
@@ -105,12 +89,9 @@ class MySQLRecommendationsRepository(RecommendationsRepository):
             recommendation.date = datetime.datetime.now()
 
             with conn.cursor() as cur:
-                sql = ('INSERT INTO ' + self.table_name +
-                       ' (' + self.username_col + ', ' + self.comment_col + ', ' + self.note_col + ', ' +
-                       self.date_col + ')' +
-                       ' VALUES (%s, %s, %s, %s);')
-                cur.execute(sql, (recommendation.username, recommendation.comment, recommendation.note,
-                                  recommendation.date))
+                query = MySQLRecommendationQuery().add()
+                cur.execute(query, (recommendation.username, recommendation.comment, recommendation.note,
+                                    recommendation.date))
 
                 conn.commit()
 
