@@ -1,7 +1,7 @@
 {% extends "details.html" %}
 {% from 'macros/jumbotron.html' import jumbotron %}
 {% from 'macros/details.html' import details, detail, detail_list %}
-{% from 'macros/recommendations.html' import list %}
+{% from 'macros/recommendations.html' import user_recommendations_list %}
 
 {% block jumbotron %}
 {{ jumbotron(sport.name, 'sports') }}
@@ -12,5 +12,5 @@
 {% endblock %}
 
 {% block recommendations %}
-{{ list(sport.recommendations) }}
+{{ user_recommendations_list(sport.recommendations) }}
 {% endblock %}
