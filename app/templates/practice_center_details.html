@@ -1,25 +1,23 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<div class="container emp-profile">
-    <div class="profile-head">
-        <h3>
-            p/ {{ practice_center.name }}
-        </h3>
-    </div>
-    <ul class="nav nav-tabs" id="profile-tabs" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" id="practice_center-details-tab" data-toggle="tab" href="#details" role="tab"
-               aria-controls="home" aria-selected="true">Sport details</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="practice_center-recommendations-tab" data-toggle="tab"
-               href="#practice_center-recommendations" role="tab"
-               aria-controls="profile" aria-selected="false">Recommendations</a>
-        </li>
-    </ul>
-
+<div class="details-head">
+    <h3>
+        p/ {{ practice_center.name }}
+    </h3>
 </div>
+<ul class="nav nav-tabs" id="profile-tabs" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="practice_center-details-tab" data-toggle="tab" href="#details" role="tab"
+           aria-controls="home" aria-selected="true">Sport details</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="practice_center-recommendations-tab" data-toggle="tab"
+           href="#practice_center-recommendations" role="tab"
+           aria-controls="profile" aria-selected="false">Recommendations</a>
+    </li>
+</ul>
+
 <div class="row">
     <div class="col-md-8">
         <div class="tab-content profile-tab">

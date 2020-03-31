@@ -1,0 +1,33 @@
+.jumbotron-sports {
+    background-image: url("https://images.pexels.com/photos/848595/pexels-photo-848595.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+}
+
+.jumbotron-practice-centers {
+    background-image: url("https://images.pexels.com/photos/2403502/pexels-photo-2403502.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+}
+
+.jumbotron-users {
+    background-image: url("https://images.pexels.com/photos/939328/pexels-photo-939328.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+}
+
+.jumbotron {
+    width: 100%;
+    height: 400px;
+    background-position: center center;
+    background-size: cover;
+}
+
+.jumbotron h1 {
+    color: #e65100;
+    font-size: 60px;
+    font-weight: bold;
+}
+
+.box-list {
+    display: inline-block;
+    float: left;
+}
+
+.tab-content {
+    padding-top: 1em;
+}

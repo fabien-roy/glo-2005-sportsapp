@@ -10,55 +10,20 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 {% endblock %}
 
-{% block navbar %}
-    <nav class="navbar navbar-expand-sm navbar-dark fixed-top" style="background-color:#e65100 ">
-        <div class="container">
-            <a class="navbar-brand ml-8">
-                <img src="{{ url_for('static', filename='images/SportsAppLogo.jpg') }}" width="40" height="40" alt=""
-                     id="logo"> SportsApp</a>
-            <div class="collapse navbar-collapse">
-                <div class="navbar-nav">
-                    <a class="nav-item active nav-link" href="{{ url_for('sports.sports') }}">Sports</a>
-                    <a class="nav-item active nav-link" href="{{ url_for('practice_centers.practice_centers') }}">Practice
-                        Centers</a>
-                    <a class="nav-item active nav-link" href="{{ url_for('users.users') }}">Users</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-{% endblock %}
-
+{% include 'partials/header.html' %}
 
 <div class="container">
     <div class="content">
 
-        <!-- flash messages -->
-        {% for error_message in get_flashed_messages(category_filter=["error"]) %}
-        <div class="alert alert-danger alert-dismissible">{{ error_message }}</div>
-        {% endfor %}
+        {% include 'partials/errors.html' %}
 
-        {% for success_message in get_flashed_messages(category_filter=["success"]) %}
-        <div class="alert alert-success alert-dismissible">{{ success_message }}</div>
-        {% endfor %}
-
-        {% for info_message in get_flashed_messages(category_filter=["info"]) %}
-        <div class="alert alert-info alert-dismissible">{{ info_message }}</div>
-        {% endfor %}
-
-        <!--
-                {% for debug_message in get_flashed_messages(category_filter=["debug"]) %}
-                  <div class="alert alert-info alert-dismissible">{{ debug_message }}</div>
-                {% endfor %}
-        -->
-        <!-- child template -->
         {% block content %}
         {% endblock %}
 
-        <div class="footer">
-            <p>GLO-2005 - 2020</p>
-        </div>
     </div>
-</div><!-- /.container -->
+</div>
+
+{% include 'partials/footer.html' %}
 
 {% block scripts %}
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

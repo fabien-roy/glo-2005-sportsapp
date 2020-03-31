@@ -1,0 +1,14 @@
+{% macro list_item(name, url) -%}
+<a class="btn btn-outline-dark btn-block active" href="{{ url }}">{{ name }}</a>
+{%- endmacro %}
+
+{% macro list(items) -%}
+{% if items|length > 0 %}
+
+
+{% for item in items %}
+{{ item }}
+{% endfor %}
+
+{% endif %}
+{%- endmacro %}
