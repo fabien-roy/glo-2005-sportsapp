@@ -17,6 +17,21 @@ Unspecified
 </div>
 {%- endmacro %}
 
+{% macro detail_list(name, values) -%}
+<div class="row">
+    <div class="col-md-6">
+        <label class="details-label">{{ name }}</label>
+    </div>
+    <div class="col-md-6">
+        <p>
+            {% for value in values %}
+                {{ value.name }},
+            {% endfor %}
+        </p>
+    </div>
+</div>
+{%- endmacro %}
+
 {% macro details(items) -%}
 {% for item in items %}
 {{ item }}
