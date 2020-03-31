@@ -34,3 +34,19 @@
 {{ nothing() }}
 {% endif %}
 {%- endmacro %}
+
+{% macro double_list(sport_recommendations, practice_center_recommendations) -%}
+<ul class="nav nav-tabs nav-fill" role="tablist">
+  <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#sport_recommendations">Sport recommendations</a></li>
+  <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#practice_center_recommendations">Practice center recommendations</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="sport_recommendations" class="tab-pane fade show active">
+    {{ list(sport_recommendations) }}
+  </div>
+  <div id="practice_center_recommendations" class="tab-pane fade">
+    {{ list(practice_center_recommendations) }}
+  </div>
+</div>
+{%- endmacro %}
