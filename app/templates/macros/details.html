@@ -6,6 +6,16 @@ Unspecified
 {% endif %}
 {%- endmacro %}
 
+{% macro values_or_unspecified(values) -%}
+{% if values != None %}
+{% for value in values %}
+{{ value.name }},
+{% endfor %}
+{% else %}
+Unspecified
+{% endif %}
+{%- endmacro %}
+
 {% macro detail(name, value) -%}
 <div class="row">
     <div class="col-md-6">
@@ -23,11 +33,7 @@ Unspecified
         <label class="details-label">{{ name }}</label>
     </div>
     <div class="col-md-6">
-        <p>
-            {% for value in values %}
-                {{ value.name }},
-            {% endfor %}
-        </p>
+        <p>{{ values_or_unspecified(values) }}</p>
     </div>
 </div>
 {%- endmacro %}

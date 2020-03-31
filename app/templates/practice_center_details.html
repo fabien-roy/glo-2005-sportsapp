@@ -1,6 +1,6 @@
 {% extends "details.html" %}
 {% from 'macros/jumbotron.html' import jumbotron %}
-{% from 'macros/details.html' import details, detail %}
+{% from 'macros/details.html' import details, detail, detail_list %}
 {% from 'macros/recommendations.html' import list %}
 
 {% block jumbotron %}
@@ -12,7 +12,8 @@
 detail('Name', practice_center.name),
 detail('Web site', practice_center.web_site),
 detail('Email', practice_center.email),
-detail('Phone number', practice_center.phone_number)]) }}
+detail('Phone number', practice_center.phone_number),
+detail_list('Associated climates', practice_center.climates)]) }}
 {% endblock %}
 
 {% block recommendations %}
