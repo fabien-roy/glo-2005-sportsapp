@@ -26,6 +26,9 @@ def get_sport(sport_id):
 class SportsRepositoryTests(BasicRepositoryTests):
 
     def setUp(self):
+        self.reset_repositories()
+        self.add_climates()
+        self.add_sports()
         climates_repository.get_all_for_sport.side_effect = get_climates_for_sport
         recommendations_repository.get_all_for_sport.side_effect = get_recommendations_for_sport
         self.repository = MySQLSportsRepository(climates_repository, recommendations_repository)
@@ -35,11 +38,9 @@ class SportsRepositoryTests(BasicRepositoryTests):
         self.assertRaises(SportNotFoundException, self.repository.get, 1)
 
     def test_get_with_non_existent_sport_should_raise_sport_not_found_exception(self):
-        self.add_sports()
         self.assertRaises(SportNotFoundException, self.repository.get, -1)
 
     def test_get_should_get_sport(self):
-        self.add_sports()
         sport = self.repository.get(sport1.id)
         self.assertEqual(sport1, sport)
         sport = self.repository.get(sport2.id)
@@ -48,7 +49,6 @@ class SportsRepositoryTests(BasicRepositoryTests):
         self.assertEqual(sport3, sport)
 
     def test_get_should_get_sport_climates(self):
-        self.add_sports()
         sport = self.repository.get(sport1.id)
         self.assertCountEqual(sport1.climates, sport.climates)
         sport = self.repository.get(sport2.id)
@@ -57,7 +57,6 @@ class SportsRepositoryTests(BasicRepositoryTests):
         self.assertCountEqual(sport3.climates, sport.climates)
 
     def test_get_should_get_sport_recommendations(self):
-        self.add_sports()
         sport = self.repository.get(sport1.id)
         self.assertCountEqual(sport1.recommendations, sport.recommendations)
         sport = self.repository.get(sport2.id)
@@ -71,14 +70,12 @@ class SportsRepositoryTests(BasicRepositoryTests):
         self.assertEqual(0, len(sports))
 
     def test_get_all_get_sports(self):
-        self.add_sports()
         sports = self.repository.get_all()
         self.assertIn(sport1, sports)
         self.assertIn(sport2, sports)
         self.assertIn(sport3, sports)
 
     def test_get_all_with_name_filter_sports(self):
-        self.add_sports()
         form = FakeSportsForm(sport1.name)
         sports = self.repository.get_all(form)
         self.assertIn(sport1, sports)
