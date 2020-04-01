@@ -28,7 +28,7 @@ class BasicRepositoryTests(test_basic.BasicTests):
         self.sports_repository.add(sport2)
         self.sports_repository.add(sport3)
 
-    def add_sports_recommendations(self):
+    def add_sports_with_recommendations(self):
         self.reset_repositories()
         self.add_sports()
         self.add_users()

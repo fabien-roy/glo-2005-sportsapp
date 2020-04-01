@@ -48,7 +48,7 @@ class SportsRepositoryTests(BasicRepositoryTests):
         self.assertCountEqual(sport3.climates, sport.climates)
 
     def test_get_should_get_sport_recommendations(self):
-        self.add_sports_recommendations()
+        self.add_sports_with_recommendations()
         sport = self.repository.get(sport1.id)
         self.assertCountEqual(sport1.recommendations, sport.recommendations)
         sport = self.repository.get(sport2.id)
