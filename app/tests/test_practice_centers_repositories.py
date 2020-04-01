@@ -26,9 +26,7 @@ def get_practice_center(practice_center_id):
 class PracticeCenterRepositoryTests(BasicRepositoryTests):
 
     def setUp(self):
-        self.reset_repositories()
-        self.add_climates()
-        self.add_practice_centers()
+        super().setUp()
         climates_repository.get_all_for_practice_center.side_effect = get_climates_for_practice_center
         recommendations_repository.get_all_for_practice_center.side_effect = get_recommendations_for_practice_center
         self.repository = MySQLPracticeCentersRepository(climates_repository, recommendations_repository)

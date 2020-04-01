@@ -8,10 +8,7 @@ from app.tests.test_basic_repositories import BasicRepositoryTests
 class ClimatesRepositoryTests(BasicRepositoryTests):
 
     def setUp(self):
-        self.reset_repositories()
-        self.add_climates()
-        self.add_sports()
-        self.add_practice_centers()
+        super().setUp()
         self.repository = MySQLClimatesRepository()
 
     def test_get_all_for_sport_should_without_sport_get_no_climate(self):

@@ -26,9 +26,7 @@ def get_sport(sport_id):
 class SportsRepositoryTests(BasicRepositoryTests):
 
     def setUp(self):
-        self.reset_repositories()
-        self.add_climates()
-        self.add_sports()
+        super().setUp()
         climates_repository.get_all_for_sport.side_effect = get_climates_for_sport
         recommendations_repository.get_all_for_sport.side_effect = get_recommendations_for_sport
         self.repository = MySQLSportsRepository(climates_repository, recommendations_repository)

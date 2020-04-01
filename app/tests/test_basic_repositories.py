@@ -23,6 +23,12 @@ class BasicRepositoryTests(test_basic.BasicTests):
 
     def setUp(self):
         self.reset_repositories()
+        self.add_climates()
+        self.add_sports()
+        self.add_practice_centers()
+        self.add_users()
+        self.add_sport_recommendations()
+        self.add_practice_center_recommendations()
 
     @staticmethod
     def reset_repositories():
@@ -43,6 +49,11 @@ class BasicRepositoryTests(test_basic.BasicTests):
         self.practice_centers_repository.add(center2)
         self.practice_centers_repository.add(center3)
 
+    def add_users(self):
+        self.users_repository.add(user1)
+        self.users_repository.add(user2)
+        self.users_repository.add(user3)
+
     def add_sport_recommendations(self):
         self.recommendations_repository.add_for_sport(sport1_recommendation1_user1, sport1)
         self.recommendations_repository.add_for_sport(sport2_recommendation1_user3, sport2)
@@ -55,11 +66,6 @@ class BasicRepositoryTests(test_basic.BasicTests):
         self.recommendations_repository.add_for_practice_center(center2_recommendation2_user2, center2)
         self.recommendations_repository.add_for_practice_center(center3_recommendation1_user3, center3)
         self.recommendations_repository.add_for_practice_center(center3_recommendation2_user1, center3)
-
-    def add_users(self):
-        self.users_repository.add(user1)
-        self.users_repository.add(user2)
-        self.users_repository.add(user3)
 
 
 if __name__ == "__main__":

@@ -38,8 +38,7 @@ def get_user(username):
 class UsersRepositoryTests(BasicRepositoryTests):
 
     def setUp(self):
-        self.reset_repositories()
-        self.add_users()
+        super().setUp()
         recommendations_repository.get_all_for_sport_and_user.side_effect = get_recommendations_for_sport_and_user
         recommendations_repository.get_all_for_practice_center_and_user.side_effect = \
             get_recommendations_for_practice_center_and_user
