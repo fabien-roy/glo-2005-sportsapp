@@ -46,7 +46,7 @@ class BasicRepositoryTests(test_basic.BasicTests):
         self.practice_centers_repository.add(center2)
         self.practice_centers_repository.add(center3)
 
-    def add_practice_centers_recommendations(self):
+    def add_practice_centers_with_recommendations(self):
         self.reset_repositories()
         self.add_practice_centers()
         self.add_users()
