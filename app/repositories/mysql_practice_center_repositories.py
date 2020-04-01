@@ -1,5 +1,4 @@
 from app import conn
-from app.climates.models import Climate
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
 from app.practice_centers.models import PracticeCenter
 from app.practice_centers.repositories import PracticeCentersRepository
@@ -17,9 +16,6 @@ class MySQLPracticeCenterRecommendationRepository:
 
     # TODO : Inject in repositories
     recommendation_repository = MySQLRecommendationsRepository()
-
-    def get_recommendations(self, practice_center_id):
-        return self.recommendation_repository.get_practice_center_recommendations(practice_center_id)
 
     def add(self, practice_center_id, recommendation):
         self.recommendation_repository.add(recommendation)
@@ -39,6 +35,7 @@ class MySQLPracticeCenterRecommendationRepository:
 class MySQLPracticeCentersRepository(PracticeCentersRepository):
     # TODO : Inject in repositories
     climate_repository = MySQLClimatesRepository()
+    recommendation_repository = MySQLRecommendationsRepository()
     practice_center_recommendation_repository = MySQLPracticeCenterRecommendationRepository()
 
     def get_all(self, form=None):
@@ -68,8 +65,7 @@ class MySQLPracticeCentersRepository(PracticeCentersRepository):
                 # TODO : Use fetchone (causes integer error)
                 for practice_center_cur in cur.fetchall():
                     climates = self.climate_repository.get_all_for_practice_center(practice_center_id)
-                    recommendations = self.practice_center_recommendation_repository.get_recommendations(
-                        practice_center_id)
+                    recommendations = self.recommendation_repository.get_all_for_practice_center(practice_center_id)
                     practice_center = self.build_practice_center(practice_center_cur, climates, recommendations)
         finally:
             cur.close()

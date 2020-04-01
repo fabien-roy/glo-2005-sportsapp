@@ -17,9 +17,6 @@ class MySQLSportRecommendationRepository:
     # TODO : Inject in repositories
     recommendation_repository = MySQLRecommendationsRepository()
 
-    def get_recommendations(self, sport_id):
-        return self.recommendation_repository.get_sport_recommendations(sport_id)
-
     def add(self, sport_id, recommendation):
         self.recommendation_repository.add(recommendation)
 
@@ -38,6 +35,7 @@ class MySQLSportRecommendationRepository:
 class MySQLSportsRepository(SportsRepository):
     # TODO : Inject in repositories
     climate_repository = MySQLClimatesRepository()
+    recommendation_repository = MySQLRecommendationsRepository()
     sport_recommendation_repository = MySQLSportRecommendationRepository()
 
     def get_all(self, form=None):
@@ -67,7 +65,7 @@ class MySQLSportsRepository(SportsRepository):
                 # TODO : Use fetchone (causes integer error)
                 for sport_cur in cur.fetchall():
                     climates = self.climate_repository.get_all_for_sport(sport_id)
-                    recommendations = self.sport_recommendation_repository.get_recommendations(sport_id)
+                    recommendations = self.recommendation_repository.get_all_for_sport(sport_id)
                     sport = self.build_sport(sport_cur, climates, recommendations)
         finally:
             cur.close()
