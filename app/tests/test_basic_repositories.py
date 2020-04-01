@@ -6,14 +6,16 @@ from app.repositories.mysql_user_repositories import MySQLUsersRepository
 from app.tests import test_basic
 from app.tests.fakes import climate1, climate2, climate3, user2, \
     user1, user3, sport1, sport2, sport3, sport1_recommendation1_user1, sport2_recommendation1_user3, \
-    sport2_recommendation2_user2, sport3_recommendation1_user1
+    sport2_recommendation2_user2, sport3_recommendation1_user1, center1, center2, center3, \
+    center1_recommendation1_user1, center2_recommendation1_user1, center2_recommendation2_user2, \
+    center3_recommendation1_user3, center3_recommendation2_user1
 from instance.db_create import db_create
 
 
 class BasicRepositoryTests(test_basic.BasicTests):
     climates_repository = MySQLClimatesRepository()
     recommendations_repository = MySQLRecommendationsRepository()
-    sports_repository = MySQLSportsRepository(climates_repository)
+    sports_repository = MySQLSportsRepository(climates_repository, recommendations_repository)
     practice_centers_repository = MySQLPracticeCentersRepository()
     users_repository = MySQLUsersRepository()
 
@@ -36,6 +38,23 @@ class BasicRepositoryTests(test_basic.BasicTests):
         self.recommendations_repository.add_for_sport(sport2_recommendation1_user3, sport2)
         self.recommendations_repository.add_for_sport(sport2_recommendation2_user2, sport2)
         self.recommendations_repository.add_for_sport(sport3_recommendation1_user1, sport3)
+
+    def add_practice_centers(self):
+        self.reset_repositories()
+        self.add_climates()
+        self.practice_centers_repository.add(center1)
+        self.practice_centers_repository.add(center2)
+        self.practice_centers_repository.add(center3)
+
+    def add_practice_centers_recommendations(self):
+        self.reset_repositories()
+        self.add_practice_centers()
+        self.add_users()
+        self.recommendations_repository.add_for_practice_center(center1_recommendation1_user1, center1)
+        self.recommendations_repository.add_for_practice_center(center2_recommendation1_user1, center2)
+        self.recommendations_repository.add_for_practice_center(center2_recommendation2_user2, center2)
+        self.recommendations_repository.add_for_practice_center(center3_recommendation1_user3, center3)
+        self.recommendations_repository.add_for_practice_center(center3_recommendation2_user1, center3)
 
     def add_climates(self):
         self.climates_repository.add(climate1)
