@@ -3,12 +3,10 @@ import datetime
 from app import conn
 from app.recommendations.models import Recommendation
 from app.recommendations.repositories import RecommendationsRepository
-
 from app.repositories.mysql_recommendation_queries import MySQLRecommendationQuery
-from app.repositories.mysql_tables import MySQLRecommendationsTable, MySQLSportRecommendationsTable
+from app.repositories.mysql_tables import MySQLRecommendationsTable
 
 
-# TODO : Test correctly RecommendationsRepository
 class MySQLRecommendationsRepository(RecommendationsRepository):
 
     def get_all_for_sport(self, sport_id):

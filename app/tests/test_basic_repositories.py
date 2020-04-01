@@ -11,11 +11,11 @@ from instance.db_create import db_create
 
 
 class BasicRepositoryTests(test_basic.BasicTests):
-    sport_repository = MySQLSportsRepository()
-    practice_center_repository = MySQLPracticeCentersRepository()
-    climate_repository = MySQLClimatesRepository()
-    recommendation_repository = MySQLRecommendationsRepository()
-    user_repository = MySQLUsersRepository()
+    sports_repository = MySQLSportsRepository()
+    practice_centers_repository = MySQLPracticeCentersRepository()
+    climates_repository = MySQLClimatesRepository()
+    recommendations_repository = MySQLRecommendationsRepository()
+    users_repository = MySQLUsersRepository()
 
     @staticmethod
     def reset_repositories():
@@ -24,25 +24,25 @@ class BasicRepositoryTests(test_basic.BasicTests):
     def add_sports(self):
         self.reset_repositories()
         self.add_climates()
-        self.sport_repository.add(sport1)
-        self.sport_repository.add(sport2)
-        self.sport_repository.add(sport3)
+        self.sports_repository.add(sport1)
+        self.sports_repository.add(sport2)
+        self.sports_repository.add(sport3)
 
     def add_sports_recommendations(self):
         self.reset_repositories()
         self.add_sports()
         self.add_users()
-        self.recommendation_repository.add_for_sport(sport1_recommendation1_user1, sport1)
-        self.recommendation_repository.add_for_sport(sport2_recommendation1_user3, sport2)
-        self.recommendation_repository.add_for_sport(sport2_recommendation2_user2, sport2)
-        self.recommendation_repository.add_for_sport(sport3_recommendation1_user1, sport3)
+        self.recommendations_repository.add_for_sport(sport1_recommendation1_user1, sport1)
+        self.recommendations_repository.add_for_sport(sport2_recommendation1_user3, sport2)
+        self.recommendations_repository.add_for_sport(sport2_recommendation2_user2, sport2)
+        self.recommendations_repository.add_for_sport(sport3_recommendation1_user1, sport3)
 
     def add_climates(self):
-        self.climate_repository.add(climate1)
-        self.climate_repository.add(climate2)
-        self.climate_repository.add(climate3)
+        self.climates_repository.add(climate1)
+        self.climates_repository.add(climate2)
+        self.climates_repository.add(climate3)
 
     def add_users(self):
-        self.user_repository.add(user1)
-        self.user_repository.add(user2)
-        self.user_repository.add(user3)
+        self.users_repository.add(user1)
+        self.users_repository.add(user2)
+        self.users_repository.add(user3)
