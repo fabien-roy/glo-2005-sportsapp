@@ -16,7 +16,7 @@ class BasicRepositoryTests(test_basic.BasicTests):
     climates_repository = MySQLClimatesRepository()
     recommendations_repository = MySQLRecommendationsRepository()
     sports_repository = MySQLSportsRepository(climates_repository, recommendations_repository)
-    practice_centers_repository = MySQLPracticeCentersRepository()
+    practice_centers_repository = MySQLPracticeCentersRepository(climates_repository, recommendations_repository)
     users_repository = MySQLUsersRepository()
 
     @staticmethod

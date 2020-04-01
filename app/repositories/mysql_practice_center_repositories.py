@@ -1,17 +1,20 @@
+from injector import inject
+
 from app import conn
+from app.climates.repositories import ClimatesRepository
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
 from app.practice_centers.models import PracticeCenter
 from app.practice_centers.repositories import PracticeCentersRepository
-from app.repositories.mysql_climate_repositories import MySQLClimatesRepository
+from app.recommendations.repositories import RecommendationsRepository
 from app.repositories.mysql_practice_center_queries import MySQLPracticeCentersQuery
 from app.repositories.mysql_tables import MySQLPracticeCentersTable
-from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
 
 
 class MySQLPracticeCentersRepository(PracticeCentersRepository):
-    # TODO : Inject in repositories
-    climate_repository = MySQLClimatesRepository()
-    recommendation_repository = MySQLRecommendationsRepository()
+    @inject
+    def __init__(self, climates_repository: ClimatesRepository, recommendations_repository: RecommendationsRepository):
+        self.climates_repository = climates_repository
+        self.recommendations_repository = recommendations_repository
 
     def get_all(self, form=None):
         all_practice_centers = []
@@ -39,8 +42,8 @@ class MySQLPracticeCentersRepository(PracticeCentersRepository):
 
                 # TODO : Use fetchone (causes integer error)
                 for practice_center_cur in cur.fetchall():
-                    climates = self.climate_repository.get_all_for_practice_center(practice_center_id)
-                    recommendations = self.recommendation_repository.get_all_for_practice_center(practice_center_id)
+                    climates = self.climates_repository.get_all_for_practice_center(practice_center_id)
+                    recommendations = self.recommendations_repository.get_all_for_practice_center(practice_center_id)
                     practice_center = self.build_practice_center(practice_center_cur, climates, recommendations)
         finally:
             cur.close()
@@ -72,6 +75,6 @@ class MySQLPracticeCentersRepository(PracticeCentersRepository):
                 practice_center.id = cur.lastrowid
 
                 for climate in practice_center.climates:
-                    self.climate_repository.add_to_practice_center(climate, practice_center)
+                    self.climates_repository.add_to_practice_center(climate, practice_center)
         finally:
             cur.close()

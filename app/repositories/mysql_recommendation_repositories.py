@@ -8,7 +8,6 @@ from app.repositories.mysql_tables import MySQLRecommendationsTable
 
 
 class MySQLRecommendationsRepository(RecommendationsRepository):
-
     def get_all_for_sport(self, sport_id):
         query = MySQLRecommendationQuery().get_all_for_sport(sport_id)
         return self.get_all(query)
