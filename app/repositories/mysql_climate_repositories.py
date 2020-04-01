@@ -21,6 +21,21 @@ class MySQLClimatesRepository(ClimatesRepository):
 
         return climates
 
+    def get_all_for_practice_center(self, sport_id):
+        climates = []
+
+        try:
+            with conn.cursor() as cur:
+                query = MySQLClimatesQuery().get_all_for_practice_center(sport_id)
+                cur.execute(query)
+
+                for climate_cur in cur.fetchall():
+                    climates.append(self.build_climate(climate_cur))
+        finally:
+            cur.close()
+
+        return climates
+
     @staticmethod
     def build_climate(climate_cur):
         pass
@@ -39,7 +54,17 @@ class MySQLClimatesRepository(ClimatesRepository):
         try:
             with conn.cursor() as cur:
                 query = MySQLClimatesQuery().add_for_sport()
-                cur.execute(query, (sport.id, climate.name))
+                cur.execute(query, (climate.name, sport.id))
+
+                conn.commit()
+        finally:
+            cur.close()
+
+    def add_for_practice_center(self, climate, practice_center):
+        try:
+            with conn.cursor() as cur:
+                query = MySQLClimatesQuery().add_for_practice_center()
+                cur.execute(query, (climate.name, practice_center.id))
 
                 conn.commit()
         finally:

@@ -24,6 +24,12 @@ class MySQLSportClimatesTable:
     climate_name_col = 'climate_name'
 
 
+class MySQLPracticeCenterClimatesTable:
+    table_name = 'practice_center_climates'
+    practice_center_id_col = 'practice_center_id'
+    climate_name_col = 'climate_name'
+
+
 class MySQLShopsTable:
     table_name = 'shops'
     id_col = 'id'

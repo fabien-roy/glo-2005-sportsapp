@@ -95,7 +95,7 @@ class MySQLSportsRepository(SportsRepository):
                 sport.id = cur.lastrowid
 
                 for climate in sport.climates:
-                    self.climate_repository.add_for_sport(sport, climate)
+                    self.climate_repository.add_for_sport(climate, sport)
         finally:
             cur.close()
 
