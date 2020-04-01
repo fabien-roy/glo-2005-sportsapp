@@ -1,5 +1,6 @@
 from app import conn
 from app.repositories.mysql_shop_queries import MySQLShopsQuery
+from app.repositories.mysql_tables import MySQLShopsTable
 from app.shops.exceptions import ShopNotFoundException
 from app.shops.models import Shop
 from app.shops.repositories import ShopsRepository
@@ -43,11 +44,11 @@ class MySQLShopsRepository(ShopsRepository):
 
     @staticmethod
     def build_shop(cur):
-        return Shop(cur[MySQLShopsQuery.id_col],
-                    cur[MySQLShopsQuery.name_col],
-                    cur[MySQLShopsQuery.email_col],
-                    cur[MySQLShopsQuery.phone_number_col],
-                    cur[MySQLShopsQuery.web_site_col])
+        return Shop(cur[MySQLShopsTable.id_col],
+                    cur[MySQLShopsTable.name_col],
+                    cur[MySQLShopsTable.email_col],
+                    cur[MySQLShopsTable.phone_number_col],
+                    cur[MySQLShopsTable.web_site_col])
 
     def add(self, shop):
         try:

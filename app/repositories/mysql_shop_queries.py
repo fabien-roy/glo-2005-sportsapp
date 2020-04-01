@@ -1,38 +1,42 @@
-from app.repositories.mysql_queries import build_query, filter_equal
+from app.repositories.mysql_queries import MySQLQuery
+from app.repositories.mysql_tables import MySQLShopsTable
 
 
-class MySQLShopsQuery:
-    table_name = 'shops'
-
-    id_col = 'id'
-    name_col = 'name'
-    email_col = 'email'
-    phone_number_col = 'phone_number'
-    web_site_col = 'web_site'
-
+class MySQLShopsQuery(MySQLQuery):
     def get_all(self, form=None):
-        operation = ('SELECT ' + self.id_col + ', ' + self.name_col + ', ' + self.email_col + ', ' +
-                     self.phone_number_col + ', ' + self.web_site_col + ' FROM ' + self.table_name)
+        operation = ('SELECT ' + MySQLShopsTable.id_col +
+                     ', ' + MySQLShopsTable.name_col +
+                     ', ' + MySQLShopsTable.email_col +
+                     ', ' + MySQLShopsTable.phone_number_col +
+                     ', ' + MySQLShopsTable.web_site_col +
+                     ' FROM ' + MySQLShopsTable.table_name)
 
         # TODO : Search form for shops
         filters = []
 
-        orders = [self.name_col]
+        orders = [MySQLShopsTable.name_col]
 
-        return build_query(operation, filters, orders)
+        return self.build_query(operation, filters, orders)
 
     def get(self, shop_id):
-        operation = ('SELECT ' + self.id_col + ', ' + self.name_col + ', ' + self.email_col + ', ' +
-                     self.phone_number_col + ', ' + self.web_site_col + ' FROM ' + self.table_name)
+        operation = ('SELECT ' + MySQLShopsTable.id_col +
+                     ', ' + MySQLShopsTable.name_col +
+                     ', ' + MySQLShopsTable.email_col +
+                     ', ' + MySQLShopsTable.phone_number_col +
+                     ', ' + MySQLShopsTable.web_site_col +
+                     ' FROM ' + MySQLShopsTable.table_name)
 
-        filters = [filter_equal(self.id_col, shop_id)]
+        filters = [self.filter_equal(MySQLShopsTable.id_col, shop_id)]
 
-        return build_query(operation, filters)
+        return self.build_query(operation, filters)
 
     def add(self):
-        operation = ('INSERT INTO ' + self.table_name +
-                     ' (' + self.id_col + ', ' + self.name_col + ', ' + self.email_col + ', ' + self.phone_number_col +
-                     ', ' + self.web_site_col + ')' +
+        operation = ('INSERT INTO ' + MySQLShopsTable.table_name +
+                     ' (' + MySQLShopsTable.id_col +
+                     ', ' + MySQLShopsTable.name_col +
+                     ', ' + MySQLShopsTable.email_col +
+                     ', ' + MySQLShopsTable.phone_number_col +
+                     ', ' + MySQLShopsTable.web_site_col + ')' +
                      ' VALUES (%s, %s, %s, %s, %s)')
 
-        return build_query(operation)
+        return self.build_query(operation)
