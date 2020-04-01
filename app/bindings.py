@@ -13,9 +13,16 @@ from app.users.repositories import UsersRepository
 
 
 def configure(binder):
-    binder.bind(ClimatesRepository, to=MySQLClimatesRepository())
-    binder.bind(RecommendationsRepository, to=MySQLRecommendationsRepository())
-    binder.bind(SportsRepository, to=MySQLSportsRepository())
-    binder.bind(PracticeCentersRepository, to=MySQLPracticeCentersRepository())
-    binder.bind(ShopsRepository, to=MySQLShopsRepository())
-    binder.bind(UsersRepository, to=MySQLUsersRepository())
+    climate_repository = MySQLClimatesRepository()
+    recommendation_repository = MySQLRecommendationsRepository()
+    sport_repository = MySQLSportsRepository(climate_repository, recommendation_repository)
+    practice_center_repository = MySQLPracticeCentersRepository(climate_repository, recommendation_repository)
+    user_repository = MySQLUsersRepository(recommendation_repository)
+    shop_repository = MySQLShopsRepository()
+
+    binder.bind(ClimatesRepository, to=climate_repository)
+    binder.bind(RecommendationsRepository, to=recommendation_repository)
+    binder.bind(SportsRepository, to=sport_repository)
+    binder.bind(PracticeCentersRepository, to=practice_center_repository)
+    binder.bind(UsersRepository, to=user_repository)
+    binder.bind(ShopsRepository, to=shop_repository)

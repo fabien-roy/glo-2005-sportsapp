@@ -12,11 +12,11 @@ from app.shops.models import Shop
 from app.repositories.mysql_shop_repositories import MySQLShopsRepository
 
 # TODO : Solve repository injection in db_populate.py
-sport_repository = MySQLSportsRepository()
-practice_center_repository = MySQLPracticeCentersRepository()
 climate_repository = MySQLClimatesRepository()
 recommendation_repository = MySQLRecommendationsRepository()
-user_repository = MySQLUsersRepository()
+sport_repository = MySQLSportsRepository(climate_repository, recommendation_repository)
+practice_center_repository = MySQLPracticeCentersRepository(climate_repository, recommendation_repository)
+user_repository = MySQLUsersRepository(recommendation_repository)
 shop_repository = MySQLShopsRepository()
 
 
