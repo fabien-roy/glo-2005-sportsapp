@@ -8,35 +8,10 @@ from app.repositories.mysql_tables import MySQLPracticeCentersTable
 from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
 
 
-class MySQLPracticeCenterRecommendationRepository:
-    table_name = 'practice_center_recommendations'
-
-    practice_center_id_col = 'practice_center_id'
-    recommendation_id_col = 'recommendation_id'
-
-    # TODO : Inject in repositories
-    recommendation_repository = MySQLRecommendationsRepository()
-
-    def add(self, practice_center_id, recommendation):
-        self.recommendation_repository.add(recommendation)
-
-        try:
-            with conn.cursor() as cur:
-                sql = ('INSERT INTO ' + self.table_name +
-                       ' (' + self.practice_center_id_col + ', ' + self.recommendation_id_col + ')' +
-                       ' VALUES (%s, %s);')
-                cur.execute(sql, (practice_center_id, recommendation.id))
-
-                conn.commit()
-        finally:
-            cur.close()
-
-
 class MySQLPracticeCentersRepository(PracticeCentersRepository):
     # TODO : Inject in repositories
     climate_repository = MySQLClimatesRepository()
     recommendation_repository = MySQLRecommendationsRepository()
-    practice_center_recommendation_repository = MySQLPracticeCenterRecommendationRepository()
 
     def get_all(self, form=None):
         all_practice_centers = []
@@ -97,9 +72,6 @@ class MySQLPracticeCentersRepository(PracticeCentersRepository):
                 practice_center.id = cur.lastrowid
 
                 for climate in practice_center.climates:
-                    self.climate_repository.add_for_practice_center(climate, practice_center)
+                    self.climate_repository.add_to_practice_center(climate, practice_center)
         finally:
             cur.close()
-
-    def add_recommendation(self, practice_center_id, recommendation):
-        self.practice_center_recommendation_repository.add(practice_center_id, recommendation)

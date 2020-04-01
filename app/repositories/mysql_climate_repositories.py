@@ -50,7 +50,7 @@ class MySQLClimatesRepository(ClimatesRepository):
         finally:
             cur.close()
 
-    def add_for_sport(self, climate, sport):
+    def add_to_sport(self, climate, sport):
         try:
             with conn.cursor() as cur:
                 query = MySQLClimatesQuery().add_for_sport()
@@ -60,7 +60,7 @@ class MySQLClimatesRepository(ClimatesRepository):
         finally:
             cur.close()
 
-    def add_for_practice_center(self, climate, practice_center):
+    def add_to_practice_center(self, climate, practice_center):
         try:
             with conn.cursor() as cur:
                 query = MySQLClimatesQuery().add_for_practice_center()

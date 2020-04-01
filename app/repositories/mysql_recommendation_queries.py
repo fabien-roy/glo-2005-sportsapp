@@ -92,3 +92,21 @@ class MySQLRecommendationQuery(MySQLQuery):
                      ' VALUES (%s, %s, %s, %s)')
 
         return self.build_query(operation)
+
+    def add_to_sport(self):
+        return self.add_to_type(MySQLSportRecommendationsTable.table_name,
+                                MySQLSportRecommendationsTable.recommendation_id_col,
+                                MySQLSportRecommendationsTable.sport_id_col)
+
+    def add_to_practice_center(self):
+        return self.add_to_type(MySQLPracticeCenterRecommendationsTable.table_name,
+                                MySQLPracticeCenterRecommendationsTable.recommendation_id_col,
+                                MySQLPracticeCenterRecommendationsTable.practice_center_id_col)
+
+    def add_to_type(self, table_name, recommendation_id_col, type_id_col):
+        operation = ('INSERT INTO ' + table_name +
+                     ' (' + recommendation_id_col +
+                     ', ' + type_id_col + ')' +
+                     ' VALUES (%s, %s);')
+
+        return self.build_query(operation)
