@@ -1,14 +1,18 @@
 class MySQLQuery:
-    def filter_equal(self, col, filter):
+    @staticmethod
+    def filter_equal(col, filter):
         return "{} = {}".format(col, filter)
 
-    def filter_equal_string(self, col, filter):
+    @staticmethod
+    def filter_equal_string(col, filter):
         return "{} = '{}'".format(col, filter)
 
-    def filter_like(self, col, filter):
+    @staticmethod
+    def filter_like(col, filter):
         return "{} LIKE '%{}%'".format(col, filter)
 
-    def build_query(self, operation, filters=None, orders=None, inner_filtering=True):
+    @staticmethod
+    def build_query(operation, filters=None, orders=None, inner_filtering=True):
         query = operation
 
         if filters is not None and len(filters) > 0:

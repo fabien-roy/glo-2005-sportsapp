@@ -3,6 +3,8 @@ from app.repositories.mysql_tables import MySQLClimatesTable, MySQLSportClimates
 
 
 class MySQLClimatesQuery(MySQLQuery):
+    fake_name_col = 'name'
+
     def get_all_for_sport(self, sport_id):
         return self.get_all_for_type(sport_id,
                                      MySQLSportClimatesTable.sport_id_col,
@@ -16,7 +18,7 @@ class MySQLClimatesQuery(MySQLQuery):
                                      MySQLPracticeCenterClimatesTable.table_name)
 
     def get_all_for_type(self, type_id, type_id_col, climate_name_col, table_name):
-        operation = ('SELECT ' + climate_name_col +
+        operation = ('SELECT ' + climate_name_col + ' AS ' + self.fake_name_col +
                      ' FROM ' + table_name)
 
         filters = [self.filter_equal(type_id_col, type_id)]

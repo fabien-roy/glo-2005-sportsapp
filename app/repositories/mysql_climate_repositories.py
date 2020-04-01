@@ -1,4 +1,5 @@
 from app import conn
+from app.climates.models import Climate
 from app.climates.repositories import ClimatesRepository
 
 from app.repositories.mysql_climate_queries import MySQLClimatesQuery
@@ -37,8 +38,8 @@ class MySQLClimatesRepository(ClimatesRepository):
         return climates
 
     @staticmethod
-    def build_climate(climate_cur):
-        pass
+    def build_climate(cur):
+        return Climate(cur[MySQLClimatesQuery.fake_name_col])
 
     def add(self, climate):
         try:

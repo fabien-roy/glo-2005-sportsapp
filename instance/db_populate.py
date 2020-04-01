@@ -23,9 +23,9 @@ shop_repository = MySQLShopsRepository()
 def db_populate():
     print('Populating database tables for SportsApp...')
 
-    climate1 = Climate('tundra')
-    climate2 = Climate('savane')
-    climate3 = Climate('aride')
+    climate1 = Climate('Tundra')
+    climate2 = Climate('Savane')
+    climate3 = Climate('Aride')
     climate_repository.add(climate1)
     climate_repository.add(climate2)
     climate_repository.add(climate3)
