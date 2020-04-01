@@ -4,18 +4,19 @@ from app import conn
 from app.recommendations.models import Recommendation
 from app.recommendations.repositories import RecommendationsRepository
 
-# TODO : Test correctly RecommendationsRepository
 from app.repositories.mysql_recommendation_queries import MySQLRecommendationQuery
 from app.repositories.mysql_tables import MySQLRecommendationsTable
 
 
+# TODO : Test correctly RecommendationsRepository
 class MySQLRecommendationsRepository(RecommendationsRepository):
-    def get_sport_recommendations(self, sport_id):
+
+    def get_all_for_sport(self, sport_id):
         recommendations = []
 
         try:
             with conn.cursor() as cur:
-                query = MySQLRecommendationQuery().get_sport_recommendations(sport_id)
+                query = MySQLRecommendationQuery().get_all_for_sport(sport_id)
                 cur.execute(query)
 
                 for recommendation_cur in cur.fetchall():
@@ -25,12 +26,12 @@ class MySQLRecommendationsRepository(RecommendationsRepository):
 
         return recommendations
 
-    def get_practice_center_recommendations(self, practice_center_id):
+    def get_all_for_practice_center(self, practice_center_id):
         recommendations = []
 
         try:
             with conn.cursor() as cur:
-                query = MySQLRecommendationQuery().get_practice_center_recommendations(practice_center_id)
+                query = MySQLRecommendationQuery().get_all_for_practice_center(practice_center_id)
                 cur.execute(query)
 
                 for recommendation_cur in cur.fetchall():
@@ -40,12 +41,12 @@ class MySQLRecommendationsRepository(RecommendationsRepository):
 
         return recommendations
 
-    def get_sport_recommendations_for_user(self, username):
+    def get_all_for_sport_and_user(self, username):
         recommendations = []
 
         try:
             with conn.cursor() as cur:
-                query = MySQLRecommendationQuery().get_sport_recommendations_for_user(username)
+                query = MySQLRecommendationQuery().get_all_for_sport_and_user(username)
                 cur.execute(query)
 
                 for recommendation_cur in cur.fetchall():
@@ -55,12 +56,12 @@ class MySQLRecommendationsRepository(RecommendationsRepository):
 
         return recommendations
 
-    def get_practice_center_recommendations_for_user(self, username):
+    def get_all_for_practice_center_and_user(self, username):
         recommendations = []
 
         try:
             with conn.cursor() as cur:
-                query = MySQLRecommendationQuery().get_practice_center_recommendations_for_user(username)
+                query = MySQLRecommendationQuery().get_all_for_practice_center_and_user(username)
                 cur.execute(query)
 
                 for recommendation_cur in cur.fetchall():

@@ -1,7 +1,7 @@
 from app.climates.models import Climate
 from app.practice_centers.models import PracticeCenter
 from app.recommendations.models import Recommendation
-from app.repositories.mysql_climate_repositories import MySQLClimateRepository
+from app.repositories.mysql_climate_repositories import MySQLClimatesRepository
 from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
 from app.repositories.mysql_user_repositories import MySQLUsersRepository
 from app.sports.models import Sport
@@ -14,7 +14,7 @@ from app.repositories.mysql_shop_repositories import MySQLShopsRepository
 # TODO : Solve repository injection in db_populate.py
 sport_repository = MySQLSportsRepository()
 practice_center_repository = MySQLPracticeCentersRepository()
-climate_repository = MySQLClimateRepository()
+climate_repository = MySQLClimatesRepository()
 recommendation_repository = MySQLRecommendationsRepository()
 user_repository = MySQLUsersRepository()
 shop_repository = MySQLShopsRepository()

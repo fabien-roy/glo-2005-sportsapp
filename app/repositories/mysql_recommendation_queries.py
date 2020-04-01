@@ -1,32 +1,32 @@
-from app.repositories.mysql_queries import build_query
+from app.repositories.mysql_queries import MySQLQuery
 from app.repositories.mysql_tables import MySQLRecommendationsTable, MySQLSportRecommendationsTable, MySQLSportsTable, \
     MySQLPracticeCenterRecommendationsTable, MySQLPracticeCentersTable
 
 
-class MySQLRecommendationQuery:
+class MySQLRecommendationQuery(MySQLQuery):
     item_id_fake_col = 'item_id'
     name_fake_col = 'name'
 
-    def get_sport_recommendations(self, sport_id):
-        return self.get_recommendations(sport_id,
-                                        MySQLSportRecommendationsTable.table_name,
-                                        MySQLSportRecommendationsTable.recommendation_id_col,
-                                        MySQLSportRecommendationsTable.sport_id_col,
-                                        MySQLSportsTable.table_name,
-                                        MySQLSportsTable.id_col,
-                                        MySQLSportsTable.name_col)
+    def get_all_for_sport(self, sport_id):
+        return self.get_all_for_type(sport_id,
+                                     MySQLSportRecommendationsTable.table_name,
+                                     MySQLSportRecommendationsTable.recommendation_id_col,
+                                     MySQLSportRecommendationsTable.sport_id_col,
+                                     MySQLSportsTable.table_name,
+                                     MySQLSportsTable.id_col,
+                                     MySQLSportsTable.name_col)
 
-    def get_practice_center_recommendations(self, practice_center_id):
-        return self.get_recommendations(practice_center_id,
-                                        MySQLPracticeCenterRecommendationsTable.table_name,
-                                        MySQLPracticeCenterRecommendationsTable.recommendation_id_col,
-                                        MySQLPracticeCenterRecommendationsTable.practice_center_id_col,
-                                        MySQLPracticeCentersTable.table_name,
-                                        MySQLPracticeCentersTable.id_col,
-                                        MySQLPracticeCentersTable.name_col)
+    def get_all_for_practice_center(self, practice_center_id):
+        return self.get_all_for_type(practice_center_id,
+                                     MySQLPracticeCenterRecommendationsTable.table_name,
+                                     MySQLPracticeCenterRecommendationsTable.recommendation_id_col,
+                                     MySQLPracticeCenterRecommendationsTable.practice_center_id_col,
+                                     MySQLPracticeCentersTable.table_name,
+                                     MySQLPracticeCentersTable.id_col,
+                                     MySQLPracticeCentersTable.name_col)
 
-    def get_recommendations(self, item_id, sub_table_name, sub_recommendation_id_col, sub_item_id_col,
-                            other_table_name, other_id_col, other_name_col):
+    def get_all_for_type(self, item_id, sub_table_name, sub_recommendation_id_col, sub_item_id_col,
+                         other_table_name, other_id_col, other_name_col):
         operation = ('SELECT T.' + MySQLRecommendationsTable.id_col +
                      ', ' + MySQLRecommendationsTable.username_col +
                      ', O.' + other_id_col + ' AS ' + self.item_id_fake_col +
@@ -42,28 +42,28 @@ class MySQLRecommendationQuery:
                      '     WHERE ' + sub_item_id_col + ' = ' + str(item_id) +
                      ')')
 
-        return build_query(operation)
+        return self.build_query(operation)
 
-    def get_sport_recommendations_for_user(self, username):
-        return self.get_recommendations_for_user(username,
-                                                 MySQLSportRecommendationsTable.table_name,
-                                                 MySQLSportRecommendationsTable.recommendation_id_col,
-                                                 MySQLSportRecommendationsTable.sport_id_col,
-                                                 MySQLSportsTable.table_name,
-                                                 MySQLSportsTable.id_col,
-                                                 MySQLSportsTable.name_col)
+    def get_all_for_sport_and_user(self, username):
+        return self.get_all_for_type_and_user(username,
+                                              MySQLSportRecommendationsTable.table_name,
+                                              MySQLSportRecommendationsTable.recommendation_id_col,
+                                              MySQLSportRecommendationsTable.sport_id_col,
+                                              MySQLSportsTable.table_name,
+                                              MySQLSportsTable.id_col,
+                                              MySQLSportsTable.name_col)
 
-    def get_practice_center_recommendations_for_user(self, username):
-        return self.get_recommendations_for_user(username,
-                                                 MySQLPracticeCenterRecommendationsTable.table_name,
-                                                 MySQLPracticeCenterRecommendationsTable.recommendation_id_col,
-                                                 MySQLPracticeCenterRecommendationsTable.practice_center_id_col,
-                                                 MySQLPracticeCentersTable.table_name,
-                                                 MySQLPracticeCentersTable.id_col,
-                                                 MySQLPracticeCentersTable.name_col)
+    def get_all_for_practice_center_and_user(self, username):
+        return self.get_all_for_type_and_user(username,
+                                              MySQLPracticeCenterRecommendationsTable.table_name,
+                                              MySQLPracticeCenterRecommendationsTable.recommendation_id_col,
+                                              MySQLPracticeCenterRecommendationsTable.practice_center_id_col,
+                                              MySQLPracticeCentersTable.table_name,
+                                              MySQLPracticeCentersTable.id_col,
+                                              MySQLPracticeCentersTable.name_col)
 
-    def get_recommendations_for_user(self, username, sub_table_name, sub_recommendation_id_col, sub_item_id_col,
-                                     other_table_name, other_id_col, other_name_col):
+    def get_all_for_type_and_user(self, username, sub_table_name, sub_recommendation_id_col, sub_item_id_col,
+                                  other_table_name, other_id_col, other_name_col):
         operation = ('SELECT T.' + MySQLRecommendationsTable.id_col +
                      ', ' + MySQLRecommendationsTable.username_col +
                      ', O.' + other_id_col + ' AS ' + self.item_id_fake_col +
@@ -81,7 +81,7 @@ class MySQLRecommendationQuery:
                      '   FROM ' + sub_table_name +
                      ')')
 
-        return build_query(operation)
+        return self.build_query(operation)
 
     def add(self):
         operation = ('INSERT INTO ' + MySQLRecommendationsTable.table_name +
@@ -91,4 +91,4 @@ class MySQLRecommendationQuery:
                      ', ' + MySQLRecommendationsTable.date_col + ')' +
                      ' VALUES (%s, %s, %s, %s)')
 
-        return build_query(operation)
+        return self.build_query(operation)

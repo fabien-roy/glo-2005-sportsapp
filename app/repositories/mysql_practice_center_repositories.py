@@ -82,7 +82,7 @@ class MySQLPracticeCentersRepository(PracticeCentersRepository):
 
         try:
             with conn.cursor() as cur:
-                query = MySQLPracticeCentersQuery().get_all(form)
+                query = MySQLPracticeCentersQuery.query().get_all(form)
                 cur.execute(query)
 
                 for practice_center_cur in cur.fetchall():
@@ -98,7 +98,7 @@ class MySQLPracticeCentersRepository(PracticeCentersRepository):
 
         try:
             with conn.cursor() as cur:
-                query = MySQLPracticeCentersQuery().get(practice_center_id)
+                query = MySQLPracticeCentersQuery.query().get(practice_center_id)
                 cur.execute(query)
 
                 # TODO : Use fetchone (causes integer error)
@@ -128,7 +128,7 @@ class MySQLPracticeCentersRepository(PracticeCentersRepository):
     def add(self, practice_center):
         try:
             with conn.cursor() as cur:
-                query = MySQLPracticeCentersQuery().add()
+                query = MySQLPracticeCentersQuery().add_practice_center()
                 cur.execute(query, (practice_center.name, practice_center.email, practice_center.web_site,
                                     practice_center.phone_number))
 

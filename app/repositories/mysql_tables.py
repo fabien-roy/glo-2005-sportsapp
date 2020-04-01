@@ -10,6 +10,17 @@ class MySQLPracticeCentersTable:
     name_col = 'name'
 
 
+class MySQLClimatesTable:
+    table_name = 'climates'
+    name_col = 'name'
+
+
+class MySQLSportClimatesTable:
+    table_name = 'sport_climates'
+    sport_id_col = 'sport_id'
+    climate_name_col = 'climate_name'
+
+
 class MySQLUsersTable:
     table_name = 'users'
     username_col = 'username'

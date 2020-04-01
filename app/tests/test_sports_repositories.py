@@ -1,4 +1,4 @@
-from app.repositories.mysql_climate_repositories import MySQLClimateRepository
+from app.repositories.mysql_climate_repositories import MySQLClimatesRepository
 from app.repositories.mysql_practice_center_repositories import MySQLPracticeCentersRepository
 from app.repositories.mysql_sport_repositories import MySQLSportsRepository, MySQLSportClimateRepository
 from app.repositories.mysql_user_repositories import MySQLUsersRepository
@@ -12,7 +12,7 @@ from instance.db_create import db_create
 
 sport_repository = MySQLSportsRepository()
 practice_center_repository = MySQLPracticeCentersRepository()
-climate_repository = MySQLClimateRepository()
+climate_repository = MySQLClimatesRepository()
 sport_climate_repository = MySQLSportClimateRepository()
 user_repository = MySQLUsersRepository()
 
