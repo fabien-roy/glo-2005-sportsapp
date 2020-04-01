@@ -105,6 +105,6 @@ class MySQLRecommendationQuery:
         operation = ('INSERT INTO ' + self.table_name +
                      ' (' + self.username_col + ', ' + self.comment_col + ', ' + self.note_col + ', ' +
                      self.date_col + ')' +
-                     ' VALUES (%s, %s, %s, %s);')
+                     ' VALUES (%s, %s, %s, %s)')
 
         return build_query(operation)

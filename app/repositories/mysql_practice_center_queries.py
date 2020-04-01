@@ -58,6 +58,6 @@ class MySQLPracticeCentersQuery:
         operation = ('INSERT INTO ' + self.table_name +
                      ' (' + self.name_col + ', ' + self.email_col + ', ' + self.web_site_col +
                      ', ' + self.phone_number_col + ')' +
-                     ' VALUES (%s, %s, %s, %s);')
+                     ' VALUES (%s, %s, %s, %s)')
 
         return build_query(operation)

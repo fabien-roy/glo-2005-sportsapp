@@ -34,6 +34,6 @@ class MySQLSportsQuery:
     def add(self):
         operation = ('INSERT INTO ' + self.table_name +
                      ' (' + self.name_col + ')' +
-                     ' VALUES (%s);')
+                     ' VALUES (%s)')
 
         return build_query(operation)

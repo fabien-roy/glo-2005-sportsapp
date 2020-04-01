@@ -33,6 +33,6 @@ class MySQLShopsQuery:
         operation = ('INSERT INTO ' + self.table_name +
                      ' (' + self.id_col + ', ' + self.name_col + ', ' + self.email_col + ', ' + self.phone_number_col +
                      ', ' + self.web_site_col + ')' +
-                     ' VALUES (%s, %s, %s, %s, %s);')
+                     ' VALUES (%s, %s, %s, %s, %s)')
 
         return build_query(operation)
