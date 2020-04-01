@@ -4,6 +4,7 @@ from app.practice_centers.exceptions import PracticeCenterNotFoundException
 from app.practice_centers.models import PracticeCenter
 from app.practice_centers.repositories import PracticeCentersRepository
 from app.repositories.mysql_practice_center_queries import MySQLPracticeCentersQuery
+from app.repositories.mysql_tables import MySQLPracticeCentersTable
 from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
 
 
@@ -116,11 +117,11 @@ class MySQLPracticeCentersRepository(PracticeCentersRepository):
 
     @staticmethod
     def build_practice_center(cur, climates=None, recommendations=None):
-        return PracticeCenter(cur[MySQLPracticeCentersQuery.id_col],
-                              cur[MySQLPracticeCentersQuery.name_col],
-                              cur[MySQLPracticeCentersQuery.email_col],
-                              cur[MySQLPracticeCentersQuery.web_site_col],
-                              cur[MySQLPracticeCentersQuery.phone_number_col],
+        return PracticeCenter(cur[MySQLPracticeCentersTable.id_col],
+                              cur[MySQLPracticeCentersTable.name_col],
+                              cur[MySQLPracticeCentersTable.email_col],
+                              cur[MySQLPracticeCentersTable.web_site_col],
+                              cur[MySQLPracticeCentersTable.phone_number_col],
                               climates,
                               recommendations)
 
