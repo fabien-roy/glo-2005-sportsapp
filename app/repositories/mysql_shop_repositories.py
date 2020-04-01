@@ -6,6 +6,22 @@ from app.shops.repositories import ShopsRepository
 
 
 class MySQLShopsRepository(ShopsRepository):
+    def get_all(self, form=None):
+        all_shops = []
+
+        try:
+            with conn.cursor() as cur:
+                query = MySQLShopsQuery().get_all(form)
+                cur.execute(query)
+
+                for sport_cur in cur.fetchall():
+                    sport = self.build_shop(sport_cur)
+                    all_shops.append(sport)
+        finally:
+            cur.close()
+
+        return all_shops
+
     def get(self, shop_id):
         shop = None
 

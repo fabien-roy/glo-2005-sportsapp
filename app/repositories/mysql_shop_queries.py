@@ -10,6 +10,17 @@ class MySQLShopsQuery:
     phone_number_col = 'phone_number'
     web_site_col = 'web_site'
 
+    def get_all(self, form=None):
+        operation = ('SELECT ' + self.id_col + ', ' + self.name_col + ', ' + self.email_col + ', ' +
+                     self.phone_number_col + ', ' + self.web_site_col + ' FROM ' + self.table_name)
+
+        # TODO : Search form for shops
+        filters = []
+
+        orders = [self.name_col]
+
+        return build_query(operation, filters, orders)
+
     def get(self, shop_id):
         operation = ('SELECT ' + self.id_col + ', ' + self.name_col + ', ' + self.email_col + ', ' +
                      self.phone_number_col + ', ' + self.web_site_col + ' FROM ' + self.table_name)

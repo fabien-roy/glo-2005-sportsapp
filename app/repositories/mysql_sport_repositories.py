@@ -72,11 +72,7 @@ class MySQLSportRecommendationRepository:
 
 
 class MySQLSportsRepository(SportsRepository):
-    table_name = MySQLSportsQuery.table_name
-
-    id_col = MySQLSportsQuery.id_col
-    name_col = MySQLSportsQuery.name_col
-
+    # TODO : Inject in repositories
     sport_climate_repository = MySQLSportClimateRepository()
     sport_recommendation_repository = MySQLSportRecommendationRepository()
 
