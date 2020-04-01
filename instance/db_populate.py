@@ -68,10 +68,10 @@ def db_populate():
     sport2_recommendation1 = Recommendation(None, sport2.id, user3.username, 'Cool.', 3, sport2.name)
     sport2_recommendation2 = Recommendation(None, sport2.id, user2.username, 'Pourri.', 0, sport2.name)
     sport3_recommendation1 = Recommendation(None, sport3.id, user1.username, ':D', 5, sport3.name)
-    sport_repository.add_recommendation(sport1.id, sport1_recommendation1)
-    sport_repository.add_recommendation(sport2.id, sport2_recommendation1)
-    sport_repository.add_recommendation(sport2.id, sport2_recommendation2)
-    sport_repository.add_recommendation(sport3.id, sport3_recommendation1)
+    recommendation_repository.add_for_sport(sport1_recommendation1, sport1)
+    recommendation_repository.add_for_sport(sport2_recommendation1, sport2)
+    recommendation_repository.add_for_sport(sport2_recommendation2, sport2)
+    recommendation_repository.add_for_sport(sport3_recommendation1, sport3)
 
     center1_recommendation1 = Recommendation(None, center1.id, user1.username, 'Un super centre. J\' adore.', 5,
                                              center1.name)
@@ -80,11 +80,11 @@ def db_populate():
                                              center2.name)
     center3_recommendation1 = Recommendation(None, center3.id, user3.username, ':D', 0, center3.name)
     center3_recommendation2 = Recommendation(None, center3.id, user1.username, 'Noice.', 4, center3.name)
-    practice_center_repository.add_recommendation(center1.id, center1_recommendation1)
-    practice_center_repository.add_recommendation(center2.id, center2_recommendation1)
-    practice_center_repository.add_recommendation(center2.id, center2_recommendation2)
-    practice_center_repository.add_recommendation(center3.id, center3_recommendation1)
-    practice_center_repository.add_recommendation(center3.id, center3_recommendation2)
+    recommendation_repository.add_for_practice_center(center1_recommendation1, center1)
+    recommendation_repository.add_for_practice_center(center2_recommendation1, center2)
+    recommendation_repository.add_for_practice_center(center2_recommendation2, center2)
+    recommendation_repository.add_for_practice_center(center3_recommendation1, center3)
+    recommendation_repository.add_for_practice_center(center3_recommendation2, center3)
 
     shop1 = Shop(None, name='MEC Quebec City', phone_number='418 522-8884',
                  web_site='https://www.mec.ca/fr/stores/quebec?utm_medium=organic&utm'

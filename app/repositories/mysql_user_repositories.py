@@ -39,9 +39,9 @@ class MySQLUsersRepository(UsersRepository):
 
                 # TODO : Use fetchone (causes integer error)
                 for user_cur in cur.fetchall():
-                    sport_recommendations = self.recommendation_repository.get_sport_recommendations_for_user(username)
+                    sport_recommendations = self.recommendation_repository.get_all_for_sport_and_user(username)
                     practice_center_recommendations = \
-                        self.recommendation_repository.get_practice_center_recommendations_for_user(username)
+                        self.recommendation_repository.get_all_for_practice_center_and_user(username)
                     user = self.build_user(user_cur, sport_recommendations, practice_center_recommendations)
         finally:
             cur.close()
