@@ -1,28 +1,31 @@
 from app.climates.models import Climate
 from app.practice_centers.models import PracticeCenter
 from app.recommendations.models import Recommendation
-from app.repositories.mysql_climate_repositories import MySQLClimateRepository
+from app.repositories.mysql_climate_repositories import MySQLClimatesRepository
 from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
 from app.repositories.mysql_user_repositories import MySQLUsersRepository
 from app.sports.models import Sport
 from app.repositories.mysql_sport_repositories import MySQLSportsRepository
 from app.repositories.mysql_practice_center_repositories import MySQLPracticeCentersRepository
 from app.users.models import User
+from app.shops.models import Shop
+from app.repositories.mysql_shop_repositories import MySQLShopsRepository
 
 # TODO : Solve repository injection in db_populate.py
-sport_repository = MySQLSportsRepository()
-practice_center_repository = MySQLPracticeCentersRepository()
-climate_repository = MySQLClimateRepository()
+climate_repository = MySQLClimatesRepository()
 recommendation_repository = MySQLRecommendationsRepository()
-user_repository = MySQLUsersRepository()
+sport_repository = MySQLSportsRepository(climate_repository, recommendation_repository)
+practice_center_repository = MySQLPracticeCentersRepository(climate_repository, recommendation_repository)
+user_repository = MySQLUsersRepository(recommendation_repository)
+shop_repository = MySQLShopsRepository()
 
 
 def db_populate():
     print('Populating database tables for SportsApp...')
 
-    climate1 = Climate('tundra')
-    climate2 = Climate('savane')
-    climate3 = Climate('aride')
+    climate1 = Climate('Tundra')
+    climate2 = Climate('Savane')
+    climate3 = Climate('Aride')
     climate_repository.add(climate1)
     climate_repository.add(climate2)
     climate_repository.add(climate3)
@@ -65,10 +68,10 @@ def db_populate():
     sport2_recommendation1 = Recommendation(None, sport2.id, user3.username, 'Cool.', 3, sport2.name)
     sport2_recommendation2 = Recommendation(None, sport2.id, user2.username, 'Pourri.', 0, sport2.name)
     sport3_recommendation1 = Recommendation(None, sport3.id, user1.username, ':D', 5, sport3.name)
-    sport_repository.add_recommendation(sport1.id, sport1_recommendation1)
-    sport_repository.add_recommendation(sport2.id, sport2_recommendation1)
-    sport_repository.add_recommendation(sport2.id, sport2_recommendation2)
-    sport_repository.add_recommendation(sport3.id, sport3_recommendation1)
+    recommendation_repository.add_for_sport(sport1_recommendation1, sport1)
+    recommendation_repository.add_for_sport(sport2_recommendation1, sport2)
+    recommendation_repository.add_for_sport(sport2_recommendation2, sport2)
+    recommendation_repository.add_for_sport(sport3_recommendation1, sport3)
 
     center1_recommendation1 = Recommendation(None, center1.id, user1.username, 'Un super centre. J\' adore.', 5,
                                              center1.name)
@@ -77,10 +80,23 @@ def db_populate():
                                              center2.name)
     center3_recommendation1 = Recommendation(None, center3.id, user3.username, ':D', 0, center3.name)
     center3_recommendation2 = Recommendation(None, center3.id, user1.username, 'Noice.', 4, center3.name)
-    practice_center_repository.add_recommendation(center1.id, center1_recommendation1)
-    practice_center_repository.add_recommendation(center2.id, center2_recommendation1)
-    practice_center_repository.add_recommendation(center2.id, center2_recommendation2)
-    practice_center_repository.add_recommendation(center3.id, center3_recommendation1)
-    practice_center_repository.add_recommendation(center3.id, center3_recommendation2)
+    recommendation_repository.add_for_practice_center(center1_recommendation1, center1)
+    recommendation_repository.add_for_practice_center(center2_recommendation1, center2)
+    recommendation_repository.add_for_practice_center(center2_recommendation2, center2)
+    recommendation_repository.add_for_practice_center(center3_recommendation1, center3)
+    recommendation_repository.add_for_practice_center(center3_recommendation2, center3)
+
+    shop1 = Shop(None, name='MEC Quebec City', phone_number='418 522-8884',
+                 web_site='https://www.mec.ca/fr/stores/quebec?utm_medium=organic&utm'
+                          'source=google&utm_campaign=my-business-listings&utm_content=quebec')
+    shop2 = Shop(None, name='Sportium', phone_number='418 627-0073',
+                 web_site='https://www.sportium.ca/fr/nos-magasins/quebec')
+    shop3 = Shop(None, name='Au Grand Bazar La Source Du Sport', phone_number='450 378-2022',
+                 email='info@grandbazar.ca',
+                 web_site='https://grandbazar.ca/fr/')
+    shop_repository.add(shop1)
+    shop_repository.add(shop2)
+    shop_repository.add(shop3)
+
 
     print('...done!')

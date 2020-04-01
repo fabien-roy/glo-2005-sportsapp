@@ -1,84 +1,20 @@
+from injector import inject
+
 from app import conn
-from app.climates.models import Climate
-from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
+from app.climates.repositories import ClimatesRepository
+from app.recommendations.repositories import RecommendationsRepository
 from app.repositories.mysql_sport_queries import MySQLSportsQuery
+from app.repositories.mysql_tables import MySQLSportsTable
 from app.sports.exceptions import SportNotFoundException
 from app.sports.models import Sport
 from app.sports.repositories import SportsRepository
 
 
-class MySQLSportClimateRepository:
-    table_name = 'sport_climates'
-
-    sport_id_col = 'sport_id'
-    climate_name_col = 'climate_name'
-
-    def get_climates(self, sport_id):
-        climates = []
-
-        try:
-            with conn.cursor() as cur:
-                sql = ('SELECT ' + self.climate_name_col +
-                       ' FROM ' + self.table_name +
-                       ' WHERE ' + self.sport_id_col + ' = %s;')
-                cur.execute(sql, sport_id)
-
-                for climate_cur in cur.fetchall():
-                    climate = Climate(climate_cur[self.climate_name_col])
-                    climates.append(climate)
-        finally:
-            cur.close()
-
-        return climates
-
-    def add(self, sport, climate):
-        try:
-            with conn.cursor() as cur:
-                sql = ('INSERT INTO ' + self.table_name +
-                       ' (' + self.sport_id_col + ', ' + self.climate_name_col + ')' +
-                       ' VALUES (%s, %s);')
-                cur.execute(sql, (sport.id, climate.name))
-
-                conn.commit()
-        finally:
-            cur.close()
-
-
-class MySQLSportRecommendationRepository:
-    table_name = 'sport_recommendations'
-
-    sport_id_col = 'sport_id'
-    recommendation_id_col = 'recommendation_id'
-
-    # TODO : Inject in repositories
-    recommendation_repository = MySQLRecommendationsRepository()
-
-    def get_recommendations(self, sport_id):
-        return self.recommendation_repository.get_sport_recommendations(sport_id)
-
-    def add(self, sport_id, recommendation):
-        self.recommendation_repository.add(recommendation)
-
-        try:
-            with conn.cursor() as cur:
-                sql = ('INSERT INTO ' + self.table_name +
-                       ' (' + self.sport_id_col + ', ' + self.recommendation_id_col + ')' +
-                       ' VALUES (%s, %s);')
-                cur.execute(sql, (sport_id, recommendation.id))
-
-                conn.commit()
-        finally:
-            cur.close()
-
-
 class MySQLSportsRepository(SportsRepository):
-    table_name = MySQLSportsQuery.table_name
-
-    id_col = MySQLSportsQuery.id_col
-    name_col = MySQLSportsQuery.name_col
-
-    sport_climate_repository = MySQLSportClimateRepository()
-    sport_recommendation_repository = MySQLSportRecommendationRepository()
+    @inject
+    def __init__(self, climates_repository: ClimatesRepository, recommendations_repository: RecommendationsRepository):
+        self.climates_repository = climates_repository
+        self.recommendations_repository = recommendations_repository
 
     def get_all(self, form=None):
         all_sports = []
@@ -89,7 +25,7 @@ class MySQLSportsRepository(SportsRepository):
                 cur.execute(query)
 
                 for sport_cur in cur.fetchall():
-                    sport = Sport(sport_cur[self.id_col], sport_cur[self.name_col])
+                    sport = self.build_sport(sport_cur)
                     all_sports.append(sport)
         finally:
             cur.close()
@@ -106,9 +42,9 @@ class MySQLSportsRepository(SportsRepository):
 
                 # TODO : Use fetchone (causes integer error)
                 for sport_cur in cur.fetchall():
-                    climates = self.sport_climate_repository.get_climates(sport_id)
-                    recommendations = self.sport_recommendation_repository.get_recommendations(sport_id)
-                    sport = Sport(sport_id, sport_cur[self.name_col], climates, recommendations)
+                    climates = self.climates_repository.get_all_for_sport(sport_id)
+                    recommendations = self.recommendations_repository.get_all_for_sport(sport_id)
+                    sport = self.build_sport(sport_cur, climates, recommendations)
         finally:
             cur.close()
 
@@ -116,6 +52,13 @@ class MySQLSportsRepository(SportsRepository):
             raise SportNotFoundException
 
         return sport
+
+    @staticmethod
+    def build_sport(cur, climates=None, recommendations=None):
+        return Sport(cur[MySQLSportsTable.id_col],
+                     cur[MySQLSportsTable.name_col],
+                     climates,
+                     recommendations)
 
     def add(self, sport):
         try:
@@ -128,9 +71,6 @@ class MySQLSportsRepository(SportsRepository):
                 sport.id = cur.lastrowid
 
                 for climate in sport.climates:
-                    self.sport_climate_repository.add(sport, climate)
+                    self.climates_repository.add_to_sport(climate, sport)
         finally:
             cur.close()
-
-    def add_recommendation(self, sport_id, recommendation):
-        self.sport_recommendation_repository.add(sport_id, recommendation)

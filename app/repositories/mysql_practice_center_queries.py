@@ -1,19 +1,15 @@
-from app.repositories.mysql_queries import build_query, filter_equal, filter_like
+from app.repositories.mysql_queries import MySQLQuery
+from app.repositories.mysql_tables import MySQLPracticeCentersTable
 
 
-class MySQLPracticeCentersQuery:
-    table_name = 'practice_centers'
-
-    id_col = 'id'
-    name_col = 'name'
-    email_col = 'email'
-    web_site_col = 'web_site'
-    phone_number_col = 'phone_number'
-
+class MySQLPracticeCentersQuery(MySQLQuery):
     def get_all(self, form=None):
-        operation = ('SELECT ' + self.id_col + ', ' + self.name_col + ', ' + self.email_col + ', ' +
-                     self.web_site_col + ', ' + self.phone_number_col +
-                     ' FROM ' + self.table_name)
+        operation = ('SELECT ' + MySQLPracticeCentersTable.id_col +
+                     ', ' + MySQLPracticeCentersTable.name_col +
+                     ', ' + MySQLPracticeCentersTable.email_col +
+                     ', ' + MySQLPracticeCentersTable.web_site_col +
+                     ', ' + MySQLPracticeCentersTable.phone_number_col +
+                     ' FROM ' + MySQLPracticeCentersTable.table_name)
 
         inner_filtering = True
 
@@ -22,42 +18,47 @@ class MySQLPracticeCentersQuery:
         else:
             filters = []
 
-            if form.all.data is not '':
+            if form.all.data != '':
                 inner_filtering = False
-                filters.append(filter_like(self.name_col, form.all.data))
-                filters.append(filter_like(self.email_col, form.all.data))
-                filters.append(filter_like(self.web_site_col, form.all.data))
-                filters.append(filter_like(self.phone_number_col, form.all.data))
+                filters.append(self.filter_like(MySQLPracticeCentersTable.name_col, form.all.data))
+                filters.append(self.filter_like(MySQLPracticeCentersTable.email_col, form.all.data))
+                filters.append(self.filter_like(MySQLPracticeCentersTable.web_site_col, form.all.data))
+                filters.append(self.filter_like(MySQLPracticeCentersTable.phone_number_col, form.all.data))
             else:
-                if form.name.data is not '':
-                    filters.append(filter_like(self.name_col, form.name.data))
+                if form.name.data != '':
+                    filters.append(self.filter_like(MySQLPracticeCentersTable.name_col, form.name.data))
 
-                if form.email.data is not '':
-                    filters.append(filter_like(self.email_col, form.email.data))
+                if form.email.data != '':
+                    filters.append(self.filter_like(MySQLPracticeCentersTable.email_col, form.email.data))
 
-                if form.web_site.data is not '':
-                    filters.append(filter_like(self.web_site_col, form.web_site.data))
+                if form.web_site.data != '':
+                    filters.append(self.filter_like(MySQLPracticeCentersTable.web_site_col, form.web_site.data))
 
-                if form.phone_number.data is not '':
-                    filters.append(filter_like(self.phone_number_col, form.phone_number.data))
+                if form.phone_number.data != '':
+                    filters.append(self.filter_like(MySQLPracticeCentersTable.phone_number_col, form.phone_number.data))
 
-        orders = [self.name_col]
+        orders = [MySQLPracticeCentersTable.name_col]
 
-        return build_query(operation, filters, orders, inner_filtering)
+        return self.build_query(operation, filters, orders, inner_filtering)
 
     def get(self, practice_center_id):
-        operation = ('SELECT ' + self.id_col + ', ' + self.name_col + ', ' + self.email_col + ', ' +
-                     self.web_site_col + ', ' + self.phone_number_col +
-                     ' FROM ' + self.table_name)
+        operation = ('SELECT ' + MySQLPracticeCentersTable.id_col +
+                     ', ' + MySQLPracticeCentersTable.name_col +
+                     ', ' + MySQLPracticeCentersTable.email_col +
+                     ', ' + MySQLPracticeCentersTable.web_site_col +
+                     ', ' + MySQLPracticeCentersTable.phone_number_col +
+                     ' FROM ' + MySQLPracticeCentersTable.table_name)
 
-        filters = [filter_equal(self.id_col, practice_center_id)]
+        filters = [self.filter_equal(MySQLPracticeCentersTable.id_col, practice_center_id)]
 
-        return build_query(operation, filters)
+        return self.build_query(operation, filters)
 
     def add(self):
-        operation = ('INSERT INTO ' + self.table_name +
-                     ' (' + self.name_col + ', ' + self.email_col + ', ' + self.web_site_col +
-                     ', ' + self.phone_number_col + ')' +
-                     ' VALUES (%s, %s, %s, %s);')
+        operation = ('INSERT INTO ' + MySQLPracticeCentersTable.table_name +
+                     ' (' + MySQLPracticeCentersTable.name_col +
+                     ', ' + MySQLPracticeCentersTable.email_col +
+                     ', ' + MySQLPracticeCentersTable.web_site_col +
+                     ', ' + MySQLPracticeCentersTable.phone_number_col + ')' +
+                     ' VALUES (%s, %s, %s, %s)')
 
-        return build_query(operation)
+        return self.build_query(operation)

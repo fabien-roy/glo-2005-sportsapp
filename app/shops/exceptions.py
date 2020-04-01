@@ -1,0 +1,2 @@
+class ShopNotFoundException(Exception):
+    pass

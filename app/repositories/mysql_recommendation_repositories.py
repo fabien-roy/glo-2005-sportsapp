@@ -3,63 +3,32 @@ import datetime
 from app import conn
 from app.recommendations.models import Recommendation
 from app.recommendations.repositories import RecommendationsRepository
-
-# TODO : Test correctly RecommendationsRepository
 from app.repositories.mysql_recommendation_queries import MySQLRecommendationQuery
+from app.repositories.mysql_tables import MySQLRecommendationsTable
 
 
 class MySQLRecommendationsRepository(RecommendationsRepository):
-    def get_sport_recommendations(self, sport_id):
+    def get_all_for_sport(self, sport_id):
+        query = MySQLRecommendationQuery().get_all_for_sport(sport_id)
+        return self.get_all(query)
+
+    def get_all_for_practice_center(self, practice_center_id):
+        query = MySQLRecommendationQuery().get_all_for_practice_center(practice_center_id)
+        return self.get_all(query)
+
+    def get_all_for_sport_and_user(self, username):
+        query = MySQLRecommendationQuery().get_all_for_sport_and_user(username)
+        return self.get_all(query)
+
+    def get_all_for_practice_center_and_user(self, username):
+        query = MySQLRecommendationQuery().get_all_for_practice_center_and_user(username)
+        return self.get_all(query)
+
+    def get_all(self, query):
         recommendations = []
 
         try:
             with conn.cursor() as cur:
-                query = MySQLRecommendationQuery().get_sport_recommendations(sport_id)
-                cur.execute(query)
-
-                for recommendation_cur in cur.fetchall():
-                    recommendations.append(self.build_recommendation(recommendation_cur))
-        finally:
-            cur.close()
-
-        return recommendations
-
-    def get_practice_center_recommendations(self, practice_center_id):
-        recommendations = []
-
-        try:
-            with conn.cursor() as cur:
-                query = MySQLRecommendationQuery().get_practice_center_recommendations(practice_center_id)
-                cur.execute(query)
-
-                for recommendation_cur in cur.fetchall():
-                    recommendations.append(self.build_recommendation(recommendation_cur))
-        finally:
-            cur.close()
-
-        return recommendations
-
-    def get_sport_recommendations_for_user(self, username):
-        recommendations = []
-
-        try:
-            with conn.cursor() as cur:
-                query = MySQLRecommendationQuery().get_sport_recommendations_for_user(username)
-                cur.execute(query)
-
-                for recommendation_cur in cur.fetchall():
-                    recommendations.append(self.build_recommendation(recommendation_cur))
-        finally:
-            cur.close()
-
-        return recommendations
-
-    def get_practice_center_recommendations_for_user(self, username):
-        recommendations = []
-
-        try:
-            with conn.cursor() as cur:
-                query = MySQLRecommendationQuery().get_practice_center_recommendations_for_user(username)
                 cur.execute(query)
 
                 for recommendation_cur in cur.fetchall():
@@ -71,20 +40,20 @@ class MySQLRecommendationsRepository(RecommendationsRepository):
 
     @staticmethod
     def build_recommendation(cur):
-        return Recommendation(cur[MySQLRecommendationQuery.id_col],
+        return Recommendation(cur[MySQLRecommendationsTable.id_col],
                               cur[MySQLRecommendationQuery.item_id_fake_col],
-                              cur[MySQLRecommendationQuery.username_col],
-                              cur[MySQLRecommendationQuery.comment_col],
-                              cur[MySQLRecommendationQuery.note_col],
+                              cur[MySQLRecommendationsTable.username_col],
+                              cur[MySQLRecommendationsTable.comment_col],
+                              cur[MySQLRecommendationsTable.note_col],
                               cur[MySQLRecommendationQuery.name_fake_col],
-                              cur[MySQLRecommendationQuery.date_col])
+                              cur[MySQLRecommendationsTable.date_col])
 
     def add(self, recommendation):
-        try:
-            recommendation.date = datetime.datetime.now()
+        recommendation.date = datetime.datetime.now()
+        query = MySQLRecommendationQuery().add()
 
+        try:
             with conn.cursor() as cur:
-                query = MySQLRecommendationQuery().add()
                 cur.execute(query, (recommendation.username, recommendation.comment, recommendation.note,
                                     recommendation.date))
 
@@ -95,3 +64,22 @@ class MySQLRecommendationsRepository(RecommendationsRepository):
             cur.close()
 
         return cur.lastrowid
+
+    def add_for_sport(self, recommendation, sport):
+        query = MySQLRecommendationQuery().add_to_sport()
+        self.add_for_type(recommendation, query, sport.id)
+
+    def add_for_practice_center(self, recommendation, practice_center):
+        query = MySQLRecommendationQuery().add_to_practice_center()
+        self.add_for_type(recommendation, query, practice_center.id)
+
+    def add_for_type(self, recommendation, query, type_id):
+        self.add(recommendation)
+
+        try:
+            with conn.cursor() as cur:
+                cur.execute(query, (recommendation.id, type_id))
+
+                conn.commit()
+        finally:
+            cur.close()

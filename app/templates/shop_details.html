@@ -1,0 +1,16 @@
+{% extends "details.html" %}
+{% from 'macros/jumbotron.html' import jumbotron %}
+{% from 'macros/details.html' import details, detail, detail_list %}
+
+
+{% block jumbotron %}
+{{ jumbotron(shop.name, 'shops') }}
+{% endblock %}
+
+{% block details %}
+{{ details([
+detail('Name', shop.name),
+detail('Web site', shop.web_site),
+detail('Email', shop.email),
+detail('Phone number', shop.phone_number)]) }}
+{% endblock %}

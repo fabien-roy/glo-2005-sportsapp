@@ -1,15 +1,12 @@
-from app.repositories.mysql_queries import build_query, filter_like, filter_equal
+from app.repositories.mysql_queries import MySQLQuery
+from app.repositories.mysql_tables import MySQLSportsTable
 
 
-class MySQLSportsQuery:
-    table_name = 'sports'
-
-    id_col = 'id'
-    name_col = 'name'
-
+class MySQLSportsQuery(MySQLQuery):
     def get_all(self, form=None):
-        operation = ('SELECT ' + self.id_col + ', ' + self.name_col +
-                     ' FROM ' + self.table_name)
+        operation = ('SELECT ' + MySQLSportsTable.id_col +
+                     ', ' + MySQLSportsTable.name_col +
+                     ' FROM ' + MySQLSportsTable.table_name)
 
         if form is None:
             filters = None
@@ -17,23 +14,24 @@ class MySQLSportsQuery:
             filters = []
 
             if form.name is not None:
-                filters.append(filter_like(self.name_col, form.name.data))
+                filters.append(self.filter_like(MySQLSportsTable.name_col, form.name.data))
 
-        orders = [self.name_col]
+        orders = [MySQLSportsTable.name_col]
 
-        return build_query(operation, filters, orders)
+        return self.build_query(operation, filters, orders)
 
     def get(self, sport_id):
-        operation = ('SELECT ' + self.id_col + ', ' + self.name_col +
-                     ' FROM ' + self.table_name)
+        operation = ('SELECT ' + MySQLSportsTable.id_col +
+                     ', ' + MySQLSportsTable.name_col +
+                     ' FROM ' + MySQLSportsTable.table_name)
 
-        filters = [filter_equal(self.id_col, sport_id)]
+        filters = [self.filter_equal(MySQLSportsTable.id_col, sport_id)]
 
-        return build_query(operation, filters)
+        return self.build_query(operation, filters)
 
     def add(self):
-        operation = ('INSERT INTO ' + self.table_name +
-                     ' (' + self.name_col + ')' +
-                     ' VALUES (%s);')
+        operation = ('INSERT INTO ' + MySQLSportsTable.table_name +
+                     ' (' + MySQLSportsTable.name_col + ')' +
+                     ' VALUES (%s)')
 
-        return build_query(operation)
+        return self.build_query(operation)

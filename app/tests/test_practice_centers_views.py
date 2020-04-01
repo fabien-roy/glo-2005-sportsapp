@@ -3,19 +3,19 @@ from unittest.mock import patch
 
 from app.tests import test_basic
 from app.tests.fakes import center1, center2, center3, no_practice_center, practice_centers
-from app.tests.mocks import practice_center_repository
+from app.tests.mocks import practice_centers_repository
 
 
 def remove_practice_centers():
-    practice_center_repository.reset_mock()
-    practice_center_repository.get.side_effect = lambda practice_center_id: no_practice_center()
-    practice_center_repository.get_all.side_effect = lambda form: []
+    practice_centers_repository.reset_mock()
+    practice_centers_repository.get.side_effect = lambda practice_center_id: no_practice_center()
+    practice_centers_repository.get_all.side_effect = lambda form: []
 
 
 def add_practice_centers():
-    practice_center_repository.reset_mock()
-    practice_center_repository.get.side_effect = practice_centers
-    practice_center_repository.get_all.side_effect = get_all_side_effect
+    practice_centers_repository.reset_mock()
+    practice_centers_repository.get.side_effect = practice_centers
+    practice_centers_repository.get_all.side_effect = get_all_side_effect
 
 
 def get_all_side_effect(form):
