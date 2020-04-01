@@ -4,7 +4,9 @@ from app.tests.test_basic_repositories import BasicRepositoryTests
 
 
 class ClimatesRepositoryTests(BasicRepositoryTests):
-    repository = MySQLClimatesRepository()
+
+    def setUp(self):
+        self.repository = MySQLClimatesRepository()
 
     def test_get_for_sport_should_without_sport_get_no_climate(self):
         self.reset_repositories()

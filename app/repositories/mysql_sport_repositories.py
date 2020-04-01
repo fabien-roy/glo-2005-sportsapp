@@ -1,5 +1,7 @@
+from injector import inject
+
 from app import conn
-from app.repositories.mysql_climate_repositories import MySQLClimatesRepository
+from app.climates.repositories import ClimatesRepository
 from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
 from app.repositories.mysql_sport_queries import MySQLSportsQuery
 from app.repositories.mysql_tables import MySQLSportsTable
@@ -9,9 +11,11 @@ from app.sports.repositories import SportsRepository
 
 
 class MySQLSportsRepository(SportsRepository):
-    # TODO : Inject in repositories
-    climate_repository = MySQLClimatesRepository()
-    recommendation_repository = MySQLRecommendationsRepository()
+    recommendations_repository = MySQLRecommendationsRepository()
+
+    @inject
+    def __init__(self, climates_repository: ClimatesRepository):
+        self.climates_repository = climates_repository
 
     def get_all(self, form=None):
         all_sports = []
@@ -39,8 +43,8 @@ class MySQLSportsRepository(SportsRepository):
 
                 # TODO : Use fetchone (causes integer error)
                 for sport_cur in cur.fetchall():
-                    climates = self.climate_repository.get_all_for_sport(sport_id)
-                    recommendations = self.recommendation_repository.get_all_for_sport(sport_id)
+                    climates = self.climates_repository.get_all_for_sport(sport_id)
+                    recommendations = self.recommendations_repository.get_all_for_sport(sport_id)
                     sport = self.build_sport(sport_cur, climates, recommendations)
         finally:
             cur.close()
@@ -68,6 +72,6 @@ class MySQLSportsRepository(SportsRepository):
                 sport.id = cur.lastrowid
 
                 for climate in sport.climates:
-                    self.climate_repository.add_to_sport(climate, sport)
+                    self.climates_repository.add_to_sport(climate, sport)
         finally:
             cur.close()

@@ -2,19 +2,19 @@ import unittest
 
 from app.tests import test_basic
 from app.tests.fakes import sport1, sport2, sport3, sports, no_sport
-from app.tests.mocks import sport_repository
+from app.tests.mocks import sports_repository
 
 
 def remove_sports():
-    sport_repository.reset_mock()
-    sport_repository.get.side_effect = lambda sport_id: no_sport()
-    sport_repository.get_all.side_effect = lambda form: []
+    sports_repository.reset_mock()
+    sports_repository.get.side_effect = lambda sport_id: no_sport()
+    sports_repository.get_all.side_effect = lambda form: []
 
 
 def add_sports():
-    sport_repository.reset_mock()
-    sport_repository.get.side_effect = sports
-    sport_repository.get_all.side_effect = get_all_side_effect
+    sports_repository.reset_mock()
+    sports_repository.get.side_effect = sports
+    sports_repository.get_all.side_effect = get_all_side_effect
 
 
 def get_all_side_effect(form):

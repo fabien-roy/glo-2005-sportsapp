@@ -7,3 +7,9 @@ class ClimatesRepository:
 
     def add(self, climate):
         pass
+
+    def add_to_sport(self, climate, sport):
+        pass
+
+    def add_to_practice_center(self, climate, practice_center):
+        pass

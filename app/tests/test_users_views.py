@@ -2,19 +2,19 @@ import unittest
 
 from app.tests import test_basic
 from app.tests.fakes import users, user3, user2, user1, no_user
-from app.tests.mocks import user_repository
+from app.tests.mocks import users_repository
 
 
 def remove_users():
-    user_repository.reset_mock()
-    user_repository.get.side_effect = lambda username: no_user()
-    user_repository.get_all.return_value = []
+    users_repository.reset_mock()
+    users_repository.get.side_effect = lambda username: no_user()
+    users_repository.get_all.return_value = []
 
 
 def add_users():
-    user_repository.reset_mock()
-    user_repository.get.side_effect = users
-    user_repository.get_all.return_value = [user1, user2, user3]
+    users_repository.reset_mock()
+    users_repository.get.side_effect = users
+    users_repository.get_all.return_value = [user1, user2, user3]
 
 
 class UsersViewsTests(test_basic.BasicTests):

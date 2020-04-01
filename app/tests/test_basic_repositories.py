@@ -11,10 +11,10 @@ from instance.db_create import db_create
 
 
 class BasicRepositoryTests(test_basic.BasicTests):
-    sports_repository = MySQLSportsRepository()
-    practice_centers_repository = MySQLPracticeCentersRepository()
     climates_repository = MySQLClimatesRepository()
     recommendations_repository = MySQLRecommendationsRepository()
+    sports_repository = MySQLSportsRepository(climates_repository)
+    practice_centers_repository = MySQLPracticeCentersRepository()
     users_repository = MySQLUsersRepository()
 
     @staticmethod
