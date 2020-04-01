@@ -6,6 +6,7 @@ from app.recommendations.repositories import RecommendationsRepository
 
 # TODO : Test correctly RecommendationsRepository
 from app.repositories.mysql_recommendation_queries import MySQLRecommendationQuery
+from app.repositories.mysql_tables import MySQLRecommendationsTable
 
 
 class MySQLRecommendationsRepository(RecommendationsRepository):
@@ -71,13 +72,13 @@ class MySQLRecommendationsRepository(RecommendationsRepository):
 
     @staticmethod
     def build_recommendation(cur):
-        return Recommendation(cur[MySQLRecommendationQuery.id_col],
+        return Recommendation(cur[MySQLRecommendationsTable.id_col],
                               cur[MySQLRecommendationQuery.item_id_fake_col],
-                              cur[MySQLRecommendationQuery.username_col],
-                              cur[MySQLRecommendationQuery.comment_col],
-                              cur[MySQLRecommendationQuery.note_col],
+                              cur[MySQLRecommendationsTable.username_col],
+                              cur[MySQLRecommendationsTable.comment_col],
+                              cur[MySQLRecommendationsTable.note_col],
                               cur[MySQLRecommendationQuery.name_fake_col],
-                              cur[MySQLRecommendationQuery.date_col])
+                              cur[MySQLRecommendationsTable.date_col])
 
     def add(self, recommendation):
         try:

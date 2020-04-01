@@ -22,23 +22,23 @@ class MySQLPracticeCentersQuery:
         else:
             filters = []
 
-            if form.all.data is not '':
+            if form.all.data != '':
                 inner_filtering = False
                 filters.append(filter_like(self.name_col, form.all.data))
                 filters.append(filter_like(self.email_col, form.all.data))
                 filters.append(filter_like(self.web_site_col, form.all.data))
                 filters.append(filter_like(self.phone_number_col, form.all.data))
             else:
-                if form.name.data is not '':
+                if form.name.data != '':
                     filters.append(filter_like(self.name_col, form.name.data))
 
-                if form.email.data is not '':
+                if form.email.data != '':
                     filters.append(filter_like(self.email_col, form.email.data))
 
-                if form.web_site.data is not '':
+                if form.web_site.data != '':
                     filters.append(filter_like(self.web_site_col, form.web_site.data))
 
-                if form.phone_number.data is not '':
+                if form.phone_number.data != '':
                     filters.append(filter_like(self.phone_number_col, form.phone_number.data))
 
         orders = [self.name_col]
