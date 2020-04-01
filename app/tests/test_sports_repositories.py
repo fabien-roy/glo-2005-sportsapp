@@ -1,9 +1,9 @@
 from app.repositories.mysql_climate_repositories import MySQLClimatesRepository
+from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
 from app.repositories.mysql_practice_center_repositories import MySQLPracticeCentersRepository
-from app.repositories.mysql_sport_repositories import MySQLSportsRepository, MySQLSportClimateRepository
+from app.repositories.mysql_sport_repositories import MySQLSportsRepository
 from app.repositories.mysql_user_repositories import MySQLUsersRepository
 from app.sports.exceptions import SportNotFoundException
-from app.sports.forms import SportsSearchForm
 from app.tests import test_basic
 from app.tests.fakes import sport1, sport2, sport3, climate1, climate2, climate3, user2, \
     user1, user3, sport1_recommendation1_user1, sport2_recommendation1_user3, sport2_recommendation2_user2, sport3_recommendation1_user1
@@ -13,7 +13,7 @@ from instance.db_create import db_create
 sport_repository = MySQLSportsRepository()
 practice_center_repository = MySQLPracticeCentersRepository()
 climate_repository = MySQLClimatesRepository()
-sport_climate_repository = MySQLSportClimateRepository()
+recommendation_repository = MySQLRecommendationsRepository()
 user_repository = MySQLUsersRepository()
 
 
@@ -33,10 +33,10 @@ def add_sports_recommendations():
     reset_repositories()
     add_sports()
     add_users()
-    sport_repository.add_recommendation(sport1.id, sport1_recommendation1_user1)
-    sport_repository.add_recommendation(sport2.id, sport2_recommendation1_user3)
-    sport_repository.add_recommendation(sport2.id, sport2_recommendation2_user2)
-    sport_repository.add_recommendation(sport3.id, sport3_recommendation1_user1)
+    recommendation_repository.add_for_sport(sport1_recommendation1_user1, sport1)
+    recommendation_repository.add_for_sport(sport2_recommendation1_user3, sport2)
+    recommendation_repository.add_for_sport(sport2_recommendation2_user2, sport2)
+    recommendation_repository.add_for_sport(sport3_recommendation1_user1, sport3)
 
 
 def add_climates():

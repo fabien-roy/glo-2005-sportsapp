@@ -1,3 +1,9 @@
+{% macro enumeration(values) -%}
+{% for value in values %}
+{{ value.name }},
+{% endfor %}
+{%- endmacro %}
+
 {% macro value_or_unspecified(value) -%}
 {% if value != None %}
 {{ value }}

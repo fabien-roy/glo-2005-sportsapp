@@ -1,8 +1,9 @@
 import unittest
 
 from app.repositories.mysql_climate_repositories import MySQLClimatesRepository
+from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
 from app.repositories.mysql_practice_center_repositories import MySQLPracticeCentersRepository
-from app.repositories.mysql_sport_repositories import MySQLSportsRepository, MySQLSportClimateRepository
+from app.repositories.mysql_sport_repositories import MySQLSportsRepository
 from app.repositories.mysql_user_repositories import MySQLUsersRepository
 from app.tests import test_basic
 from app.tests.fakes import user2, \
@@ -17,7 +18,7 @@ from instance.db_create import db_create
 sport_repository = MySQLSportsRepository()
 practice_center_repository = MySQLPracticeCentersRepository()
 climate_repository = MySQLClimatesRepository()
-sport_climate_repository = MySQLSportClimateRepository()
+recommendation_repository = MySQLRecommendationsRepository()
 user_repository = MySQLUsersRepository()
 
 
@@ -47,10 +48,10 @@ def add_sports():
 def add_sports_recommendations():
     add_users()
     add_sports()
-    sport_repository.add_recommendation(sport1.id, sport1_recommendation1_user1)
-    sport_repository.add_recommendation(sport3.id, sport3_recommendation1_user1)
-    sport_repository.add_recommendation(sport2.id, sport2_recommendation2_user2)
-    sport_repository.add_recommendation(sport2.id, sport2_recommendation1_user3)
+    recommendation_repository.add_for_sport(sport1_recommendation1_user1, sport1)
+    recommendation_repository.add_for_sport(sport2_recommendation1_user3, sport2)
+    recommendation_repository.add_for_sport(sport2_recommendation2_user2, sport2)
+    recommendation_repository.add_for_sport(sport3_recommendation1_user1, sport3)
 
 
 def add_practice_centers():
@@ -64,11 +65,11 @@ def add_practice_centers():
 def add_practice_centers_recommendations():
     add_users()
     add_practice_centers()
-    practice_center_repository.add_recommendation(center1.id, center1_recommendation1_user1)
-    practice_center_repository.add_recommendation(center2.id, center2_recommendation1_user1)
-    practice_center_repository.add_recommendation(center2.id, center2_recommendation2_user2)
-    practice_center_repository.add_recommendation(center3.id, center3_recommendation1_user3)
-    practice_center_repository.add_recommendation(center3.id, center3_recommendation2_user1)
+    recommendation_repository.add_for_practice_center(center1_recommendation1_user1, center1)
+    recommendation_repository.add_for_practice_center(center2_recommendation1_user1, center2)
+    recommendation_repository.add_for_practice_center(center2_recommendation2_user2, center2)
+    recommendation_repository.add_for_practice_center(center3_recommendation1_user3, center3)
+    recommendation_repository.add_for_practice_center(center3_recommendation2_user1, center3)
 
 
 class UsersRepositoryTests(test_basic.BasicTests):
