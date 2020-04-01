@@ -101,7 +101,6 @@ def db_create():
 
             cur.execute('CREATE TABLE shops('
                         'id int NOT NULL AUTO_INCREMENT PRIMARY KEY,'
-                        'location_id int,'
                         'name varchar(100),'
                         'email varchar(100) NULL,'
                         'web_site varchar(200) NULL,'

@@ -72,14 +72,8 @@ class MySQLPracticeCenterRecommendationRepository:
 
 
 class MySQLPracticeCentersRepository(PracticeCentersRepository):
-    table_name = MySQLPracticeCentersQuery.table_name
 
-    id_col = MySQLPracticeCentersQuery.id_col
-    name_col = MySQLPracticeCentersQuery.name_col
-    email_col = MySQLPracticeCentersQuery.email_col
-    web_site_col = MySQLPracticeCentersQuery.web_site_col
-    phone_number_col = MySQLPracticeCentersQuery.phone_number_col
-
+    # TODO : Inject in repositories
     practice_center_climate_repository = MySQLPracticeCenterClimateRepository()
     practice_center_recommendation_repository = MySQLPracticeCenterRecommendationRepository()
 
@@ -92,11 +86,7 @@ class MySQLPracticeCentersRepository(PracticeCentersRepository):
                 cur.execute(query)
 
                 for practice_center_cur in cur.fetchall():
-                    practice_center = PracticeCenter(practice_center_cur[self.id_col],
-                                                     practice_center_cur[self.name_col],
-                                                     practice_center_cur[self.email_col],
-                                                     practice_center_cur[self.web_site_col],
-                                                     practice_center_cur[self.phone_number_col])
+                    practice_center = self.build_practice_center(practice_center_cur)
                     all_practice_centers.append(practice_center)
         finally:
             cur.close()
@@ -116,13 +106,7 @@ class MySQLPracticeCentersRepository(PracticeCentersRepository):
                     climates = self.practice_center_climate_repository.get_climates(practice_center_id)
                     recommendations = self.practice_center_recommendation_repository.get_recommendations(
                         practice_center_id)
-                    practice_center = PracticeCenter(practice_center_id,
-                                                     practice_center_cur[self.name_col],
-                                                     practice_center_cur[self.email_col],
-                                                     practice_center_cur[self.web_site_col],
-                                                     practice_center_cur[self.phone_number_col],
-                                                     climates,
-                                                     recommendations)
+                    practice_center = self.build_practice_center(practice_center_cur, climates, recommendations)
         finally:
             cur.close()
 
@@ -130,6 +114,16 @@ class MySQLPracticeCentersRepository(PracticeCentersRepository):
             raise PracticeCenterNotFoundException
 
         return practice_center
+
+    @staticmethod
+    def build_practice_center(cur, climates=None, recommendations=None):
+        return PracticeCenter(cur[MySQLPracticeCentersQuery.id_col],
+                              cur[MySQLPracticeCentersQuery.name_col],
+                              cur[MySQLPracticeCentersQuery.email_col],
+                              cur[MySQLPracticeCentersQuery.web_site_col],
+                              cur[MySQLPracticeCentersQuery.phone_number_col],
+                              climates,
+                              recommendations)
 
     def add(self, practice_center):
         try:

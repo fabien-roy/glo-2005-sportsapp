@@ -89,7 +89,7 @@ class MySQLSportsRepository(SportsRepository):
                 cur.execute(query)
 
                 for sport_cur in cur.fetchall():
-                    sport = Sport(sport_cur[self.id_col], sport_cur[self.name_col])
+                    sport = self.build_sport(sport_cur)
                     all_sports.append(sport)
         finally:
             cur.close()
@@ -108,7 +108,7 @@ class MySQLSportsRepository(SportsRepository):
                 for sport_cur in cur.fetchall():
                     climates = self.sport_climate_repository.get_climates(sport_id)
                     recommendations = self.sport_recommendation_repository.get_recommendations(sport_id)
-                    sport = Sport(sport_id, sport_cur[self.name_col], climates, recommendations)
+                    sport = self.build_sport(sport_cur, climates, recommendations)
         finally:
             cur.close()
 
@@ -116,6 +116,13 @@ class MySQLSportsRepository(SportsRepository):
             raise SportNotFoundException
 
         return sport
+
+    @staticmethod
+    def build_sport(cur, climates=None, recommendations=None):
+        return Sport(cur[MySQLSportsQuery.id_col],
+                     cur[MySQLSportsQuery.name_col],
+                     climates,
+                     recommendations)
 
     def add(self, sport):
         try:
