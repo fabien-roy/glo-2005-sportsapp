@@ -2,6 +2,7 @@ import datetime
 
 from app import conn
 from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
+from app.repositories.mysql_tables import MySQLUsersTable
 from app.repositories.mysql_user_queries import MySQLUsersQuery
 from app.users.exceptions import UserNotFoundException
 from app.users.models import User
@@ -52,13 +53,13 @@ class MySQLUsersRepository(UsersRepository):
 
     @staticmethod
     def build_user(cur, sport_recommendations=None, practice_center_recommendations=None):
-        return User(cur[MySQLUsersQuery.username_col],
-                    cur[MySQLUsersQuery.email_col],
-                    cur[MySQLUsersQuery.first_name_col],
-                    cur[MySQLUsersQuery.last_name_col],
-                    cur[MySQLUsersQuery.phone_number_col],
-                    cur[MySQLUsersQuery.creation_date_col],
-                    cur[MySQLUsersQuery.last_login_date_col],
+        return User(cur[MySQLUsersTable.username_col],
+                    cur[MySQLUsersTable.email_col],
+                    cur[MySQLUsersTable.first_name_col],
+                    cur[MySQLUsersTable.last_name_col],
+                    cur[MySQLUsersTable.phone_number_col],
+                    cur[MySQLUsersTable.creation_date_col],
+                    cur[MySQLUsersTable.last_login_date_col],
                     sport_recommendations,
                     practice_center_recommendations)
 
