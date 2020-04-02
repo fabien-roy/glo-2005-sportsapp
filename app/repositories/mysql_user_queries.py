@@ -22,11 +22,11 @@ class MySQLUsersQuery(MySQLQuery):
         return self.build_query(select_all_operation, filters)
 
     def get_all(self, form=None):
-        filters = MySQLUsersFilter().build_filters(form)
+        filters, inner_filtering = MySQLUsersFilter().build_filters(form)
 
         orders = [MySQLUsersTable.username_col]
 
-        return self.build_query(select_all_operation, filters, orders)
+        return self.build_query(select_all_operation, filters, orders, inner_filtering)
 
     def add(self):
         operation = ('INSERT INTO ' + MySQLUsersTable.table_name +
