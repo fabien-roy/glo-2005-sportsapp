@@ -7,7 +7,7 @@ user2 = User(username='mikaelvalliant', email='mikaelvalliant@gmail.com', first_
 user3 = User(username='getoutmyswamp', email='shrek@swamp.ca', first_name='Shrek', phone_number='1 800-555-0101')
 
 
-def users(username):
+def get_user(username):
     return {
         'fabienroy28': user1,
         'mikaelvalliant': user2,

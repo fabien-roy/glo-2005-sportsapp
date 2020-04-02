@@ -12,13 +12,25 @@ sport2_no_climates = Sport(sport_id=2, name='Escalade', climates=[])
 sport3_no_climates = Sport(sport_id=3, name='Natation', climates=[])
 
 
-def sports(sport_id):
-    return {
-        '1': sport1,
-        '2': sport2,
-        '3': sport3
-    }[sport_id]
+def get_sport(sport_id):
+    if sport_id == sport1.id:
+        return sport1
+    if sport_id == sport2.id:
+        return sport2
+    if sport_id == sport3.id:
+        return sport3
 
 
 def no_sport():
     raise SportNotFoundException
+
+
+def get_sports_filtered(form):
+    if form is None:
+        return [sport1, sport2, sport3]
+    else:
+        return [sport1]
+
+
+def get_climates_for_sport(sport_id):
+    return get_sport(sport_id).climates

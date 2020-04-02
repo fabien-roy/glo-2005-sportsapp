@@ -1,8 +1,8 @@
 from app.recommendations.models import Recommendation
 
-from app.tests.practice_centers.fakes import center1, center2, center3
-from app.tests.sports.fakes import sport1, sport2, sport3
-from app.tests.users.fakes import user1, user3, user2
+from app.tests.practice_centers.fakes import center1, center2, center3, get_practice_center
+from app.tests.sports.fakes import sport1, sport2, sport3, get_sport
+from app.tests.users.fakes import user1, user3, user2, get_user
 
 sport1_recommendation1_user1 = Recommendation(1, sport1.id, user1.username, 'Un super sport. J\' adore.', 5,
                                               sport1.name)
@@ -37,3 +37,19 @@ user1.add_practice_center_recommendation(center2_recommendation1_user1)
 user1.add_practice_center_recommendation(center3_recommendation2_user1)
 user2.add_practice_center_recommendation(center2_recommendation2_user2)
 user3.add_practice_center_recommendation(center3_recommendation1_user3)
+
+
+def get_recommendations_for_sport(sport_id):
+    return get_sport(sport_id).recommendations
+
+
+def get_recommendations_for_practice_center(practice_center_id):
+    return get_practice_center(practice_center_id).recommendations
+
+
+def get_recommendations_for_sport_and_user(user_id):
+    return get_user(user_id).sport_recommendations
+
+
+def get_recommendations_for_practice_center_and_user(user_id):
+    return get_user(user_id).practice_center_recommendations

@@ -25,6 +25,7 @@ class BasicRepositoryTests(test_basic.BasicTests):
     users_repository = MySQLUsersRepository(recommendations_repository)
 
     def setUp(self):
+        super().setUp()
         self.reset_repositories()
         self.add_climates()
         self.add_sports()
