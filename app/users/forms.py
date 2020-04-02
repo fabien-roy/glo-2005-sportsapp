@@ -1,6 +1,19 @@
-from flask_wtf import Form
-from wtforms import StringField, PasswordField
+from flask_wtf import Form, FlaskForm
+from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length, EqualTo, Email
+
+
+class UsersSearchForm(FlaskForm):
+    class Meta:
+        csrf = False
+
+    all = StringField('Any field', validators=[Length(max=100)])
+    username = StringField('Username', validators=[Length(max=50)])
+    email = StringField('Email', validators=[Length(max=100)])
+    first_name = StringField('First name', validators=[Length(max=50)])
+    last_name = StringField('Last name', validators=[Length(max=50)])
+    phone_number = StringField('Phone number', validators=[Length(max=20)])
+    submit = SubmitField('Search')
 
 
 class RegisterForm(Form):

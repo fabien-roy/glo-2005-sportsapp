@@ -6,29 +6,10 @@ from app.tests.mocks import climates_repository, recommendations_repository
 from app.tests.test_basic_repositories import BasicRepositoryTests
 
 
-def get_climates_for_practice_center(practice_center_id):
-    return get_practice_center(practice_center_id).climates
-
-
-def get_recommendations_for_practice_center(practice_center_id):
-    return get_practice_center(practice_center_id).recommendations
-
-
-def get_practice_center(practice_center_id):
-    if practice_center_id == center1.id:
-        return center1
-    if practice_center_id == center2.id:
-        return center2
-    if practice_center_id == center3.id:
-        return center3
-
-
 class PracticeCenterRepositoryTests(BasicRepositoryTests):
 
     def setUp(self):
         super().setUp()
-        climates_repository.get_all_for_practice_center.side_effect = get_climates_for_practice_center
-        recommendations_repository.get_all_for_practice_center.side_effect = get_recommendations_for_practice_center
         self.repository = MySQLPracticeCentersRepository(climates_repository, recommendations_repository)
 
     def test_get_with_no_practice_center_should_raise_practice_center_not_found_exception(self):
