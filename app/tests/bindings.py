@@ -2,8 +2,11 @@ from app.climates.repositories import ClimatesRepository
 from app.practice_centers.repositories import PracticeCentersRepository
 from app.recommendations.repositories import RecommendationsRepository
 from app.sports.repositories import SportsRepository
-from app.tests.mocks import sports_repository, practice_centers_repository, users_repository, climates_repository, \
-    recommendations_repository
+from app.tests.climates.mocks import climates_repository
+from app.tests.practice_centers.mocks import practice_centers_repository
+from app.tests.recommendations.mocks import recommendations_repository
+from app.tests.sports.mocks import sports_repository
+from app.tests.users.mocks import users_repository
 from app.users.repositories import UsersRepository
 
 

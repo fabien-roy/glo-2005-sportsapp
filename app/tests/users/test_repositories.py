@@ -1,47 +1,17 @@
 import unittest
 
-from app.repositories.mysql_climate_repositories import MySQLClimatesRepository
-from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
-from app.repositories.mysql_practice_center_repositories import MySQLPracticeCentersRepository
-from app.repositories.mysql_sport_repositories import MySQLSportsRepository
 from app.repositories.mysql_user_repositories import MySQLUsersRepository
-from app.tests import test_basic
-from app.tests.fakes import user2, \
-    user1, user3, sport1, sport2, sport3, sport1_recommendation1_user1, sport2_recommendation1_user3, \
-    sport2_recommendation2_user2, \
-    sport3_recommendation1_user1, climate1, climate2, climate3, sport1_no_climates, sport2_no_climates, \
-    sport3_no_climates, center1, center2, center3, center1_recommendation1_user1, center2_recommendation1_user1, \
-    center2_recommendation2_user2, center3_recommendation1_user3, center3_recommendation2_user1
-from app.tests.mocks import recommendations_repository
+from app.tests.recommendations.mocks import recommendations_repository
 from app.tests.test_basic_repositories import BasicRepositoryTests
+from app.tests.users.fakes import user1, user2, user3
+from app.tests.users.forms import FakeUsersForm
 from app.users.exceptions import UserNotFoundException
-from instance.db_create import db_create
-
-
-def get_recommendations_for_sport_and_user(user_id):
-    return get_user(user_id).sport_recommendations
-
-
-def get_recommendations_for_practice_center_and_user(user_id):
-    return get_user(user_id).practice_center_recommendations
-
-
-def get_user(username):
-    if username == user1.username:
-        return user1
-    if username == user2.username:
-        return user2
-    if username == user3.username:
-        return user3
 
 
 class UsersRepositoryTests(BasicRepositoryTests):
 
     def setUp(self):
         super().setUp()
-        recommendations_repository.get_all_for_sport_and_user.side_effect = get_recommendations_for_sport_and_user
-        recommendations_repository.get_all_for_practice_center_and_user.side_effect = \
-            get_recommendations_for_practice_center_and_user
         self.repository = MySQLUsersRepository(recommendations_repository)
 
     def test_get_with_no_user_should_raise_user_not_found_exception(self):
@@ -85,6 +55,48 @@ class UsersRepositoryTests(BasicRepositoryTests):
         self.assertIn(user1, users)
         self.assertIn(user2, users)
         self.assertIn(user3, users)
+
+    def test_get_all_with_all_filter_users(self):
+        form = FakeUsersForm(all=user1.username)
+        users = self.repository.get_all(form)
+        self.assertIn(user1, users)
+        self.assertNotIn(user2, users)
+        self.assertNotIn(user3, users)
+
+    def test_get_all_with_username_filter_users(self):
+        form = FakeUsersForm(username=user1.username)
+        users = self.repository.get_all(form)
+        self.assertIn(user1, users)
+        self.assertNotIn(user2, users)
+        self.assertNotIn(user3, users)
+
+    def test_get_all_with_email_filter_users(self):
+        form = FakeUsersForm(email=user1.email)
+        users = self.repository.get_all(form)
+        self.assertIn(user1, users)
+        self.assertNotIn(user2, users)
+        self.assertNotIn(user3, users)
+
+    def test_get_all_with_first_name_filter_users(self):
+        form = FakeUsersForm(first_name=user1.first_name)
+        users = self.repository.get_all(form)
+        self.assertIn(user1, users)
+        self.assertNotIn(user2, users)
+        self.assertNotIn(user3, users)
+
+    def test_get_all_with_last_name_filter_users(self):
+        form = FakeUsersForm(last_name=user1.last_name)
+        users = self.repository.get_all(form)
+        self.assertIn(user1, users)
+        self.assertNotIn(user2, users)
+        self.assertNotIn(user3, users)
+
+    def test_get_all_with_phone_number_filter_users(self):
+        form = FakeUsersForm(phone_number=user1.phone_number)
+        users = self.repository.get_all(form)
+        self.assertIn(user1, users)
+        self.assertNotIn(user2, users)
+        self.assertNotIn(user3, users)
 
 
 if __name__ == "__main__":

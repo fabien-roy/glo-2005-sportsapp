@@ -1,34 +1,16 @@
 from app.repositories.mysql_sport_repositories import MySQLSportsRepository
 from app.sports.exceptions import SportNotFoundException
-from app.tests.fakes import sport1, sport2, sport3
-from app.tests.forms import FakeSportsForm
-from app.tests.mocks import climates_repository, recommendations_repository
+from app.tests.climates.mocks import climates_repository
+from app.tests.recommendations.mocks import recommendations_repository
+from app.tests.sports.fakes import sport1, sport2, sport3
+from app.tests.sports.forms import FakeSportsForm
 from app.tests.test_basic_repositories import BasicRepositoryTests
-
-
-def get_climates_for_sport(sport_id):
-    return get_sport(sport_id).climates
-
-
-def get_recommendations_for_sport(sport_id):
-    return get_sport(sport_id).recommendations
-
-
-def get_sport(sport_id):
-    if sport_id == sport1.id:
-        return sport1
-    if sport_id == sport2.id:
-        return sport2
-    if sport_id == sport3.id:
-        return sport3
 
 
 class SportsRepositoryTests(BasicRepositoryTests):
 
     def setUp(self):
         super().setUp()
-        climates_repository.get_all_for_sport.side_effect = get_climates_for_sport
-        recommendations_repository.get_all_for_sport.side_effect = get_recommendations_for_sport
         self.repository = MySQLSportsRepository(climates_repository, recommendations_repository)
 
     def test_get_with_no_sport_should_raise_sport_not_found_exception(self):

@@ -1,5 +1,5 @@
 class UsersRepository:
-    def get_all(self):
+    def get_all(self, form):
         pass
 
     def get(self, sport_id):

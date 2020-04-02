@@ -6,11 +6,14 @@ from app.repositories.mysql_recommendation_repositories import MySQLRecommendati
 from app.repositories.mysql_sport_repositories import MySQLSportsRepository
 from app.repositories.mysql_user_repositories import MySQLUsersRepository
 from app.tests import test_basic
-from app.tests.fakes import climate1, climate2, climate3, user2, \
-    user1, user3, sport1, sport2, sport3, sport1_recommendation1_user1, sport2_recommendation1_user3, \
-    sport2_recommendation2_user2, sport3_recommendation1_user1, center1, center2, center3, \
-    center1_recommendation1_user1, center2_recommendation1_user1, center2_recommendation2_user2, \
-    center3_recommendation1_user3, center3_recommendation2_user1
+from app.tests.climates.fakes import climate1, climate2, climate3
+from app.tests.practice_centers.fakes import center1, center2, center3
+from app.tests.recommendations.fakes import sport1_recommendation1_user1, sport2_recommendation1_user3, \
+    sport2_recommendation2_user2, sport3_recommendation1_user1, center1_recommendation1_user1, \
+    center2_recommendation1_user1, center2_recommendation2_user2, center3_recommendation1_user3, \
+    center3_recommendation2_user1
+from app.tests.sports.fakes import sport1, sport2, sport3
+from app.tests.users.fakes import user1, user2, user3
 from instance.db_create import db_create
 
 
@@ -22,6 +25,7 @@ class BasicRepositoryTests(test_basic.BasicTests):
     users_repository = MySQLUsersRepository(recommendations_repository)
 
     def setUp(self):
+        super().setUp()
         self.reset_repositories()
         self.add_climates()
         self.add_sports()

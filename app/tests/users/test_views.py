@@ -1,26 +1,12 @@
 import unittest
 
-from app.tests import test_basic
-from app.tests.fakes import users, user3, user2, user1, no_user
-from app.tests.mocks import users_repository
+from app.tests.test_basic_views import BasicViewTests
 
 
-def remove_users():
-    users_repository.reset_mock()
-    users_repository.get.side_effect = lambda username: no_user()
-    users_repository.get_all.return_value = []
-
-
-def add_users():
-    users_repository.reset_mock()
-    users_repository.get.side_effect = users
-    users_repository.get_all.return_value = [user1, user2, user3]
-
-
-class UsersViewsTests(test_basic.BasicTests):
+class UsersViewsTests(BasicViewTests):
 
     def test_users_with_no_sport_should_display_no_user(self):
-        remove_users()
+        self.remove_users()
         response = self.app.get('/users', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'SportsApp', response.data)
@@ -30,7 +16,6 @@ class UsersViewsTests(test_basic.BasicTests):
         self.assertNotIn(b'getoutmyswamp', response.data)
 
     def test_users_with_users_should_display_users(self):
-        add_users()
         response = self.app.get('/users', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'SportsApp', response.data)
@@ -39,8 +24,16 @@ class UsersViewsTests(test_basic.BasicTests):
         self.assertIn(b'mikaelvalliant', response.data)
         self.assertIn(b'getoutmyswamp', response.data)
 
+    def test_users_with_form_should_display_filtered_users(self):
+        response = self.app.post('/users', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'SportsApp', response.data)
+        self.assertIn(b'Users', response.data)
+        self.assertIn(b'fabienroy28', response.data)
+        self.assertNotIn(b'mikaelvalliant', response.data)
+        self.assertNotIn(b'getoutmyswamp', response.data)
+
     def test_user_details_should_display_user_details(self):
-        add_users()
         response = self.app.get('/users/fabienroy28', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'fabienroy28', response.data)
@@ -52,7 +45,7 @@ class UsersViewsTests(test_basic.BasicTests):
         self.assertIn(b'getoutmyswamp', response.data)
 
     def test_user_details__without_user_should_respond_not_found(self):
-        remove_users()
+        self.remove_users()
         response = self.app.get('/users/fabienroy28', follow_redirects=True)
         self.assertEqual(response.status_code, 404)
         self.assertIn(b'Not Found', response.data)

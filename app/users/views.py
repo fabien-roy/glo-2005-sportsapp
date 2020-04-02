@@ -1,18 +1,24 @@
-from flask import render_template, Blueprint
+from flask import render_template, Blueprint, request
 from flask.views import View
 from injector import inject
 
 from app.users.exceptions import UserNotFoundException
+from app.users.forms import UsersSearchForm
 from app.users.repositories import UsersRepository
 
 users_blueprint = Blueprint('users', __name__)
 
 
-# TODO : Make users query params for search
-@users_blueprint.route('/users')
+@users_blueprint.route('/users', methods=('GET', 'POST'))
 def users(users_repository: UsersRepository):
-    all_users = users_repository.get_all()
-    return render_template('users.html', users=all_users)
+    form = UsersSearchForm(request.form)
+
+    if request.method == 'POST' and form.validate_on_submit():
+        all_users = users_repository.get_all(form)
+    else:
+        all_users = users_repository.get_all(None)
+
+    return render_template('users.html', users=all_users, form=form)
 
 
 @users_blueprint.route('/users/<username>')
