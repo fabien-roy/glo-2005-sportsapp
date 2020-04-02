@@ -5,7 +5,7 @@ from app.tests.practice_centers.fakes import get_practice_center, get_practice_c
 from app.tests.practice_centers.mocks import practice_centers_repository
 from app.tests.sports.fakes import get_sport, no_sport, get_sports_filtered
 from app.tests.sports.mocks import sports_repository
-from app.tests.users.fakes import user1, user2, user3, get_user, no_user
+from app.tests.users.fakes import get_user, no_user, get_users_filtered
 from app.tests.users.mocks import users_repository
 
 
@@ -46,12 +46,12 @@ class BasicViewTests(test_basic.BasicTests):
     @staticmethod
     def add_users():
         users_repository.get.side_effect = get_user
-        users_repository.get_all.return_value = [user1, user2, user3]
+        users_repository.get_all.side_effect = get_users_filtered
 
     @staticmethod
     def remove_users():
         users_repository.get.side_effect = lambda username: no_user()
-        users_repository.get_all.return_value = []
+        users_repository.get_all.side_effect = lambda form: []
 
 
 if __name__ == "__main__":

@@ -17,3 +17,10 @@ def get_user(username):
 
 def no_user():
     raise UserNotFoundException
+
+
+def get_users_filtered(form):
+    if form is None:
+        return [user1, user2, user3]
+    else:
+        return [user1]
