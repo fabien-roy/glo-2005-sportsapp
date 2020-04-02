@@ -13,11 +13,12 @@ sport3_no_climates = Sport(sport_id=3, name='Natation', climates=[])
 
 
 def get_sport(sport_id):
-    if sport_id == sport1.id:
+    int_id = int(sport_id)
+    if int_id == sport1.id:
         return sport1
-    if sport_id == sport2.id:
+    if int_id == sport2.id:
         return sport2
-    if sport_id == sport3.id:
+    if int_id == sport3.id:
         return sport3
 
 
