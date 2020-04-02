@@ -1,3 +1,4 @@
+from app.repositories.mysql_practice_center_filters import MySQLPracticeCentersFilter
 from app.repositories.mysql_queries import MySQLQuery
 from app.repositories.mysql_tables import MySQLPracticeCentersTable
 
@@ -13,31 +14,7 @@ select_all_operation = ('SELECT ' + all_fields + ' FROM ' + MySQLPracticeCenters
 
 class MySQLPracticeCentersQuery(MySQLQuery):
     def get_all(self, form=None):
-        inner_filtering = True
-
-        if form is None:
-            filters = None
-        else:
-            filters = []
-
-            if form.all.data != '':
-                inner_filtering = False
-                filters.append(self.filter_like(MySQLPracticeCentersTable.name_col, form.all.data))
-                filters.append(self.filter_like(MySQLPracticeCentersTable.email_col, form.all.data))
-                filters.append(self.filter_like(MySQLPracticeCentersTable.web_site_col, form.all.data))
-                filters.append(self.filter_like(MySQLPracticeCentersTable.phone_number_col, form.all.data))
-            else:
-                if form.name.data != '':
-                    filters.append(self.filter_like(MySQLPracticeCentersTable.name_col, form.name.data))
-
-                if form.email.data != '':
-                    filters.append(self.filter_like(MySQLPracticeCentersTable.email_col, form.email.data))
-
-                if form.web_site.data != '':
-                    filters.append(self.filter_like(MySQLPracticeCentersTable.web_site_col, form.web_site.data))
-
-                if form.phone_number.data != '':
-                    filters.append(self.filter_like(MySQLPracticeCentersTable.phone_number_col, form.phone_number.data))
+        filters, inner_filtering = MySQLPracticeCentersFilter().build_filters(form)
 
         orders = [MySQLPracticeCentersTable.name_col]
 
