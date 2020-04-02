@@ -2,7 +2,7 @@ import unittest
 
 from app.tests import test_basic
 from app.tests.fakes import sport1, sport2, sport3, sports, no_sport
-from app.tests.mocks import sports_repository
+from app.tests.sports.mocks import sports_repository
 
 
 def remove_sports():

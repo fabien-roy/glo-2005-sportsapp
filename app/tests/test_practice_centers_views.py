@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 from app.tests import test_basic
 from app.tests.fakes import center1, center2, center3, no_practice_center, practice_centers
-from app.tests.mocks import practice_centers_repository
+from app.tests.practice_centers.mocks import practice_centers_repository
 
 
 def remove_practice_centers():

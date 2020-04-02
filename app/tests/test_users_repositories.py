@@ -3,7 +3,7 @@ import unittest
 from app.repositories.mysql_user_repositories import MySQLUsersRepository
 from app.tests.fakes import user2, \
     user1, user3
-from app.tests.mocks import recommendations_repository
+from app.tests.recommendations.mocks import recommendations_repository
 from app.tests.test_basic_repositories import BasicRepositoryTests
 from app.users.exceptions import UserNotFoundException
 

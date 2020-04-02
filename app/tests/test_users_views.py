@@ -2,7 +2,7 @@ import unittest
 
 from app.tests import test_basic
 from app.tests.fakes import users, user3, user2, user1, no_user
-from app.tests.mocks import users_repository
+from app.tests.users.mocks import users_repository
 
 
 def remove_users():
