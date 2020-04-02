@@ -54,7 +54,7 @@ class MySQLShopsRepository(ShopsRepository):
         try:
             with conn.cursor() as cur:
                 query = MySQLShopsQuery().add()
-                cur.execute(query, (shop.id, shop.name, shop.email, shop.phone_number, shop.web_site))
+                cur.execute(query, (shop.name, shop.email, shop.phone_number, shop.web_site))
 
                 conn.commit()
 
