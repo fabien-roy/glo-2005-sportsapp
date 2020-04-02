@@ -27,7 +27,7 @@ class MySQLShopsQuery(MySQLQuery):
 
     def add(self):
         operation = ('INSERT INTO ' + MySQLShopsTable.table_name +
-                     ', ' + all_fields_to_add + ')' +
+                     ' (' + all_fields_to_add + ')' +
                      ' VALUES (%s, %s, %s, %s)')
 
         return self.build_query(operation)
