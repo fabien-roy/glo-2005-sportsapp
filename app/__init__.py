@@ -36,7 +36,6 @@ app.register_blueprint(users_blueprint)
 
 # Routes
 
-# TODO : Remove hello_world route
 @app.route('/')
 def hello_world():
     return 'Hello World!'

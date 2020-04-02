@@ -31,7 +31,6 @@ class MySQLShopsRepository(ShopsRepository):
                 query = MySQLShopsQuery().get(shop_id)
                 cur.execute(query)
 
-                # TODO : Use fetchone (causes integer error)
                 for shop_cur in cur.fetchall():
                     shop = self.build_shop(shop_cur)
         finally:

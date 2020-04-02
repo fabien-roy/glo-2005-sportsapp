@@ -17,7 +17,6 @@ class PracticeCenter:
 
     def __eq__(self, other):
         if isinstance(other, PracticeCenter):
-            # TODO : Also check for climates and recommendations
             return self.id == other.id and self.name == other.name and self.email == other.email and \
                    self.web_site == other.web_site and self.phone_number == other.phone_number
         return False

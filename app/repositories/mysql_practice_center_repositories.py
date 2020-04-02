@@ -40,7 +40,6 @@ class MySQLPracticeCentersRepository(PracticeCentersRepository):
                 query = MySQLPracticeCentersQuery().get(practice_center_id)
                 cur.execute(query)
 
-                # TODO : Use fetchone (causes integer error)
                 for practice_center_cur in cur.fetchall():
                     climates = self.climates_repository.get_all_for_practice_center(practice_center_id)
                     recommendations = self.recommendations_repository.get_all_for_practice_center(practice_center_id)

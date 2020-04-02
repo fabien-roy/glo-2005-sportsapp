@@ -11,7 +11,6 @@ from app.users.models import User
 from app.shops.models import Shop
 from app.repositories.mysql_shop_repositories import MySQLShopsRepository
 
-# TODO : Solve repository injection in db_populate.py
 climate_repository = MySQLClimatesRepository()
 recommendation_repository = MySQLRecommendationsRepository()
 sport_repository = MySQLSportsRepository(climate_repository, recommendation_repository)

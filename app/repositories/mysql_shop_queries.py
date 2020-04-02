@@ -13,7 +13,6 @@ select_all_operation = ('SELECT ' + all_fields + ' FROM ' + MySQLShopsTable.tabl
 
 class MySQLShopsQuery(MySQLQuery):
     def get_all(self, form=None):
-        # TODO : Search form for shops
         filters = []
 
         orders = [MySQLShopsTable.name_col]

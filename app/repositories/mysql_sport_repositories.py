@@ -40,7 +40,6 @@ class MySQLSportsRepository(SportsRepository):
                 query = MySQLSportsQuery().get(sport_id)
                 cur.execute(query)
 
-                # TODO : Use fetchone (causes integer error)
                 for sport_cur in cur.fetchall():
                     climates = self.climates_repository.get_all_for_sport(sport_id)
                     recommendations = self.recommendations_repository.get_all_for_sport(sport_id)

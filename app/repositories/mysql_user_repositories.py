@@ -41,7 +41,6 @@ class MySQLUsersRepository(UsersRepository):
                 query = MySQLUsersQuery().get(username)
                 cur.execute(query)
 
-                # TODO : Use fetchone (causes integer error)
                 for user_cur in cur.fetchall():
                     sport_recommendations = self.recommendations_repository.get_all_for_sport_and_user(username)
                     practice_center_recommendations = \

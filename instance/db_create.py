@@ -78,7 +78,7 @@ def db_create():
                         'id int NOT NULL AUTO_INCREMENT PRIMARY KEY,'
                         'username varchar(50) NOT NULL,'
                         'comment varchar(1000) NOT NULL,'
-                        'note int NOT NULL,'  # TODO : Add trigger so note is always [0,5]
+                        'note int NOT NULL,'
                         'date timestamp NOT NULL,'
                         'FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE'
                         ');')
