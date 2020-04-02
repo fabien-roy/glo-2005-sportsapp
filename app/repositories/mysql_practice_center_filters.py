@@ -1,35 +1,22 @@
 from app.repositories.mysql_filters import MySQLFilter
-from app.repositories.mysql_queries import MySQLQuery
 from app.repositories.mysql_tables import MySQLPracticeCentersTable
+
+col_names = [MySQLPracticeCentersTable.name_col,
+             MySQLPracticeCentersTable.email_col,
+             MySQLPracticeCentersTable.web_site_col,
+             MySQLPracticeCentersTable.phone_number_col]
 
 
 class MySQLPracticeCentersFilter(MySQLFilter):
     def build_filters(self, form=None):
-        filters = []
-
         if form is not None:
-
             if form.all.data != '':
-                return self.build_general_filters(form)
+                return super().build_general_filters(col_names, form.all.data)
             else:
-                if form.name.data != '':
-                    filters.append(self.filter_like(MySQLPracticeCentersTable.name_col, form.name.data))
+                return super().build_advanced_filters(col_names,
+                                                      [form.name.data,
+                                                       form.email.data,
+                                                       form.web_site.data,
+                                                       form.phone_number.data])
 
-                if form.email.data != '':
-                    filters.append(self.filter_like(MySQLPracticeCentersTable.email_col, form.email.data))
-
-                if form.web_site.data != '':
-                    filters.append(self.filter_like(MySQLPracticeCentersTable.web_site_col, form.web_site.data))
-
-                if form.phone_number.data != '':
-                    filters.append(self.filter_like(MySQLPracticeCentersTable.phone_number_col, form.phone_number.data))
-
-        return filters, True
-
-    def build_general_filters(self, form=None):
-        filters = [self.filter_like(MySQLPracticeCentersTable.name_col, form.all.data),
-                   self.filter_like(MySQLPracticeCentersTable.email_col, form.all.data),
-                   self.filter_like(MySQLPracticeCentersTable.web_site_col, form.all.data),
-                   self.filter_like(MySQLPracticeCentersTable.phone_number_col, form.all.data)]
-
-        return filters, False
+        return [], True

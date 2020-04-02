@@ -1,5 +1,6 @@
 from app.repositories.mysql_queries import MySQLQuery
 from app.repositories.mysql_tables import MySQLUsersTable
+from app.repositories.mysql_user_filters import MySQLUsersFilter
 
 all_fields_to_add = (MySQLUsersTable.username_col +
                      ", " + MySQLUsersTable.email_col +
@@ -21,8 +22,7 @@ class MySQLUsersQuery(MySQLQuery):
         return self.build_query(select_all_operation, filters)
 
     def get_all(self, form=None):
-        # TODO : Search form for users
-        filters = []
+        filters = MySQLUsersFilter().build_filters(form)
 
         orders = [MySQLUsersTable.username_col]
 
