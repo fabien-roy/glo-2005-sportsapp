@@ -1,7 +1,7 @@
 import unittest
 
 from app.tests import test_basic
-from app.tests.fakes import sport1, sport2, sport3, sports, no_sport
+from app.tests.sports.fakes import sports, no_sport, sport3, sport2, sport1
 from app.tests.sports.mocks import sports_repository
 
 

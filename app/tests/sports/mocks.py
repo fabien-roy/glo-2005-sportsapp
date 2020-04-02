@@ -1,6 +1,6 @@
 from unittest import mock
 
-from app.tests.fakes import sport1, sport2, sport3
+from app.tests.sports.fakes import sport1, sport2, sport3
 
 sports_repository = mock.Mock()
 

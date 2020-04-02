@@ -1,6 +1,6 @@
 from unittest import mock
 
-from app.tests.fakes import user1, user2, user3
+from app.tests.users.fakes import user1, user2, user3
 
 users_repository = mock.Mock()
 

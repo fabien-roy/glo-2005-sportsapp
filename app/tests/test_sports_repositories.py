@@ -1,9 +1,9 @@
 from app.repositories.mysql_sport_repositories import MySQLSportsRepository
 from app.sports.exceptions import SportNotFoundException
 from app.tests.climates.mocks import climates_repository
-from app.tests.fakes import sport1, sport2, sport3
 from app.tests.forms import FakeSportsForm
 from app.tests.recommendations.mocks import recommendations_repository
+from app.tests.sports.fakes import sport1, sport2, sport3
 from app.tests.test_basic_repositories import BasicRepositoryTests
 
 

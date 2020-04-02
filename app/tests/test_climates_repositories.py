@@ -1,7 +1,8 @@
 import unittest
 
 from app.repositories.mysql_climate_repositories import MySQLClimatesRepository
-from app.tests.fakes import sport1, sport2, sport3, center1, center3, center2
+from app.tests.practice_centers.fakes import center1, center2, center3
+from app.tests.sports.fakes import sport1, sport2, sport3
 from app.tests.test_basic_repositories import BasicRepositoryTests
 
 

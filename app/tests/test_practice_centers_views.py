@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import patch
 
 from app.tests import test_basic
-from app.tests.fakes import center1, center2, center3, no_practice_center, practice_centers
+from app.tests.practice_centers.fakes import no_practice_center, practice_centers, center1, center2, center3
 from app.tests.practice_centers.mocks import practice_centers_repository
 
 

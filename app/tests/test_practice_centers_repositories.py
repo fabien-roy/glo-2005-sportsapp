@@ -1,8 +1,8 @@
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
 from app.repositories.mysql_practice_center_repositories import MySQLPracticeCentersRepository
 from app.tests.climates.mocks import climates_repository
-from app.tests.fakes import center1, center3, center2
 from app.tests.forms import FakePracticeCentersForm
+from app.tests.practice_centers.fakes import center1, center2, center3
 from app.tests.recommendations.mocks import recommendations_repository
 from app.tests.test_basic_repositories import BasicRepositoryTests
 

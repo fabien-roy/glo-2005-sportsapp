@@ -1,7 +1,7 @@
 import unittest
 
 from app.tests import test_basic
-from app.tests.fakes import users, user3, user2, user1, no_user
+from app.tests.users.fakes import no_user, user3, user2, user1, users
 from app.tests.users.mocks import users_repository
 
 
