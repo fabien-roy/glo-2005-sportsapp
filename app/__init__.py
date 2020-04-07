@@ -25,16 +25,17 @@ conn = pymysql.connect(host=app.config['MYSQL_HOST'],
 
 from app.sports.views import sports_blueprint
 from app.practice_centers.views import practice_centers_blueprint
+from app.shops.views import shops_blueprint
 from app.users.views import users_blueprint
 
 app.register_blueprint(sports_blueprint)
 app.register_blueprint(practice_centers_blueprint)
+app.register_blueprint(shops_blueprint)
 app.register_blueprint(users_blueprint)
 
 
 # Routes
 
-# TODO : Remove hello_world route
 @app.route('/')
 def hello_world():
     return 'Hello World!'

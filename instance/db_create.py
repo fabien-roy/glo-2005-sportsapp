@@ -25,6 +25,8 @@ def db_create():
 
             cur.execute('DROP TABLE IF EXISTS users')
 
+            cur.execute('DROP TABLE IF EXISTS shops')
+
         conn.commit()
 
         # Create all tables
@@ -76,7 +78,7 @@ def db_create():
                         'id int NOT NULL AUTO_INCREMENT PRIMARY KEY,'
                         'username varchar(50) NOT NULL,'
                         'comment varchar(1000) NOT NULL,'
-                        'note int NOT NULL,'  # TODO : Add trigger so note is always [0,5]
+                        'note int NOT NULL,'
                         'date timestamp NOT NULL,'
                         'FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE'
                         ');')
@@ -95,6 +97,14 @@ def db_create():
                         'PRIMARY KEY (practice_center_id, recommendation_id),'
                         'FOREIGN KEY (practice_center_id) REFERENCES practice_centers(id) ON DELETE CASCADE,'
                         'FOREIGN KEY (recommendation_id) REFERENCES recommendations(id) ON DELETE CASCADE'
+                        ');')
+
+            cur.execute('CREATE TABLE shops('
+                        'id int NOT NULL AUTO_INCREMENT PRIMARY KEY,'
+                        'name varchar(100),'
+                        'email varchar(100) NULL,'
+                        'web_site varchar(200) NULL,'
+                        'phone_number varchar(20) NULL'
                         ');')
 
         conn.commit()

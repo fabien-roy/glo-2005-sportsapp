@@ -10,9 +10,9 @@
 {% block search_pane %}
 {{ search_pane_advanced(form,
                         [input('name', 'Name', form.name.data),
-                         input('email', 'Email', form.name.email),
-                         input('web_site', 'Web site', form.name.web_site),
-                         input('phone_number', 'Phone number', form.name.phone_number)]) }}
+                         input('email', 'Email', form.email.data),
+                         input('web_site', 'Web site', form.web_site.data),
+                         input('phone_number', 'Phone number', form.phone_number.data)]) }}
 {% endblock %}
 
 {% block list_pane %}

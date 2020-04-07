@@ -18,7 +18,7 @@ def main(argv):
     for opt, arg in opts:
         if opt in ("-d", "--db-create"):
             db_create()
-            db_populate()  # TODO : Move in another optional argument
+            db_populate()
 
     FlaskInjector(app=app, modules=[configure])
 

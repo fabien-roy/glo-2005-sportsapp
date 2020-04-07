@@ -1,63 +1,32 @@
-from app.repositories.mysql_queries import build_query, filter_equal, filter_like
+from app.repositories.mysql_practice_center_filters import MySQLPracticeCentersFilter
+from app.repositories.mysql_queries import MySQLQuery
+from app.repositories.mysql_tables import MySQLPracticeCentersTable
+
+all_fields_to_add = (MySQLPracticeCentersTable.name_col +
+                     ', ' + MySQLPracticeCentersTable.email_col +
+                     ', ' + MySQLPracticeCentersTable.web_site_col +
+                     ', ' + MySQLPracticeCentersTable.phone_number_col)
+
+all_fields = (MySQLPracticeCentersTable.id_col + ', ' + all_fields_to_add)
+
+select_all_operation = ('SELECT ' + all_fields + ' FROM ' + MySQLPracticeCentersTable.table_name)
 
 
-class MySQLPracticeCentersQuery:
-    table_name = 'practice_centers'
-
-    id_col = 'id'
-    name_col = 'name'
-    email_col = 'email'
-    web_site_col = 'web_site'
-    phone_number_col = 'phone_number'
-
+class MySQLPracticeCentersQuery(MySQLQuery):
     def get_all(self, form=None):
-        operation = ('SELECT ' + self.id_col + ', ' + self.name_col + ', ' + self.email_col + ', ' +
-                     self.web_site_col + ', ' + self.phone_number_col +
-                     ' FROM ' + self.table_name)
+        filters, inner_filtering = MySQLPracticeCentersFilter().build_filters(form)
 
-        inner_filtering = True
+        orders = [MySQLPracticeCentersTable.name_col]
 
-        if form is None:
-            filters = None
-        else:
-            filters = []
-
-            if form.all.data is not '':
-                inner_filtering = False
-                filters.append(filter_like(self.name_col, form.all.data))
-                filters.append(filter_like(self.email_col, form.all.data))
-                filters.append(filter_like(self.web_site_col, form.all.data))
-                filters.append(filter_like(self.phone_number_col, form.all.data))
-            else:
-                if form.name.data is not '':
-                    filters.append(filter_like(self.name_col, form.name.data))
-
-                if form.email.data is not '':
-                    filters.append(filter_like(self.email_col, form.email.data))
-
-                if form.web_site.data is not '':
-                    filters.append(filter_like(self.web_site_col, form.web_site.data))
-
-                if form.phone_number.data is not '':
-                    filters.append(filter_like(self.phone_number_col, form.phone_number.data))
-
-        orders = [self.name_col]
-
-        return build_query(operation, filters, orders, inner_filtering)
+        return self.build_query(select_all_operation, filters, orders, inner_filtering)
 
     def get(self, practice_center_id):
-        operation = ('SELECT ' + self.id_col + ', ' + self.name_col + ', ' + self.email_col + ', ' +
-                     self.web_site_col + ', ' + self.phone_number_col +
-                     ' FROM ' + self.table_name)
+        filters = [self.filter_equal(MySQLPracticeCentersTable.id_col, practice_center_id)]
 
-        filters = [filter_equal(self.id_col, practice_center_id)]
-
-        return build_query(operation, filters)
+        return self.build_query(select_all_operation, filters)
 
     def add(self):
-        operation = ('INSERT INTO ' + self.table_name +
-                     ' (' + self.name_col + ', ' + self.email_col + ', ' + self.web_site_col +
-                     ', ' + self.phone_number_col + ')' +
-                     ' VALUES (%s, %s, %s, %s);')
+        operation = ('INSERT INTO ' + MySQLPracticeCentersTable.table_name +
+                     '(' + all_fields_to_add + ') VALUES (%s, %s, %s, %s)')
 
-        return build_query(operation)
+        return self.build_query(operation)

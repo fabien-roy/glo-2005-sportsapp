@@ -16,11 +16,9 @@ class User:
         self.last_login_date = last_login_date
         self.sport_recommendations = sport_recommendations
         self.practice_center_recommendations = practice_center_recommendations
-        # TODO : Add passwords (when making login/register)
 
     def __eq__(self, other):
         if isinstance(other, User):
-            # TODO : Also check for everything else omg why
             return self.username == other.username and self.email == other.email
         return False
 

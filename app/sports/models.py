@@ -13,7 +13,6 @@ class Sport:
 
     def __eq__(self, other):
         if isinstance(other, Sport):
-            # TODO : Also check for climates and recommendations
             return self.id == other.id and self.name == other.name
         return False
 
