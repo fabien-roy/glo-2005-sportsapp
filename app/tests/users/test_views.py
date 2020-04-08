@@ -35,19 +35,19 @@ class UsersViewsTests(BasicViewTests):
         self.assertNotIn(user3.username.encode(), response.data)
 
     def test_user_details_should_display_user_details(self):
-        response = self.app.get('/users/fabienroy28', follow_redirects=True)
+        response = self.app.get('/users/{}'.format(user1.username), follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         self.assertIn(user1.username.encode(), response.data)
-        response = self.app.get('/users/mikaelvalliant', follow_redirects=True)
+        response = self.app.get('/users/{}'.format(user2.username), follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         self.assertIn(user2.username.encode(), response.data)
-        response = self.app.get('/users/getoutmyswamp', follow_redirects=True)
+        response = self.app.get('/users/{}'.format(user3.username), follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         self.assertIn(user3.username.encode(), response.data)
 
     def test_user_details__without_user_should_respond_not_found(self):
         self.remove_users()
-        response = self.app.get('/users/fabienroy28', follow_redirects=True)
+        response = self.app.get('/users/{}'.format(user1.username), follow_redirects=True)
         self.assertEqual(response.status_code, 404)
         self.assertIn(b'Not Found', response.data)
 
