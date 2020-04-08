@@ -1,11 +1,8 @@
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import InputRequired, Length
+from wtforms import StringField
+from wtforms.validators import Length
+
+from app import GeneralSearchForm
 
 
-class SportsSearchForm(FlaskForm):
-    class Meta:
-        csrf = False
-
+class SportsSearchForm(GeneralSearchForm):
     name = StringField('Name', validators=[Length(max=50)])
-    submit = SubmitField('Search')

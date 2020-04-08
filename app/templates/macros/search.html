@@ -1,13 +1,20 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% macro input(name, placeholder, value) -%}
+<input type="text" class="form-control" id="{{ name }}" name="{{ name }}" placeholder="{{ placeholder }}" value="{{ value }}">
+{%- endmacro %}
+
+{% macro input_group(name, placeholder, value) -%}
 <div class="form-group">
-    <input type="text" class="form-control" id="{{ name }}" name="{{ name }}" placeholder="{{ placeholder }}" value="{{ value }}">
+    {{ input(name, placeholder, value) }}
 </div>
 {%- endmacro %}
 
 {% macro submit() -%}
 <button type="submit" class="btn btn-block btn-success">Search</button>
+{%- endmacro %}
+
+{% macro search_form_inner(form, inputs) -%}
 {%- endmacro %}
 
 {% macro search_form(form, inputs) -%}
@@ -16,7 +23,7 @@
     {{ wtf.form_errors(form, hiddens="only") }}
 
     {% for input in inputs %}
-      {{ input }}
+    {{ input }}
     {% endfor %}
 
     {{ submit() }}
@@ -24,7 +31,7 @@
 {%- endmacro %}
 
 {% macro search_form_general(form) -%}
-{{ search_form(form, [input('all', 'Any field', form.all.data)]) }}
+{{ search_form(form, [input_group('all', 'Any field', form.all.data)]) }}
 {%- endmacro %}
 
 {% macro search_pane(form, inputs) -%}

@@ -1,7 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 from flask_bootstrap import Bootstrap
+
+from app.forms import GeneralSearchForm
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_pyfile('flask.cfg')
@@ -37,8 +39,17 @@ app.register_blueprint(users_blueprint)
 # Routes
 
 @app.route('/')
-def hello_world():
-    return 'Hello World!'
+def home():
+    form = GeneralSearchForm(request.form)
+
+    return render_template('index.html', form=form), 200
+
+
+@app.route('/search', methods=('GET', 'POST'))
+def search():
+    search_route = request.form.get('search_route')
+
+    return redirect(url_for(search_route), 307)
 
 
 @app.errorhandler(400)

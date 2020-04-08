@@ -2,9 +2,10 @@
 {% block navbar %}
 <nav class="navbar navbar-expand-sm navbar-dark fixed-top header" style="background-color:#e65100">
     <div class="container">
-        <a class="navbar-brand ml-8">
-            <img src="{{ url_for('static', filename='images/SportsAppLogo.jpg') }}" width="40" height="40" alt=""
-                 id="logo"> SportsApp</a>
+        <a class="navbar-brand ml-8" href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='images/SportsAppLogo.jpg') }}" width="40" height="40" alt="" id="logo"/>
+            SportsApp
+        </a>
         <div class="collapse navbar-collapse">
             <div class="navbar-nav">
                 <a class="nav-item active nav-link" href="{{ url_for('sports.sports') }}">Sports</a>
