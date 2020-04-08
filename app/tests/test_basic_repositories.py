@@ -5,6 +5,7 @@ from app.repositories.mysql_practice_center_repositories import MySQLPracticeCen
 from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
 from app.repositories.mysql_sport_repositories import MySQLSportsRepository
 from app.repositories.mysql_user_repositories import MySQLUsersRepository
+from app.repositories.mysql_shop_repositories import MySQLShopsRepository
 from app.tests import test_basic
 from app.tests.climates.fakes import climate1, climate2, climate3
 from app.tests.practice_centers.fakes import center1, center2, center3
@@ -14,6 +15,7 @@ from app.tests.recommendations.fakes import sport1_recommendation1_user1, sport2
     center3_recommendation2_user1
 from app.tests.sports.fakes import sport1, sport2, sport3
 from app.tests.users.fakes import user1, user2, user3
+from app.tests.shops.fakes import shop1, shop2, shop3
 from instance.db_create import db_create
 
 
@@ -23,6 +25,7 @@ class BasicRepositoryTests(test_basic.BasicTests):
     sports_repository = MySQLSportsRepository(climates_repository, recommendations_repository)
     practice_centers_repository = MySQLPracticeCentersRepository(climates_repository, recommendations_repository)
     users_repository = MySQLUsersRepository(recommendations_repository)
+    shops_repository = MySQLShopsRepository()
 
     def setUp(self):
         super().setUp()
@@ -33,6 +36,7 @@ class BasicRepositoryTests(test_basic.BasicTests):
         self.add_users()
         self.add_sport_recommendations()
         self.add_practice_center_recommendations()
+        self.add_shops()
 
     @staticmethod
     def reset_repositories():
@@ -70,6 +74,11 @@ class BasicRepositoryTests(test_basic.BasicTests):
         self.recommendations_repository.add_for_practice_center(center2_recommendation2_user2, center2)
         self.recommendations_repository.add_for_practice_center(center3_recommendation1_user3, center3)
         self.recommendations_repository.add_for_practice_center(center3_recommendation2_user1, center3)
+
+    def add_shops(self):
+        self.shops_repository.add(shop1)
+        self.shops_repository.add(shop2)
+        self.shops_repository.add(shop3)
 
 
 if __name__ == "__main__":

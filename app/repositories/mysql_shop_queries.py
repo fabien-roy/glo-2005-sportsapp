@@ -13,11 +13,22 @@ select_all_operation = ('SELECT ' + all_fields + ' FROM ' + MySQLShopsTable.tabl
 
 class MySQLShopsQuery(MySQLQuery):
     def get_all(self, form=None):
-        filters = []
+        operation = ('SELECT ' + MySQLShopsTable.id_col +
+                     ', ' + MySQLShopsTable.name_col + ', ' + MySQLShopsTable.email_col + ', ' +
+                     MySQLShopsTable.phone_number_col + ', ' + MySQLShopsTable.web_site_col +
+                     ' FROM ' + MySQLShopsTable.table_name)
+
+        if form is None:
+            filters = None
+        else:
+            filters = []
+
+            if form.name is not None:
+                filters.append(self.filter_like(MySQLShopsTable.name_col, form.name.data))
 
         orders = [MySQLShopsTable.name_col]
 
-        return self.build_query(select_all_operation, filters, orders)
+        return self.build_query(operation, filters, orders)
 
     def get(self, shop_id):
         filters = [self.filter_equal(MySQLShopsTable.id_col, shop_id)]
