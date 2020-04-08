@@ -40,7 +40,7 @@ class ShopsRepositoryTests(BasicRepositoryTests):
         self.assertIn(shop3, shops)
 
     def test_get_all_with_name_filter_shops(self):
-        form = FakeShopsForm(shop1.name)
+        form = FakeShopsForm(name=shop1.name)
         shops = self.repository.get_all(form)
         self.assertIn(shop1, shops)
         self.assertNotIn(shop2, shops)

@@ -25,6 +25,7 @@ class BasicViewTests(test_basic.BasicTests):
         sports_repository.reset_mock()
         practice_centers_repository.reset_mock()
         users_repository.reset_mock()
+        shops_repository.reset_mock()
 
     @staticmethod
     def add_sports():
