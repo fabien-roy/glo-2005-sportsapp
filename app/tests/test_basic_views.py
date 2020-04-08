@@ -7,6 +7,8 @@ from app.tests.sports.fakes import get_sport, no_sport, get_sports_filtered
 from app.tests.sports.mocks import sports_repository
 from app.tests.users.fakes import get_user, no_user, get_users_filtered
 from app.tests.users.mocks import users_repository
+from app.tests.shops.mocks import shops_repository
+from app.tests.shops.fakes import get_shop, no_shop, get_shops_filtered
 
 
 class BasicViewTests(test_basic.BasicTests):
@@ -16,6 +18,7 @@ class BasicViewTests(test_basic.BasicTests):
         self.add_sports()
         self.add_practice_centers()
         self.add_users()
+        self.add_shops()
 
     @staticmethod
     def reset_mocks():
@@ -52,6 +55,16 @@ class BasicViewTests(test_basic.BasicTests):
     def remove_users():
         users_repository.get.side_effect = lambda username: no_user()
         users_repository.get_all.side_effect = lambda form: []
+
+    @staticmethod
+    def add_shops():
+        shops_repository.get.side_effect = get_shop
+        shops_repository.get_all.side_effect = get_shops_filtered
+
+    @staticmethod
+    def remove_shops():
+        shops_repository.get.side_effect = lambda shop_id: no_shop()
+        shops_repository.get_all.side_effect = lambda form: []
 
 
 if __name__ == "__main__":

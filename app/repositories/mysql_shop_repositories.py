@@ -15,9 +15,9 @@ class MySQLShopsRepository(ShopsRepository):
                 query = MySQLShopsQuery().get_all(form)
                 cur.execute(query)
 
-                for sport_cur in cur.fetchall():
-                    sport = self.build_shop(sport_cur)
-                    all_shops.append(sport)
+                for shop_cur in cur.fetchall():
+                    shop = self.build_shop(shop_cur)
+                    all_shops.append(shop)
         finally:
             cur.close()
 
