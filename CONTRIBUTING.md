@@ -34,9 +34,9 @@ When a bug is spotted in the application, it must be reported as an issue on Git
 
 We use trunk based development with `master` as a main branch. Every PR adding a feature to the application or solving a bug must be merged into `master`.
 
-For each issue, there must be at least one PR (more PRs could be added if the issue is reopened). This PR must build. Also, two reviewers must approve the PR before it is merged into `master`. Once it is merged, it will have to pass CI and CD check on `master`.
+For each issue, there must be at least one PR (more PRs could be added if the issue is reopened). This PR must build. Also, two reviewers must approve the PR before it is merged into `master`.
 
-To follow this trend, PR names are as following : `[CODE] What is added` (ex : `[AUL] Convert bed request`).
+To follow this trend, PR names are as following : `What is added` (ex : `Add shops views`).
 
 The one in charge of merging the PR is the one in charge of the associated issue.
 
@@ -52,8 +52,6 @@ Issues are closed once all described tasks are confirmed done by the reviewers, 
 
 ### Code style
 
-We use [Google Java Code Style](https://google.github.io/styleguide/javaguide.html). It is checked pre-commit and during CI check. To format code, use `mvn git-code-format:format-code-DglobPattern=**/*`.
-
 No comment should be in the source code. Some exceptions are small explanations. In those rare cases, comments are clear and tiny.
 
 TODOs are okay, as long as they do not make it to the release. They can be used to mark where a certain issue must be done (in which case, an issue number is much appreciated). In almost all other cases, they should be removed an converted to an actual issue.
@@ -62,17 +60,17 @@ TODOs are okay, as long as they do not make it to the release. They can be used 
 
 Every single piece of code added to the application must be written using test driven development. For TDD, we follow the tree basic steps : write failing tests for new feature, write basic code to get tests to pass and finally reformat newly added code. Once the new feature is correctly implemented, commit.
 
-Tests are located in `src/test/java/ca/ulaval/glo2003`. The package naming must be identical to `src/main/java/ca/ulaval/glo2003`. Test class names must have a `Test` prefix. For instance, the test class for `Main.java` would be `MainTest.java`
+Tests are located in `app/tests`. Test file names must have a `test_` prefix. For instance, the test file name for `shop/views.py` would be `shop/test_views.py`. Test class names must have a `Tests` suffis. For instance, the test class for `ShopViews` would be `ShopViewTests`.
 
-Unit tests must have sections Arrange-Act-Assert separated by one blank line. Set up of tests must be extracted as much as possible from unit tests.
+Set up of tests must be extracted as much as possible from unit tests.
 
 ### Git
 
 Normally, every branch is a fork of `master`. Some exceptions are features building upon PRs that are not done being reviewed.
 
-Our branch names are as following : `code_whatIsAdded` (ex : `aul_convertBedRequest`). Always camelcase.
+Our branch names are as following : `whatIsAdded` (ex : `addShopRepositories`). Always camelcase.
 
-We try, as much as possible, to format commit messages as following : `[CODE] What is added` (ex : `[AUL] Add empty BedRequest class`)
+We try, as much as possible, to format commit messages as following : `What is added` (ex : `Add mocks of shops in basic view tests`).
 
 When a PR is merged, the associated branch is deleted as we do not want unnecessary unmaintained branches on our remote.
 
