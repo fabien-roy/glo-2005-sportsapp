@@ -1,25 +1,27 @@
 {% extends "layout.html" %}
-{% from 'macros/search.html' import input_group, submit %}
+{% from 'macros/search.html' import input, submit %}
 
 {% block inner_content %}
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 
-<form class="form form-horizontal" method="post" role="form" action="{{ url_for('search') }}">
-  <div class="input-group">
-    <div class="input-group-prepend">
-      {{ input_group('all', 'Any field', form.all.data) }}
+<div class="home-landing">
+  <form class="form form-horizontal" method="post" role="form" action="{{ url_for('search') }}">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        {{ input('all', 'Any field', form.all.data) }}
+      </div>
+      <select class="custom-select" name="search_route">
+        <option selected value="sports.sports">Sports</option>
+        <option value="practice_centers.practice_centers">Practice Centers</option>
+        <option value="shops.shops">Shops</option>
+        <option value="users.users">Users</option>
+      </select>
+      <div class="input-group-append">
+        {{ submit() }}
+      </div>
     </div>
-    <select class="custom-select" name="search_route">
-      <option selected value="sports.sports">Sports</option>
-      <option value="practice_centers.practice_centers">Practice Centers</option>
-      <option value="shops.shops">Shops</option>
-      <option value="users.users">Users</option>
-    </select>
-    <div class="input-group-append">
-      {{ submit() }}
-    </div>
-  </div>
-</form>
+  </form>
+</div>
 
 {% endblock %}
