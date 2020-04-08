@@ -46,6 +46,42 @@ class ShopsRepositoryTests(BasicRepositoryTests):
         self.assertNotIn(shop2, shops)
         self.assertNotIn(shop3, shops)
 
+    def test_get_all_with_all_filter_practice_centers(self):
+        form = FakeShopsForm(all=shop1.name)
+        shops = self.repository.get_all(form)
+        self.assertIn(shop1, shops)
+        self.assertNotIn(shop2, shops)
+        self.assertNotIn(shop3, shops)
+
+    def test_get_all_with_name_filter_practice_centers(self):
+        form = FakeShopsForm(name=shop1.name)
+        shops = self.repository.get_all(form)
+        self.assertIn(shop1, shops)
+        self.assertNotIn(shop2, shops)
+        self.assertNotIn(shop3, shops)
+
+    def test_get_all_with_email_filter_practice_centers(self):
+        print(shop3.email)
+        form = FakeShopsForm(email=shop3.email)
+        shops = self.repository.get_all(form)
+        self.assertIn(shop3, shops)
+        self.assertNotIn(shop1, shops)
+        self.assertNotIn(shop2, shops)
+
+    def test_get_all_with_web_site_filter_practice_centers(self):
+        form = FakeShopsForm(web_site=shop1.web_site)
+        shops = self.repository.get_all(form)
+        self.assertIn(shop1, shops)
+        self.assertNotIn(shop2, shops)
+        self.assertNotIn(shop3, shops)
+
+    def test_get_all_with_phone_number_filter_practice_centers(self):
+        form = FakeShopsForm(phone_number=shop1.phone_number)
+        shops = self.repository.get_all(form)
+        self.assertIn(shop1, shops)
+        self.assertNotIn(shop2, shops)
+        self.assertNotIn(shop3, shops)
+
 
 if __name__ == "__main__":
     unittest.main()

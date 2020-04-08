@@ -8,7 +8,11 @@
 {% endblock %}
 
 {% block search_pane %}
-{{ search_pane_advanced(form, [input_group('name', 'Name', form.name.data)]) }}
+{{ search_pane_advanced(form,
+                        [input_group('name', 'Name', form.name.data),
+                        input_group('email', 'Email', form.email.data),
+                        input_group('web_site', 'Web site', form.web_site.data),
+                        input_group('phone_number', 'Phone number', form.phone_number.data)]) }}
 {% endblock %}
 
 {% block list_pane %}
