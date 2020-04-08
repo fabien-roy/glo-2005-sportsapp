@@ -1,10 +1,10 @@
-from app.tests.forms import FakeForm
+from app.tests.forms import FakeGeneralSearchForm
 
 
-class FakeShopsForm(FakeForm):
+class FakeShopsForm(FakeGeneralSearchForm):
 
     def __init__(self, all=None, name=None, email=None, web_site=None, phone_number=None):
-        self.all = self.empty_or_data(all)
+        super().__init__(all)
         self.name = self.empty_or_data(name)
         self.email = self.empty_or_data(email)
         self.web_site = self.empty_or_data(web_site)
