@@ -60,7 +60,7 @@ TODOs are okay, as long as they do not make it to the release. They can be used 
 
 Every single piece of code added to the application must be written using test driven development. For TDD, we follow the tree basic steps : write failing tests for new feature, write basic code to get tests to pass and finally reformat newly added code. Once the new feature is correctly implemented, commit.
 
-Tests are located in `app/tests`. Test file names must have a `test_` prefix. For instance, the test file name for `shop/views.py` would be `shop/test_views.py`. Test class names must have a `Tests` suffis. For instance, the test class for `ShopViews` would be `ShopViewTests`.
+Tests are located in `app/tests`. Test file names must have a `test_` prefix. For instance, the test file name for `shop/views.py` would be `shop/test_views.py`. Test class names must have a `Tests` suffix. For instance, the test class for `ShopViews` would be `ShopViewTests`.
 
 Set up of tests must be extracted as much as possible from unit tests.
 
