@@ -5,7 +5,7 @@ services:
  - mysql
 test:
  - adapter: mysql2
- - database: sportsapp-test
+ - database: sportsapp_test
  - username: sportsapp
  - password: sportsapp
  - encoding: utf8

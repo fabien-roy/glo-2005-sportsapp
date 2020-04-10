@@ -12,7 +12,7 @@ class BasicTests(unittest.TestCase):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
         app.config['DEBUG'] = False
-        app.config['MYSQL_BD'] = 'sportsapp-test'
+        app.config['MYSQL_BD'] = 'sportsapp_test'
         app.conn = create_connection()
 
         FlaskInjector(app=app, modules=[configure])
