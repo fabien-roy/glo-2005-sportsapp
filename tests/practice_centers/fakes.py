@@ -11,7 +11,8 @@ center1 = PracticeCenter(1,
 center2 = PracticeCenter(2,
                          name='Parc des Montagnards',
                          email='info@censhefford.ca',
-                         web_site='https://www.cantonsdelest.com/quoi-faire/980/parc-des-montagnards',
+                         web_site=
+                         'https://www.cantonsdelest.com/quoi-faire/980/parc-des-montagnards',
                          climates=[])
 center3 = PracticeCenter(3,
                          name='Gault Nature Reserve of McGill University',
@@ -27,6 +28,8 @@ def get_practice_center(practice_center_id):
     if int_id == center3.id:
         return center3
 
+    return None
+
 
 def no_practice_center():
     raise PracticeCenterNotFoundException
@@ -35,8 +38,8 @@ def no_practice_center():
 def get_practice_centers_filtered(form):
     if form is None:
         return [center1, center2, center3]
-    else:
-        return [center1]
+
+    return [center1]
 
 
 def get_climates_for_practice_center(practice_center_id):

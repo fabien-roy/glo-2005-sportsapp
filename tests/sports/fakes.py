@@ -21,6 +21,8 @@ def get_sport(sport_id):
     if int_id == sport3.id:
         return sport3
 
+    return None
+
 
 def no_sport():
     raise SportNotFoundException
@@ -29,8 +31,8 @@ def no_sport():
 def get_sports_filtered(form):
     if form is None:
         return [sport1, sport2, sport3]
-    else:
-        return [sport1]
+
+    return [sport1]
 
 
 def get_climates_for_sport(sport_id):

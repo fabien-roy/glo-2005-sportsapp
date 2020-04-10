@@ -48,7 +48,7 @@ class ShopsRepositoryTests(BasicRepositoryTests):
         self.assertNotIn(shop3, shops)
 
     def test_get_all_with_all_filter_practice_centers(self):
-        form = FakeShopsSearchForm(all=shop1.name)
+        form = FakeShopsSearchForm(any_field=shop1.name)
         shops = self.repository.get_all(form)
         self.assertIn(shop1, shops)
         self.assertNotIn(shop2, shops)

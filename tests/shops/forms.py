@@ -3,8 +3,8 @@ from tests.forms import FakeGeneralSearchForm
 
 class FakeShopsSearchForm(FakeGeneralSearchForm):
 
-    def __init__(self, all=None, name=None, email=None, web_site=None, phone_number=None):
-        super().__init__(all)
+    def __init__(self, any_field=None, name=None, email=None, web_site=None, phone_number=None):
+        super().__init__(any_field)
         self.name = self.empty_or_data(name)
         self.email = self.empty_or_data(email)
         self.web_site = self.empty_or_data(web_site)

@@ -12,7 +12,8 @@ class SportsRepositoryTests(BasicRepositoryTests):
 
     def setUp(self):
         super().setUp()
-        self.repository = MySQLSportsRepository(database, climates_repository, recommendations_repository)
+        self.repository = MySQLSportsRepository(database, climates_repository,
+                                                recommendations_repository)
 
     def test_get_with_no_sport_should_raise_sport_not_found_exception(self):
         self.reset_repositories()
@@ -57,7 +58,7 @@ class SportsRepositoryTests(BasicRepositoryTests):
         self.assertIn(sport3, sports)
 
     def test_get_all_with_all_filter_sports(self):
-        form = FakeSportsSearchForm(all=sport1.name)
+        form = FakeSportsSearchForm(any_field=sport1.name)
         sports = self.repository.get_all(form)
         self.assertIn(sport1, sports)
         self.assertNotIn(sport2, sports)

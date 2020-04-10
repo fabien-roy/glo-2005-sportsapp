@@ -20,6 +20,8 @@ def get_shop(shop_id):
     if int_id == shop3.id:
         return shop3
 
+    return None
+
 
 def no_shop():
     raise ShopNotFoundException
@@ -28,5 +30,5 @@ def no_shop():
 def get_shops_filtered(form):
     if form is None:
         return [shop1, shop2, shop3]
-    else:
-        return [shop1]
+
+    return [shop1]

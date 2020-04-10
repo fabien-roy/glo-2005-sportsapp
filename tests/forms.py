@@ -6,8 +6,8 @@ class Data:
 
 class FakeGeneralSearchForm:
 
-    def __init__(self, all=None):
-        self.all = self.empty_or_data(all)
+    def __init__(self, any_field=None):
+        self.all = self.empty_or_data(any_field)
 
     @staticmethod
     def validate_on_submit():

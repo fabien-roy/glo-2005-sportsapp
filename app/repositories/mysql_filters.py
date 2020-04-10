@@ -19,8 +19,8 @@ class MySQLFilter:
 
     def build_filters(self, form=None):
         if form is not None:
-            if form.all.data != '':
-                return self.build_general_filters(self.get_col_names(), form.all.data)
+            if form.any_field.data != '':
+                return self.build_general_filters(self.get_col_names(), form.any_field.data)
 
             return self.build_advanced_filters(self.get_col_names(), self.get_values(form))
 

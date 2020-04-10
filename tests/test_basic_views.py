@@ -1,7 +1,8 @@
 import unittest
 
 from tests import test_basic
-from tests.practice_centers.fakes import get_practice_center, get_practice_centers_filtered, no_practice_center
+from tests.practice_centers.fakes import get_practice_center, get_practice_centers_filtered, \
+    no_practice_center
 from tests.practice_centers.mocks import practice_centers_repository
 from tests.sports.fakes import get_sport, no_sport, get_sports_filtered
 from tests.sports.mocks import sports_repository
@@ -44,7 +45,8 @@ class BasicViewTests(test_basic.BasicTests):
 
     @staticmethod
     def remove_practice_centers():
-        practice_centers_repository.get.side_effect = lambda practice_center_id: no_practice_center()
+        practice_centers_repository.get.side_effect = \
+            lambda practice_center_id: no_practice_center()
         practice_centers_repository.get_all.side_effect = lambda form: []
 
     @staticmethod

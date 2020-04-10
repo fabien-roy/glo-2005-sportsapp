@@ -9,7 +9,7 @@
   <form class="form form-horizontal" method="post" role="form" action="{{ url_for('search') }}">
     <div class="input-group">
       <div class="input-group-prepend">
-        {{ input('all', 'Any field', form.all.data) }}
+        {{ input('all', 'Any field', form.any_field.data) }}
       </div>
       <select class="custom-select" name="search_route">
         <option selected value="sports.sports">Sports</option>

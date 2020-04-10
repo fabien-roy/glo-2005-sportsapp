@@ -65,7 +65,7 @@ class RecommendationsRepositoryTests(BasicRepositoryTests):
         recommendations = self.repository.get_all_for_sport_and_user(user3.username)
         self.assertCountEqual(user3.sport_recommendations, recommendations)
 
-    def test_get_all_for_practice_center_and_user_should_without_practice_center_get_no_recommendation(self):
+    def test_get_all_for_center_and_user_should_without_practice_center_get_no_recommendation(self):
         self.reset_repositories()
         recommendations = self.repository.get_all_for_practice_center_and_user(user1.username)
         self.assertEqual(0, len(recommendations))
@@ -74,7 +74,7 @@ class RecommendationsRepositoryTests(BasicRepositoryTests):
         recommendations = self.repository.get_all_for_practice_center_and_user(user3.username)
         self.assertEqual(0, len(recommendations))
 
-    def test_get_all_for_practice_center_and_user_should_get_practice_center_recommendations_of_user(self):
+    def test_get_all_for_center_and_user_should_get_practice_center_recommendations_of_user(self):
         recommendations = self.repository.get_all_for_practice_center_and_user(user1.username)
         self.assertCountEqual(user1.practice_center_recommendations, recommendations)
         recommendations = self.repository.get_all_for_practice_center_and_user(user2.username)

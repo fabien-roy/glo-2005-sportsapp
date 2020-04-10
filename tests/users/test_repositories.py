@@ -1,12 +1,12 @@
 import unittest
 
 from app.repositories.mysql_user_repositories import MySQLUsersRepository
+from app.users.exceptions import UserNotFoundException
 from tests.recommendations.mocks import recommendations_repository
 from tests.repositories.mysql_test_database import database
 from tests.test_basic_repositories import BasicRepositoryTests
 from tests.users.fakes import user1, user2, user3
 from tests.users.forms import FakeUsersSearchForm
-from app.users.exceptions import UserNotFoundException
 
 
 class UsersRepositoryTests(BasicRepositoryTests):
@@ -40,11 +40,14 @@ class UsersRepositoryTests(BasicRepositoryTests):
 
     def test_get_should_get_practice_centers_recommendations(self):
         user = self.repository.get(user1.username)
-        self.assertCountEqual(user1.practice_center_recommendations, user.practice_center_recommendations)
+        self.assertCountEqual(user1.practice_center_recommendations,
+                              user.practice_center_recommendations)
         user = self.repository.get(user2.username)
-        self.assertCountEqual(user2.practice_center_recommendations, user.practice_center_recommendations)
+        self.assertCountEqual(user2.practice_center_recommendations,
+                              user.practice_center_recommendations)
         user = self.repository.get(user3.username)
-        self.assertCountEqual(user3.practice_center_recommendations, user.practice_center_recommendations)
+        self.assertCountEqual(user3.practice_center_recommendations,
+                              user.practice_center_recommendations)
 
     def test_get_all_with_no_user_center_get_no_user(self):
         self.reset_repositories()
@@ -58,7 +61,7 @@ class UsersRepositoryTests(BasicRepositoryTests):
         self.assertIn(user3, users)
 
     def test_get_all_with_all_filter_users(self):
-        form = FakeUsersSearchForm(all=user1.username)
+        form = FakeUsersSearchForm(any_field=user1.username)
         users = self.repository.get_all(form)
         self.assertIn(user1, users)
         self.assertNotIn(user2, users)

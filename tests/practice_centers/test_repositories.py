@@ -12,13 +12,14 @@ class PracticeCenterRepositoryTests(BasicRepositoryTests):
 
     def setUp(self):
         super().setUp()
-        self.repository = MySQLPracticeCentersRepository(database, climates_repository, recommendations_repository)
+        self.repository = MySQLPracticeCentersRepository(database, climates_repository,
+                                                         recommendations_repository)
 
     def test_get_with_no_practice_center_should_raise_practice_center_not_found_exception(self):
         self.reset_repositories()
         self.assertRaises(PracticeCenterNotFoundException, self.repository.get, 1)
 
-    def test_get_with_non_existent_practice_center_should_raise_practice_center_not_found_exception(self):
+    def test_get_with_non_existent_center_should_raise_practice_center_not_found_exception(self):
         self.assertRaises(PracticeCenterNotFoundException, self.repository.get, -1)
 
     def test_get_should_get_practice_center(self):
@@ -57,7 +58,7 @@ class PracticeCenterRepositoryTests(BasicRepositoryTests):
         self.assertIn(center3, practice_centers)
 
     def test_get_all_with_all_filter_practice_centers(self):
-        form = FakePracticeCentersSearchForm(all=center1.name)
+        form = FakePracticeCentersSearchForm(any_field=center1.name)
         practice_centers = self.repository.get_all(form)
         self.assertIn(center1, practice_centers)
         self.assertNotIn(center2, practice_centers)
