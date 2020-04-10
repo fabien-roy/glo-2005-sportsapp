@@ -10,7 +10,7 @@ test:
  - password: sportsapp
  - encoding: utf8
 before_install:
- - mysql -e 'CREATE DATABASE sportsapp-test;'
+ - mysql -e 'CREATE DATABASE sportsapp_test;'
 install:
  - pip install -r requirements.txt
 script:
