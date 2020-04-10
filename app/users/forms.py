@@ -16,7 +16,8 @@ class UsersSearchForm(GeneralSearchForm):
 class RegisterForm(Form):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=50)])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=6, max=40)])
-    confirm_password = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
+    confirm_password = PasswordField('Repeat Password', validators=[DataRequired(),
+                                                                    EqualTo('password')])
     last_name = StringField('Name', validators=[DataRequired(), Length(min=2, max=50)])
     first_name = StringField('Name', validators=[DataRequired(), Length(min=2, max=50)])
     email = StringField('Email', validators=[DataRequired(), Email(), Length(min=2, max=50)])
@@ -30,4 +31,5 @@ class LoginForm(Form):
 
 class EditUserPasswordForm(Form):
     new_password = PasswordField('New Password', validators=[])
-    new_confirm_password = PasswordField('Repeat New Password', validators=[EqualTo('new_password')])
+    new_confirm_password = PasswordField('Repeat New Password',
+                                         validators=[EqualTo('new_password')])

@@ -1,15 +1,15 @@
 class MySQLFilter:
     @staticmethod
-    def filter_equal(col, filter):
-        return "{} = {}".format(col, filter)
+    def filter_equal(col, value):
+        return "{} = {}".format(col, value)
 
     @staticmethod
-    def filter_equal_string(col, filter):
-        return "{} = '{}'".format(col, filter)
+    def filter_equal_string(col, value):
+        return "{} = '{}'".format(col, value)
 
     @staticmethod
-    def filter_like(col, filter):
-        return "{} LIKE '%{}%'".format(col, filter)
+    def filter_like(col, value):
+        return "{} LIKE '%{}%'".format(col, value)
 
     def build_general_filters(self, col_names, value):
         filters = []
@@ -22,8 +22,8 @@ class MySQLFilter:
     def build_advanced_filters(self, col_names, values):
         filters = []
 
-        for i in range(0, len(col_names)):
-            if values[i] != '':
-                filters.append(self.filter_like(col_names[i], values[i]))
+        for i, value in enumerate(values):
+            if value != '':
+                filters.append(self.filter_like(col_names[i], value))
 
         return filters, True

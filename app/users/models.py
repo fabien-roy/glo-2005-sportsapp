@@ -1,6 +1,7 @@
 class User:
-    def __init__(self, username, email, first_name=None, last_name=None, phone_number=None, creation_date=None,
-                 last_login_date=None, sport_recommendations=None, practice_center_recommendations=None):
+    def __init__(self, username, email, first_name=None, last_name=None, phone_number=None,
+                 creation_date=None, last_login_date=None, sport_recommendations=None,
+                 practice_center_recommendations=None):
         if sport_recommendations is None:
             sport_recommendations = []
 

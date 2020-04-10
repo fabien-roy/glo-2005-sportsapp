@@ -1,6 +1,7 @@
 from app.repositories.mysql_queries import MySQLQuery
-from app.repositories.mysql_tables import MySQLRecommendationsTable, MySQLSportRecommendationsTable, MySQLSportsTable, \
-    MySQLPracticeCenterRecommendationsTable, MySQLPracticeCentersTable
+from app.repositories.mysql_tables import MySQLRecommendationsTable, \
+    MySQLSportRecommendationsTable, MySQLSportsTable, MySQLPracticeCenterRecommendationsTable, \
+    MySQLPracticeCentersTable
 
 
 class MySQLRecommendationQuery(MySQLQuery):
@@ -35,7 +36,8 @@ class MySQLRecommendationQuery(MySQLQuery):
                      ', O.' + other_name_col + ' AS ' + self.name_fake_col +
                      ', ' + MySQLRecommendationsTable.date_col +
                      ' FROM ' + MySQLRecommendationsTable.table_name + ' T' +
-                     ' JOIN ' + other_table_name + ' O ON O.' + other_id_col + ' = ' + str(item_id) +
+                     ' JOIN ' + other_table_name + ' O ON O.' + other_id_col + ' = ' +
+                     str(item_id) +
                      ' WHERE T.' + MySQLRecommendationsTable.id_col + ' IN (' +
                      '     SELECT ' + sub_recommendation_id_col +
                      '     FROM ' + sub_table_name +
@@ -56,13 +58,16 @@ class MySQLRecommendationQuery(MySQLQuery):
     def get_all_for_practice_center_and_user(self, username):
         return self.get_all_for_type_and_user(username,
                                               MySQLPracticeCenterRecommendationsTable.table_name,
-                                              MySQLPracticeCenterRecommendationsTable.recommendation_id_col,
-                                              MySQLPracticeCenterRecommendationsTable.practice_center_id_col,
+                                              MySQLPracticeCenterRecommendationsTable
+                                              .recommendation_id_col,
+                                              MySQLPracticeCenterRecommendationsTable
+                                              .practice_center_id_col,
                                               MySQLPracticeCentersTable.table_name,
                                               MySQLPracticeCentersTable.id_col,
                                               MySQLPracticeCentersTable.name_col)
 
-    def get_all_for_type_and_user(self, username, sub_table_name, sub_recommendation_id_col, sub_item_id_col,
+    def get_all_for_type_and_user(self, username, sub_table_name, sub_recommendation_id_col,
+                                  sub_item_id_col,
                                   other_table_name, other_id_col, other_name_col):
         operation = ('SELECT T.' + MySQLRecommendationsTable.id_col +
                      ', ' + MySQLRecommendationsTable.username_col +
@@ -74,8 +79,10 @@ class MySQLRecommendationQuery(MySQLQuery):
                      ' FROM ' + MySQLRecommendationsTable.table_name + ' AS T' +
                      ' JOIN ' + sub_table_name + ' S ON S.' + sub_recommendation_id_col + ' = ' +
                      MySQLRecommendationsTable.id_col +
-                     ' JOIN ' + other_table_name + ' O ON O.' + other_id_col + ' = S.' + sub_item_id_col +
-                     ' WHERE ' + MySQLRecommendationsTable.username_col + ' = \'' + username + '\'' +
+                     ' JOIN ' + other_table_name + ' O ON O.' + other_id_col + ' = S.' +
+                     sub_item_id_col +
+                     ' WHERE ' + MySQLRecommendationsTable.username_col + ' = \'' + username +
+                     '\'' +
                      ' AND T.' + MySQLRecommendationsTable.id_col + ' IN (' +
                      '   SELECT ' + sub_recommendation_id_col +
                      '   FROM ' + sub_table_name +

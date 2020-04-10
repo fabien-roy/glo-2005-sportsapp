@@ -43,9 +43,12 @@ class MySQLPracticeCentersRepository(PracticeCentersRepository):
                 cur.execute(query)
 
                 for practice_center_cur in cur.fetchall():
-                    climates = self.climates_repository.get_all_for_practice_center(practice_center_id)
-                    recommendations = self.recommendations_repository.get_all_for_practice_center(practice_center_id)
-                    practice_center = self.build_practice_center(practice_center_cur, climates, recommendations)
+                    climates = self.climates_repository\
+                        .get_all_for_practice_center(practice_center_id)
+                    recommendations = self.recommendations_repository\
+                        .get_all_for_practice_center(practice_center_id)
+                    practice_center = self.build_practice_center(practice_center_cur, climates,
+                                                                 recommendations)
         finally:
             cur.close()
 
@@ -68,8 +71,8 @@ class MySQLPracticeCentersRepository(PracticeCentersRepository):
         try:
             with self.database.connect().cursor() as cur:
                 query = MySQLPracticeCentersQuery().add()
-                cur.execute(query, (practice_center.name, practice_center.email, practice_center.web_site,
-                                    practice_center.phone_number))
+                cur.execute(query, (practice_center.name, practice_center.email,
+                                    practice_center.web_site, practice_center.phone_number))
 
                 self.database.connect().commit()
 

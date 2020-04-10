@@ -60,8 +60,8 @@ class MySQLRecommendationsRepository(RecommendationsRepository):
 
         try:
             with self.database.connect().cursor() as cur:
-                cur.execute(query, (recommendation.username, recommendation.comment, recommendation.note,
-                                    recommendation.date))
+                cur.execute(query, (recommendation.username, recommendation.comment,
+                                    recommendation.note, recommendation.date))
 
                 self.database.connect().commit()
 

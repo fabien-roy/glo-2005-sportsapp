@@ -1,5 +1,6 @@
 from app.repositories.mysql_queries import MySQLQuery
-from app.repositories.mysql_tables import MySQLClimatesTable, MySQLSportClimatesTable, MySQLPracticeCenterClimatesTable
+from app.repositories.mysql_tables import MySQLClimatesTable, MySQLSportClimatesTable, \
+    MySQLPracticeCenterClimatesTable
 
 
 class MySQLClimatesQuery(MySQLQuery):
