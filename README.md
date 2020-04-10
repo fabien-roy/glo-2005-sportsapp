@@ -1,5 +1,7 @@
 # GLO-2005 (H2020) - Team 8
 
+[![Build Status](https://travis-ci.com/ExiledNarwal28/glo-2005-sportsapp.svg?token=kqSKcuQhsXyJEdub24s3&branch=master)](https://travis-ci.com/ExiledNarwal28/glo-2005-sportsapp)
+
 This is our project for course GLO-2005 at Laval University.
 
 This project is about listing sports and practice centers. Users can recommend sports and practice centers. Sports can be practiced at different centers, depending on climate. Sports also requires specific equipment.
