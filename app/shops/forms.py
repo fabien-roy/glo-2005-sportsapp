@@ -1,7 +1,7 @@
 from wtforms import StringField
 from wtforms.validators import Length
 
-from app import GeneralSearchForm
+from app.search.forms import GeneralSearchForm
 
 
 class ShopsSearchForm(GeneralSearchForm):
