@@ -5,8 +5,8 @@ services:
  - mysql
 test:
  - adapter: mysql2
- - database: sportsapp
- - username: travis
+ - database: sportsapp-test
+ - username: sportsapp
  - encoding: utf8
 install:
  - pip install -r requirements.txt
