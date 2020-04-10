@@ -34,7 +34,7 @@ When a bug is spotted in the application, it must be reported as an issue on Git
 
 We use trunk based development with `master` as a main branch. Every PR adding a feature to the application or solving a bug must be merged into `master`.
 
-For each issue, there must be at least one PR (more PRs could be added if the issue is reopened). This PR must build. Also, two reviewers must approve the PR before it is merged into `master`.
+For each issue, there must be at least one PR (more PRs could be added if the issue is reopened). This PR must build. Also, two reviewers must approve the PR before it is merged into `master`.Once it is merged, it will have to pass the CI check on master.
 
 To follow this trend, PR names are as following : `What is added` (ex : `Add shops views`).
 
@@ -51,6 +51,8 @@ Issues are closed once all described tasks are confirmed done by the reviewers, 
 ## Development
 
 ### Code style
+
+Code style is validated with pylint in `app` and `tests` directories. The CI check will not pass if pylint catches anything.
 
 No comment should be in the source code. Some exceptions are small explanations. In those rare cases, comments are clear and tiny.
 
