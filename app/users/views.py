@@ -1,11 +1,12 @@
-from flask import render_template, request
+from flask import render_template, request, Blueprint
 from flask.views import View
 from injector import inject
 
-from app import users_blueprint
 from app.users.exceptions import UserNotFoundException
 from app.users.forms import UsersSearchForm
 from app.users.repositories import UsersRepository
+
+users_blueprint = Blueprint('users', __name__)
 
 
 @users_blueprint.route('/users', methods=('GET', 'POST'))

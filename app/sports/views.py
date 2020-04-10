@@ -1,11 +1,12 @@
-from flask import render_template, request
+from flask import render_template, request, Blueprint
 from flask.views import View
 from injector import inject
 
-from app import sports_blueprint
 from app.sports.exceptions import SportNotFoundException
 from app.sports.forms import SportsSearchForm
 from app.sports.repositories import SportsRepository
+
+sports_blueprint = Blueprint('sports', __name__)
 
 
 @sports_blueprint.route('/sports', methods=('GET', 'POST'))

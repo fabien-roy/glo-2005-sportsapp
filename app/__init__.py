@@ -1,9 +1,14 @@
-from flask import Flask, render_template, request, redirect, url_for, Blueprint
+from flask import Flask, render_template
 from flask_bcrypt import Bcrypt
-from flask_cors import CORS
 from flask_bootstrap import Bootstrap
+from flask_cors import CORS
 
 from app.forms import GeneralSearchForm
+from app.practice_centers.views import practice_centers_blueprint
+from app.shops.views import shops_blueprint
+from app.sports.views import sports_blueprint
+from app.users.views import users_blueprint
+from app.views import root_blueprint
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_pyfile('flask.cfg')
@@ -12,33 +17,11 @@ bcrypt = Bcrypt(app)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 Bootstrap(app)
 
-# Blueprints
-
-sports_blueprint = Blueprint('sports', __name__)
-practice_centers_blueprint = Blueprint('practice_centers', __name__)
-shops_blueprint = Blueprint('shops', __name__)
-users_blueprint = Blueprint('users', __name__)
-
+app.register_blueprint(root_blueprint)
 app.register_blueprint(sports_blueprint)
 app.register_blueprint(practice_centers_blueprint)
 app.register_blueprint(shops_blueprint)
 app.register_blueprint(users_blueprint)
-
-
-# Routes
-
-@app.route('/')
-def home():
-    form = GeneralSearchForm(request.form)
-
-    return render_template('index.html', form=form), 200
-
-
-@app.route('/search', methods=('GET', 'POST'))
-def search():
-    search_route = request.form.get('search_route')
-
-    return redirect(url_for(search_route), 307)
 
 
 @app.errorhandler(400)

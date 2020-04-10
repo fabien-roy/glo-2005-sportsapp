@@ -1,11 +1,12 @@
-from flask import render_template, request
+from flask import render_template, request, Blueprint
 from flask.views import View
 from injector import inject
 
-from app import shops_blueprint
 from app.shops.exceptions import ShopNotFoundException
 from app.shops.forms import ShopsSearchForm
 from app.shops.repositories import ShopsRepository
+
+shops_blueprint = Blueprint('shops', __name__)
 
 
 @shops_blueprint.route('/shops', methods=('GET', 'POST'))

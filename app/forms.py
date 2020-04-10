@@ -6,5 +6,5 @@ class GeneralSearchForm(FlaskForm):
     class Meta:
         csrf = False
 
-    all = StringField('Any field')
+    any_field = StringField('Any field')
     submit = SubmitField('Search')
