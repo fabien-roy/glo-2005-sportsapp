@@ -1,6 +1,8 @@
 import datetime
 
-from app import conn
+from injector import inject
+
+from app.database import Database
 from app.recommendations.models import Recommendation
 from app.recommendations.repositories import RecommendationsRepository
 from app.repositories.mysql_recommendation_queries import MySQLRecommendationQuery
@@ -8,6 +10,10 @@ from app.repositories.mysql_tables import MySQLRecommendationsTable
 
 
 class MySQLRecommendationsRepository(RecommendationsRepository):
+    @inject
+    def __init__(self, database: Database):
+        self.database = database
+
     def get_all_for_sport(self, sport_id):
         query = MySQLRecommendationQuery().get_all_for_sport(sport_id)
         return self.get_all(query)
@@ -28,7 +34,7 @@ class MySQLRecommendationsRepository(RecommendationsRepository):
         recommendations = []
 
         try:
-            with conn.cursor() as cur:
+            with self.database.connect().cursor() as cur:
                 cur.execute(query)
 
                 for recommendation_cur in cur.fetchall():
@@ -53,11 +59,11 @@ class MySQLRecommendationsRepository(RecommendationsRepository):
         query = MySQLRecommendationQuery().add()
 
         try:
-            with conn.cursor() as cur:
+            with self.database.connect().cursor() as cur:
                 cur.execute(query, (recommendation.username, recommendation.comment, recommendation.note,
                                     recommendation.date))
 
-                conn.commit()
+                self.database.connect().commit()
 
                 recommendation.id = cur.lastrowid
         finally:
@@ -77,9 +83,9 @@ class MySQLRecommendationsRepository(RecommendationsRepository):
         self.add(recommendation)
 
         try:
-            with conn.cursor() as cur:
+            with self.database.connect().cursor() as cur:
                 cur.execute(query, (recommendation.id, type_id))
 
-                conn.commit()
+                self.database.connect().commit()
         finally:
             cur.close()

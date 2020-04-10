@@ -1,12 +1,9 @@
-from app import conn
-
-
-def db_create():
+def db_create(database):
     print('Creating database tables for SportsApp...')
 
     try:
         # Delete all tables
-        with conn.cursor() as cur:
+        with database.connect().cursor() as cur:
             cur.execute('DROP TABLE IF EXISTS sport_climates')
 
             cur.execute('DROP TABLE IF EXISTS sport_recommendations')
@@ -27,10 +24,10 @@ def db_create():
 
             cur.execute('DROP TABLE IF EXISTS shops')
 
-        conn.commit()
+        database.connect().commit()
 
         # Create all tables
-        with conn.cursor() as cur:
+        with database.connect().cursor() as cur:
             cur.execute('CREATE TABLE users ('
                         'username varchar(50) NOT NULL PRIMARY KEY,'
                         'email varchar(100) NOT NULL UNIQUE,'
@@ -107,7 +104,7 @@ def db_create():
                         'phone_number varchar(20) NULL'
                         ');')
 
-        conn.commit()
+        database.connect().commit()
     finally:
         cur.close()
 

@@ -1,11 +1,17 @@
-from app import conn
+from injector import inject
+
 from app.climates.models import Climate
 from app.climates.repositories import ClimatesRepository
+from app.database import Database
 
 from app.repositories.mysql_climate_queries import MySQLClimatesQuery
 
 
 class MySQLClimatesRepository(ClimatesRepository):
+    @inject
+    def __init__(self, database: Database):
+        self.database = database
+
     def get_all_for_sport(self, sport_id):
         query = MySQLClimatesQuery().get_all_for_sport(sport_id)
         return self.get_all_for_type(query)
@@ -18,7 +24,7 @@ class MySQLClimatesRepository(ClimatesRepository):
         climates = []
 
         try:
-            with conn.cursor() as cur:
+            with self.database.connect().cursor() as cur:
                 cur.execute(query)
 
                 for climate_cur in cur.fetchall():
@@ -34,11 +40,11 @@ class MySQLClimatesRepository(ClimatesRepository):
 
     def add(self, climate):
         try:
-            with conn.cursor() as cur:
+            with self.database.connect().cursor() as cur:
                 query = MySQLClimatesQuery().add()
                 cur.execute(query, climate.name)
 
-                conn.commit()
+                self.database.connect().commit()
         finally:
             cur.close()
 
@@ -50,12 +56,11 @@ class MySQLClimatesRepository(ClimatesRepository):
         query = MySQLClimatesQuery().add_for_practice_center()
         return self.add_to_type(query, climate.name, practice_center.id)
 
-    @staticmethod
-    def add_to_type(query, climate_name, type_id):
+    def add_to_type(self, query, climate_name, type_id):
         try:
-            with conn.cursor() as cur:
+            with self.database.connect().cursor() as cur:
                 cur.execute(query, (climate_name, type_id))
 
-                conn.commit()
+                self.database.connect().commit()
         finally:
             cur.close()

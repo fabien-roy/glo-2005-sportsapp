@@ -13,6 +13,7 @@ from tests.recommendations.fakes import sport1_recommendation1_user1, sport2_rec
     sport2_recommendation2_user2, sport3_recommendation1_user1, center1_recommendation1_user1, \
     center2_recommendation1_user1, center2_recommendation2_user2, center3_recommendation1_user3, \
     center3_recommendation2_user1
+from tests.repositories.mysql_test_database import MySQLTestDatabase, database
 from tests.sports.fakes import sport1, sport2, sport3
 from tests.users.fakes import user1, user2, user3
 from tests.shops.fakes import shop1, shop2, shop3
@@ -20,12 +21,13 @@ from instance.db_create import db_create
 
 
 class BasicRepositoryTests(test_basic.BasicTests):
-    climates_repository = MySQLClimatesRepository()
-    recommendations_repository = MySQLRecommendationsRepository()
-    sports_repository = MySQLSportsRepository(climates_repository, recommendations_repository)
-    practice_centers_repository = MySQLPracticeCentersRepository(climates_repository, recommendations_repository)
-    users_repository = MySQLUsersRepository(recommendations_repository)
-    shops_repository = MySQLShopsRepository()
+    climates_repository = MySQLClimatesRepository(database)
+    recommendations_repository = MySQLRecommendationsRepository(database)
+    sports_repository = MySQLSportsRepository(database, climates_repository, recommendations_repository)
+    practice_centers_repository = MySQLPracticeCentersRepository(database, climates_repository,
+                                                                 recommendations_repository)
+    users_repository = MySQLUsersRepository(database, recommendations_repository)
+    shops_repository = MySQLShopsRepository(database)
 
     def setUp(self):
         super().setUp()
@@ -40,7 +42,7 @@ class BasicRepositoryTests(test_basic.BasicTests):
 
     @staticmethod
     def reset_repositories():
-        db_create()
+        db_create(database)
 
     def add_climates(self):
         self.climates_repository.add(climate1)

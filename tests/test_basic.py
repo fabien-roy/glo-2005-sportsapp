@@ -12,9 +12,6 @@ class BasicTests(unittest.TestCase):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
         app.config['DEBUG'] = False
-        app.config['MYSQL_USER'] = 'travis'
-        app.config['MYSQL_PASSWORD'] = ''
-        app.config['MYSQL_BD'] = 'sportsapp_test'
 
         FlaskInjector(app=app, modules=[configure])
 

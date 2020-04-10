@@ -12,18 +12,6 @@ bcrypt = Bcrypt(app)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 Bootstrap(app)
 
-# Database
-
-import pymysql.cursors
-
-
-conn = pymysql.connect(host=app.config['MYSQL_HOST'],
-                       user=app.config['MYSQL_USER'],
-                       password=app.config['MYSQL_PASSWORD'],
-                       db=app.config['MYSQL_DB'],
-                       charset='utf8mb4',
-                       cursorclass=pymysql.cursors.DictCursor)
-
 # Blueprints
 
 from app.sports.views import sports_blueprint

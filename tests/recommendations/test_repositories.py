@@ -2,6 +2,7 @@ import unittest
 
 from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
 from tests.practice_centers.fakes import center1, center2, center3
+from tests.repositories.mysql_test_database import database
 from tests.sports.fakes import sport1, sport2, sport3
 from tests.test_basic_repositories import BasicRepositoryTests
 from tests.users.fakes import user1, user2, user3
@@ -11,7 +12,7 @@ class RecommendationsRepositoryTests(BasicRepositoryTests):
 
     def setUp(self):
         super().setUp()
-        self.repository = MySQLRecommendationsRepository()
+        self.repository = MySQLRecommendationsRepository(database)
 
     def test_get_all_for_sport_without_sport_should_get_no_recommendation(self):
         self.reset_repositories()
