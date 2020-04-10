@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint, request
+from flask import render_template, request, Blueprint
 from flask.views import View
 from injector import inject
 
@@ -18,11 +18,13 @@ def practice_centers(practice_centers_repository: PracticeCentersRepository):
     else:
         all_practice_centers = practice_centers_repository.get_all(None)
 
-    return render_template('practice_centers.html', practice_centers=all_practice_centers, form=form)
+    return render_template('practice_centers.html', practice_centers=all_practice_centers,
+                           form=form)
 
 
 @practice_centers_blueprint.route('/practice-centers/<practice_center_id>')
-def practice_center_details(practice_centers_repository: PracticeCentersRepository, practice_center_id):
+def practice_center_details(practice_centers_repository: PracticeCentersRepository,
+                            practice_center_id):
     try:
         practice_center = practice_centers_repository.get(practice_center_id)
     except PracticeCenterNotFoundException:

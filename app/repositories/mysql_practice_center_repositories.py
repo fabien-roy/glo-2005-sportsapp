@@ -1,7 +1,7 @@
 from injector import inject
 
-from app import conn
 from app.climates.repositories import ClimatesRepository
+from app.database import Database
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
 from app.practice_centers.models import PracticeCenter
 from app.practice_centers.repositories import PracticeCentersRepository
@@ -12,7 +12,9 @@ from app.repositories.mysql_tables import MySQLPracticeCentersTable
 
 class MySQLPracticeCentersRepository(PracticeCentersRepository):
     @inject
-    def __init__(self, climates_repository: ClimatesRepository, recommendations_repository: RecommendationsRepository):
+    def __init__(self, database: Database, climates_repository: ClimatesRepository,
+                 recommendations_repository: RecommendationsRepository):
+        self.database = database
         self.climates_repository = climates_repository
         self.recommendations_repository = recommendations_repository
 
@@ -20,7 +22,7 @@ class MySQLPracticeCentersRepository(PracticeCentersRepository):
         all_practice_centers = []
 
         try:
-            with conn.cursor() as cur:
+            with self.database.connect().cursor() as cur:
                 query = MySQLPracticeCentersQuery().get_all(form)
                 cur.execute(query)
 
@@ -36,14 +38,17 @@ class MySQLPracticeCentersRepository(PracticeCentersRepository):
         practice_center = None
 
         try:
-            with conn.cursor() as cur:
+            with self.database.connect().cursor() as cur:
                 query = MySQLPracticeCentersQuery().get(practice_center_id)
                 cur.execute(query)
 
                 for practice_center_cur in cur.fetchall():
-                    climates = self.climates_repository.get_all_for_practice_center(practice_center_id)
-                    recommendations = self.recommendations_repository.get_all_for_practice_center(practice_center_id)
-                    practice_center = self.build_practice_center(practice_center_cur, climates, recommendations)
+                    climates = self.climates_repository\
+                        .get_all_for_practice_center(practice_center_id)
+                    recommendations = self.recommendations_repository\
+                        .get_all_for_practice_center(practice_center_id)
+                    practice_center = self.build_practice_center(practice_center_cur, climates,
+                                                                 recommendations)
         finally:
             cur.close()
 
@@ -64,12 +69,12 @@ class MySQLPracticeCentersRepository(PracticeCentersRepository):
 
     def add(self, practice_center):
         try:
-            with conn.cursor() as cur:
+            with self.database.connect().cursor() as cur:
                 query = MySQLPracticeCentersQuery().add()
-                cur.execute(query, (practice_center.name, practice_center.email, practice_center.web_site,
-                                    practice_center.phone_number))
+                cur.execute(query, (practice_center.name, practice_center.email,
+                                    practice_center.web_site, practice_center.phone_number))
 
-                conn.commit()
+                self.database.connect().commit()
 
                 practice_center.id = cur.lastrowid
 

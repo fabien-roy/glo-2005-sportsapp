@@ -1,3 +1,4 @@
+from app.repositories.mysql_filters import MySQLFilter
 from app.repositories.mysql_shop_filters import MySQLShopsFilter
 from app.repositories.mysql_queries import MySQLQuery
 from app.repositories.mysql_tables import MySQLShopsTable
@@ -13,17 +14,17 @@ select_all_operation = ('SELECT ' + all_fields + ' FROM ' + MySQLShopsTable.tabl
 
 
 class MySQLShopsQuery(MySQLQuery):
+    def get(self, shop_id):
+        filters = [MySQLFilter.filter_equal(MySQLShopsTable.id_col, shop_id)]
+
+        return self.build_query(select_all_operation, filters)
+
     def get_all(self, form=None):
         filters, inner_filtering = MySQLShopsFilter().build_filters(form)
 
         orders = [MySQLShopsTable.name_col]
 
         return self.build_query(select_all_operation, filters, orders, inner_filtering)
-
-    def get(self, shop_id):
-        filters = [self.filter_equal(MySQLShopsTable.id_col, shop_id)]
-
-        return self.build_query(select_all_operation, filters)
 
     def add(self):
         operation = ('INSERT INTO ' + MySQLShopsTable.table_name +

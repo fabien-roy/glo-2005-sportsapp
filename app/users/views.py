@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint, request
+from flask import render_template, request, Blueprint
 from flask.views import View
 from injector import inject
 

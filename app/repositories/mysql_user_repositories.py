@@ -2,9 +2,8 @@ import datetime
 
 from injector import inject
 
-from app import conn
+from app.database import Database
 from app.recommendations.repositories import RecommendationsRepository
-from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
 from app.repositories.mysql_tables import MySQLUsersTable
 from app.repositories.mysql_user_queries import MySQLUsersQuery
 from app.users.exceptions import UserNotFoundException
@@ -14,14 +13,15 @@ from app.users.repositories import UsersRepository
 
 class MySQLUsersRepository(UsersRepository):
     @inject
-    def __init__(self, recommendations_repository: RecommendationsRepository):
+    def __init__(self, database: Database, recommendations_repository: RecommendationsRepository):
+        self.database = database
         self.recommendations_repository = recommendations_repository
 
     def get_all(self, form=None):
         all_users = []
 
         try:
-            with conn.cursor() as cur:
+            with self.database.connect().cursor() as cur:
                 query = MySQLUsersQuery().get_all(form)
                 cur.execute(query)
 
@@ -37,15 +37,17 @@ class MySQLUsersRepository(UsersRepository):
         user = None
 
         try:
-            with conn.cursor() as cur:
+            with self.database.connect().cursor() as cur:
                 query = MySQLUsersQuery().get(username)
                 cur.execute(query)
 
                 for user_cur in cur.fetchall():
-                    sport_recommendations = self.recommendations_repository.get_all_for_sport_and_user(username)
-                    practice_center_recommendations = \
-                        self.recommendations_repository.get_all_for_practice_center_and_user(username)
-                    user = self.build_user(user_cur, sport_recommendations, practice_center_recommendations)
+                    sport_recommendations = self.recommendations_repository\
+                        .get_all_for_sport_and_user(username)
+                    practice_center_recommendations = self.recommendations_repository\
+                        .get_all_for_practice_center_and_user(username)
+                    user = self.build_user(user_cur, sport_recommendations,
+                                           practice_center_recommendations)
         finally:
             cur.close()
 
@@ -68,14 +70,14 @@ class MySQLUsersRepository(UsersRepository):
 
     def add(self, user):
         try:
-            with conn.cursor() as cur:
+            with self.database.connect().cursor() as cur:
                 user.creation_date = datetime.datetime.now()
 
                 query = MySQLUsersQuery().add()
-                cur.execute(query, (user.username, user.email, user.first_name, user.last_name, user.phone_number,
-                                    user.creation_date))
+                cur.execute(query, (user.username, user.email, user.first_name, user.last_name,
+                                    user.phone_number, user.creation_date))
 
-                conn.commit()
+                self.database.connect().commit()
         finally:
             cur.close()
 

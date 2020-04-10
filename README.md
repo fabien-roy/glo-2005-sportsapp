@@ -23,6 +23,7 @@ Then, in MySQL Shell (for Windows, UNIX use `mysql` CLI) :
 - `\sql CREATE USER 'sportsapp'@'localhost' IDENTIFIED BY 'sportsapp'`
 - `\sql GRANT ALL PRIVILEGES ON *. * TO 'sportsapp'@'localhost'`
 - `\sql CREATE DATABASE 'sportsapp'`
+- `\sql CREATE DATABASE 'sportsapp_test'`
 
 ## Install requirements
 
@@ -40,4 +41,4 @@ By default, web API is hosted on port `5000` : [http://127.0.0.1:5000](http://12
 
 ## Run tests
 
-- `nose2 -v --with-coverage app.tests`
+- `nose2 -v --with-coverage tests`

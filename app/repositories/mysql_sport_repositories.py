@@ -1,7 +1,7 @@
 from injector import inject
 
-from app import conn
 from app.climates.repositories import ClimatesRepository
+from app.database import Database
 from app.recommendations.repositories import RecommendationsRepository
 from app.repositories.mysql_sport_queries import MySQLSportsQuery
 from app.repositories.mysql_tables import MySQLSportsTable
@@ -12,7 +12,9 @@ from app.sports.repositories import SportsRepository
 
 class MySQLSportsRepository(SportsRepository):
     @inject
-    def __init__(self, climates_repository: ClimatesRepository, recommendations_repository: RecommendationsRepository):
+    def __init__(self, database: Database, climates_repository: ClimatesRepository,
+                 recommendations_repository: RecommendationsRepository):
+        self.database = database
         self.climates_repository = climates_repository
         self.recommendations_repository = recommendations_repository
 
@@ -20,7 +22,7 @@ class MySQLSportsRepository(SportsRepository):
         all_sports = []
 
         try:
-            with conn.cursor() as cur:
+            with self.database.connect().cursor() as cur:
                 query = MySQLSportsQuery().get_all(form)
                 cur.execute(query)
 
@@ -36,7 +38,7 @@ class MySQLSportsRepository(SportsRepository):
         sport = None
 
         try:
-            with conn.cursor() as cur:
+            with self.database.connect().cursor() as cur:
                 query = MySQLSportsQuery().get(sport_id)
                 cur.execute(query)
 
@@ -61,11 +63,11 @@ class MySQLSportsRepository(SportsRepository):
 
     def add(self, sport):
         try:
-            with conn.cursor() as cur:
+            with self.database.connect().cursor() as cur:
                 query = MySQLSportsQuery().add()
                 cur.execute(query, sport.name)
 
-                conn.commit()
+                self.database.connect().commit()
 
                 sport.id = cur.lastrowid
 

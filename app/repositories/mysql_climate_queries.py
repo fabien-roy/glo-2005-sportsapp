@@ -1,5 +1,7 @@
+from app.repositories.mysql_filters import MySQLFilter
 from app.repositories.mysql_queries import MySQLQuery
-from app.repositories.mysql_tables import MySQLClimatesTable, MySQLSportClimatesTable, MySQLPracticeCenterClimatesTable
+from app.repositories.mysql_tables import MySQLClimatesTable, MySQLSportClimatesTable, \
+    MySQLPracticeCenterClimatesTable
 
 
 class MySQLClimatesQuery(MySQLQuery):
@@ -21,7 +23,7 @@ class MySQLClimatesQuery(MySQLQuery):
         operation = ('SELECT ' + climate_name_col + ' AS ' + self.fake_name_col +
                      ' FROM ' + table_name)
 
-        filters = [self.filter_equal(type_id_col, type_id)]
+        filters = [MySQLFilter.filter_equal(type_id_col, type_id)]
 
         orders = [climate_name_col]
 

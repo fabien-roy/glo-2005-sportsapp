@@ -1,4 +1,4 @@
-#!E:\Users\Hackerman\Documents\Études\BD\Projet\API\Scripts\python.exe -x
+#!E:\Users\Hackerman\Documents\Études\BD\SportsApp\Scripts\python.exe -x
 # EASY-INSTALL-ENTRY-SCRIPT: 'pip==19.0.3','console_scripts','pip3.8'
 __requires__ = 'pip==19.0.3'
 import re

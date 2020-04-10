@@ -1,3 +1,4 @@
+from app.repositories.mysql_filters import MySQLFilter
 from app.repositories.mysql_queries import MySQLQuery
 from app.repositories.mysql_sport_filters import MySQLSportsFilter
 from app.repositories.mysql_tables import MySQLSportsTable
@@ -11,7 +12,7 @@ select_all_operation = ('SELECT ' + all_fields + ' FROM ' + MySQLSportsTable.tab
 
 class MySQLSportsQuery(MySQLQuery):
     def get(self, sport_id):
-        filters = [self.filter_equal(MySQLSportsTable.id_col, sport_id)]
+        filters = [MySQLFilter.filter_equal(MySQLSportsTable.id_col, sport_id)]
 
         return self.build_query(select_all_operation, filters)
 

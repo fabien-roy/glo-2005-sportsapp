@@ -31,7 +31,7 @@
 {%- endmacro %}
 
 {% macro search_form_general(form) -%}
-{{ search_form(form, [input_group('all', 'Any field', form.all.data)]) }}
+{{ search_form(form, [input_group('any_field', 'Any field', form.any_field.data)]) }}
 {%- endmacro %}
 
 {% macro search_pane(form, inputs) -%}
