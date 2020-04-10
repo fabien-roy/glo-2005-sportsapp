@@ -23,6 +23,7 @@ Then, in MySQL Shell (for Windows, UNIX use `mysql` CLI) :
 - `\sql CREATE USER 'sportsapp'@'localhost' IDENTIFIED BY 'sportsapp'`
 - `\sql GRANT ALL PRIVILEGES ON *. * TO 'sportsapp'@'localhost'`
 - `\sql CREATE DATABASE 'sportsapp'`
+- `\sql CREATE DATABASE 'sportsapp-test'`
 
 ## Install requirements
 
