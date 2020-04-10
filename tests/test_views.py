@@ -11,7 +11,7 @@ class RootViewsTests(BasicViewTests):
 
     def test_search_with_sports_should_redirect(self):
         form = {'search_route': 'sports.sports'}
-        response = self.app.post('/search', follow_redirects=True, data=form)
+        response = self.app.post('/', follow_redirects=True, data=form)
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'SportsApp', response.data)
         self.assertIn(b'Sports', response.data)
@@ -21,7 +21,7 @@ class RootViewsTests(BasicViewTests):
 
     def test_search_with_practice_centers_should_redirect(self):
         form = {'search_route': 'practice_centers.practice_centers'}
-        response = self.app.post('/search', follow_redirects=True, data=form)
+        response = self.app.post('/', follow_redirects=True, data=form)
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'SportsApp', response.data)
         self.assertIn(b'Practice Centers', response.data)
@@ -31,7 +31,7 @@ class RootViewsTests(BasicViewTests):
 
     def test_search_with_shops_should_redirect(self):
         form = {'search_route': 'shops.shops'}
-        response = self.app.post('/search', follow_redirects=True, data=form)
+        response = self.app.post('/', follow_redirects=True, data=form)
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'SportsApp', response.data)
         self.assertIn(b'Shops', response.data)
@@ -41,7 +41,7 @@ class RootViewsTests(BasicViewTests):
 
     def test_search_with_users_should_redirect(self):
         form = {'search_route': 'users.users'}
-        response = self.app.post('/search', follow_redirects=True, data=form)
+        response = self.app.post('/', follow_redirects=True, data=form)
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'SportsApp', response.data)
         self.assertIn(b'Users', response.data)
