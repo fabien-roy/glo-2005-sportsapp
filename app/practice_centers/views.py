@@ -1,12 +1,11 @@
-from flask import render_template, Blueprint, request
+from flask import render_template, request
 from flask.views import View
 from injector import inject
 
+from app import practice_centers_blueprint
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
 from app.practice_centers.forms import PracticeCentersSearchForm
 from app.practice_centers.repositories import PracticeCentersRepository
-
-practice_centers_blueprint = Blueprint('practice_centers', __name__)
 
 
 @practice_centers_blueprint.route('/practice-centers', methods=('GET', 'POST'))
