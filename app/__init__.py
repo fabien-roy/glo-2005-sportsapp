@@ -17,16 +17,12 @@ Bootstrap(app)
 import pymysql.cursors
 
 
-def create_connection():
-    return pymysql.connect(host=app.config['MYSQL_HOST'],
-                           user=app.config['MYSQL_USER'],
-                           password=app.config['MYSQL_PASSWORD'],
-                           db=app.config['MYSQL_DB'],
-                           charset='utf8mb4',
-                           cursorclass=pymysql.cursors.DictCursor)
-
-
-conn = create_connection()
+conn = pymysql.connect(host=app.config['MYSQL_HOST'],
+                       user=app.config['MYSQL_USER'],
+                       password=app.config['MYSQL_PASSWORD'],
+                       db=app.config['MYSQL_DB'],
+                       charset='utf8mb4',
+                       cursorclass=pymysql.cursors.DictCursor)
 
 # Blueprints
 
