@@ -1,3 +1,4 @@
+from app.repositories.mysql_filters import MySQLFilter
 from app.repositories.mysql_queries import MySQLQuery
 from app.repositories.mysql_tables import MySQLUsersTable
 from app.repositories.mysql_user_filters import MySQLUsersFilter
@@ -15,9 +16,8 @@ select_all_operation = ('SELECT ' + all_fields + ' FROM ' + MySQLUsersTable.tabl
 
 
 class MySQLUsersQuery(MySQLQuery):
-
     def get(self, username):
-        filters = [self.filter_equal_string(MySQLUsersTable.username_col, username)]
+        filters = [MySQLFilter.filter_equal_string(MySQLUsersTable.username_col, username)]
 
         return self.build_query(select_all_operation, filters)
 

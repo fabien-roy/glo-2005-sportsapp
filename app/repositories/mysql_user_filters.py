@@ -13,13 +13,11 @@ class MySQLUsersFilter(MySQLFilter):
         if form is not None:
             if form.all.data != '':
                 return super().build_general_filters(col_names, form.all.data)
-            else:
-                return super().build_advanced_filters(col_names,
-                                                      [form.username.data,
-                                                       form.email.data,
-                                                       form.first_name.data,
-                                                       form.last_name.data,
-                                                       form.phone_number.data])
-        else:
-            return [], True
 
+            return super().build_advanced_filters(col_names,
+                                                  [form.username.data,
+                                                   form.email.data,
+                                                   form.first_name.data,
+                                                   form.last_name.data,
+                                                   form.phone_number.data])
+        return [], True

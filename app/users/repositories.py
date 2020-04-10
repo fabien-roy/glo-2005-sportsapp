@@ -2,8 +2,8 @@ class UsersRepository:
     def get_all(self, form):
         pass
 
-    def get(self, sport_id):
+    def get(self, username):
         pass
 
-    def add(self, sport):
+    def add(self, user):
         pass

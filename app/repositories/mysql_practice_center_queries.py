@@ -1,3 +1,4 @@
+from app.repositories.mysql_filters import MySQLFilter
 from app.repositories.mysql_practice_center_filters import MySQLPracticeCentersFilter
 from app.repositories.mysql_queries import MySQLQuery
 from app.repositories.mysql_tables import MySQLPracticeCentersTable
@@ -13,17 +14,17 @@ select_all_operation = ('SELECT ' + all_fields + ' FROM ' + MySQLPracticeCenters
 
 
 class MySQLPracticeCentersQuery(MySQLQuery):
+    def get(self, practice_center_id):
+        filters = [MySQLFilter.filter_equal(MySQLPracticeCentersTable.id_col, practice_center_id)]
+
+        return self.build_query(select_all_operation, filters)
+
     def get_all(self, form=None):
         filters, inner_filtering = MySQLPracticeCentersFilter().build_filters(form)
 
         orders = [MySQLPracticeCentersTable.name_col]
 
         return self.build_query(select_all_operation, filters, orders, inner_filtering)
-
-    def get(self, practice_center_id):
-        filters = [self.filter_equal(MySQLPracticeCentersTable.id_col, practice_center_id)]
-
-        return self.build_query(select_all_operation, filters)
 
     def add(self):
         operation = ('INSERT INTO ' + MySQLPracticeCentersTable.table_name +
