@@ -30,7 +30,8 @@ class BasicRepositoryTests(test_basic.BasicTests):
     users_repository = MySQLUsersRepository(database, recommendations_repository)
     shops_repository = MySQLShopsRepository(database)
 
-    def setUp(self):
+    @classmethod
+    def setUpClass(self):
         super().setUp()
         self.reset_repositories()
         self.add_climates()

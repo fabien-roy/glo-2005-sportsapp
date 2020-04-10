@@ -2,6 +2,7 @@ from app.climates.models import Climate
 from app.practice_centers.models import PracticeCenter
 from app.recommendations.models import Recommendation
 from app.repositories.mysql_climate_repositories import MySQLClimatesRepository
+from app.repositories.mysql_database import MySQLDatabase
 from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
 from app.repositories.mysql_user_repositories import MySQLUsersRepository
 from app.sports.models import Sport
@@ -11,12 +12,14 @@ from app.users.models import User
 from app.shops.models import Shop
 from app.repositories.mysql_shop_repositories import MySQLShopsRepository
 
-climate_repository = MySQLClimatesRepository()
-recommendation_repository = MySQLRecommendationsRepository()
-sport_repository = MySQLSportsRepository(climate_repository, recommendation_repository)
-practice_center_repository = MySQLPracticeCentersRepository(climate_repository, recommendation_repository)
-user_repository = MySQLUsersRepository(recommendation_repository)
-shop_repository = MySQLShopsRepository()
+database = MySQLDatabase()
+climate_repository = MySQLClimatesRepository(database)
+recommendation_repository = MySQLRecommendationsRepository(database)
+sport_repository = MySQLSportsRepository(database, climate_repository, recommendation_repository)
+practice_center_repository = MySQLPracticeCentersRepository(database, climate_repository,
+                                                            recommendation_repository)
+user_repository = MySQLUsersRepository(database, recommendation_repository)
+shop_repository = MySQLShopsRepository(database)
 
 
 def db_populate():
