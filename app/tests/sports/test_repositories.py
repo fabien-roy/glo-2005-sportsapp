@@ -3,7 +3,7 @@ from app.sports.exceptions import SportNotFoundException
 from app.tests.climates.mocks import climates_repository
 from app.tests.recommendations.mocks import recommendations_repository
 from app.tests.sports.fakes import sport1, sport2, sport3
-from app.tests.sports.forms import FakeSportsForm
+from app.tests.sports.forms import FakeSportsSearchForm
 from app.tests.test_basic_repositories import BasicRepositoryTests
 
 
@@ -55,8 +55,15 @@ class SportsRepositoryTests(BasicRepositoryTests):
         self.assertIn(sport2, sports)
         self.assertIn(sport3, sports)
 
+    def test_get_all_with_all_filter_sports(self):
+        form = FakeSportsSearchForm(all=sport1.name)
+        sports = self.repository.get_all(form)
+        self.assertIn(sport1, sports)
+        self.assertNotIn(sport2, sports)
+        self.assertNotIn(sport3, sports)
+
     def test_get_all_with_name_filter_sports(self):
-        form = FakeSportsForm(sport1.name)
+        form = FakeSportsSearchForm(name=sport1.name)
         sports = self.repository.get_all(form)
         self.assertIn(sport1, sports)
         self.assertNotIn(sport2, sports)

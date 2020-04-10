@@ -1,7 +1,8 @@
-from app.tests.forms import FakeForm
+from app.tests.forms import FakeGeneralSearchForm
 
 
-class FakeSportsForm(FakeForm):
+class FakeSportsSearchForm(FakeGeneralSearchForm):
 
-    def __init__(self, name):
+    def __init__(self, all=None, name=None):
+        super().__init__(all)
         self.name = self.empty_or_data(name)

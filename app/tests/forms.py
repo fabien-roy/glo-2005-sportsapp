@@ -4,7 +4,10 @@ class Data:
         self.data = data
 
 
-class FakeForm:
+class FakeGeneralSearchForm:
+
+    def __init__(self, all=None):
+        self.all = self.empty_or_data(all)
 
     @staticmethod
     def validate_on_submit():

@@ -1,37 +1,30 @@
 from app.repositories.mysql_queries import MySQLQuery
+from app.repositories.mysql_sport_filters import MySQLSportsFilter
 from app.repositories.mysql_tables import MySQLSportsTable
+
+all_fields_to_add = MySQLSportsTable.name_col
+
+all_fields = (MySQLSportsTable.id_col + ', ' + all_fields_to_add)
+
+select_all_operation = ('SELECT ' + all_fields + ' FROM ' + MySQLSportsTable.table_name)
 
 
 class MySQLSportsQuery(MySQLQuery):
+    def get(self, sport_id):
+        filters = [self.filter_equal(MySQLSportsTable.id_col, sport_id)]
+
+        return self.build_query(select_all_operation, filters)
+
     def get_all(self, form=None):
-        operation = ('SELECT ' + MySQLSportsTable.id_col +
-                     ', ' + MySQLSportsTable.name_col +
-                     ' FROM ' + MySQLSportsTable.table_name)
-
-        if form is None:
-            filters = None
-        else:
-            filters = []
-
-            if form.name is not None:
-                filters.append(self.filter_like(MySQLSportsTable.name_col, form.name.data))
+        filters, inner_filtering = MySQLSportsFilter().build_filters(form)
 
         orders = [MySQLSportsTable.name_col]
 
-        return self.build_query(operation, filters, orders)
-
-    def get(self, sport_id):
-        operation = ('SELECT ' + MySQLSportsTable.id_col +
-                     ', ' + MySQLSportsTable.name_col +
-                     ' FROM ' + MySQLSportsTable.table_name)
-
-        filters = [self.filter_equal(MySQLSportsTable.id_col, sport_id)]
-
-        return self.build_query(operation, filters)
+        return self.build_query(select_all_operation, filters, orders, inner_filtering)
 
     def add(self):
         operation = ('INSERT INTO ' + MySQLSportsTable.table_name +
-                     ' (' + MySQLSportsTable.name_col + ')' +
+                     ' (' + all_fields_to_add + ')' +
                      ' VALUES (%s)')
 
         return self.build_query(operation)
