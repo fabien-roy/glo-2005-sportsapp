@@ -4,7 +4,7 @@ from app.repositories.mysql_user_repositories import MySQLUsersRepository
 from tests.recommendations.mocks import recommendations_repository
 from tests.test_basic_repositories import BasicRepositoryTests
 from tests.users.fakes import user1, user2, user3
-from tests.users.forms import FakeUsersForm
+from tests.users.forms import FakeUsersSearchForm
 from app.users.exceptions import UserNotFoundException
 
 
@@ -57,42 +57,42 @@ class UsersRepositoryTests(BasicRepositoryTests):
         self.assertIn(user3, users)
 
     def test_get_all_with_all_filter_users(self):
-        form = FakeUsersForm(all=user1.username)
+        form = FakeUsersSearchForm(all=user1.username)
         users = self.repository.get_all(form)
         self.assertIn(user1, users)
         self.assertNotIn(user2, users)
         self.assertNotIn(user3, users)
 
     def test_get_all_with_username_filter_users(self):
-        form = FakeUsersForm(username=user1.username)
+        form = FakeUsersSearchForm(username=user1.username)
         users = self.repository.get_all(form)
         self.assertIn(user1, users)
         self.assertNotIn(user2, users)
         self.assertNotIn(user3, users)
 
     def test_get_all_with_email_filter_users(self):
-        form = FakeUsersForm(email=user1.email)
+        form = FakeUsersSearchForm(email=user1.email)
         users = self.repository.get_all(form)
         self.assertIn(user1, users)
         self.assertNotIn(user2, users)
         self.assertNotIn(user3, users)
 
     def test_get_all_with_first_name_filter_users(self):
-        form = FakeUsersForm(first_name=user1.first_name)
+        form = FakeUsersSearchForm(first_name=user1.first_name)
         users = self.repository.get_all(form)
         self.assertIn(user1, users)
         self.assertNotIn(user2, users)
         self.assertNotIn(user3, users)
 
     def test_get_all_with_last_name_filter_users(self):
-        form = FakeUsersForm(last_name=user1.last_name)
+        form = FakeUsersSearchForm(last_name=user1.last_name)
         users = self.repository.get_all(form)
         self.assertIn(user1, users)
         self.assertNotIn(user2, users)
         self.assertNotIn(user3, users)
 
     def test_get_all_with_phone_number_filter_users(self):
-        form = FakeUsersForm(phone_number=user1.phone_number)
+        form = FakeUsersSearchForm(phone_number=user1.phone_number)
         users = self.repository.get_all(form)
         self.assertIn(user1, users)
         self.assertNotIn(user2, users)

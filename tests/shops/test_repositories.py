@@ -3,7 +3,7 @@ import unittest
 from app.repositories.mysql_shop_repositories import MySQLShopsRepository
 from app.shops.exceptions import ShopNotFoundException
 from tests.shops.fakes import shop1, shop2, shop3
-from tests.shops.forms import FakeShopsForm
+from tests.shops.forms import FakeShopsSearchForm
 from tests.test_basic_repositories import BasicRepositoryTests
 
 
@@ -40,7 +40,7 @@ class ShopsRepositoryTests(BasicRepositoryTests):
         self.assertIn(shop3, shops)
 
     def test_get_all_with_name_filter_shops(self):
-        form = FakeShopsForm(name=shop1.name)
+        form = FakeShopsSearchForm(name=shop1.name)
         shops = self.repository.get_all(form)
         self.assertIn(shop1, shops)
         self.assertNotIn(shop2, shops)

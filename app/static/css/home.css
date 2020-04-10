@@ -1,0 +1,11 @@
+.home-landing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.home-landing .input-group-prepend input {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
