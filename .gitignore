@@ -1,6 +1,9 @@
 # Created by https://www.gitignore.io/api/flask,python,pycharm+all,jetbrains+all
 # Edit at https://www.gitignore.io/?templates=flask,python,pycharm+all,jetbrains+all
 
+### Scripts ###
+Scripts/
+
 ### Flask ###
 .webassets-cache
 
