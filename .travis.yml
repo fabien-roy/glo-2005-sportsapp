@@ -4,7 +4,7 @@ python:
 services:
  - mysql
 before_install:
- - mysql -e 'CREATE USER sportsapp@localhost IDENTIFIED BY ''sportsapp'';'
+ - mysql -e 'CREATE USER sportsapp@localhost IDENTIFIED BY QUOTE(sportsapp);'
  - mysql -e 'GRANT ALL PRIVILEGES ON *. * TO sportsapp@localhost;'
  - mysql -e 'CREATE DATABASE sportsapp_test;'
 install:
