@@ -3,6 +3,11 @@ python:
  - "3.8"
 services:
  - mysql
+test:
+ - adapter: mysql2
+ - database: sportsapp
+ - username: travis
+ - encoding: utf8
 install:
  - pip install -r requirements.txt
 script:
