@@ -1,12 +1,19 @@
 import getopt
 import sys
 
+from flask_script import Manager
 from flask_injector import FlaskInjector
+from flask_ci import CICommand
 
-from app import app
+from app import app, settings
 from app.bindings import configure
 from instance.db_create import db_create
 from instance.db_populate import db_populate
+
+FlaskInjector(app=app, modules=[configure])
+
+manager = Manager(app)
+manager.add_command('ci', CICommand(settings))
 
 
 def main(argv):
@@ -19,8 +26,6 @@ def main(argv):
         if opt in ("-d", "--db-create"):
             db_create()
             db_populate()
-
-    FlaskInjector(app=app, modules=[configure])
 
     app.run()
 
