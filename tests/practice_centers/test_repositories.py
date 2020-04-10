@@ -1,10 +1,10 @@
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
 from app.repositories.mysql_practice_center_repositories import MySQLPracticeCentersRepository
-from app.tests.climates.mocks import climates_repository
-from app.tests.practice_centers.fakes import center1, center2, center3
-from app.tests.practice_centers.forms import FakePracticeCentersForm
-from app.tests.recommendations.mocks import recommendations_repository
-from app.tests.test_basic_repositories import BasicRepositoryTests
+from tests.climates.mocks import climates_repository
+from tests.practice_centers.fakes import center1, center2, center3
+from tests.practice_centers.forms import FakePracticeCentersForm
+from tests.recommendations.mocks import recommendations_repository
+from tests.test_basic_repositories import BasicRepositoryTests
 
 
 class PracticeCenterRepositoryTests(BasicRepositoryTests):

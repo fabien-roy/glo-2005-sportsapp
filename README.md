@@ -40,4 +40,4 @@ By default, web API is hosted on port `5000` : [http://127.0.0.1:5000](http://12
 
 ## Run tests
 
-- `nose2 -v --with-coverage app.tests`
+- `nose2 -v --with-coverage tests`

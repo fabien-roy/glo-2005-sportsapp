@@ -1,4 +1,4 @@
-from app.tests.forms import FakeForm
+from tests.forms import FakeForm
 
 
 class FakeSportsForm(FakeForm):

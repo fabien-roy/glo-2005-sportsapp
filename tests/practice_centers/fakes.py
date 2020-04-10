@@ -1,6 +1,6 @@
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
 from app.practice_centers.models import PracticeCenter
-from app.tests.climates.fakes import climate2, climate1, climate3
+from tests.climates.fakes import climate2, climate1, climate3
 
 center1 = PracticeCenter(1,
                          name='Mont-Orford National Park',

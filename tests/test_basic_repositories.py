@@ -6,16 +6,16 @@ from app.repositories.mysql_recommendation_repositories import MySQLRecommendati
 from app.repositories.mysql_sport_repositories import MySQLSportsRepository
 from app.repositories.mysql_user_repositories import MySQLUsersRepository
 from app.repositories.mysql_shop_repositories import MySQLShopsRepository
-from app.tests import test_basic
-from app.tests.climates.fakes import climate1, climate2, climate3
-from app.tests.practice_centers.fakes import center1, center2, center3
-from app.tests.recommendations.fakes import sport1_recommendation1_user1, sport2_recommendation1_user3, \
+from tests import test_basic
+from tests.climates.fakes import climate1, climate2, climate3
+from tests.practice_centers.fakes import center1, center2, center3
+from tests.recommendations.fakes import sport1_recommendation1_user1, sport2_recommendation1_user3, \
     sport2_recommendation2_user2, sport3_recommendation1_user1, center1_recommendation1_user1, \
     center2_recommendation1_user1, center2_recommendation2_user2, center3_recommendation1_user3, \
     center3_recommendation2_user1
-from app.tests.sports.fakes import sport1, sport2, sport3
-from app.tests.users.fakes import user1, user2, user3
-from app.tests.shops.fakes import shop1, shop2, shop3
+from tests.sports.fakes import sport1, sport2, sport3
+from tests.users.fakes import user1, user2, user3
+from tests.shops.fakes import shop1, shop2, shop3
 from instance.db_create import db_create
 
 

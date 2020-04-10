@@ -1,7 +1,7 @@
 from unittest import mock
 
-from app.tests.practice_centers.fakes import get_climates_for_practice_center
-from app.tests.sports.fakes import get_climates_for_sport
+from tests.practice_centers.fakes import get_climates_for_practice_center
+from tests.sports.fakes import get_climates_for_sport
 
 climates_repository = mock.Mock()
 

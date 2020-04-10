@@ -3,7 +3,7 @@ import unittest
 from flask_injector import FlaskInjector
 
 from app import app
-from app.tests.bindings import configure
+from tests.bindings import configure
 
 
 class BasicTests(unittest.TestCase):

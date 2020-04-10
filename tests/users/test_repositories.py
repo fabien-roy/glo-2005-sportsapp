@@ -1,10 +1,10 @@
 import unittest
 
 from app.repositories.mysql_user_repositories import MySQLUsersRepository
-from app.tests.recommendations.mocks import recommendations_repository
-from app.tests.test_basic_repositories import BasicRepositoryTests
-from app.tests.users.fakes import user1, user2, user3
-from app.tests.users.forms import FakeUsersForm
+from tests.recommendations.mocks import recommendations_repository
+from tests.test_basic_repositories import BasicRepositoryTests
+from tests.users.fakes import user1, user2, user3
+from tests.users.forms import FakeUsersForm
 from app.users.exceptions import UserNotFoundException
 
 

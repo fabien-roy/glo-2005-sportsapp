@@ -1,8 +1,8 @@
 from app.recommendations.models import Recommendation
 
-from app.tests.practice_centers.fakes import center1, center2, center3, get_practice_center
-from app.tests.sports.fakes import sport1, sport2, sport3, get_sport
-from app.tests.users.fakes import user1, user3, user2, get_user
+from tests.practice_centers.fakes import center1, center2, center3, get_practice_center
+from tests.sports.fakes import sport1, sport2, sport3, get_sport
+from tests.users.fakes import user1, user3, user2, get_user
 
 sport1_recommendation1_user1 = Recommendation(1, sport1.id, user1.username, 'Un super sport. J\' adore.', 5,
                                               sport1.name)

@@ -1,6 +1,6 @@
 from unittest import mock
 
-from app.tests.recommendations.fakes import get_recommendations_for_practice_center, get_recommendations_for_sport, \
+from tests.recommendations.fakes import get_recommendations_for_practice_center, get_recommendations_for_sport, \
     get_recommendations_for_sport_and_user, get_recommendations_for_practice_center_and_user
 
 recommendations_repository = mock.Mock()

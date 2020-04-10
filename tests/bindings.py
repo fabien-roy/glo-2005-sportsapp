@@ -3,13 +3,13 @@ from app.practice_centers.repositories import PracticeCentersRepository
 from app.recommendations.repositories import RecommendationsRepository
 from app.shops.repositories import ShopsRepository
 from app.sports.repositories import SportsRepository
-from app.tests.climates.mocks import climates_repository
-from app.tests.practice_centers.mocks import practice_centers_repository
-from app.tests.recommendations.mocks import recommendations_repository
-from app.tests.shops.mocks import shops_repository
-from app.tests.sports.mocks import sports_repository
-from app.tests.users.mocks import users_repository
 from app.users.repositories import UsersRepository
+from tests.climates.mocks import climates_repository
+from tests.practice_centers.mocks import practice_centers_repository
+from tests.recommendations.mocks import recommendations_repository
+from tests.shops.mocks import shops_repository
+from tests.sports.mocks import sports_repository
+from tests.users.mocks import users_repository
 
 
 def configure(binder):

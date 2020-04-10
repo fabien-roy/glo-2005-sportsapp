@@ -1,7 +1,7 @@
-from app.tests.forms import FakeForm
+from tests.forms import FakeForm
 
 
-class FakeShopsForm(FakeForm):
+class FakePracticeCentersForm(FakeForm):
 
     def __init__(self, all=None, name=None, email=None, web_site=None, phone_number=None):
         self.all = self.empty_or_data(all)

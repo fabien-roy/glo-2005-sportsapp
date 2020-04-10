@@ -1,14 +1,14 @@
 import unittest
 
-from app.tests import test_basic
-from app.tests.practice_centers.fakes import get_practice_center, get_practice_centers_filtered, no_practice_center
-from app.tests.practice_centers.mocks import practice_centers_repository
-from app.tests.sports.fakes import get_sport, no_sport, get_sports_filtered
-from app.tests.sports.mocks import sports_repository
-from app.tests.users.fakes import get_user, no_user, get_users_filtered
-from app.tests.users.mocks import users_repository
-from app.tests.shops.mocks import shops_repository
-from app.tests.shops.fakes import get_shop, no_shop, get_shops_filtered
+from tests import test_basic
+from tests.practice_centers.fakes import get_practice_center, get_practice_centers_filtered, no_practice_center
+from tests.practice_centers.mocks import practice_centers_repository
+from tests.sports.fakes import get_sport, no_sport, get_sports_filtered
+from tests.sports.mocks import sports_repository
+from tests.users.fakes import get_user, no_user, get_users_filtered
+from tests.users.mocks import users_repository
+from tests.shops.mocks import shops_repository
+from tests.shops.fakes import get_shop, no_shop, get_shops_filtered
 
 
 class BasicViewTests(test_basic.BasicTests):

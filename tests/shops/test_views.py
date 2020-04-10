@@ -1,6 +1,6 @@
 import unittest
 
-from app.tests.test_basic_views import BasicViewTests
+from tests.test_basic_views import BasicViewTests
 
 
 class ShopsViewsTests(BasicViewTests):
