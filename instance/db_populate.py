@@ -11,6 +11,8 @@ from app.repositories.mysql_practice_center_repositories import MySQLPracticeCen
 from app.users.models import User
 from app.shops.models import Shop
 from app.repositories.mysql_shop_repositories import MySQLShopsRepository
+from app.equipments.models import Equipment
+from app.repositories.mysql_equipment_repositories import MySQLEquipmentsRepository
 
 database = MySQLDatabase()
 climate_repository = MySQLClimatesRepository(database)
@@ -20,6 +22,7 @@ practice_center_repository = MySQLPracticeCentersRepository(database, climate_re
                                                             recommendation_repository)
 user_repository = MySQLUsersRepository(database, recommendation_repository)
 shop_repository = MySQLShopsRepository(database)
+equipment_repository = MySQLEquipmentsRepository(database)
 
 
 def db_populate():
@@ -100,5 +103,18 @@ def db_populate():
     shop_repository.add(shop2)
     shop_repository.add(shop3)
 
+    equipment1 = Equipment(None, category='hiking', name="Men’s Wayfinder™ Mid OutDry™ Boot", description="Our "
+                                                                                                          "signature waterproof construction keeps this multisport shoe comfortably dry for "
+                                                                                                          "any activity—in any weather.")
+    equipment2 = Equipment(None, category='running', name="Men's F.K.T.™ Lite Trail Running Shoe",
+                           description="This lightweight trail runner lets you reach your "
+                                       "fastest time without sacrificing performance.")
+    equipment3 = Equipment(None, category='recovery', name="Men's Molokai™ III Recovery Sandal",
+                           description="After a tough trail run there’s nothing more soothing for your feet than the "
+                                       "men’s Molokai III Recovery Sandal. Crafted with a supportive midsole and a "
+                                       "moldable footbed to fit even the most tortured feet.")
+    equipment_repository.add(equipment1)
+    equipment_repository.add(equipment2)
+    equipment_repository.add(equipment3)
 
     print('...done!')

@@ -104,6 +104,13 @@ def db_create(database):
                         'phone_number varchar(20) NULL'
                         ');')
 
+            cur.execute('CREATE TABLE equipments('
+                        'id int NOT NULL AUTO_INCREMENT PRIMARY KEY,'
+                        'category varchar(50),'
+                        'name varchar(100),'
+                        'description varchar(1000)'
+                        ');')
+
         database.connect().commit()
     finally:
         cur.close()
