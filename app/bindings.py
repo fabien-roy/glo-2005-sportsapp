@@ -1,8 +1,10 @@
 from app.climates.repositories import ClimatesRepository
 from app.practice_centers.repositories import PracticeCentersRepository
+from app.equipments.repositories import EquipmentsRepository
 from app.recommendations.repositories import RecommendationsRepository
 from app.repositories.mysql_climate_repositories import MySQLClimatesRepository
 from app.repositories.mysql_database import MySQLDatabase
+from app.repositories.mysql_equipment_repositories import MySQLEquipmentsRepository
 from app.repositories.mysql_practice_center_repositories import MySQLPracticeCentersRepository
 from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
 from app.repositories.mysql_shop_repositories import MySQLShopsRepository
@@ -16,18 +18,20 @@ from app.users.repositories import UsersRepository
 def configure(binder):
     database = MySQLDatabase()
 
-    climate_repository = MySQLClimatesRepository(database)
-    recommendation_repository = MySQLRecommendationsRepository(database)
-    sport_repository = MySQLSportsRepository(database, climate_repository,
-                                             recommendation_repository)
-    practice_center_repository = MySQLPracticeCentersRepository(database, climate_repository,
-                                                                recommendation_repository)
-    user_repository = MySQLUsersRepository(database, recommendation_repository)
-    shop_repository = MySQLShopsRepository(database)
+    climates_repository = MySQLClimatesRepository(database)
+    recommendations_repository = MySQLRecommendationsRepository(database)
+    sports_repository = MySQLSportsRepository(database, climates_repository,
+                                              recommendations_repository)
+    practice_centers_repository = MySQLPracticeCentersRepository(database, climates_repository,
+                                                                 recommendations_repository)
+    shops_repository = MySQLShopsRepository(database)
+    equipments_repository = MySQLEquipmentsRepository(database)
+    users_repository = MySQLUsersRepository(database, recommendations_repository)
 
-    binder.bind(ClimatesRepository, to=climate_repository)
-    binder.bind(RecommendationsRepository, to=recommendation_repository)
-    binder.bind(SportsRepository, to=sport_repository)
-    binder.bind(PracticeCentersRepository, to=practice_center_repository)
-    binder.bind(UsersRepository, to=user_repository)
-    binder.bind(ShopsRepository, to=shop_repository)
+    binder.bind(ClimatesRepository, to=climates_repository)
+    binder.bind(RecommendationsRepository, to=recommendations_repository)
+    binder.bind(SportsRepository, to=sports_repository)
+    binder.bind(PracticeCentersRepository, to=practice_centers_repository)
+    binder.bind(ShopsRepository, to=shops_repository)
+    binder.bind(EquipmentsRepository, to=equipments_repository)
+    binder.bind(UsersRepository, to=users_repository)

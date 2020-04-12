@@ -18,8 +18,7 @@ def equipments(equipments_repository: EquipmentsRepository):
     else:
         all_equipments = equipments_repository.get_all(None)
 
-    return render_template('equipments.html', equipments=all_equipments,
-                           form=form)
+    return render_template('equipments.html', equipments=all_equipments, form=form)
 
 
 @equipments_blueprint.route('/equipments/<equipment_id>')

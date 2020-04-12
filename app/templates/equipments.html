@@ -1,0 +1,27 @@
+{% extends "list.html" %}
+{% from 'macros/jumbotron.html' import jumbotron %}
+{% from 'macros/search.html' import input_group, search_pane_advanced %}
+{% from 'macros/list.html' import list, list_item %}
+
+{% block jumbotron %}
+{{ jumbotron('Equipments', 'equipments') }}
+{% endblock %}
+
+{% block search_pane %}
+{{ search_pane_advanced(form,
+                        [input_group('name', 'Name', form.name.data),
+                         input_group('category', 'Category', form.category.data),
+                         input_group('description', 'Description', form.description.data)]) }}
+{% endblock %}
+
+{% block list_pane %}
+{% set items = [] %}
+
+<div class="invisible">
+    {% for equipment in equipments %}
+    {{ items.append(list_item(equipment.name, url_for('equipments.equipment_details', equipment_id=equipment.id))) }}
+    {% endfor %}
+</div>
+
+{{ list(items) }}
+{% endblock %}
