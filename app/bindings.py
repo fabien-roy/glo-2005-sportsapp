@@ -1,4 +1,5 @@
 from app.climates.repositories import ClimatesRepository
+from app.database import Database
 from app.practice_centers.repositories import PracticeCentersRepository
 from app.equipments.repositories import EquipmentsRepository
 from app.recommendations.repositories import RecommendationsRepository
@@ -16,22 +17,12 @@ from app.users.repositories import UsersRepository
 
 
 def configure(binder):
-    database = MySQLDatabase()
+    binder.bind(Database, to=MySQLDatabase)
 
-    climates_repository = MySQLClimatesRepository(database)
-    recommendations_repository = MySQLRecommendationsRepository(database)
-    sports_repository = MySQLSportsRepository(database, climates_repository,
-                                              recommendations_repository)
-    practice_centers_repository = MySQLPracticeCentersRepository(database, climates_repository,
-                                                                 recommendations_repository)
-    shops_repository = MySQLShopsRepository(database)
-    equipments_repository = MySQLEquipmentsRepository(database)
-    users_repository = MySQLUsersRepository(database, recommendations_repository)
-
-    binder.bind(ClimatesRepository, to=climates_repository)
-    binder.bind(RecommendationsRepository, to=recommendations_repository)
-    binder.bind(SportsRepository, to=sports_repository)
-    binder.bind(PracticeCentersRepository, to=practice_centers_repository)
-    binder.bind(ShopsRepository, to=shops_repository)
-    binder.bind(EquipmentsRepository, to=equipments_repository)
-    binder.bind(UsersRepository, to=users_repository)
+    binder.bind(ClimatesRepository, to=MySQLClimatesRepository)
+    binder.bind(RecommendationsRepository, to=MySQLRecommendationsRepository)
+    binder.bind(SportsRepository, to=MySQLSportsRepository)
+    binder.bind(PracticeCentersRepository, to=MySQLPracticeCentersRepository)
+    binder.bind(ShopsRepository, to=MySQLShopsRepository)
+    binder.bind(EquipmentsRepository, to=MySQLEquipmentsRepository)
+    binder.bind(UsersRepository, to=MySQLUsersRepository)
