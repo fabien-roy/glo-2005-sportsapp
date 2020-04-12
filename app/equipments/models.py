@@ -7,6 +7,7 @@ class Equipment:
 
     def __eq__(self, other):
         if isinstance(other, Equipment):
-            return self.id == other.id and self.name == other.name and self.category == other.category \
+            return self.id == other.id and self.name == other.name and \
+                   self.category == other.category \
                    and self.description == other.description
         return False

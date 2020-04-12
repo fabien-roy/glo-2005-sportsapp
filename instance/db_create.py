@@ -24,6 +24,8 @@ def db_create(database):
 
             cur.execute('DROP TABLE IF EXISTS shops')
 
+            cur.execute('DROP TABLE IF EXISTS equipments')
+
         database.connect().commit()
 
         # Create all tables

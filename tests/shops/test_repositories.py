@@ -40,6 +40,13 @@ class ShopsRepositoryTests(BasicRepositoryTests):
         self.assertIn(shop2, shops)
         self.assertIn(shop3, shops)
 
+    def test_get_all_with_all_filter_shops(self):
+        form = FakeShopsSearchForm(any_field=shop1.name)
+        shops = self.repository.get_all(form)
+        self.assertIn(shop1, shops)
+        self.assertNotIn(shop2, shops)
+        self.assertNotIn(shop3, shops)
+
     def test_get_all_with_name_filter_shops(self):
         form = FakeShopsSearchForm(name=shop1.name)
         shops = self.repository.get_all(form)
@@ -47,21 +54,7 @@ class ShopsRepositoryTests(BasicRepositoryTests):
         self.assertNotIn(shop2, shops)
         self.assertNotIn(shop3, shops)
 
-    def test_get_all_with_all_filter_practice_centers(self):
-        form = FakeShopsSearchForm(any_field=shop1.name)
-        shops = self.repository.get_all(form)
-        self.assertIn(shop1, shops)
-        self.assertNotIn(shop2, shops)
-        self.assertNotIn(shop3, shops)
-
-    def test_get_all_with_name_filter_practice_centers(self):
-        form = FakeShopsSearchForm(name=shop1.name)
-        shops = self.repository.get_all(form)
-        self.assertIn(shop1, shops)
-        self.assertNotIn(shop2, shops)
-        self.assertNotIn(shop3, shops)
-
-    def test_get_all_with_email_filter_practice_centers(self):
+    def test_get_all_with_email_filter_shops(self):
         print(shop3.email)
         form = FakeShopsSearchForm(email=shop3.email)
         shops = self.repository.get_all(form)
@@ -69,14 +62,14 @@ class ShopsRepositoryTests(BasicRepositoryTests):
         self.assertNotIn(shop1, shops)
         self.assertNotIn(shop2, shops)
 
-    def test_get_all_with_web_site_filter_practice_centers(self):
+    def test_get_all_with_web_site_filter_shops(self):
         form = FakeShopsSearchForm(web_site=shop1.web_site)
         shops = self.repository.get_all(form)
         self.assertIn(shop1, shops)
         self.assertNotIn(shop2, shops)
         self.assertNotIn(shop3, shops)
 
-    def test_get_all_with_phone_number_filter_practice_centers(self):
+    def test_get_all_with_phone_number_filter_shops(self):
         form = FakeShopsSearchForm(phone_number=shop1.phone_number)
         shops = self.repository.get_all(form)
         self.assertIn(shop1, shops)

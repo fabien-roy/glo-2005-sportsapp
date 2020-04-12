@@ -27,6 +27,6 @@ class MySQLEquipmentsQuery(MySQLQuery):
 
     def add(self):
         operation = ('INSERT INTO ' + MySQLEquipmentsTable.table_name +
-                     '(' + all_fields_to_add + ') VALUES (%s, %s, %s, %s)')
+                     '(' + all_fields_to_add + ') VALUES (%s, %s, %s)')
 
         return self.build_query(operation)
