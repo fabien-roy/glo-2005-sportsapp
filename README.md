@@ -31,16 +31,18 @@ Then, in MySQL Shell (for Windows, UNIX use `mysql` CLI) :
 
 - `pip install -q -r requirements.txt`
 
-## Create database tables and mock data
-
-- `python ./run.py -d` (or `--db-create`)
-
-## Build and run
+## Run app
 
 - `python ./run.py`
+- `python ./run.py -d` (or `--db-create` : create database tables and mock data)
 
 By default, web API is hosted on port `5000` : [http://127.0.0.1:5000](http://127.0.0.1:5000).
 
 ## Run tests
 
 - `nose2 -v --with-coverage tests`
+
+## Lint app and tests
+
+- `pylint --output-format=text app`
+- `pylint --output-format=text tests`
