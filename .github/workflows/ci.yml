@@ -24,6 +24,8 @@ jobs:
         run: pylint --output-format=text app
       - name: Lint tests
         run: pylint --output-format=text tests
+      - name: Shutdown default database
+        run: sudo service mysql stop
       - name: Set up test database
         uses: mirromutth/mysql-action@v1.1
         with:
