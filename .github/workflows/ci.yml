@@ -16,12 +16,14 @@ jobs:
         env:
           MYSQL_USER: sportsapp
           MYSQL_PASSWORD: sportsapp
+          MYSQL_ROOT_PASSWORD: password
           MYSQL_DATABASE: sportsapp_test
         ports:
-        - 3306
+          - '8888:3306'
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       - uses: actions/checkout@v2
+      - run: mysql -h 127.0.0.1 --port 8888 -u root -ppassword -e 'CREATE DATABASE IF NOT EXISTS sportsapp_test;'
       - name: Set up Python 3.x
         uses: actions/setup-python@v1
         with:
