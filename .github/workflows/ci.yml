@@ -28,7 +28,6 @@ jobs:
           pylint --output-format=text app
           pylint --output-format=text tests
       - name: Set up test database
-      - name: Set up Python ${{ matrix.python-version }}
         uses: mirromutth/mysql-action@v1.1
         with:
           mysql database: 'sportsapp_test'
