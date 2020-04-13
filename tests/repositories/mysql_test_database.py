@@ -14,4 +14,4 @@ class MySQLTestDatabase(Database):
                                cursorclass=pymysql.cursors.DictCursor)
 
 
-database = MySQLTestDatabase()
+test_database = MySQLTestDatabase()

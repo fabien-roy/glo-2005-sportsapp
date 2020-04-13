@@ -15,7 +15,7 @@ from tests.recommendations.fakes import sport1_recommendation1_user1, \
     sport2_recommendation1_user3, sport2_recommendation2_user2, sport3_recommendation1_user1, \
     center1_recommendation1_user1, center2_recommendation1_user1, center2_recommendation2_user2, \
     center3_recommendation1_user3, center3_recommendation2_user1
-from tests.repositories.mysql_test_database import database
+from tests.repositories.mysql_test_database import test_database
 from tests.shops.fakes import shop1, shop2, shop3
 from tests.sports.fakes import sport1, sport2, sport3
 from tests.users.fakes import user1, user2, user3
@@ -23,79 +23,99 @@ from tests.equipments.fakes import equipment1, equipment2, equipment3
 
 
 class BasicRepositoryTests(test_basic.BasicTests):
-    climates_repository = MySQLClimatesRepository(database)
-    recommendations_repository = MySQLRecommendationsRepository(database)
-    sports_repository = MySQLSportsRepository(database, climates_repository,
+    database_populated = False
+
+    climates_repository = MySQLClimatesRepository(test_database)
+    recommendations_repository = MySQLRecommendationsRepository(test_database)
+    sports_repository = MySQLSportsRepository(test_database, climates_repository,
                                               recommendations_repository)
-    practice_centers_repository = MySQLPracticeCentersRepository(database, climates_repository,
+    practice_centers_repository = MySQLPracticeCentersRepository(test_database, climates_repository,
                                                                  recommendations_repository)
-    users_repository = MySQLUsersRepository(database, recommendations_repository)
-    shops_repository = MySQLShopsRepository(database)
-    equipments_repository = MySQLEquipmentsRepository(database)
+    users_repository = MySQLUsersRepository(test_database, recommendations_repository)
+    shops_repository = MySQLShopsRepository(test_database)
+    equipments_repository = MySQLEquipmentsRepository(test_database)
 
-    def setUp(self):
-        super().setUp()
-        self.reset_repositories()
-        self.add_climates()
-        self.add_sports()
-        self.add_practice_centers()
-        self.add_users()
-        self.add_sport_recommendations()
-        self.add_practice_center_recommendations()
-        self.add_shops()
-        self.add_equipments()
+    @classmethod
+    def setUpClass(cls):
+        cls.recreate_database()
+        cls.populate_database()
 
-    @staticmethod
-    def reset_repositories():
-        db_create(database)
+    @classmethod
+    def recreate_database(cls):
+        db_create(test_database)
+        cls.database_populated = False
 
-    def add_climates(self):
-        self.climates_repository.add(climate1)
-        self.climates_repository.add(climate2)
-        self.climates_repository.add(climate3)
+    @classmethod
+    def populate_database(cls):
+        cls.add_climates()
+        cls.add_sports()
+        cls.add_practice_centers()
+        cls.add_users()
+        cls.add_sport_recommendations()
+        cls.add_practice_center_recommendations()
+        cls.add_shops()
+        cls.add_equipments()
+        cls.database_populated = True
 
-    def add_sports(self):
-        self.sports_repository.add(sport1)
-        self.sports_repository.add(sport2)
-        self.sports_repository.add(sport3)
+    @classmethod
+    def add_climates(cls):
+        cls.climates_repository.add(climate1)
+        cls.climates_repository.add(climate2)
+        cls.climates_repository.add(climate3)
 
-    def add_practice_centers(self):
-        self.practice_centers_repository.add(center1)
-        self.practice_centers_repository.add(center2)
-        self.practice_centers_repository.add(center3)
+    @classmethod
+    def add_sports(cls):
+        cls.sports_repository.add(sport1)
+        cls.sports_repository.add(sport2)
+        cls.sports_repository.add(sport3)
 
-    def add_users(self):
-        self.users_repository.add(user1)
-        self.users_repository.add(user2)
-        self.users_repository.add(user3)
+    @classmethod
+    def add_practice_centers(cls):
+        cls.practice_centers_repository.add(center1)
+        cls.practice_centers_repository.add(center2)
+        cls.practice_centers_repository.add(center3)
 
-    def add_sport_recommendations(self):
-        self.recommendations_repository.add_for_sport(sport1_recommendation1_user1, sport1)
-        self.recommendations_repository.add_for_sport(sport2_recommendation1_user3, sport2)
-        self.recommendations_repository.add_for_sport(sport2_recommendation2_user2, sport2)
-        self.recommendations_repository.add_for_sport(sport3_recommendation1_user1, sport3)
+    @classmethod
+    def add_users(cls):
+        cls.users_repository.add(user1)
+        cls.users_repository.add(user2)
+        cls.users_repository.add(user3)
 
-    def add_practice_center_recommendations(self):
-        self.recommendations_repository.add_for_practice_center(center1_recommendation1_user1,
-                                                                center1)
-        self.recommendations_repository.add_for_practice_center(center2_recommendation1_user1,
-                                                                center2)
-        self.recommendations_repository.add_for_practice_center(center2_recommendation2_user2,
-                                                                center2)
-        self.recommendations_repository.add_for_practice_center(center3_recommendation1_user3,
-                                                                center3)
-        self.recommendations_repository.add_for_practice_center(center3_recommendation2_user1,
-                                                                center3)
+    @classmethod
+    def add_sport_recommendations(cls):
+        cls.recommendations_repository.add_for_sport(sport1_recommendation1_user1, sport1)
+        cls.recommendations_repository.add_for_sport(sport2_recommendation1_user3, sport2)
+        cls.recommendations_repository.add_for_sport(sport2_recommendation2_user2, sport2)
+        cls.recommendations_repository.add_for_sport(sport3_recommendation1_user1, sport3)
 
-    def add_shops(self):
-        self.shops_repository.add(shop1)
-        self.shops_repository.add(shop2)
-        self.shops_repository.add(shop3)
+    @classmethod
+    def add_practice_center_recommendations(cls):
+        cls.recommendations_repository.add_for_practice_center(center1_recommendation1_user1,
+                                                               center1)
+        cls.recommendations_repository.add_for_practice_center(center2_recommendation1_user1,
+                                                               center2)
+        cls.recommendations_repository.add_for_practice_center(center2_recommendation2_user2,
+                                                               center2)
+        cls.recommendations_repository.add_for_practice_center(center3_recommendation1_user3,
+                                                               center3)
+        cls.recommendations_repository.add_for_practice_center(center3_recommendation2_user1,
+                                                               center3)
 
-    def add_equipments(self):
-        self.equipments_repository.add(equipment1)
-        self.equipments_repository.add(equipment2)
-        self.equipments_repository.add(equipment3)
+    @classmethod
+    def add_shops(cls):
+        cls.shops_repository.add(shop1)
+        cls.shops_repository.add(shop2)
+        cls.shops_repository.add(shop3)
+
+    @classmethod
+    def add_equipments(cls):
+        cls.equipments_repository.add(equipment1)
+        cls.equipments_repository.add(equipment2)
+        cls.equipments_repository.add(equipment3)
+
+    def tearDown(self):
+        if not self.database_populated:
+            self.populate_database()
 
 
 if __name__ == "__main__":

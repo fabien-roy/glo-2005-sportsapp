@@ -4,7 +4,7 @@ from tests.climates.mocks import climates_repository
 from tests.practice_centers.fakes import center1, center2, center3
 from tests.practice_centers.forms import FakePracticeCentersSearchForm
 from tests.recommendations.mocks import recommendations_repository
-from tests.repositories.mysql_test_database import database
+from tests.repositories.mysql_test_database import test_database
 from tests.test_basic_repositories import BasicRepositoryTests
 
 
@@ -12,11 +12,11 @@ class PracticeCenterRepositoryTests(BasicRepositoryTests):
 
     def setUp(self):
         super().setUp()
-        self.repository = MySQLPracticeCentersRepository(database, climates_repository,
+        self.repository = MySQLPracticeCentersRepository(test_database, climates_repository,
                                                          recommendations_repository)
 
     def test_get_with_no_practice_center_should_raise_practice_center_not_found_exception(self):
-        self.reset_repositories()
+        self.recreate_database()
         self.assertRaises(PracticeCenterNotFoundException, self.repository.get, 1)
 
     def test_get_with_non_existent_center_should_raise_practice_center_not_found_exception(self):
@@ -47,7 +47,7 @@ class PracticeCenterRepositoryTests(BasicRepositoryTests):
         self.assertCountEqual(center3.recommendations, practice_center.recommendations)
 
     def test_get_all_with_no_practice_center_get_no_practice_center(self):
-        self.reset_repositories()
+        self.recreate_database()
         practice_centers = self.repository.get_all()
         self.assertEqual(0, len(practice_centers))
 
