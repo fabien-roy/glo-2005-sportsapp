@@ -1,6 +1,8 @@
 import unittest
 
 from tests import test_basic
+from tests.equipments.fakes import get_equipment, get_equipments_filtered, no_equipment
+from tests.equipments.mocks import equipments_repository
 from tests.practice_centers.fakes import get_practice_center, get_practice_centers_filtered, \
     no_practice_center
 from tests.practice_centers.mocks import practice_centers_repository
@@ -20,6 +22,7 @@ class BasicViewTests(test_basic.BasicTests):
         self.add_practice_centers()
         self.add_users()
         self.add_shops()
+        self.add_equipments()
 
     @staticmethod
     def reset_mocks():
@@ -68,6 +71,16 @@ class BasicViewTests(test_basic.BasicTests):
     def remove_shops():
         shops_repository.get.side_effect = lambda shop_id: no_shop()
         shops_repository.get_all.side_effect = lambda form: []
+
+    @staticmethod
+    def add_equipments():
+        equipments_repository.get.side_effect = get_equipment
+        equipments_repository.get_all.side_effect = get_equipments_filtered
+
+    @staticmethod
+    def remove_equipments():
+        equipments_repository.get.side_effect = lambda equipment_id: no_equipment()
+        equipments_repository.get_all.side_effect = lambda form: []
 
 
 if __name__ == "__main__":
