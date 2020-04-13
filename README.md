@@ -1,6 +1,6 @@
 # GLO-2005 (H2020) - Team 8
 
-![SportsApp CI](https://github.com/ExiledNarwal28/glo-2005-sportsapp/workflows/SportsApp%20CI/badge.svg?branch=master)
+![Build](https://github.com/ExiledNarwal28/glo-2005-sportsapp/workflows/Build/badge.svg?branch=master)
 
 This is our project for course GLO-2005 at Laval University.
 
