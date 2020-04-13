@@ -10,6 +10,16 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_USER: 'sportsapp'
+          MYSQL_PASSWORD: 'sportsapp'
+          MYSQL_DATABASE: 'sportsapp_test'
+        ports:
+          - '8888:3306'
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python 3.x
@@ -24,14 +34,5 @@ jobs:
         run: pylint --output-format=text app
       - name: Lint tests
         run: pylint --output-format=text tests
-      - name: Shutdown default database
-        run: sudo service mysql stop
-      - name: Set up test database
-        uses: mirromutth/mysql-action@v1.1
-        with:
-          mysql version: '8.0'
-          mysql database: 'sportsapp_test'
-          mysql user: 'sportsapp'
-          mysql password: 'sportsapp'
       - name: Unit tests
         run: nose2 -v --with-coverage tests
