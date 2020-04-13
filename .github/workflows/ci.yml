@@ -29,6 +29,7 @@ jobs:
       - name: Set up test database
         uses: mirromutth/mysql-action@v1.1
         with:
+          mysql version: '8.0'
           mysql database: 'sportsapp_test'
           mysql user: 'sportsapp'
           mysql password: 'sportsapp'
