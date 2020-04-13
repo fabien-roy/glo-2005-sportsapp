@@ -19,7 +19,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: password
           MYSQL_DATABASE: sportsapp_test
         ports:
-          - '8888:3306'
+          - '3306'
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       - uses: actions/checkout@v2
@@ -37,7 +37,7 @@ jobs:
         run: pylint --output-format=text tests
       - name: Create test database
         run: |
-          mysql -h 127.0.0.1 --port 8888 -u root -ppassword -e "
+          mysql -h 127.0.0.1 --port 3306 -u root -ppassword -e "
             USE mysql;
             CREATE USER 'sportsapp'@'localhost' IDENTIFIED BY 'sportsapp';
             GRANT ALL PRIVILEGES ON *. * TO sportsapp@localhost;

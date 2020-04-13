@@ -10,7 +10,6 @@ class MySQLTestDatabase(Database):
                                user=app.config['MYSQL_USER'],
                                password=app.config['MYSQL_PASSWORD'],
                                db=app.config['MYSQL_TEST_DB'],
-                               port=8888,
                                charset='utf8mb4',
                                cursorclass=pymysql.cursors.DictCursor)
 
