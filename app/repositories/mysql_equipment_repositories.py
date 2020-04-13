@@ -37,6 +37,8 @@ class MySQLEquipmentsRepository(EquipmentsRepository):
                 query = MySQLEquipmentsQuery().get(equipment_id)
                 cur.execute(query)
 
+            for equipment_cur in cur.fetchall():
+                equipment = self.build_equipment(equipment_cur)
         finally:
             cur.close()
 

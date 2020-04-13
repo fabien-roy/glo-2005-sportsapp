@@ -20,9 +20,9 @@ recommendation_repository = MySQLRecommendationsRepository(database)
 sport_repository = MySQLSportsRepository(database, climate_repository, recommendation_repository)
 practice_center_repository = MySQLPracticeCentersRepository(database, climate_repository,
                                                             recommendation_repository)
-user_repository = MySQLUsersRepository(database, recommendation_repository)
 shop_repository = MySQLShopsRepository(database)
 equipment_repository = MySQLEquipmentsRepository(database)
+user_repository = MySQLUsersRepository(database, recommendation_repository)
 
 
 def db_populate():
