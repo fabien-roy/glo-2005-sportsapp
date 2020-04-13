@@ -45,6 +45,8 @@ class MySQLClimatesRepository(ClimatesRepository):
                 cur.execute(query, climate.name)
 
                 self.database.connect().commit()
+
+                climate.id = cur.lastrowid
         finally:
             cur.close()
 

@@ -3,7 +3,7 @@ import unittest
 from app.repositories.mysql_user_repositories import MySQLUsersRepository
 from app.users.exceptions import UserNotFoundException
 from tests.recommendations.mocks import recommendations_repository
-from tests.repositories.mysql_test_database import database
+from tests.repositories.mysql_test_database import test_database
 from tests.test_basic_repositories import BasicRepositoryTests
 from tests.users.fakes import user1, user2, user3
 from tests.users.forms import FakeUsersSearchForm
@@ -13,10 +13,10 @@ class UsersRepositoryTests(BasicRepositoryTests):
 
     def setUp(self):
         super().setUp()
-        self.repository = MySQLUsersRepository(database, recommendations_repository)
+        self.repository = MySQLUsersRepository(test_database, recommendations_repository)
 
     def test_get_with_no_user_should_raise_user_not_found_exception(self):
-        self.reset_repositories()
+        self.recreate_database()
         self.assertRaises(UserNotFoundException, self.repository.get, 1)
 
     def test_get_with_non_existent_user_should_raise_user_not_found_exception(self):
@@ -50,7 +50,7 @@ class UsersRepositoryTests(BasicRepositoryTests):
                               user.practice_center_recommendations)
 
     def test_get_all_with_no_user_center_get_no_user(self):
-        self.reset_repositories()
+        self.recreate_database()
         users = self.repository.get_all()
         self.assertEqual(0, len(users))
 
