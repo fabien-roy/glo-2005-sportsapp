@@ -35,6 +35,8 @@ jobs:
         run: pylint --output-format=text app
       - name: Lint tests
         run: pylint --output-format=text tests
+      - name: Shutdown default MySQL
+        run: sudo service mysql stop
       - name: Create test database
         run: |
           mysql -h 127.0.0.1 --port 3306 -u root -ppassword -e "
