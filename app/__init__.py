@@ -7,6 +7,7 @@ from app.practice_centers.views import practice_centers_blueprint
 from app.shops.views import shops_blueprint
 from app.sports.views import sports_blueprint
 from app.users.views import users_blueprint
+from app.equipments.views import equipments_blueprint
 from app.search.views import search_blueprint
 
 app = Flask(__name__, instance_relative_config=True)
@@ -20,6 +21,7 @@ app.register_blueprint(search_blueprint)
 app.register_blueprint(sports_blueprint)
 app.register_blueprint(practice_centers_blueprint)
 app.register_blueprint(shops_blueprint)
+app.register_blueprint(equipments_blueprint)
 app.register_blueprint(users_blueprint)
 
 

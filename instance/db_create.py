@@ -24,6 +24,8 @@ def db_create(database):
 
             cur.execute('DROP TABLE IF EXISTS shops')
 
+            cur.execute('DROP TABLE IF EXISTS equipments')
+
         database.connect().commit()
 
         # Create all tables
@@ -102,6 +104,13 @@ def db_create(database):
                         'email varchar(100) NULL,'
                         'web_site varchar(200) NULL,'
                         'phone_number varchar(20) NULL'
+                        ');')
+
+            cur.execute('CREATE TABLE equipments('
+                        'id int NOT NULL AUTO_INCREMENT PRIMARY KEY,'
+                        'category varchar(50),'
+                        'name varchar(100),'
+                        'description varchar(1000)'
                         ');')
 
         database.connect().commit()

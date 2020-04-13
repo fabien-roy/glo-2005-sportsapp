@@ -5,6 +5,7 @@ from app.recommendations.repositories import RecommendationsRepository
 from app.shops.repositories import ShopsRepository
 from app.sports.repositories import SportsRepository
 from app.users.repositories import UsersRepository
+from app.equipments.repositories import EquipmentsRepository
 from tests.climates.mocks import climates_repository
 from tests.practice_centers.mocks import practice_centers_repository
 from tests.recommendations.mocks import recommendations_repository
@@ -12,6 +13,7 @@ from tests.repositories.mysql_test_database import database
 from tests.shops.mocks import shops_repository
 from tests.sports.mocks import sports_repository
 from tests.users.mocks import users_repository
+from tests.equipments.mocks import equipments_repository
 
 
 def configure(binder):
@@ -22,3 +24,4 @@ def configure(binder):
     binder.bind(PracticeCentersRepository, to=practice_centers_repository)
     binder.bind(UsersRepository, to=users_repository)
     binder.bind(ShopsRepository, to=shops_repository)
+    binder.bind(EquipmentsRepository, to=equipments_repository)
