@@ -30,9 +30,9 @@ jobs:
       - name: Set up test database
       - name: Set up Python ${{ matrix.python-version }}
         uses: mirromutth/mysql-action@v1.1
-          with:
-            mysql database: 'sportsapp_test'
-            mysql user: 'sportsapp'
-            mysql password: 'sportsapp'
+        with:
+          mysql database: 'sportsapp_test'
+          mysql user: 'sportsapp'
+          mysql password: 'sportsapp'
       - name: Unit tests
         run: nose2 -v --with-coverage tests
