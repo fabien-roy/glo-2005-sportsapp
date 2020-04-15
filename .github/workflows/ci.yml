@@ -43,9 +43,11 @@ jobs:
             GRANT ALL PRIVILEGES ON *. * TO sportsapp@localhost;
             CREATE DATABASE IF NOT EXISTS sportsapp_test;"
       - name: Unit tests
-        run: nose2 --junit-xml-path .coverage.xml tests
-      - name: Code coverage
+        run: coverage run -m nose2 tests
+      - name: Generate coverage report
+        run: coverage xml
+      - name: Upload code coverage to codecov
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./.coverage.xml
+          file: ./coverage.xml
