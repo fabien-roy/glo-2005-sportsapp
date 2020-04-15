@@ -42,7 +42,10 @@ jobs:
             CREATE USER 'sportsapp'@'localhost' IDENTIFIED BY 'sportsapp';
             GRANT ALL PRIVILEGES ON *. * TO sportsapp@localhost;
             CREATE DATABASE IF NOT EXISTS sportsapp_test;"
-      - name: Register codecov
-        run: codecov --token=${{ secrets.CODECOV_TOKEN }}
       - name: Unit tests
-        run: nose2 -v --with-coverage tests
+        run: nose2 -junit-xml-path .coverage.xml tests
+      - name: Code coverage
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./.coverage.xml
