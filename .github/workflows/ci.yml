@@ -43,7 +43,7 @@ jobs:
             GRANT ALL PRIVILEGES ON *. * TO sportsapp@localhost;
             CREATE DATABASE IF NOT EXISTS sportsapp_test;"
       - name: Unit tests
-        run: nose2 -junit-xml-path .coverage.xml tests
+        run: nose2 --junit-xml-path .coverage.xml tests
       - name: Code coverage
         uses: codecov/codecov-action@v1
         with:
