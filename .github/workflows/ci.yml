@@ -45,7 +45,7 @@ jobs:
       - name: Unit tests
         run: nose2 -v --with-coverage tests
       - name: Code coverage
-          uses: codecov/codecov-action@v1
-          with:
-            token: ${{ secrets.CODECOV_TOKEN }}
-            yml: ./codecov.yml
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          yml: ./codecov.yml
