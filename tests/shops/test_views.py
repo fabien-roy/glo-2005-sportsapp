@@ -40,9 +40,24 @@ class ShopsViewsTests(BasicViewTests):
         self.remove_shops()
         self.assert_item_details_are_not_found([(shop1.id, shop1.name)])
 
+    def test_shop_details_should_display_announces(self):
+        self.assert_item_details_are_displayed([
+            (shop1.id, self.get_announces_details(shop1)),
+            (shop2.id, self.get_announces_details(shop2)),
+            (shop3.id, self.get_announces_details(shop3))
+        ])
+
     @staticmethod
     def get_shop_details(shop):
         return [shop.name, shop.email, shop.phone_number]
+
+    # TODO : Announce.date
+    @staticmethod
+    def get_announces_details(shop):
+        details = []
+        for announce in shop.announces:
+            details += [announce.equipment_name, announce.state, announce.price]
+        return details
 
 
 if __name__ == "__main__":
