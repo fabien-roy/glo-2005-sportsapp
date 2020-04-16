@@ -5,8 +5,8 @@ from injector import inject
 from app.announces.models import Announce
 from app.announces.repositories import AnnouncesRepository
 from app.database import Database
-from app.repositories.mysql_announce_queries import MySQLAnnouncesQuery
-from app.repositories.mysql_tables import MySQLAnnouncesTable
+from app.repositories.mysql_announce_queries import MySQLAnnouncesQuery as Query
+from app.repositories.mysql_tables import MySQLAnnouncesTable as Announces
 
 
 class MySQLAnnouncesRepository(AnnouncesRepository):
@@ -15,11 +15,11 @@ class MySQLAnnouncesRepository(AnnouncesRepository):
         self.database = database
 
     def get_all_for_shop(self, shop_id):
-        query = MySQLAnnouncesQuery().get_all_for_shop(shop_id)
+        query = Query().get_all_for_shop(shop_id)
         return self.get_all(query)
 
     def get_all_for_equipment(self, equipment_id):
-        query = MySQLAnnouncesQuery().get_all_for_equipment(equipment_id)
+        query = Query().get_all_for_equipment(equipment_id)
         return self.get_all(query)
 
     def get_all(self, query):
@@ -38,16 +38,18 @@ class MySQLAnnouncesRepository(AnnouncesRepository):
 
     @staticmethod
     def build_announce(cur):
-        return Announce(cur[MySQLAnnouncesTable.id_col],
-                        cur[MySQLAnnouncesTable.shop_id_col],
-                        cur[MySQLAnnouncesTable.equipment_id_col],
-                        cur[MySQLAnnouncesTable.state_col],
-                        cur[MySQLAnnouncesTable.price_col],
-                        cur[MySQLAnnouncesTable.date_col])
+        return Announce(cur[Announces.id_col],
+                        cur[Announces.shop_id_col],
+                        cur[Query.fake_shop_name_col],
+                        cur[Announces.equipment_id_col],
+                        cur[Query.fake_equipment_name_col],
+                        cur[Announces.state_col],
+                        cur[Announces.price_col],
+                        cur[Announces.date_col])
 
     def add(self, announce):
         announce.date = datetime.datetime.now()
-        query = MySQLAnnouncesQuery().add()
+        query = Query().add()
 
         try:
             with self.database.connect().cursor() as cur:
