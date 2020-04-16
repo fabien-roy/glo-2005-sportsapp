@@ -31,9 +31,9 @@ class SportsViewsTests(BasicViewTests):
 
     def test_sport_details_should_display_sport_details(self):
         self.assert_item_details_are_displayed([
-            (sport1.id, sport1.name),
-            (sport2.id, sport2.name),
-            (sport3.id, sport3.name),
+            (sport1.id, [sport1.name]),
+            (sport2.id, [sport2.name]),
+            (sport3.id, [sport3.name]),
         ])
 
     def test_sport_details__without_sport_should_respond_not_found(self):

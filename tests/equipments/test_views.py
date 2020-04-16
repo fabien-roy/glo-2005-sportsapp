@@ -32,14 +32,18 @@ class EquipmentsViewsTests(BasicViewTests):
 
     def test_equipment_details_should_display_equipment_details(self):
         self.assert_item_details_are_displayed([
-            (equipment1.id, equipment1.name),
-            (equipment2.id, equipment2.name),
-            (equipment3.id, equipment3.name),
+            (equipment1.id, self.get_equipment_details(equipment1)),
+            (equipment2.id, self.get_equipment_details(equipment2)),
+            (equipment3.id, self.get_equipment_details(equipment3))
         ])
 
     def test_equipment_details__without_equipment_should_respond_not_found(self):
         self.remove_equipments()
         self.assert_item_details_are_not_found([(equipment1.id, equipment1.name)])
+
+    @staticmethod
+    def get_equipment_details(equipment):
+        return [equipment.name, equipment.category, equipment.description]
 
 
 if __name__ == "__main__":

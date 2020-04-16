@@ -118,10 +118,12 @@ class BasicViewTests(test_basic.BasicTests):
             self.assertNotIn(expected_data.encode(), response.data)
 
     def assert_item_details_are_displayed(self, tests):
-        for reference, expected_data in tests:
+        for reference, item_details in tests:
             response = self.request_get(reference)
             self.assert_page_is_found(response)
-            self.assertIn(expected_data.encode(), response.data)
+            for item_detail in item_details:
+                if item_detail is not None:
+                    self.assertIn(item_detail.encode(), response.data)
 
     def assert_item_details_are_not_found(self, tests):
         for reference, expected_data in tests:
