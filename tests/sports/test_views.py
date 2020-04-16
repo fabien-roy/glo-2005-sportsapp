@@ -55,7 +55,7 @@ class SportsViewsTests(BasicViewTests):
     def get_recommendations_details(sport):
         details = []
         for recommendation in sport.recommendations:
-            details += [recommendation.username, recommendation.date]
+            details += [recommendation.username]
         return details
 
 

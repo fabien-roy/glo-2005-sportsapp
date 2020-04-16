@@ -56,7 +56,7 @@ class PracticeCentersViewsTests(BasicViewTests):
     def get_recommendations_details(center):
         details = []
         for recommendation in center.recommendations:
-            details += [recommendation.username, recommendation.date]
+            details += [recommendation.username]
         return details
 
 
