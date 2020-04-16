@@ -1,6 +1,6 @@
 from app.announces.models import Announce
 from tests.equipments.fakes import equipment1, equipment2, equipment3, get_equipment
-from tests.shops.fakes import shop1, shop2, shop3
+from tests.shops.fakes import shop1, shop2, shop3, get_shop
 
 shop1_equipment1_announce1 = Announce(1, shop1.id, equipment1.id, 'New', 199.99, )
 shop1_equipment2_announce1 = Announce(2, shop1.id, equipment2.id, 'Used', 149.99, )
