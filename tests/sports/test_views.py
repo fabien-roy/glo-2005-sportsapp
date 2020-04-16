@@ -40,9 +40,24 @@ class SportsViewsTests(BasicViewTests):
         self.remove_sports()
         self.assert_item_details_are_not_found([(sport1.id, sport1.name)])
 
+    def test_sport_details_should_display_recommendations(self):
+        self.assert_item_details_are_displayed([
+            (sport1.id, self.get_recommendations_details(sport1)),
+            (sport2.id, self.get_recommendations_details(sport2)),
+            (sport3.id, self.get_recommendations_details(sport3))
+        ])
+
     @staticmethod
     def get_sport_details(sport):
         return [sport.name] + list(map(lambda climate: climate.name, sport.climates))
+
+    # TODO : Test recommendation.comment and recommendation.note are present in details
+    @staticmethod
+    def get_recommendations_details(sport):
+        details = []
+        for recommendation in sport.recommendations:
+            details += [recommendation.username, recommendation.date]
+        return details
 
 
 if __name__ == "__main__":
