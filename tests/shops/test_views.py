@@ -35,21 +35,15 @@ class ShopsViewsTests(BasicViewTests):
         self.assertNotIn(shop3.name.encode(), response.data)
 
     def test_shop_details_should_display_shop_details(self):
-        response = self.app.get('/shops/{}'.format(shop1.id), follow_redirects=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(shop1.name.encode(), response.data)
-        response = self.app.get('/shops/{}'.format(shop2.id), follow_redirects=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(shop2.name.encode(), response.data)
-        response = self.app.get('/shops/{}'.format(shop3.id), follow_redirects=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(shop3.name.encode(), response.data)
+        self.assert_item_details_are_displayed('/shops', [
+            (shop1.id, shop1.name),
+            (shop2.id, shop2.name),
+            (shop3.id, shop3.name)
+        ])
 
     def test_shop_details__without_shop_should_respond_not_found(self):
         self.remove_shops()
-        response = self.app.get('/shops/{}'.format(shop1.id), follow_redirects=True)
-        self.assertEqual(response.status_code, 404)
-        self.assertIn(b'Not Found', response.data)
+        self.assert_item_details_are_not_found('/shops', [(shop1.id, shop1.name)])
 
 
 if __name__ == "__main__":

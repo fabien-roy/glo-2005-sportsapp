@@ -28,21 +28,20 @@ class MySQLRecommendationQuery(MySQLQuery):
 
     def get_all_for_type(self, item_id, sub_table_name, sub_recommendation_id_col, sub_item_id_col,
                          other_table_name, other_id_col, other_name_col):
-        operation = ('SELECT T.' + MySQLRecommendationsTable.id_col +
-                     ', ' + MySQLRecommendationsTable.username_col +
-                     ', O.' + other_id_col + ' AS ' + self.item_id_fake_col +
-                     ', ' + MySQLRecommendationsTable.comment_col +
-                     ', ' + MySQLRecommendationsTable.note_col +
-                     ', O.' + other_name_col + ' AS ' + self.name_fake_col +
-                     ', ' + MySQLRecommendationsTable.date_col +
-                     ' FROM ' + MySQLRecommendationsTable.table_name + ' T' +
-                     ' JOIN ' + other_table_name + ' O ON O.' + other_id_col + ' = ' +
-                     str(item_id) +
-                     ' WHERE T.' + MySQLRecommendationsTable.id_col + ' IN (' +
-                     '     SELECT ' + sub_recommendation_id_col +
-                     '     FROM ' + sub_table_name +
-                     '     WHERE ' + sub_item_id_col + ' = ' + str(item_id) +
-                     ')')
+        operation = (f'SELECT T.{MySQLRecommendationsTable.id_col}'
+                     f', {MySQLRecommendationsTable.username_col}'
+                     f', O.{other_id_col} AS {self.item_id_fake_col}'
+                     f', {MySQLRecommendationsTable.comment_col}'
+                     f', {MySQLRecommendationsTable.note_col}'
+                     f', O.{other_name_col} AS {self.name_fake_col}'
+                     f', {MySQLRecommendationsTable.date_col}'
+                     f' FROM {MySQLRecommendationsTable.table_name} T'
+                     f' JOIN {other_table_name} O ON O.{other_id_col}  = + {str(item_id)}'
+                     f' WHERE T.{MySQLRecommendationsTable.id_col} IN ('
+                     f'     SELECT {sub_recommendation_id_col}'
+                     f'     FROM {sub_table_name}'
+                     f'     WHERE {sub_item_id_col} = {str(item_id)}'
+                     f')')
 
         return self.build_query(operation)
 
@@ -69,34 +68,32 @@ class MySQLRecommendationQuery(MySQLQuery):
     def get_all_for_type_and_user(self, username, sub_table_name, sub_recommendation_id_col,
                                   sub_item_id_col,
                                   other_table_name, other_id_col, other_name_col):
-        operation = ('SELECT T.' + MySQLRecommendationsTable.id_col +
-                     ', ' + MySQLRecommendationsTable.username_col +
-                     ', O.' + other_id_col + ' AS ' + self.item_id_fake_col +
-                     ', ' + MySQLRecommendationsTable.comment_col +
-                     ', ' + MySQLRecommendationsTable.note_col +
-                     ', O.' + other_name_col + ' AS ' + self.name_fake_col +
-                     ', ' + MySQLRecommendationsTable.date_col +
-                     ' FROM ' + MySQLRecommendationsTable.table_name + ' AS T' +
-                     ' JOIN ' + sub_table_name + ' S ON S.' + sub_recommendation_id_col + ' = ' +
-                     MySQLRecommendationsTable.id_col +
-                     ' JOIN ' + other_table_name + ' O ON O.' + other_id_col + ' = S.' +
-                     sub_item_id_col +
-                     ' WHERE ' + MySQLRecommendationsTable.username_col + ' = \'' + username +
-                     '\'' +
-                     ' AND T.' + MySQLRecommendationsTable.id_col + ' IN (' +
-                     '   SELECT ' + sub_recommendation_id_col +
-                     '   FROM ' + sub_table_name +
-                     ')')
+        operation = (f'SELECT T.{MySQLRecommendationsTable.id_col}'
+                     f', {MySQLRecommendationsTable.username_col}'
+                     f', O.{other_id_col} AS {self.item_id_fake_col}'
+                     f', {MySQLRecommendationsTable.comment_col}'
+                     f', {MySQLRecommendationsTable.note_col}'
+                     f', O.{other_name_col} AS {self.name_fake_col}'
+                     f', {MySQLRecommendationsTable.date_col}'
+                     f' FROM {MySQLRecommendationsTable.table_name} AS T'
+                     f' JOIN {sub_table_name} S ON S.{sub_recommendation_id_col} = '
+                     f'{MySQLRecommendationsTable.id_col}'
+                     f' JOIN {other_table_name} O ON O.{other_id_col} = S.{sub_item_id_col}'
+                     f' WHERE {MySQLRecommendationsTable.username_col} = \'{username}\''
+                     f' AND T.{MySQLRecommendationsTable.id_col} IN ('
+                     f'   SELECT {sub_recommendation_id_col}'
+                     f'   FROM {sub_table_name}'
+                     f')')
 
         return self.build_query(operation)
 
     def add(self):
-        operation = ('INSERT INTO ' + MySQLRecommendationsTable.table_name +
-                     ' (' + MySQLRecommendationsTable.username_col +
-                     ', ' + MySQLRecommendationsTable.comment_col +
-                     ', ' + MySQLRecommendationsTable.note_col +
-                     ', ' + MySQLRecommendationsTable.date_col + ')' +
-                     ' VALUES (%s, %s, %s, %s)')
+        operation = (f'INSERT INTO {MySQLRecommendationsTable.table_name}'
+                     f' ({MySQLRecommendationsTable.username_col}'
+                     f', {MySQLRecommendationsTable.comment_col}'
+                     f', {MySQLRecommendationsTable.note_col}'
+                     f', {MySQLRecommendationsTable.date_col})'
+                     f' VALUES (%s, %s, %s, %s)')
 
         return self.build_query(operation)
 
@@ -111,9 +108,9 @@ class MySQLRecommendationQuery(MySQLQuery):
                                 MySQLPracticeCenterRecommendationsTable.practice_center_id_col)
 
     def add_to_type(self, table_name, recommendation_id_col, type_id_col):
-        operation = ('INSERT INTO ' + table_name +
-                     ' (' + recommendation_id_col +
-                     ', ' + type_id_col + ')' +
-                     ' VALUES (%s, %s);')
+        operation = (f'INSERT INTO {table_name}'
+                     f' ({recommendation_id_col}'
+                     f', {type_id_col})'
+                     f' VALUES (%s, %s);')
 
         return self.build_query(operation)

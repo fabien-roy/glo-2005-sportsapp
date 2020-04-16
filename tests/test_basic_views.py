@@ -82,6 +82,18 @@ class BasicViewTests(test_basic.BasicTests):
         equipments_repository.get.side_effect = lambda equipment_id: no_equipment()
         equipments_repository.get_all.side_effect = lambda form: []
 
+    def assert_item_details_are_displayed(self, path, tests):
+        for reference, expected_data in tests:
+            response = self.app.get(f'{path}/{reference}', follow_redirects=True)
+            self.assertEqual(response.status_code, 200)
+            self.assertIn(expected_data.encode(), response.data)
+
+    def assert_item_details_are_not_found(self, path, tests):
+        for reference, expected_data in tests:
+            response = self.app.get(f'{path}/{reference}', follow_redirects=True)
+            self.assertEqual(response.status_code, 404)
+            self.assertNotIn(expected_data.encode(), response.data)
+
 
 if __name__ == "__main__":
     unittest.main()

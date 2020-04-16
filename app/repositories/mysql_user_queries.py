@@ -3,16 +3,16 @@ from app.repositories.mysql_queries import MySQLQuery
 from app.repositories.mysql_tables import MySQLUsersTable
 from app.repositories.mysql_user_filters import MySQLUsersFilter
 
-all_fields_to_add = (MySQLUsersTable.username_col +
-                     ", " + MySQLUsersTable.email_col +
-                     ', ' + MySQLUsersTable.first_name_col +
-                     ', ' + MySQLUsersTable.last_name_col +
-                     ', ' + MySQLUsersTable.phone_number_col +
-                     ', ' + MySQLUsersTable.creation_date_col)
+all_fields_to_add = (f'{MySQLUsersTable.username_col}'
+                     f', {MySQLUsersTable.email_col}'
+                     f', {MySQLUsersTable.first_name_col}'
+                     f', {MySQLUsersTable.last_name_col}'
+                     f', {MySQLUsersTable.phone_number_col}'
+                     f', {MySQLUsersTable.creation_date_col}')
 
-all_fields = (all_fields_to_add + ', ' + MySQLUsersTable.last_login_date_col)
+all_fields = f'{all_fields_to_add}, {MySQLUsersTable.last_login_date_col}'
 
-select_all_operation = ('SELECT ' + all_fields + ' FROM ' + MySQLUsersTable.table_name)
+select_all_operation = f'SELECT {all_fields} FROM {MySQLUsersTable.table_name}'
 
 
 class MySQLUsersQuery(MySQLQuery):
@@ -29,8 +29,8 @@ class MySQLUsersQuery(MySQLQuery):
         return self.build_query(select_all_operation, filters, orders, inner_filtering)
 
     def add(self):
-        operation = ('INSERT INTO ' + MySQLUsersTable.table_name +
-                     ' (' + all_fields_to_add + ')' +
-                     ' VALUES (%s, %s, %s, %s, %s, %s)')
+        operation = (f'INSERT INTO {MySQLUsersTable.table_name}'
+                     f' ({all_fields_to_add})'
+                     f' VALUES (%s, %s, %s, %s, %s, %s)')
 
         return self.build_query(operation)

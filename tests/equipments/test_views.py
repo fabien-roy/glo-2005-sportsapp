@@ -35,21 +35,15 @@ class EquipmentsViewsTests(BasicViewTests):
         self.assertNotIn(equipment3.name.encode(), response.data)
 
     def test_equipment_details_should_display_equipment_details(self):
-        response = self.app.get('/equipments/{}'.format(equipment1.id), follow_redirects=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(equipment1.name.encode(), response.data)
-        response = self.app.get('/equipments/{}'.format(equipment2.id), follow_redirects=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(equipment2.name.encode(), response.data)
-        response = self.app.get('/equipments/{}'.format(equipment3.id), follow_redirects=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(equipment3.name.encode(), response.data)
+        self.assert_item_details_are_displayed('/equipments', [
+            (equipment1.id, equipment1.name),
+            (equipment2.id, equipment2.name),
+            (equipment3.id, equipment3.name),
+        ])
 
     def test_equipment_details__without_equipment_should_respond_not_found(self):
         self.remove_equipments()
-        response = self.app.get('/equipments/{}'.format(equipment1.id), follow_redirects=True)
-        self.assertEqual(response.status_code, 404)
-        self.assertIn(b'Not Found', response.data)
+        self.assert_item_details_are_not_found('/equipments', [(equipment1.id, equipment1.name)])
 
 
 if __name__ == "__main__":

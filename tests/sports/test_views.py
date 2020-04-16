@@ -35,21 +35,15 @@ class SportsViewsTests(BasicViewTests):
         self.assertNotIn(sport3.name.encode(), response.data)
 
     def test_sport_details_should_display_sport_details(self):
-        response = self.app.get('/sports/{}'.format(sport1.id), follow_redirects=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(sport1.name.encode(), response.data)
-        response = self.app.get('/sports/{}'.format(sport2.id), follow_redirects=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(sport2.name.encode(), response.data)
-        response = self.app.get('/sports/{}'.format(sport3.id), follow_redirects=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(sport3.name.encode(), response.data)
+        self.assert_item_details_are_displayed('/sports', [
+            (sport1.id, sport1.name),
+            (sport2.id, sport2.name),
+            (sport3.id, sport3.name),
+        ])
 
     def test_sport_details__without_sport_should_respond_not_found(self):
         self.remove_sports()
-        response = self.app.get('/sports/{}'.format(sport1.id), follow_redirects=True)
-        self.assertEqual(response.status_code, 404)
-        self.assertIn(b'Not Found', response.data)
+        self.assert_item_details_are_not_found('/sports', [(sport1.id, sport1.name)])
 
 
 if __name__ == "__main__":
