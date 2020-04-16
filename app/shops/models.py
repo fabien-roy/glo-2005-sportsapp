@@ -8,7 +8,5 @@ class Shop:
 
     def __eq__(self, other):
         if isinstance(other, Shop):
-            return self.id == other.id and self.email == other.email and \
-                   self.web_site == other.web_site and self.phone_number == other.phone_number and \
-                   self.name == other.name
+            return self.id == other.id
         return False

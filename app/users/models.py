@@ -20,7 +20,7 @@ class User:
 
     def __eq__(self, other):
         if isinstance(other, User):
-            return self.username == other.username and self.email == other.email
+            return self.username == other.username
         return False
 
     def add_sport_recommendation(self, sport_recommendation):

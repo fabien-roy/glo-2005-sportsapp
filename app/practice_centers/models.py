@@ -17,8 +17,7 @@ class PracticeCenter:
 
     def __eq__(self, other):
         if isinstance(other, PracticeCenter):
-            return self.id == other.id and self.name == other.name and self.email == other.email \
-                   and self.web_site == other.web_site and self.phone_number == other.phone_number
+            return self.id == other.id
         return False
 
     def add_recommendation(self, recommendation):

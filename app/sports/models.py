@@ -13,7 +13,7 @@ class Sport:
 
     def __eq__(self, other):
         if isinstance(other, Sport):
-            return self.id == other.id and self.name == other.name
+            return self.id == other.id
         return False
 
     def add_recommendation(self, recommendation):
