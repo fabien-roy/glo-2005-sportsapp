@@ -40,7 +40,6 @@ class ShopsViewsTests(BasicViewTests):
         self.remove_shops()
         self.assert_item_details_are_not_found([(shop1.id, shop1.name)])
 
-    # TODO : Test shop.web_site is present in details
     @staticmethod
     def get_shop_details(shop):
         return [shop.name, shop.email, shop.phone_number]

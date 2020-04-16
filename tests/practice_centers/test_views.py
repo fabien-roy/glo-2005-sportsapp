@@ -47,13 +47,11 @@ class PracticeCentersViewsTests(BasicViewTests):
             (center3.id, self.get_recommendations_details(center3))
         ])
 
-    # TODO : Test center.web_site is present in details
     @staticmethod
     def get_center_details(center):
         return [center.name, center.email, center.phone_number] \
                + list(map(lambda climate: climate.name, center.climates))
 
-    # TODO : Test recommendation.comment and recommendation.note are present in details
     @staticmethod
     def get_recommendations_details(center):
         details = []

@@ -37,7 +37,7 @@ class BasicRepositoryTests(test_basic.BasicTests):
                                                                  recommendations_repository)
     announces_repository = MySQLAnnouncesRepository(test_database)
     shops_repository = MySQLShopsRepository(test_database, announces_repository)
-    equipments_repository = MySQLEquipmentsRepository(test_database)
+    equipments_repository = MySQLEquipmentsRepository(test_database, announces_repository)
     users_repository = MySQLUsersRepository(test_database, recommendations_repository)
 
     @classmethod

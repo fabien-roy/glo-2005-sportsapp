@@ -51,7 +51,6 @@ class SportsViewsTests(BasicViewTests):
     def get_sport_details(sport):
         return [sport.name] + list(map(lambda climate: climate.name, sport.climates))
 
-    # TODO : Test recommendation.comment and recommendation.note are present in details
     @staticmethod
     def get_recommendations_details(sport):
         details = []

@@ -1,5 +1,6 @@
 from injector import inject
 
+from app.announces.repositories import AnnouncesRepository
 from app.database import Database
 from app.equipments.exceptions import EquipmentNotFoundException
 from app.equipments.models import Equipment
@@ -10,8 +11,9 @@ from app.repositories.mysql_tables import MySQLEquipmentsTable
 
 class MySQLEquipmentsRepository(EquipmentsRepository):
     @inject
-    def __init__(self, database: Database):
+    def __init__(self, database: Database, announces_repository: AnnouncesRepository):
         self.database = database
+        self.announces_repository = announces_repository
 
     def get_all(self, form=None):
         all_equipments = []
@@ -38,7 +40,8 @@ class MySQLEquipmentsRepository(EquipmentsRepository):
                 cur.execute(query)
 
             for equipment_cur in cur.fetchall():
-                equipment = self.build_equipment(equipment_cur)
+                announces = self.announces_repository.get_all_for_equipment(equipment_id)
+                equipment = self.build_equipment(equipment_cur, announces)
         finally:
             cur.close()
 
@@ -48,10 +51,12 @@ class MySQLEquipmentsRepository(EquipmentsRepository):
         return equipment
 
     @staticmethod
-    def build_equipment(cur):
-        return Equipment(cur[MySQLEquipmentsTable.id_col], cur[MySQLEquipmentsTable.name_col],
+    def build_equipment(cur, announces=None):
+        return Equipment(cur[MySQLEquipmentsTable.id_col],
+                         cur[MySQLEquipmentsTable.name_col],
                          cur[MySQLEquipmentsTable.category_col],
-                         cur[MySQLEquipmentsTable.description_col])
+                         cur[MySQLEquipmentsTable.description_col],
+                         announces)
 
     def add(self, equipment):
         try:
