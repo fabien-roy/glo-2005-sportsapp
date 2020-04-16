@@ -121,6 +121,7 @@ def db_create(database):
                         'equipment_id int NOT NULL,'
                         'state varchar(100),'
                         'price decimal,'
+                        'date timestamp,'
                         'FOREIGN KEY (shop_id) REFERENCES shops(id) ON DELETE CASCADE,'
                         'FOREIGN KEY (equipment_id) REFERENCES equipments(id) ON DELETE CASCADE'
                         ');')

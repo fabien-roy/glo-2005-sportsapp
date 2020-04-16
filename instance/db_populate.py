@@ -1,6 +1,8 @@
+from app.announces.models import Announce
 from app.climates.models import Climate
 from app.practice_centers.models import PracticeCenter
 from app.recommendations.models import Recommendation
+from app.repositories.mysql_announce_repositories import MySQLAnnouncesRepository
 from app.repositories.mysql_climate_repositories import MySQLClimatesRepository
 from app.repositories.mysql_database import MySQLDatabase
 from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
@@ -17,12 +19,13 @@ from app.repositories.mysql_equipment_repositories import MySQLEquipmentsReposit
 database = MySQLDatabase()
 climate_repository = MySQLClimatesRepository(database)
 recommendation_repository = MySQLRecommendationsRepository(database)
+user_repository = MySQLUsersRepository(database, recommendation_repository)
 sport_repository = MySQLSportsRepository(database, climate_repository, recommendation_repository)
 practice_center_repository = MySQLPracticeCentersRepository(database, climate_repository,
                                                             recommendation_repository)
 shop_repository = MySQLShopsRepository(database)
 equipment_repository = MySQLEquipmentsRepository(database)
-user_repository = MySQLUsersRepository(database, recommendation_repository)
+announce_repository = MySQLAnnouncesRepository(database)
 
 
 def db_populate():
@@ -128,5 +131,18 @@ def db_populate():
     equipment_repository.add(equipment1)
     equipment_repository.add(equipment2)
     equipment_repository.add(equipment3)
+
+    announce1 = Announce(None, shop1.id, equipment1.id, 'New', 199.99, )
+    announce2 = Announce(None, shop1.id, equipment2.id, 'Used', 149.99, )
+    announce3 = Announce(None, shop2.id, equipment2.id, 'New', 400.00, )
+    announce4 = Announce(None, shop2.id, equipment2.id, 'Needs repair', 300.00, )
+    announce5 = Announce(None, shop3.id, equipment1.id, 'Used', 49.99, )
+    announce6 = Announce(None, shop3.id, equipment3.id, 'Used', 99.99, )
+    announce_repository.add(announce1)
+    announce_repository.add(announce2)
+    announce_repository.add(announce3)
+    announce_repository.add(announce4)
+    announce_repository.add(announce5)
+    announce_repository.add(announce6)
 
     print('...done!')
