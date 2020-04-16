@@ -37,3 +37,7 @@ def get_equipments_filtered(form):
         return [equipment1, equipment2, equipment3]
 
     return [equipment1]
+
+
+def get_announces_for_equipment(equipment_id):
+    return get_equipment(equipment_id).announces

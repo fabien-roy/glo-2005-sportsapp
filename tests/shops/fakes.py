@@ -32,3 +32,7 @@ def get_shops_filtered(form):
         return [shop1, shop2, shop3]
 
     return [shop1]
+
+
+def get_announces_for_shop(shop_id):
+    return get_shop(shop_id).announces

@@ -1,5 +1,6 @@
 import unittest
 
+from app.repositories.mysql_announce_repositories import MySQLAnnouncesRepository
 from app.repositories.mysql_climate_repositories import MySQLClimatesRepository
 from app.repositories.mysql_practice_center_repositories import MySQLPracticeCentersRepository
 from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
@@ -9,6 +10,9 @@ from app.repositories.mysql_user_repositories import MySQLUsersRepository
 from app.repositories.mysql_equipment_repositories import MySQLEquipmentsRepository
 from instance.db_create import db_create
 from tests import test_basic
+from tests.announces.fakes import shop1_equipment1_announce1, shop1_equipment2_announce1, \
+    shop2_equipment2_announce1, shop2_equipment2_announce2, shop3_equipment1_announce1, \
+    shop3_equipment3_announce1
 from tests.climates.fakes import climate1, climate2, climate3
 from tests.practice_centers.fakes import center1, center2, center3
 from tests.recommendations.fakes import sport1_recommendation1_user1, \
@@ -31,9 +35,10 @@ class BasicRepositoryTests(test_basic.BasicTests):
                                               recommendations_repository)
     practice_centers_repository = MySQLPracticeCentersRepository(test_database, climates_repository,
                                                                  recommendations_repository)
-    users_repository = MySQLUsersRepository(test_database, recommendations_repository)
-    shops_repository = MySQLShopsRepository(test_database)
+    announces_repository = MySQLAnnouncesRepository(test_database)
+    shops_repository = MySQLShopsRepository(test_database, announces_repository)
     equipments_repository = MySQLEquipmentsRepository(test_database)
+    users_repository = MySQLUsersRepository(test_database, recommendations_repository)
 
     @classmethod
     def setUpClass(cls):
@@ -55,6 +60,7 @@ class BasicRepositoryTests(test_basic.BasicTests):
         cls.add_practice_center_recommendations()
         cls.add_shops()
         cls.add_equipments()
+        cls.add_announces()
         cls.database_populated = True
 
     @classmethod
@@ -112,6 +118,15 @@ class BasicRepositoryTests(test_basic.BasicTests):
         cls.equipments_repository.add(equipment1)
         cls.equipments_repository.add(equipment2)
         cls.equipments_repository.add(equipment3)
+
+    @classmethod
+    def add_announces(cls):
+        cls.announces_repository.add(shop1_equipment1_announce1)
+        cls.announces_repository.add(shop1_equipment2_announce1)
+        cls.announces_repository.add(shop2_equipment2_announce1)
+        cls.announces_repository.add(shop2_equipment2_announce2)
+        cls.announces_repository.add(shop3_equipment1_announce1)
+        cls.announces_repository.add(shop3_equipment3_announce1)
 
     def tearDown(self):
         if not self.database_populated:
