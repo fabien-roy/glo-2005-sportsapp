@@ -2,6 +2,7 @@
 
 ![Build](https://github.com/ExiledNarwal28/glo-2005-sportsapp/workflows/Build/badge.svg?branch=master)
 [![codecov](https://codecov.io/gh/ExiledNarwal28/glo-2005-sportsapp/branch/master/graph/badge.svg?token=R9AKC1L5PE)](https://codecov.io/gh/ExiledNarwal28/glo-2005-sportsapp)
+[![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/)
 
 This is our project for course GLO-2005 at Laval University.
 
