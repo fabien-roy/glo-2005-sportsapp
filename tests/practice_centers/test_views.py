@@ -40,9 +40,11 @@ class PracticeCentersViewsTests(BasicViewTests):
         self.remove_practice_centers()
         self.assert_item_details_are_not_found([(center1.id, center1.name)])
 
+    # TODO : Test center.web_site is present in details
     @staticmethod
     def get_center_details(center):
-        return [center.name, center.email, center.phone_number]
+        return [center.name, center.email, center.phone_number] \
+               + list(map(lambda climate: climate.name, center.climates))
 
 
 if __name__ == "__main__":

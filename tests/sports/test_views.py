@@ -31,14 +31,18 @@ class SportsViewsTests(BasicViewTests):
 
     def test_sport_details_should_display_sport_details(self):
         self.assert_item_details_are_displayed([
-            (sport1.id, [sport1.name]),
-            (sport2.id, [sport2.name]),
-            (sport3.id, [sport3.name]),
+            (sport1.id, self.get_sport_details(sport1)),
+            (sport2.id, self.get_sport_details(sport2)),
+            (sport3.id, self.get_sport_details(sport3)),
         ])
 
     def test_sport_details__without_sport_should_respond_not_found(self):
         self.remove_sports()
         self.assert_item_details_are_not_found([(sport1.id, sport1.name)])
+
+    @staticmethod
+    def get_sport_details(sport):
+        return [sport.name] + list(map(lambda climate: climate.name, sport.climates))
 
 
 if __name__ == "__main__":
