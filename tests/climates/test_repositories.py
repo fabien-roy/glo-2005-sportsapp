@@ -13,7 +13,7 @@ class ClimatesRepositoryTests(BasicRepositoryTests):
         super().setUp()
         self.repository = MySQLClimatesRepository(test_database)
 
-    def test_get_all_for_sport_should_without_sport_get_no_climate(self):
+    def test_get_all_for_sport_without_sport_get_get_no_climate(self):
         self.recreate_database()
         climates = self.repository.get_all_for_sport(sport1.id)
         self.assertEqual(0, len(climates))
