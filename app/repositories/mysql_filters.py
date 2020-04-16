@@ -1,15 +1,15 @@
 class MySQLFilter:
     @staticmethod
     def filter_equal(col, value):
-        return "{} = {}".format(col, value)
+        return f'{col} = {value}'
 
     @staticmethod
     def filter_equal_string(col, value):
-        return "{} = '{}'".format(col, value)
+        return f'{col} = \'{value}\''
 
     @staticmethod
     def filter_like(col, value):
-        return "{} LIKE '%{}%'".format(col, value)
+        return f'{col} LIKE \'%{value}%\''
 
     def get_col_names(self):
         pass

@@ -5,9 +5,9 @@ from app.repositories.mysql_tables import MySQLSportsTable
 
 all_fields_to_add = MySQLSportsTable.name_col
 
-all_fields = (MySQLSportsTable.id_col + ', ' + all_fields_to_add)
+all_fields = f'{MySQLSportsTable.id_col}, {all_fields_to_add}'
 
-select_all_operation = ('SELECT ' + all_fields + ' FROM ' + MySQLSportsTable.table_name)
+select_all_operation = f'SELECT {all_fields} FROM {MySQLSportsTable.table_name}'
 
 
 class MySQLSportsQuery(MySQLQuery):
@@ -24,8 +24,8 @@ class MySQLSportsQuery(MySQLQuery):
         return self.build_query(select_all_operation, filters, orders, inner_filtering)
 
     def add(self):
-        operation = ('INSERT INTO ' + MySQLSportsTable.table_name +
-                     ' (' + all_fields_to_add + ')' +
-                     ' VALUES (%s)')
+        operation = (f'INSERT INTO {MySQLSportsTable.table_name}'
+                     f' ({all_fields_to_add})'
+                     f' VALUES (%s)')
 
         return self.build_query(operation)

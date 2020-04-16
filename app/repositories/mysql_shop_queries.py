@@ -3,14 +3,14 @@ from app.repositories.mysql_shop_filters import MySQLShopsFilter
 from app.repositories.mysql_queries import MySQLQuery
 from app.repositories.mysql_tables import MySQLShopsTable
 
-all_fields_to_add = (MySQLShopsTable.name_col +
-                     ', ' + MySQLShopsTable.email_col +
-                     ', ' + MySQLShopsTable.phone_number_col +
-                     ', ' + MySQLShopsTable.web_site_col)
+all_fields_to_add = (f'{MySQLShopsTable.name_col}'
+                     f', {MySQLShopsTable.email_col}'
+                     f', {MySQLShopsTable.phone_number_col}'
+                     f', {MySQLShopsTable.web_site_col}')
 
-all_fields = (MySQLShopsTable.id_col + ', ' + all_fields_to_add)
+all_fields = f'{MySQLShopsTable.id_col}, {all_fields_to_add}'
 
-select_all_operation = ('SELECT ' + all_fields + ' FROM ' + MySQLShopsTable.table_name)
+select_all_operation = f'SELECT {all_fields} FROM {MySQLShopsTable.table_name}'
 
 
 class MySQLShopsQuery(MySQLQuery):
@@ -27,7 +27,7 @@ class MySQLShopsQuery(MySQLQuery):
         return self.build_query(select_all_operation, filters, orders, inner_filtering)
 
     def add(self):
-        operation = ('INSERT INTO ' + MySQLShopsTable.table_name +
-                     '(' + all_fields_to_add + ') VALUES (%s, %s, %s, %s)')
+        operation = (f'INSERT INTO {MySQLShopsTable.table_name}'
+                     f'({all_fields_to_add}) VALUES (%s, %s, %s, %s)')
 
         return self.build_query(operation)

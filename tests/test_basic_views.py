@@ -24,6 +24,25 @@ class BasicViewTests(test_basic.BasicTests):
         self.add_shops()
         self.add_equipments()
 
+    def get_path(self):
+        pass
+
+    @staticmethod
+    def get_app_title():
+        return 'SportsApp'
+
+    def get_view_title(self):
+        pass
+
+    def request_get(self, reference=None):
+        return self.app.get(self.request_path(reference), follow_redirects=True)
+
+    def request_post(self, reference=None):
+        return self.app.post(self.request_path(reference), follow_redirects=True)
+
+    def request_path(self, reference=None):
+        return self.get_path() if reference is None else f'{self.get_path()}/{reference}'
+
     @staticmethod
     def reset_mocks():
         sports_repository.reset_mock()
@@ -81,6 +100,34 @@ class BasicViewTests(test_basic.BasicTests):
     def remove_equipments():
         equipments_repository.get.side_effect = lambda equipment_id: no_equipment()
         equipments_repository.get_all.side_effect = lambda form: []
+
+    def assert_page_is_found(self, response):
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(self.get_app_title().encode(), response.data)
+        self.assertIn(self.get_view_title().encode(), response.data)
+
+    def assert_page_is_not_found(self, response):
+        self.assertEqual(response.status_code, 404)
+
+    def assert_items_are_listed(self, response, tests):
+        for expected_data in tests:
+            self.assertIn(expected_data.encode(), response.data)
+
+    def assert_items_are_not_listed(self, response, tests):
+        for expected_data in tests:
+            self.assertNotIn(expected_data.encode(), response.data)
+
+    def assert_item_details_are_displayed(self, tests):
+        for reference, expected_data in tests:
+            response = self.request_get(reference)
+            self.assert_page_is_found(response)
+            self.assertIn(expected_data.encode(), response.data)
+
+    def assert_item_details_are_not_found(self, tests):
+        for reference, expected_data in tests:
+            response = self.request_get(reference)
+            self.assert_page_is_not_found(response)
+            self.assertNotIn(expected_data.encode(), response.data)
 
 
 if __name__ == "__main__":
