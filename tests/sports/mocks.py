@@ -1,3 +1,3 @@
 from unittest import mock
 
-sports_repository = mock.Mock()
+sport_repository = mock.Mock()

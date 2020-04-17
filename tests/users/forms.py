@@ -1,7 +1,7 @@
 from tests.forms import FakeGeneralSearchForm
 
 
-class FakeUsersSearchForm(FakeGeneralSearchForm):
+class FakeUserSearchForm(FakeGeneralSearchForm):
 
     def __init__(self, any_field=None, username=None, email=None, first_name=None, last_name=None,
                  phone_number=None):

@@ -1,4 +1,4 @@
-class ClimatesRepository:
+class ClimateRepository:
     def get_all_for_sport(self, sport_id):
         pass
 

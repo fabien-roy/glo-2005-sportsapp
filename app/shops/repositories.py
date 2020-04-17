@@ -1,4 +1,4 @@
-class ShopsRepository:
+class ShopRepository:
     def get_all(self, form=None):
         pass
 

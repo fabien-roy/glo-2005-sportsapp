@@ -1,4 +1,4 @@
-class SportsRepository:
+class SportRepository:
     def get_all(self, form=None):
         pass
 

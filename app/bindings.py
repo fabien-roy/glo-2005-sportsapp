@@ -1,31 +1,25 @@
-from app.announces.repositories import AnnouncesRepository
-from app.climates.repositories import ClimatesRepository
-from app.database import Database
-from app.practice_centers.repositories import PracticeCentersRepository
-from app.equipments.repositories import EquipmentsRepository
-from app.recommendations.repositories import RecommendationsRepository
-from app.repositories.mysql_announce_repositories import MySQLAnnouncesRepository
-from app.repositories.mysql_climate_repositories import MySQLClimatesRepository
-from app.repositories.mysql_database import MySQLDatabase
-from app.repositories.mysql_equipment_repositories import MySQLEquipmentsRepository
-from app.repositories.mysql_practice_center_repositories import MySQLPracticeCentersRepository
-from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
-from app.repositories.mysql_shop_repositories import MySQLShopsRepository
-from app.repositories.mysql_sport_repositories import MySQLSportsRepository
-from app.repositories.mysql_user_repositories import MySQLUsersRepository
-from app.shops.repositories import ShopsRepository
-from app.sports.repositories import SportsRepository
-from app.users.repositories import UsersRepository
+from app.announces.modules import AnnounceModule
+from app.climates.modules import ClimateModule
+from app.equipments.modules import EquipmentModule
+from app.interfaces.database import Database
+from app.interfaces.infrastructure.database import MySQLDatabase
+from app.practice_centers.modules import PracticeCenterModule
+from app.recommendations.modules import RecommendationModule
+from app.shops.modules import ShopModule
+from app.sports.modules import SportModule
+from app.users.modules import UserModule
 
 
-def configure(binder):
+def configure_database(binder):
     binder.bind(Database, to=MySQLDatabase)
 
-    binder.bind(ClimatesRepository, to=MySQLClimatesRepository)
-    binder.bind(RecommendationsRepository, to=MySQLRecommendationsRepository)
-    binder.bind(SportsRepository, to=MySQLSportsRepository)
-    binder.bind(PracticeCentersRepository, to=MySQLPracticeCentersRepository)
-    binder.bind(AnnouncesRepository, to=MySQLAnnouncesRepository)
-    binder.bind(ShopsRepository, to=MySQLShopsRepository)
-    binder.bind(EquipmentsRepository, to=MySQLEquipmentsRepository)
-    binder.bind(UsersRepository, to=MySQLUsersRepository)
+
+def configure_modules(binder):
+    binder.install(ClimateModule)
+    binder.install(SportModule)
+    binder.install(PracticeCenterModule)
+    binder.install(RecommendationModule)
+    binder.install(UserModule)
+    binder.install(AnnounceModule)
+    binder.install(ShopModule)
+    binder.install(EquipmentModule)

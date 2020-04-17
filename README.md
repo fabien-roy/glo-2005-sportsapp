@@ -36,7 +36,9 @@ Then, in MySQL Shell (for Windows, UNIX use `mysql` CLI) :
 ## Run app
 
 - `python ./run.py`
-- `python ./run.py -d` (or `--db-create` : create database tables and mock data)
+- `python ./run.py -d` (or `--db-create` : create database tables)
+- `python ./run.py -p` (or `--db-populate` : populate database with mock data)
+- `python ./run.py -cp` (usually what you want)
 
 By default, web API is hosted on port `5000` : [http://127.0.0.1:5000](http://127.0.0.1:5000).
 

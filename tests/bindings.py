@@ -1,30 +1,25 @@
-from app.announces.repositories import AnnouncesRepository
-from app.climates.repositories import ClimatesRepository
-from app.database import Database
-from app.practice_centers.repositories import PracticeCentersRepository
-from app.recommendations.repositories import RecommendationsRepository
-from app.shops.repositories import ShopsRepository
-from app.sports.repositories import SportsRepository
-from app.users.repositories import UsersRepository
-from app.equipments.repositories import EquipmentsRepository
-from tests.announces.mocks import announces_repository
-from tests.climates.mocks import climates_repository
-from tests.practice_centers.mocks import practice_centers_repository
-from tests.recommendations.mocks import recommendations_repository
-from tests.repositories.mysql_test_database import test_database
-from tests.shops.mocks import shops_repository
-from tests.sports.mocks import sports_repository
-from tests.users.mocks import users_repository
-from tests.equipments.mocks import equipments_repository
+from app.interfaces.database import Database
+from tests.announces.modules import MockAnnounceModule
+from tests.climates.modules import MockClimateModule
+from tests.equipments.modules import MockEquipmentModule
+from tests.interfaces.infrastructure.database import test_database
+from tests.practice_centers.modules import MockPracticeCenterModule
+from tests.recommendations.modules import MockRecommendationModule
+from tests.shops.modules import MockShopModule
+from tests.sports.modules import MockSportModule
+from tests.users.modules import MockUserModule
 
 
-def configure(binder):
+def configure_test_database(binder):
     binder.bind(Database, to=test_database)
-    binder.bind(ClimatesRepository, to=climates_repository)
-    binder.bind(RecommendationsRepository, to=recommendations_repository)
-    binder.bind(SportsRepository, to=sports_repository)
-    binder.bind(PracticeCentersRepository, to=practice_centers_repository)
-    binder.bind(AnnouncesRepository, to=announces_repository)
-    binder.bind(ShopsRepository, to=shops_repository)
-    binder.bind(EquipmentsRepository, to=equipments_repository)
-    binder.bind(UsersRepository, to=users_repository)
+
+
+def configure_mock_modules(binder):
+    binder.install(MockClimateModule)
+    binder.install(MockSportModule)
+    binder.install(MockPracticeCenterModule)
+    binder.install(MockRecommendationModule)
+    binder.install(MockUserModule)
+    binder.install(MockAnnounceModule)
+    binder.install(MockShopModule)
+    binder.install(MockEquipmentModule)

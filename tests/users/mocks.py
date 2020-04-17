@@ -1,3 +1,3 @@
 from unittest import mock
 
-users_repository = mock.Mock()
+user_repository = mock.Mock()
