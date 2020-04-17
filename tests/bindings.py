@@ -10,9 +10,11 @@ from tests.sports.modules import MockSportModule
 from tests.users.modules import MockUserModule
 
 
-def configure(binder):
+def configure_test_database(binder):
     binder.bind(Database, to=test_database)
 
+
+def configure_mock_modules(binder):
     binder.install(MockClimateModule)
     binder.install(MockSportModule)
     binder.install(MockPracticeCenterModule)

@@ -1,6 +1,7 @@
 import unittest
 
 from app.announces.infrastructure.repositories import MySQLAnnounceRepository
+from app.bindings import configure_modules
 from app.climates.infrastructure.repositories import MySQLClimateRepository
 from app.equipments.infrastructure.repositories import MySQLEquipmentRepository
 from app.practice_centers.infrastructure.repositories import MySQLPracticeCenterRepository
@@ -8,10 +9,12 @@ from app.recommendations.infrastructure.repositories import MySQLRecommendationR
 from app.shops.infrastructure.repositories import MySQLShopRepository
 from app.sports.infrastructure.repositories import MySQLSportRepository
 from app.users.infrastructure.repositories import MySQLUserRepository
-from instance.db_create import db_create
+from instance import instance
+from instance.injectors import InstanceInjector
 from tests.announces.fakes import shop1_equipment1_announce1, shop1_equipment2_announce1, \
     shop2_equipment2_announce1, shop2_equipment2_announce2, shop3_equipment1_announce1, \
     shop3_equipment3_announce1
+from tests.bindings import configure_test_database
 from tests.climates.fakes import climate1, climate2, climate3
 from tests.interfaces import test_basic
 from tests.interfaces.infrastructure.database import test_database
@@ -42,12 +45,13 @@ class RepositoryTests(test_basic.BasicTests):
 
     @classmethod
     def setUpClass(cls):
+        InstanceInjector(instance=instance, modules=[configure_test_database, configure_modules])
         cls.recreate_database()
         cls.populate_database()
 
     @classmethod
     def recreate_database(cls):
-        db_create(test_database)
+        instance.db_create()
         cls.database_populated = False
 
     @classmethod
@@ -89,23 +93,23 @@ class RepositoryTests(test_basic.BasicTests):
 
     @classmethod
     def add_sport_recommendations(cls):
-        cls.recommendations_repository.add_for_sport(sport1_recommendation1_user1, sport1)
-        cls.recommendations_repository.add_for_sport(sport2_recommendation1_user3, sport2)
-        cls.recommendations_repository.add_for_sport(sport2_recommendation2_user2, sport2)
-        cls.recommendations_repository.add_for_sport(sport3_recommendation1_user1, sport3)
+        cls.recommendations_repository.add_for_sport(sport1_recommendation1_user1, sport1.id)
+        cls.recommendations_repository.add_for_sport(sport2_recommendation1_user3, sport2.id)
+        cls.recommendations_repository.add_for_sport(sport2_recommendation2_user2, sport2.id)
+        cls.recommendations_repository.add_for_sport(sport3_recommendation1_user1, sport3.id)
 
     @classmethod
     def add_practice_center_recommendations(cls):
         cls.recommendations_repository.add_for_practice_center(center1_recommendation1_user1,
-                                                               center1)
+                                                               center1.id)
         cls.recommendations_repository.add_for_practice_center(center2_recommendation1_user1,
-                                                               center2)
+                                                               center2.id)
         cls.recommendations_repository.add_for_practice_center(center2_recommendation2_user2,
-                                                               center2)
+                                                               center2.id)
         cls.recommendations_repository.add_for_practice_center(center3_recommendation1_user3,
-                                                               center3)
+                                                               center3.id)
         cls.recommendations_repository.add_for_practice_center(center3_recommendation2_user1,
-                                                               center3)
+                                                               center3.id)
 
     @classmethod
     def add_shops(cls):
@@ -121,12 +125,12 @@ class RepositoryTests(test_basic.BasicTests):
 
     @classmethod
     def add_announces(cls):
-        cls.announces_repository.add(shop1_equipment1_announce1, shop1, equipment1)
-        cls.announces_repository.add(shop1_equipment2_announce1, shop1, equipment2)
-        cls.announces_repository.add(shop2_equipment2_announce1)
-        cls.announces_repository.add(shop2_equipment2_announce2)
-        cls.announces_repository.add(shop3_equipment1_announce1)
-        cls.announces_repository.add(shop3_equipment3_announce1)
+        cls.announces_repository.add(shop1_equipment1_announce1, shop1.id, equipment1.id)
+        cls.announces_repository.add(shop1_equipment2_announce1, shop1.id, equipment2.id)
+        cls.announces_repository.add(shop2_equipment2_announce1, shop2.id, equipment2.id)
+        cls.announces_repository.add(shop2_equipment2_announce2, shop2.id, equipment2.id)
+        cls.announces_repository.add(shop3_equipment1_announce1, shop3.id, equipment1.id)
+        cls.announces_repository.add(shop3_equipment3_announce1, shop3.id, equipment3.id)
 
     def tearDown(self):
         if not self.database_populated:

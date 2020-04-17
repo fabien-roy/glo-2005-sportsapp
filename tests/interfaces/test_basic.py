@@ -3,7 +3,7 @@ import unittest
 from flask_injector import FlaskInjector
 
 from app import app
-from tests.bindings import configure
+from tests.bindings import configure_test_database, configure_mock_modules
 
 
 class BasicTests(unittest.TestCase):
@@ -13,7 +13,7 @@ class BasicTests(unittest.TestCase):
         app.config['WTF_CSRF_ENABLED'] = False
         app.config['DEBUG'] = False
 
-        FlaskInjector(app=app, modules=[configure])
+        FlaskInjector(app=app, modules=[configure_test_database, configure_mock_modules])
 
         self.app = app.test_client()
 

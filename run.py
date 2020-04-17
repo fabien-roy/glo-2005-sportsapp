@@ -4,13 +4,13 @@ import sys
 from flask_injector import FlaskInjector
 
 from app import app
-from app.bindings import configure
+from app.bindings import configure_database, configure_modules
 from instance import instance
 from instance.injectors import InstanceInjector
 
-FlaskInjector(app=app, modules=[configure])
+FlaskInjector(app=app, modules=[configure_database, configure_modules])
 
-InstanceInjector(instance=instance, modules=[configure])
+InstanceInjector(instance=instance, modules=[configure_database, configure_modules])
 
 
 def main(argv):

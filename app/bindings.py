@@ -10,9 +10,11 @@ from app.sports.modules import SportModule
 from app.users.modules import UserModule
 
 
-def configure(binder):
+def configure_database(binder):
     binder.bind(Database, to=MySQLDatabase)
 
+
+def configure_modules(binder):
     binder.install(ClimateModule)
     binder.install(SportModule)
     binder.install(PracticeCenterModule)
