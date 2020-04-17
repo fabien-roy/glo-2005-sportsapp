@@ -1,13 +1,13 @@
 from injector import inject
 
-from instance.announces.services import AnnouncePopulationService
 from instance.climates.services import ClimatePopulationService
-from instance.equipments.services import EquipmentPopulationService
+from instance.sports.services import SportPopulationService
 from instance.practice_centers.services import PracticeCenterPopulationService
+from instance.users.services import UserPopulationService
 from instance.recommendations.services import RecommendationPopulationService
 from instance.shops.services import ShopPopulationService
-from instance.sports.services import SportPopulationService
-from instance.users.services import UserPopulationService
+from instance.equipments.services import EquipmentPopulationService
+from instance.announces.services import AnnouncePopulationService
 
 
 class PopulationService:
