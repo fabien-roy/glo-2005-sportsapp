@@ -1,18 +1,18 @@
 import unittest
 
-from app.repositories.mysql_announce_repositories import MySQLAnnouncesRepository
-from app.repositories.mysql_climate_repositories import MySQLClimatesRepository
-from app.repositories.mysql_practice_center_repositories import MySQLPracticeCentersRepository
-from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
-from app.repositories.mysql_shop_repositories import MySQLShopsRepository
-from app.repositories.mysql_sport_repositories import MySQLSportsRepository
-from app.repositories.mysql_user_repositories import MySQLUsersRepository
-from app.repositories.mysql_equipment_repositories import MySQLEquipmentsRepository
+from app.announces.infrastructure.repositories import MySQLAnnounceRepository
+from app.climates.infrastructure.repositories import MySQLClimateRepository
+from app.equipments.infrastructure.repositories import MySQLEquipmentRepository
+from app.practice_centers.infrastructure.repositories import MySQLPracticeCenterRepository
+from app.recommendations.infrastructure.repositories import MySQLRecommendationRepository
+from app.shops.infrastructure.repositories import MySQLShopRepository
+from app.sports.infrastructure.repositories import MySQLSportRepository
+from app.users.infrastructure.repositories import MySQLUserRepository
 from instance.db_create import db_create
-from tests import test_basic
 from tests.announces.fakes import shop1_equipment1_announce1, shop1_equipment2_announce1, \
     shop2_equipment2_announce1, shop2_equipment2_announce2, shop3_equipment1_announce1, \
     shop3_equipment3_announce1
+from tests.basics import test_basic
 from tests.climates.fakes import climate1, climate2, climate3
 from tests.practice_centers.fakes import center1, center2, center3
 from tests.recommendations.fakes import sport1_recommendation1_user1, \
@@ -29,16 +29,16 @@ from tests.equipments.fakes import equipment1, equipment2, equipment3
 class BasicRepositoryTests(test_basic.BasicTests):
     database_populated = False
 
-    climates_repository = MySQLClimatesRepository(test_database)
-    recommendations_repository = MySQLRecommendationsRepository(test_database)
-    sports_repository = MySQLSportsRepository(test_database, climates_repository,
+    climates_repository = MySQLClimateRepository(test_database)
+    recommendations_repository = MySQLRecommendationRepository(test_database)
+    sports_repository = MySQLSportRepository(test_database, climates_repository,
                                               recommendations_repository)
-    practice_centers_repository = MySQLPracticeCentersRepository(test_database, climates_repository,
+    practice_centers_repository = MySQLPracticeCenterRepository(test_database, climates_repository,
                                                                  recommendations_repository)
-    announces_repository = MySQLAnnouncesRepository(test_database)
-    shops_repository = MySQLShopsRepository(test_database, announces_repository)
-    equipments_repository = MySQLEquipmentsRepository(test_database, announces_repository)
-    users_repository = MySQLUsersRepository(test_database, recommendations_repository)
+    announces_repository = MySQLAnnounceRepository(test_database)
+    shops_repository = MySQLShopRepository(test_database, announces_repository)
+    equipments_repository = MySQLEquipmentRepository(test_database, announces_repository)
+    users_repository = MySQLUserRepository(test_database, recommendations_repository)
 
     @classmethod
     def setUpClass(cls):

@@ -3,11 +3,11 @@ from flask_bcrypt import Bcrypt
 from flask_bootstrap import Bootstrap
 from flask_cors import CORS
 
-from app.practice_centers.ui import practice_centers_blueprint
-from app.shops.views import shops_blueprint
-from app.sports.views import sports_blueprint
-from app.users.views import users_blueprint
-from app.equipments.views import equipments_blueprint
+from app.practice_centers.ui.views import practice_center_blueprint
+from app.shops.ui.views import shop_blueprint
+from app.sports.ui.views import sport_blueprint
+from app.users.ui.views import user_blueprint
+from app.equipments.ui.views import equipment_blueprint
 from app.search.views import search_blueprint
 
 app = Flask(__name__, instance_relative_config=True)
@@ -18,11 +18,11 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 Bootstrap(app)
 
 app.register_blueprint(search_blueprint)
-app.register_blueprint(sports_blueprint)
-app.register_blueprint(practice_centers_blueprint)
-app.register_blueprint(shops_blueprint)
-app.register_blueprint(equipments_blueprint)
-app.register_blueprint(users_blueprint)
+app.register_blueprint(sport_blueprint)
+app.register_blueprint(practice_center_blueprint)
+app.register_blueprint(shop_blueprint)
+app.register_blueprint(equipment_blueprint)
+app.register_blueprint(user_blueprint)
 
 
 @app.errorhandler(400)

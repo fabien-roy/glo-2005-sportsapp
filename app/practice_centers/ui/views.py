@@ -6,10 +6,10 @@ from app.practice_centers.exceptions import PracticeCenterNotFoundException
 from app.practice_centers.forms import PracticeCenterSearchForm
 from app.practice_centers.repositories import PracticeCenterRepository
 
-practice_centers_blueprint = Blueprint('practice_centers', __name__)
+practice_center_blueprint = Blueprint('practice_centers', __name__)
 
 
-@practice_centers_blueprint.route('/practice-centers', methods=('GET', 'POST'))
+@practice_center_blueprint.route('/practice-centers', methods=('GET', 'POST'))
 def practice_centers(practice_centers_repository: PracticeCenterRepository):
     form = PracticeCenterSearchForm(request.form)
 
@@ -22,7 +22,7 @@ def practice_centers(practice_centers_repository: PracticeCenterRepository):
                            form=form)
 
 
-@practice_centers_blueprint.route('/practice-centers/<practice_center_id>')
+@practice_center_blueprint.route('/practice-centers/<practice_center_id>')
 def practice_center_details(practice_centers_repository: PracticeCenterRepository,
                             practice_center_id):
     try:

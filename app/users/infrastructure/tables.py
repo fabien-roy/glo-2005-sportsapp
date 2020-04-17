@@ -1,4 +1,4 @@
-class MySQLUsersTable:
+class MySQLUserTable:
     table_name = 'users'
     username_col = 'username'
     email_col = 'email'

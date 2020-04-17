@@ -6,10 +6,10 @@ from app.users.exceptions import UserNotFoundException
 from app.users.forms import UsersSearchForm
 from app.users.repositories import UsersRepository
 
-users_blueprint = Blueprint('users', __name__)
+user_blueprint = Blueprint('users', __name__)
 
 
-@users_blueprint.route('/users', methods=('GET', 'POST'))
+@user_blueprint.route('/users', methods=('GET', 'POST'))
 def users(users_repository: UsersRepository):
     form = UsersSearchForm(request.form)
 
@@ -21,7 +21,7 @@ def users(users_repository: UsersRepository):
     return render_template('users.html', users=all_users, form=form)
 
 
-@users_blueprint.route('/users/<username>')
+@user_blueprint.route('/users/<username>')
 def user_details(users_repository: UsersRepository, username):
     try:
         user = users_repository.get(username)

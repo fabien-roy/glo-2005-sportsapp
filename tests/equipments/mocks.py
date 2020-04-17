@@ -1,3 +1,3 @@
 from unittest import mock
 
-equipments_repository = mock.Mock()
+equipment_repository = mock.Mock()

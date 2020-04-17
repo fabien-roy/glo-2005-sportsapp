@@ -1,16 +1,16 @@
 import unittest
 
-from tests import test_basic
+from tests.basics import test_basic
 from tests.equipments.fakes import get_equipment, get_equipments_filtered, no_equipment
-from tests.equipments.mocks import equipments_repository
+from tests.equipments.mocks import equipment_repository
 from tests.practice_centers.fakes import get_practice_center, get_practice_centers_filtered, \
     no_practice_center
-from tests.practice_centers.mocks import practice_centers_repository
+from tests.practice_centers.mocks import practice_center_repository
 from tests.sports.fakes import get_sport, no_sport, get_sports_filtered
-from tests.sports.mocks import sports_repository
+from tests.sports.mocks import sport_repository
 from tests.users.fakes import get_user, no_user, get_users_filtered
-from tests.users.mocks import users_repository
-from tests.shops.mocks import shops_repository
+from tests.users.mocks import user_repository
+from tests.shops.mocks import shop_repository
 from tests.shops.fakes import get_shop, no_shop, get_shops_filtered
 
 
@@ -45,61 +45,61 @@ class BasicViewTests(test_basic.BasicTests):
 
     @staticmethod
     def reset_mocks():
-        sports_repository.reset_mock()
-        practice_centers_repository.reset_mock()
-        users_repository.reset_mock()
-        shops_repository.reset_mock()
+        sport_repository.reset_mock()
+        practice_center_repository.reset_mock()
+        user_repository.reset_mock()
+        shop_repository.reset_mock()
 
     @staticmethod
     def add_sports():
-        sports_repository.get.side_effect = get_sport
-        sports_repository.get_all.side_effect = get_sports_filtered
+        sport_repository.get.side_effect = get_sport
+        sport_repository.get_all.side_effect = get_sports_filtered
 
     @staticmethod
     def remove_sports():
-        sports_repository.get.side_effect = lambda sport_id: no_sport()
-        sports_repository.get_all.side_effect = lambda form: []
+        sport_repository.get.side_effect = lambda sport_id: no_sport()
+        sport_repository.get_all.side_effect = lambda form: []
 
     @staticmethod
     def add_practice_centers():
-        practice_centers_repository.get.side_effect = get_practice_center
-        practice_centers_repository.get_all.side_effect = get_practice_centers_filtered
+        practice_center_repository.get.side_effect = get_practice_center
+        practice_center_repository.get_all.side_effect = get_practice_centers_filtered
 
     @staticmethod
     def remove_practice_centers():
-        practice_centers_repository.get.side_effect = \
+        practice_center_repository.get.side_effect = \
             lambda practice_center_id: no_practice_center()
-        practice_centers_repository.get_all.side_effect = lambda form: []
+        practice_center_repository.get_all.side_effect = lambda form: []
 
     @staticmethod
     def add_users():
-        users_repository.get.side_effect = get_user
-        users_repository.get_all.side_effect = get_users_filtered
+        user_repository.get.side_effect = get_user
+        user_repository.get_all.side_effect = get_users_filtered
 
     @staticmethod
     def remove_users():
-        users_repository.get.side_effect = lambda username: no_user()
-        users_repository.get_all.side_effect = lambda form: []
+        user_repository.get.side_effect = lambda username: no_user()
+        user_repository.get_all.side_effect = lambda form: []
 
     @staticmethod
     def add_shops():
-        shops_repository.get.side_effect = get_shop
-        shops_repository.get_all.side_effect = get_shops_filtered
+        shop_repository.get.side_effect = get_shop
+        shop_repository.get_all.side_effect = get_shops_filtered
 
     @staticmethod
     def remove_shops():
-        shops_repository.get.side_effect = lambda shop_id: no_shop()
-        shops_repository.get_all.side_effect = lambda form: []
+        shop_repository.get.side_effect = lambda shop_id: no_shop()
+        shop_repository.get_all.side_effect = lambda form: []
 
     @staticmethod
     def add_equipments():
-        equipments_repository.get.side_effect = get_equipment
-        equipments_repository.get_all.side_effect = get_equipments_filtered
+        equipment_repository.get.side_effect = get_equipment
+        equipment_repository.get_all.side_effect = get_equipments_filtered
 
     @staticmethod
     def remove_equipments():
-        equipments_repository.get.side_effect = lambda equipment_id: no_equipment()
-        equipments_repository.get_all.side_effect = lambda form: []
+        equipment_repository.get.side_effect = lambda equipment_id: no_equipment()
+        equipment_repository.get_all.side_effect = lambda form: []
 
     def assert_page_is_found(self, response):
         self.assertEqual(response.status_code, 200)

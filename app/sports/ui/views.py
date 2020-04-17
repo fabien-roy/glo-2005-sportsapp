@@ -6,10 +6,10 @@ from app.sports.exceptions import SportNotFoundException
 from app.sports.forms import SportSearchForm
 from app.sports.repositories import SportRepository
 
-sports_blueprint = Blueprint('sports', __name__)
+sport_blueprint = Blueprint('sports', __name__)
 
 
-@sports_blueprint.route('/sports', methods=('GET', 'POST'))
+@sport_blueprint.route('/sports', methods=('GET', 'POST'))
 def sports(sports_repository: SportRepository):
     form = SportSearchForm(request.form)
 
@@ -21,7 +21,7 @@ def sports(sports_repository: SportRepository):
     return render_template('sports.html', sports=all_sports, form=form)
 
 
-@sports_blueprint.route('/sports/<sport_id>')
+@sport_blueprint.route('/sports/<sport_id>')
 def sport_details(sports_repository: SportRepository, sport_id):
     try:
         sport = sports_repository.get(sport_id)

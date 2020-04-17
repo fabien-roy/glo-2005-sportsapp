@@ -1,9 +1,9 @@
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
 from app.practice_centers.infrastructure.repositories import MySQLPracticeCenterRepository
-from tests.climates.mocks import climates_repository
+from tests.climates.mocks import climate_repository
 from tests.practice_centers.fakes import center1, center2, center3
 from tests.practice_centers.forms import FakePracticeCenterSearchForm
-from tests.recommendations.mocks import recommendations_repository
+from tests.recommendations.mocks import recommendation_repository
 from tests.repositories.mysql_test_database import test_database
 from tests.test_basic_repositories import BasicRepositoryTests
 
@@ -12,8 +12,8 @@ class PracticeCenterRepositoryTests(BasicRepositoryTests):
 
     def setUp(self):
         super().setUp()
-        self.repository = MySQLPracticeCenterRepository(test_database, climates_repository,
-                                                        recommendations_repository)
+        self.repository = MySQLPracticeCenterRepository(test_database, climate_repository,
+                                                        recommendation_repository)
 
     def test_get_with_no_practice_center_should_raise_practice_center_not_found_exception(self):
         self.recreate_database()

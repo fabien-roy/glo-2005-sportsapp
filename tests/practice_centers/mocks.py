@@ -1,3 +1,3 @@
 from unittest import mock
 
-practice_centers_repository = mock.Mock()
+practice_center_repository = mock.Mock()

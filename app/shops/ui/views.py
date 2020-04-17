@@ -6,10 +6,10 @@ from app.shops.exceptions import ShopNotFoundException
 from app.shops.forms import ShopSearchForm
 from app.shops.repositories import ShopsRepository
 
-shops_blueprint = Blueprint('shops', __name__)
+shop_blueprint = Blueprint('shops', __name__)
 
 
-@shops_blueprint.route('/shops', methods=('GET', 'POST'))
+@shop_blueprint.route('/shops', methods=('GET', 'POST'))
 def shops(shops_repository: ShopsRepository):
     form = ShopSearchForm(request.form)
 
@@ -21,7 +21,7 @@ def shops(shops_repository: ShopsRepository):
     return render_template('shops.html', shops=all_shops, form=form)
 
 
-@shops_blueprint.route('/shops/<shop_id>')
+@shop_blueprint.route('/shops/<shop_id>')
 def shop_details(shops_repository: ShopsRepository, shop_id):
     try:
         shop = shops_repository.get(shop_id)
