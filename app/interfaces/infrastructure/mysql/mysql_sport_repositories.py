@@ -1,6 +1,6 @@
 from injector import inject
 
-from app.climates.repositories import ClimatesRepository
+from app.climates.climate_repository import ClimatesRepository
 from app.database import Database
 from app.recommendations.repositories import RecommendationsRepository
 from app.repositories.mysql_sport_queries import MySQLSportsQuery

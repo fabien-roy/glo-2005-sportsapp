@@ -1,6 +1,6 @@
 from injector import inject
 
-from app.climates.repositories import ClimatesRepository
+from app.climates.climate_repository import ClimatesRepository
 from app.database import Database
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
 from app.practice_centers.models import PracticeCenter

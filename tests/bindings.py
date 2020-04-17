@@ -1,5 +1,5 @@
 from app.announces.repositories import AnnouncesRepository
-from app.climates.repositories import ClimatesRepository
+from app.climates.climate_repository import ClimatesRepository
 from app.database import Database
 from app.practice_centers.repositories import PracticeCentersRepository
 from app.recommendations.repositories import RecommendationsRepository

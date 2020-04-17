@@ -1,10 +1,10 @@
-from app.repositories.mysql_filters import MySQLFilter
-from app.repositories.mysql_queries import MySQLQuery
-from app.repositories.mysql_tables import MySQLClimatesTable, MySQLSportClimatesTable, \
-    MySQLPracticeCenterClimatesTable
+from app.climates.infrastructure.mysql.tables import MySQLSportClimatesTable, \
+    MySQLPracticeCenterClimatesTable, MySQLClimatesTable
+from app.interfaces.infrastructure.mysql.filters import MySQLFilter
+from app.interfaces.infrastructure.mysql.queries import MySQLQuery
 
 
-class MySQLClimatesQuery(MySQLQuery):
+class MySQLClimateQuery(MySQLQuery):
     fake_name_col = 'name'
 
     def get_all_for_sport(self, sport_id):
