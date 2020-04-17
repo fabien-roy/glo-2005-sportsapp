@@ -1,10 +1,10 @@
 import unittest
 
-from tests.basics.ui.test_basic_views import BasicViewTests
 from tests.equipments.fakes import equipment1, equipment2, equipment3
+from tests.interfaces.ui.test_views import ViewTests
 
 
-class EquipmentViewTests(BasicViewTests):
+class EquipmentViewTests(ViewTests):
 
     def get_path(self):
         return '/equipments'

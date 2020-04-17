@@ -3,13 +3,13 @@ import unittest
 from app.shops.exceptions import ShopNotFoundException
 from app.shops.infrastructure.repositories import MySQLShopRepository
 from tests.announces.mocks import announce_repository
-from tests.basics.infrastructure.test_basic_repositories import BasicRepositoryTests
-from tests.repositories.mysql_test_database import test_database
+from tests.interfaces.infrastructure.database import test_database
+from tests.interfaces.infrastructure.test_repositories import RepositoryTests
 from tests.shops.fakes import shop1, shop2, shop3
 from tests.shops.forms import FakeShopSearchForm
 
 
-class ShopRepositoryTests(BasicRepositoryTests):
+class ShopRepositoryTests(RepositoryTests):
 
     def setUp(self):
         super().setUp()

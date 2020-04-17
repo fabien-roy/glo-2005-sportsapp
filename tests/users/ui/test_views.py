@@ -1,10 +1,10 @@
 import unittest
 
-from tests.basics.ui.test_basic_views import BasicViewTests
+from tests.interfaces.ui.test_views import ViewTests
 from tests.users.fakes import user1, user2, user3
 
 
-class UsersViewsTests(BasicViewTests):
+class UserViewTests(ViewTests):
 
     def get_path(self):
         return '/users'

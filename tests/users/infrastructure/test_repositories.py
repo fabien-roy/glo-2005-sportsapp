@@ -2,14 +2,14 @@ import unittest
 
 from app.users.exceptions import UserNotFoundException
 from app.users.infrastructure.repositories import MySQLUserRepository
-from tests.basics.infrastructure.test_basic_repositories import BasicRepositoryTests
+from tests.interfaces.infrastructure.database import test_database
+from tests.interfaces.infrastructure.test_repositories import RepositoryTests
 from tests.recommendations.mocks import recommendation_repository
-from tests.repositories.mysql_test_database import test_database
 from tests.users.fakes import user1, user2, user3
 from tests.users.forms import FakeUserSearchForm
 
 
-class UserRepositoryTests(BasicRepositoryTests):
+class UserRepositoryTests(RepositoryTests):
     def setUp(self):
         super().setUp()
         self.repository = MySQLUserRepository(test_database, recommendation_repository)

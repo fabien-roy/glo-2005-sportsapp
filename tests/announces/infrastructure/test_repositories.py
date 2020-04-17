@@ -1,13 +1,13 @@
 import unittest
 
 from app.announces.infrastructure.repositories import MySQLAnnounceRepository
-from tests.basics.infrastructure.test_basic_repositories import BasicRepositoryTests
 from tests.equipments.fakes import equipment1, equipment2, equipment3
-from tests.repositories.mysql_test_database import test_database
+from tests.interfaces.infrastructure.database import test_database
+from tests.interfaces.infrastructure.test_repositories import RepositoryTests
 from tests.shops.fakes import shop3, shop2, shop1
 
 
-class MySQLAnnounceRepositoryTests(BasicRepositoryTests):
+class MySQLAnnounceRepositoryTests(RepositoryTests):
 
     def setUp(self):
         super().setUp()

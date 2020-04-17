@@ -1,13 +1,13 @@
 import unittest
 
-from tests.basics.ui.test_basic_views import BasicViewTests
+from tests.interfaces.ui.test_views import ViewTests
 from tests.practice_centers.fakes import center1, center2, center3
 from tests.shops.fakes import shop3, shop2, shop1
 from tests.sports.fakes import sport1, sport2, sport3
 from tests.users.fakes import user1, user2, user3
 
 
-class RootViewsTests(BasicViewTests):
+class RootViewsTests(ViewTests):
 
     def test_search_with_sports_should_redirect(self):
         form = {'search_route': 'sports.sports'}

@@ -1,14 +1,14 @@
 from app.sports.exceptions import SportNotFoundException
 from app.sports.infrastructure.repositories import MySQLSportRepository
-from tests.basics.infrastructure.test_basic_repositories import BasicRepositoryTests
 from tests.climates.mocks import climate_repository
+from tests.interfaces.infrastructure.database import test_database
+from tests.interfaces.infrastructure.test_repositories import RepositoryTests
 from tests.recommendations.mocks import recommendation_repository
-from tests.repositories.mysql_test_database import test_database
 from tests.sports.fakes import sport1, sport2, sport3
 from tests.sports.forms import FakeSportSearchForm
 
 
-class SportsRepositoryTests(BasicRepositoryTests):
+class SportsRepositoryTests(RepositoryTests):
 
     def setUp(self):
         super().setUp()

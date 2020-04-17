@@ -1,20 +1,20 @@
 import unittest
 
-from tests.basics import test_basic
 from tests.equipments.fakes import get_equipment, get_equipments_filtered, no_equipment
 from tests.equipments.mocks import equipment_repository
+from tests.interfaces import test_basic
 from tests.practice_centers.fakes import get_practice_center, get_practice_centers_filtered, \
     no_practice_center
 from tests.practice_centers.mocks import practice_center_repository
+from tests.shops.mocks import shop_repository
 from tests.sports.fakes import get_sport, no_sport, get_sports_filtered
 from tests.sports.mocks import sport_repository
 from tests.users.fakes import get_user, no_user, get_users_filtered
-from tests.users.mocks import user_repository
-from tests.shops.mocks import shop_repository
 from tests.shops.fakes import get_shop, no_shop, get_shops_filtered
+from tests.users.mocks import user_repository
 
 
-class BasicViewTests(test_basic.BasicTests):
+class ViewTests(test_basic.BasicTests):
     def setUp(self):
         super().setUp()
         self.reset_mocks()

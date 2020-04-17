@@ -12,29 +12,29 @@ from instance.db_create import db_create
 from tests.announces.fakes import shop1_equipment1_announce1, shop1_equipment2_announce1, \
     shop2_equipment2_announce1, shop2_equipment2_announce2, shop3_equipment1_announce1, \
     shop3_equipment3_announce1
-from tests.basics import test_basic
 from tests.climates.fakes import climate1, climate2, climate3
+from tests.interfaces import test_basic
+from tests.interfaces.infrastructure.database import test_database
 from tests.practice_centers.fakes import center1, center2, center3
 from tests.recommendations.fakes import sport1_recommendation1_user1, \
     sport2_recommendation1_user3, sport2_recommendation2_user2, sport3_recommendation1_user1, \
     center1_recommendation1_user1, center2_recommendation1_user1, center2_recommendation2_user2, \
     center3_recommendation1_user3, center3_recommendation2_user1
-from tests.repositories.mysql_test_database import test_database
 from tests.shops.fakes import shop1, shop2, shop3
 from tests.sports.fakes import sport1, sport2, sport3
 from tests.users.fakes import user1, user2, user3
 from tests.equipments.fakes import equipment1, equipment2, equipment3
 
 
-class BasicRepositoryTests(test_basic.BasicTests):
+class RepositoryTests(test_basic.BasicTests):
     database_populated = False
 
     climates_repository = MySQLClimateRepository(test_database)
     recommendations_repository = MySQLRecommendationRepository(test_database)
     sports_repository = MySQLSportRepository(test_database, climates_repository,
-                                              recommendations_repository)
+                                             recommendations_repository)
     practice_centers_repository = MySQLPracticeCenterRepository(test_database, climates_repository,
-                                                                 recommendations_repository)
+                                                                recommendations_repository)
     announces_repository = MySQLAnnounceRepository(test_database)
     shops_repository = MySQLShopRepository(test_database, announces_repository)
     equipments_repository = MySQLEquipmentRepository(test_database, announces_repository)
