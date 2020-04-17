@@ -51,12 +51,12 @@ class ShopsViewsTests(BasicViewTests):
     def get_shop_details(shop):
         return [shop.name, shop.email, shop.phone_number]
 
-    # TODO : Announce.date
+    # TODO : Announce.date and Announce.price
     @staticmethod
     def get_announces_details(shop):
         details = []
         for announce in shop.announces:
-            details += [announce.equipment_name, announce.state, announce.price]
+            details += [announce.equipment_name, announce.state]
         return details
 
 
