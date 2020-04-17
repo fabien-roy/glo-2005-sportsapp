@@ -3,7 +3,7 @@ from flask.views import View
 from injector import inject
 
 from app.shops.exceptions import ShopNotFoundException
-from app.shops.forms import ShopsSearchForm
+from app.shops.forms import ShopSearchForm
 from app.shops.repositories import ShopsRepository
 
 shops_blueprint = Blueprint('shops', __name__)
@@ -11,7 +11,7 @@ shops_blueprint = Blueprint('shops', __name__)
 
 @shops_blueprint.route('/shops', methods=('GET', 'POST'))
 def shops(shops_repository: ShopsRepository):
-    form = ShopsSearchForm(request.form)
+    form = ShopSearchForm(request.form)
 
     if request.method == 'POST' and form.validate_on_submit():
         all_shops = shops_repository.get_all(form)

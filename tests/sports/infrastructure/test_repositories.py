@@ -4,7 +4,7 @@ from tests.climates.mocks import climates_repository
 from tests.recommendations.mocks import recommendations_repository
 from tests.repositories.mysql_test_database import test_database
 from tests.sports.fakes import sport1, sport2, sport3
-from tests.sports.forms import FakeSportsSearchForm
+from tests.sports.forms import FakeSportSearchForm
 from tests.test_basic_repositories import BasicRepositoryTests
 
 
@@ -58,14 +58,14 @@ class SportsRepositoryTests(BasicRepositoryTests):
         self.assertIn(sport3, sports)
 
     def test_get_all_with_all_filter_sports(self):
-        form = FakeSportsSearchForm(any_field=sport1.name)
+        form = FakeSportSearchForm(any_field=sport1.name)
         sports = self.repository.get_all(form)
         self.assertIn(sport1, sports)
         self.assertNotIn(sport2, sports)
         self.assertNotIn(sport3, sports)
 
     def test_get_all_with_name_filter_sports(self):
-        form = FakeSportsSearchForm(name=sport1.name)
+        form = FakeSportSearchForm(name=sport1.name)
         sports = self.repository.get_all(form)
         self.assertIn(sport1, sports)
         self.assertNotIn(sport2, sports)

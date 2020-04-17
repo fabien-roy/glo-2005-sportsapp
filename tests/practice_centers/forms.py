@@ -1,7 +1,7 @@
 from tests.forms import FakeGeneralSearchForm
 
 
-class FakePracticeCentersSearchForm(FakeGeneralSearchForm):
+class FakePracticeCenterSearchForm(FakeGeneralSearchForm):
 
     def __init__(self, any_field=None, name=None, email=None, web_site=None, phone_number=None):
         super().__init__(any_field)

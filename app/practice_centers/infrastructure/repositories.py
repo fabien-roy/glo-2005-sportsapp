@@ -1,29 +1,29 @@
 from injector import inject
 
-from app.climates.climate_repository import ClimatesRepository
+from app.climates.repositories import ClimateRepository
 from app.database import Database
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
+from app.practice_centers.infrastructure.queries import MySQLPracticeCenterQuery as Query
+from app.practice_centers.infrastructure.tables import MySQLPracticeCenterTable as PracticeCenters
 from app.practice_centers.models import PracticeCenter
-from app.practice_centers.repositories import PracticeCentersRepository
+from app.practice_centers.repositories import PracticeCenterRepository
 from app.recommendations.repositories import RecommendationRepository
-from app.repositories.mysql_practice_center_queries import MySQLPracticeCentersQuery
-from app.repositories.mysql_tables import MySQLPracticeCentersTable
 
 
-class MySQLPracticeCentersRepository(PracticeCentersRepository):
+class MySQLPracticeCenterRepository(PracticeCenterRepository):
     @inject
-    def __init__(self, database: Database, climates_repository: ClimatesRepository,
-                 recommendations_repository: RecommendationRepository):
+    def __init__(self, database: Database, climate_repository: ClimateRepository,
+                 recommendation_repository: RecommendationRepository):
         self.database = database
-        self.climates_repository = climates_repository
-        self.recommendations_repository = recommendations_repository
+        self.climates_repository = climate_repository
+        self.recommendation_repository = recommendation_repository
 
     def get_all(self, form=None):
         all_practice_centers = []
 
         try:
             with self.database.connect().cursor() as cur:
-                query = MySQLPracticeCentersQuery().get_all(form)
+                query = Query().get_all(form)
                 cur.execute(query)
 
                 for practice_center_cur in cur.fetchall():
@@ -39,13 +39,13 @@ class MySQLPracticeCentersRepository(PracticeCentersRepository):
 
         try:
             with self.database.connect().cursor() as cur:
-                query = MySQLPracticeCentersQuery().get(practice_center_id)
+                query = Query().get(practice_center_id)
                 cur.execute(query)
 
                 for practice_center_cur in cur.fetchall():
                     climates = self.climates_repository\
                         .get_all_for_practice_center(practice_center_id)
-                    recommendations = self.recommendations_repository\
+                    recommendations = self.recommendation_repository\
                         .get_all_for_practice_center(practice_center_id)
                     practice_center = self.build_practice_center(practice_center_cur, climates,
                                                                  recommendations)
@@ -59,18 +59,18 @@ class MySQLPracticeCentersRepository(PracticeCentersRepository):
 
     @staticmethod
     def build_practice_center(cur, climates=None, recommendations=None):
-        return PracticeCenter(cur[MySQLPracticeCentersTable.id_col],
-                              cur[MySQLPracticeCentersTable.name_col],
-                              cur[MySQLPracticeCentersTable.email_col],
-                              cur[MySQLPracticeCentersTable.web_site_col],
-                              cur[MySQLPracticeCentersTable.phone_number_col],
+        return PracticeCenter(cur[PracticeCenters.id_col],
+                              cur[PracticeCenters.name_col],
+                              cur[PracticeCenters.email_col],
+                              cur[PracticeCenters.web_site_col],
+                              cur[PracticeCenters.phone_number_col],
                               climates,
                               recommendations)
 
     def add(self, practice_center):
         try:
             with self.database.connect().cursor() as cur:
-                query = MySQLPracticeCentersQuery().add()
+                query = Query().add()
                 cur.execute(query, (practice_center.name, practice_center.email,
                                     practice_center.web_site, practice_center.phone_number))
 

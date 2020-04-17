@@ -3,7 +3,7 @@ from flask_bcrypt import Bcrypt
 from flask_bootstrap import Bootstrap
 from flask_cors import CORS
 
-from app.practice_centers.views import practice_centers_blueprint
+from app.practice_centers.ui import practice_centers_blueprint
 from app.shops.views import shops_blueprint
 from app.sports.views import sports_blueprint
 from app.users.views import users_blueprint

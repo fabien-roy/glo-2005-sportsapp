@@ -3,7 +3,7 @@ from flask.views import View
 from injector import inject
 
 from app.equipments.exceptions import EquipmentNotFoundException
-from app.equipments.forms import EquipmentsSearchForm
+from app.equipments.forms import EquipmentSearchForm
 from app.equipments.repositories import EquipmentRepository
 
 equipments_blueprint = Blueprint('equipments', __name__)
@@ -11,7 +11,7 @@ equipments_blueprint = Blueprint('equipments', __name__)
 
 @equipments_blueprint.route('/equipments', methods=('GET', 'POST'))
 def equipments(equipments_repository: EquipmentRepository):
-    form = EquipmentsSearchForm(request.form)
+    form = EquipmentSearchForm(request.form)
 
     if request.method == 'POST' and form.validate_on_submit():
         all_equipments = equipments_repository.get_all(form)

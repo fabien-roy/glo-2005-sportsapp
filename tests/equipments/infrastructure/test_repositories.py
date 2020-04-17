@@ -2,7 +2,7 @@ from app.equipments.exceptions import EquipmentNotFoundException
 from app.equipments.infrastructure.repositories import MySQLEquipmentRepository
 from tests.announces.mocks import announce_repository
 from tests.equipments.fakes import equipment1, equipment2, equipment3
-from tests.equipments.forms import FakeEquipmentsSearchForm
+from tests.equipments.forms import FakeEquipmentSearchForm
 from tests.repositories.mysql_test_database import test_database
 from tests.test_basic_repositories import BasicRepositoryTests
 
@@ -48,28 +48,28 @@ class EquipmentRepositoryTests(BasicRepositoryTests):
         self.assertIn(equipment3, equipments)
 
     def test_get_all_with_all_filter_equipments(self):
-        form = FakeEquipmentsSearchForm(any_field=equipment1.name)
+        form = FakeEquipmentSearchForm(any_field=equipment1.name)
         equipments = self.repository.get_all(form)
         self.assertIn(equipment1, equipments)
         self.assertNotIn(equipment2, equipments)
         self.assertNotIn(equipment3, equipments)
 
     def test_get_all_with_name_filter_equipments(self):
-        form = FakeEquipmentsSearchForm(name=equipment1.name)
+        form = FakeEquipmentSearchForm(name=equipment1.name)
         equipments = self.repository.get_all(form)
         self.assertIn(equipment1, equipments)
         self.assertNotIn(equipment2, equipments)
         self.assertNotIn(equipment3, equipments)
 
     def test_get_all_with_category_filter_equipments(self):
-        form = FakeEquipmentsSearchForm(category=equipment1.category)
+        form = FakeEquipmentSearchForm(category=equipment1.category)
         equipments = self.repository.get_all(form)
         self.assertIn(equipment1, equipments)
         self.assertNotIn(equipment2, equipments)
         self.assertNotIn(equipment3, equipments)
 
     def test_get_all_with_description_filter_equipments(self):
-        form = FakeEquipmentsSearchForm(description=equipment1.description)
+        form = FakeEquipmentSearchForm(description=equipment1.description)
         equipments = self.repository.get_all(form)
         self.assertIn(equipment1, equipments)
         self.assertNotIn(equipment2, equipments)

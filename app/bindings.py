@@ -1,7 +1,7 @@
 from app.announces.repositories import AnnouncesRepository
 from app.climates.climate_repository import ClimatesRepository
 from app.database import Database
-from app.practice_centers.repositories import PracticeCentersRepository
+from app.practice_centers.repositories import PracticeCenterRepository
 from app.equipments.repositories import EquipmentRepository
 from app.recommendations.repositories import RecommendationRepository
 from app.repositories.mysql_announce_repositories import MySQLAnnouncesRepository
@@ -24,7 +24,7 @@ def configure(binder):
     binder.bind(ClimatesRepository, to=MySQLClimatesRepository)
     binder.bind(RecommendationRepository, to=MySQLRecommendationsRepository)
     binder.bind(SportRepository, to=MySQLSportsRepository)
-    binder.bind(PracticeCentersRepository, to=MySQLPracticeCentersRepository)
+    binder.bind(PracticeCenterRepository, to=MySQLPracticeCentersRepository)
     binder.bind(AnnouncesRepository, to=MySQLAnnouncesRepository)
     binder.bind(ShopsRepository, to=MySQLShopsRepository)
     binder.bind(EquipmentRepository, to=MySQLEquipmentsRepository)

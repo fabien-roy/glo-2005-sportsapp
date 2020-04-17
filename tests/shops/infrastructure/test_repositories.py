@@ -5,7 +5,7 @@ from app.shops.infrastructure.repositories import MySQLShopRepository
 from tests.announces.mocks import announce_repository
 from tests.repositories.mysql_test_database import test_database
 from tests.shops.fakes import shop1, shop2, shop3
-from tests.shops.forms import FakeShopsSearchForm
+from tests.shops.forms import FakeShopSearchForm
 from tests.test_basic_repositories import BasicRepositoryTests
 
 
@@ -50,14 +50,14 @@ class ShopRepositoryTests(BasicRepositoryTests):
         self.assertIn(shop3, shops)
 
     def test_get_all_with_all_filter_shops(self):
-        form = FakeShopsSearchForm(any_field=shop1.name)
+        form = FakeShopSearchForm(any_field=shop1.name)
         shops = self.repository.get_all(form)
         self.assertIn(shop1, shops)
         self.assertNotIn(shop2, shops)
         self.assertNotIn(shop3, shops)
 
     def test_get_all_with_name_filter_shops(self):
-        form = FakeShopsSearchForm(name=shop1.name)
+        form = FakeShopSearchForm(name=shop1.name)
         shops = self.repository.get_all(form)
         self.assertIn(shop1, shops)
         self.assertNotIn(shop2, shops)
@@ -65,21 +65,21 @@ class ShopRepositoryTests(BasicRepositoryTests):
 
     def test_get_all_with_email_filter_shops(self):
         print(shop3.email)
-        form = FakeShopsSearchForm(email=shop3.email)
+        form = FakeShopSearchForm(email=shop3.email)
         shops = self.repository.get_all(form)
         self.assertIn(shop3, shops)
         self.assertNotIn(shop1, shops)
         self.assertNotIn(shop2, shops)
 
     def test_get_all_with_web_site_filter_shops(self):
-        form = FakeShopsSearchForm(web_site=shop1.web_site)
+        form = FakeShopSearchForm(web_site=shop1.web_site)
         shops = self.repository.get_all(form)
         self.assertIn(shop1, shops)
         self.assertNotIn(shop2, shops)
         self.assertNotIn(shop3, shops)
 
     def test_get_all_with_phone_number_filter_shops(self):
-        form = FakeShopsSearchForm(phone_number=shop1.phone_number)
+        form = FakeShopSearchForm(phone_number=shop1.phone_number)
         shops = self.repository.get_all(form)
         self.assertIn(shop1, shops)
         self.assertNotIn(shop2, shops)

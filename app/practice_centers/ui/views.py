@@ -3,15 +3,15 @@ from flask.views import View
 from injector import inject
 
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
-from app.practice_centers.forms import PracticeCentersSearchForm
-from app.practice_centers.repositories import PracticeCentersRepository
+from app.practice_centers.forms import PracticeCenterSearchForm
+from app.practice_centers.repositories import PracticeCenterRepository
 
 practice_centers_blueprint = Blueprint('practice_centers', __name__)
 
 
 @practice_centers_blueprint.route('/practice-centers', methods=('GET', 'POST'))
-def practice_centers(practice_centers_repository: PracticeCentersRepository):
-    form = PracticeCentersSearchForm(request.form)
+def practice_centers(practice_centers_repository: PracticeCenterRepository):
+    form = PracticeCenterSearchForm(request.form)
 
     if request.method == 'POST' and form.validate_on_submit():
         all_practice_centers = practice_centers_repository.get_all(form)
@@ -23,7 +23,7 @@ def practice_centers(practice_centers_repository: PracticeCentersRepository):
 
 
 @practice_centers_blueprint.route('/practice-centers/<practice_center_id>')
-def practice_center_details(practice_centers_repository: PracticeCentersRepository,
+def practice_center_details(practice_centers_repository: PracticeCenterRepository,
                             practice_center_id):
     try:
         practice_center = practice_centers_repository.get(practice_center_id)
@@ -38,5 +38,5 @@ class PracticeCenterView(View):
         pass
 
     @inject
-    def __init__(self, practice_centers_repository: PracticeCentersRepository):
-        self.practice_centers_repository = practice_centers_repository
+    def __init__(self, practice_center_repository: PracticeCenterRepository):
+        self.practice_center_repository = practice_center_repository

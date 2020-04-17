@@ -4,7 +4,7 @@ from tests.practice_centers.fakes import center1, center2, center3
 from tests.test_basic_views import BasicViewTests
 
 
-class PracticeCentersViewsTests(BasicViewTests):
+class PracticeCentersViewTests(BasicViewTests):
 
     def get_path(self):
         return '/practice-centers'

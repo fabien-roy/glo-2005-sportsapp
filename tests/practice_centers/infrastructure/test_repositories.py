@@ -1,8 +1,8 @@
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
-from app.repositories.mysql_practice_center_repositories import MySQLPracticeCentersRepository
+from app.practice_centers.infrastructure.repositories import MySQLPracticeCenterRepository
 from tests.climates.mocks import climates_repository
 from tests.practice_centers.fakes import center1, center2, center3
-from tests.practice_centers.forms import FakePracticeCentersSearchForm
+from tests.practice_centers.forms import FakePracticeCenterSearchForm
 from tests.recommendations.mocks import recommendations_repository
 from tests.repositories.mysql_test_database import test_database
 from tests.test_basic_repositories import BasicRepositoryTests
@@ -12,8 +12,8 @@ class PracticeCenterRepositoryTests(BasicRepositoryTests):
 
     def setUp(self):
         super().setUp()
-        self.repository = MySQLPracticeCentersRepository(test_database, climates_repository,
-                                                         recommendations_repository)
+        self.repository = MySQLPracticeCenterRepository(test_database, climates_repository,
+                                                        recommendations_repository)
 
     def test_get_with_no_practice_center_should_raise_practice_center_not_found_exception(self):
         self.recreate_database()
@@ -58,35 +58,35 @@ class PracticeCenterRepositoryTests(BasicRepositoryTests):
         self.assertIn(center3, practice_centers)
 
     def test_get_all_with_all_filter_practice_centers(self):
-        form = FakePracticeCentersSearchForm(any_field=center1.name)
+        form = FakePracticeCenterSearchForm(any_field=center1.name)
         practice_centers = self.repository.get_all(form)
         self.assertIn(center1, practice_centers)
         self.assertNotIn(center2, practice_centers)
         self.assertNotIn(center3, practice_centers)
 
     def test_get_all_with_name_filter_practice_centers(self):
-        form = FakePracticeCentersSearchForm(name=center1.name)
+        form = FakePracticeCenterSearchForm(name=center1.name)
         practice_centers = self.repository.get_all(form)
         self.assertIn(center1, practice_centers)
         self.assertNotIn(center2, practice_centers)
         self.assertNotIn(center3, practice_centers)
 
     def test_get_all_with_email_filter_practice_centers(self):
-        form = FakePracticeCentersSearchForm(email=center1.email)
+        form = FakePracticeCenterSearchForm(email=center1.email)
         practice_centers = self.repository.get_all(form)
         self.assertIn(center1, practice_centers)
         self.assertNotIn(center2, practice_centers)
         self.assertNotIn(center3, practice_centers)
 
     def test_get_all_with_web_site_filter_practice_centers(self):
-        form = FakePracticeCentersSearchForm(web_site=center1.web_site)
+        form = FakePracticeCenterSearchForm(web_site=center1.web_site)
         practice_centers = self.repository.get_all(form)
         self.assertIn(center1, practice_centers)
         self.assertNotIn(center2, practice_centers)
         self.assertNotIn(center3, practice_centers)
 
     def test_get_all_with_phone_number_filter_practice_centers(self):
-        form = FakePracticeCentersSearchForm(phone_number=center1.phone_number)
+        form = FakePracticeCenterSearchForm(phone_number=center1.phone_number)
         practice_centers = self.repository.get_all(form)
         self.assertIn(center1, practice_centers)
         self.assertNotIn(center2, practice_centers)

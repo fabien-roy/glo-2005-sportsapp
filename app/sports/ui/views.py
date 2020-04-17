@@ -3,7 +3,7 @@ from flask.views import View
 from injector import inject
 
 from app.sports.exceptions import SportNotFoundException
-from app.sports.forms import SportsSearchForm
+from app.sports.forms import SportSearchForm
 from app.sports.repositories import SportRepository
 
 sports_blueprint = Blueprint('sports', __name__)
@@ -11,7 +11,7 @@ sports_blueprint = Blueprint('sports', __name__)
 
 @sports_blueprint.route('/sports', methods=('GET', 'POST'))
 def sports(sports_repository: SportRepository):
-    form = SportsSearchForm(request.form)
+    form = SportSearchForm(request.form)
 
     if request.method == 'POST' and form.validate_on_submit():
         all_sports = sports_repository.get_all(form)
