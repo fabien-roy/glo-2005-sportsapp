@@ -1,4 +1,4 @@
-from app.announces.models.announce import Announce
+from app.announces.models import Announce
 from tests.equipments.fakes import equipment1, equipment2, equipment3, get_equipment
 from tests.shops.fakes import shop1, shop2, shop3, get_shop
 

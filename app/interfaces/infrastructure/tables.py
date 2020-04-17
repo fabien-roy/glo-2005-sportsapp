@@ -53,11 +53,3 @@ class MySQLPracticeCenterRecommendationsTable:
     table_name = 'practice_center_recommendations'
     recommendation_id_col = 'recommendation_id'
     practice_center_id_col = 'practice_center_id'
-
-
-class MySQLEquipmentsTable:
-    table_name = 'equipments'
-    id_col = 'id'
-    category_col = 'category'
-    name_col = 'name'
-    description_col = "description"

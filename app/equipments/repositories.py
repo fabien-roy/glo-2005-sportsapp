@@ -1,4 +1,4 @@
-class EquipmentsRepository:
+class EquipmentRepository:
     def get_all(self, form=None):
         pass
 

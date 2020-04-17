@@ -4,7 +4,7 @@ from tests.equipments.fakes import equipment1, equipment2, equipment3
 from tests.test_basic_views import BasicViewTests
 
 
-class EquipmentsViewsTests(BasicViewTests):
+class EquipmentViewTests(BasicViewTests):
 
     def get_path(self):
         return '/equipments'

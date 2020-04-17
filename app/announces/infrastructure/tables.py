@@ -1,4 +1,4 @@
-class MySQLAnnouncesTable:
+class MySQLAnnounceTable:
     table_name = 'announces'
     id_col = 'id'
     shop_id_col = 'shop_id'

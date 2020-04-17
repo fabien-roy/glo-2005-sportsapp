@@ -4,13 +4,13 @@ from injector import inject
 
 from app.equipments.exceptions import EquipmentNotFoundException
 from app.equipments.forms import EquipmentsSearchForm
-from app.equipments.repositories import EquipmentsRepository
+from app.equipments.repositories import EquipmentRepository
 
 equipments_blueprint = Blueprint('equipments', __name__)
 
 
 @equipments_blueprint.route('/equipments', methods=('GET', 'POST'))
-def equipments(equipments_repository: EquipmentsRepository):
+def equipments(equipments_repository: EquipmentRepository):
     form = EquipmentsSearchForm(request.form)
 
     if request.method == 'POST' and form.validate_on_submit():
@@ -22,7 +22,7 @@ def equipments(equipments_repository: EquipmentsRepository):
 
 
 @equipments_blueprint.route('/equipments/<equipment_id>')
-def equipment_details(equipments_repository: EquipmentsRepository, equipment_id):
+def equipment_details(equipments_repository: EquipmentRepository, equipment_id):
     try:
         equipment = equipments_repository.get(equipment_id)
     except EquipmentNotFoundException:
@@ -36,5 +36,5 @@ class EquipmentView(View):
         pass
 
     @inject
-    def __init__(self, equipments_repository: EquipmentsRepository):
-        self.equipments_repository = equipments_repository
+    def __init__(self, equipment_repository: EquipmentRepository):
+        self.equipment_repository = equipment_repository

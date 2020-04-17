@@ -1,6 +1,6 @@
 from unittest import mock
 
-from tests.announces.models.fakes import get_announces_for_shop, get_announces_for_equipment
+from tests.announces.fakes import get_announces_for_shop, get_announces_for_equipment
 
 announce_repository = mock.Mock()
 

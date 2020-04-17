@@ -6,7 +6,7 @@ from app.recommendations.repositories import RecommendationsRepository
 from app.shops.repositories import ShopsRepository
 from app.sports.repositories import SportsRepository
 from app.users.repositories import UsersRepository
-from app.equipments.repositories import EquipmentsRepository
+from app.equipments.repositories import EquipmentRepository
 from tests.announces.mocks import announces_repository
 from tests.climates.mocks import climates_repository
 from tests.practice_centers.mocks import practice_centers_repository
@@ -26,5 +26,5 @@ def configure(binder):
     binder.bind(PracticeCentersRepository, to=practice_centers_repository)
     binder.bind(AnnouncesRepository, to=announces_repository)
     binder.bind(ShopsRepository, to=shops_repository)
-    binder.bind(EquipmentsRepository, to=equipments_repository)
+    binder.bind(EquipmentRepository, to=equipments_repository)
     binder.bind(UsersRepository, to=users_repository)

@@ -2,11 +2,11 @@ import datetime
 
 from injector import inject
 
-from app.announces.models.announce import Announce
-from app.announces.models.announce_repository import AnnounceRepository
+from app.announces.models import Announce
+from app.announces.repositories import AnnounceRepository
 from app.database import Database
-from app.announces.infrastructure.mysql.queries import MySQLAnnounceQuery as Query
-from app.announces.infrastructure.mysql.tables import MySQLAnnouncesTable as Announces
+from app.announces.infrastructure.queries import MySQLAnnounceQuery as Query
+from app.announces.infrastructure.tables import MySQLAnnounceTable as Announces
 
 
 class MySQLAnnounceRepository(AnnounceRepository):

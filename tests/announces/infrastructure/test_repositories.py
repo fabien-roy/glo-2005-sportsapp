@@ -1,6 +1,6 @@
 import unittest
 
-from app.announces.infrastructure.mysql.repositories import MySQLAnnounceRepository
+from app.announces.infrastructure.repositories import MySQLAnnounceRepository
 from tests.equipments.fakes import equipment1, equipment2, equipment3
 from tests.repositories.mysql_test_database import test_database
 from tests.shops.fakes import shop3, shop2, shop1
