@@ -14,7 +14,7 @@ from app.repositories.mysql_shop_repositories import MySQLShopsRepository
 from app.repositories.mysql_sport_repositories import MySQLSportsRepository
 from app.repositories.mysql_user_repositories import MySQLUsersRepository
 from app.shops.repositories import ShopsRepository
-from app.sports.repositories import SportsRepository
+from app.sports.repositories import SportRepository
 from app.users.repositories import UsersRepository
 
 
@@ -23,7 +23,7 @@ def configure(binder):
 
     binder.bind(ClimatesRepository, to=MySQLClimatesRepository)
     binder.bind(RecommendationRepository, to=MySQLRecommendationsRepository)
-    binder.bind(SportsRepository, to=MySQLSportsRepository)
+    binder.bind(SportRepository, to=MySQLSportsRepository)
     binder.bind(PracticeCentersRepository, to=MySQLPracticeCentersRepository)
     binder.bind(AnnouncesRepository, to=MySQLAnnouncesRepository)
     binder.bind(ShopsRepository, to=MySQLShopsRepository)

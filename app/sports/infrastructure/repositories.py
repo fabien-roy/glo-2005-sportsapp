@@ -1,18 +1,18 @@
 from injector import inject
 
-from app.climates.climate_repository import ClimatesRepository
+from app.climates.repositories import ClimateRepository
 from app.database import Database
 from app.recommendations.repositories import RecommendationRepository
-from app.repositories.mysql_sport_queries import MySQLSportsQuery
-from app.repositories.mysql_tables import MySQLSportsTable
 from app.sports.exceptions import SportNotFoundException
+from app.sports.infrastructure.queries import MySQLSportQuery as Query
+from app.sports.infrastructure.tables import MySQLSportTable as Sports
 from app.sports.models import Sport
-from app.sports.repositories import SportsRepository
+from app.sports.repositories import SportRepository
 
 
-class MySQLSportsRepository(SportsRepository):
+class MySQLSportRepository(SportRepository):
     @inject
-    def __init__(self, database: Database, climates_repository: ClimatesRepository,
+    def __init__(self, database: Database, climates_repository: ClimateRepository,
                  recommendations_repository: RecommendationRepository):
         self.database = database
         self.climates_repository = climates_repository
@@ -23,7 +23,7 @@ class MySQLSportsRepository(SportsRepository):
 
         try:
             with self.database.connect().cursor() as cur:
-                query = MySQLSportsQuery().get_all(form)
+                query = Query().get_all(form)
                 cur.execute(query)
 
                 for sport_cur in cur.fetchall():
@@ -39,7 +39,7 @@ class MySQLSportsRepository(SportsRepository):
 
         try:
             with self.database.connect().cursor() as cur:
-                query = MySQLSportsQuery().get(sport_id)
+                query = Query().get(sport_id)
                 cur.execute(query)
 
                 for sport_cur in cur.fetchall():
@@ -56,15 +56,15 @@ class MySQLSportsRepository(SportsRepository):
 
     @staticmethod
     def build_sport(cur, climates=None, recommendations=None):
-        return Sport(cur[MySQLSportsTable.id_col],
-                     cur[MySQLSportsTable.name_col],
+        return Sport(cur[Sports.id_col],
+                     cur[Sports.name_col],
                      climates,
                      recommendations)
 
     def add(self, sport):
         try:
             with self.database.connect().cursor() as cur:
-                query = MySQLSportsQuery().add()
+                query = Query().add()
                 cur.execute(query, sport.name)
 
                 self.database.connect().commit()

@@ -4,13 +4,13 @@ from injector import inject
 
 from app.sports.exceptions import SportNotFoundException
 from app.sports.forms import SportsSearchForm
-from app.sports.repositories import SportsRepository
+from app.sports.repositories import SportRepository
 
 sports_blueprint = Blueprint('sports', __name__)
 
 
 @sports_blueprint.route('/sports', methods=('GET', 'POST'))
-def sports(sports_repository: SportsRepository):
+def sports(sports_repository: SportRepository):
     form = SportsSearchForm(request.form)
 
     if request.method == 'POST' and form.validate_on_submit():
@@ -22,7 +22,7 @@ def sports(sports_repository: SportsRepository):
 
 
 @sports_blueprint.route('/sports/<sport_id>')
-def sport_details(sports_repository: SportsRepository, sport_id):
+def sport_details(sports_repository: SportRepository, sport_id):
     try:
         sport = sports_repository.get(sport_id)
     except SportNotFoundException:
@@ -36,5 +36,5 @@ class SportView(View):
         pass
 
     @inject
-    def __init__(self, sports_repository: SportsRepository):
+    def __init__(self, sports_repository: SportRepository):
         self.sports_repository = sports_repository

@@ -1,9 +1,3 @@
-class MySQLSportTable:
-    table_name = 'sports'
-    id_col = 'id'
-    name_col = 'name'
-
-
 class MySQLPracticeCenterTable:
     table_name = 'practice_centers'
     id_col = 'id'
