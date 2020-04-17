@@ -47,14 +47,14 @@ class MySQLAnnounceRepository(AnnounceRepository):
                         cur[Announces.price_col],
                         cur[Announces.date_col])
 
-    def add(self, announce):
+    def add(self, announce, shop_id, equipment_id):
         announce.date = datetime.datetime.now()
         query = Query().add()
 
         try:
             with self.database.connect().cursor() as cur:
-                cur.execute(query, (announce.shop_id, announce.equipment_id, announce.state,
-                                    announce.price, announce.date))
+                cur.execute(query, (shop_id, equipment_id, announce.state, announce.price,
+                                    announce.date))
 
                 self.database.connect().commit()
 

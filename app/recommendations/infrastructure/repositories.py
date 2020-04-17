@@ -71,13 +71,13 @@ class MySQLRecommendationRepository(RecommendationRepository):
 
         return cur.lastrowid
 
-    def add_for_sport(self, recommendation, sport):
+    def add_for_sport(self, recommendation, sport_id):
         query = Query().add_to_sport()
-        self.add_for_type(recommendation, query, sport.id)
+        self.add_for_type(recommendation, query, sport_id)
 
-    def add_for_practice_center(self, recommendation, practice_center):
+    def add_for_practice_center(self, recommendation, practice_center_id):
         query = Query().add_to_practice_center()
-        self.add_for_type(recommendation, query, practice_center.id)
+        self.add_for_type(recommendation, query, practice_center_id)
 
     def add_for_type(self, recommendation, query, type_id):
         self.add(recommendation)

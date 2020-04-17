@@ -5,5 +5,5 @@ class AnnounceRepository:
     def get_all_for_equipment(self, equipment_id):
         pass
 
-    def add(self, announce):
+    def add(self, announce, shop, equipment):
         pass

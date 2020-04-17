@@ -121,8 +121,8 @@ class RepositoryTests(test_basic.BasicTests):
 
     @classmethod
     def add_announces(cls):
-        cls.announces_repository.add(shop1_equipment1_announce1)
-        cls.announces_repository.add(shop1_equipment2_announce1)
+        cls.announces_repository.add(shop1_equipment1_announce1, shop1, equipment1)
+        cls.announces_repository.add(shop1_equipment2_announce1, shop1, equipment2)
         cls.announces_repository.add(shop2_equipment2_announce1)
         cls.announces_repository.add(shop2_equipment2_announce2)
         cls.announces_repository.add(shop3_equipment1_announce1)
