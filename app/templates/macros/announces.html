@@ -1,0 +1,71 @@
+{% macro stars(note) -%}
+{% for i in range(note) %}
+&bigstar;
+{% endfor %}
+{% if note < 5%}
+{% for i in range(5 - note) %}
+&star;
+{% endfor %}
+{% endif %}
+{%- endmacro %}
+
+{% macro recommendation_item(url, name, note, date, comment) -%}
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title"><a class="mr-2" href="{{ url }}">{{ name }}</a></h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{ stars(note) }}</h6>
+    <h6 class="text-muted">{{ date }}</h6>
+    <p class="card-text">{{ comment }}</p>
+  </div>
+</div>
+{%- endmacro %}
+
+{% macro nothing() -%}
+<p>There is no recommandations yet...</p>
+{%- endmacro %}
+
+{% macro user_recommendations_list(recommendations) -%}
+{% if recommendations|length > 0 %}
+{% for recommendation in recommendations %}
+{{ recommendation_item(url_for('users.user_details', username=recommendation.username), recommendation.username, recommendation.note, recommendation.date, recommendation.comment) }}
+{% endfor %}
+{% else %}
+{{ nothing() }}
+{% endif %}
+{%- endmacro %}
+
+{% macro practice_center_recommendations_list(recommendations) -%}
+{% if recommendations|length > 0 %}
+{% for recommendation in recommendations %}
+{{ recommendation_item(url_for('practice_centers.practice_center_details', practice_center_id=recommendation.item_id), recommendation.name, recommendation.note, recommendation.date, recommendation.comment) }}
+{% endfor %}
+{% else %}
+{{ nothing() }}
+{% endif %}
+{%- endmacro %}
+
+{% macro sport_recommendations_list(recommendations) -%}
+{% if recommendations|length > 0 %}
+{% for recommendation in recommendations %}
+{{ recommendation_item(url_for('sports.sport_details', sport_id=recommendation.item_id), recommendation.name, recommendation.note, recommendation.date, recommendation.comment) }}
+{% endfor %}
+{% else %}
+{{ nothing() }}
+{% endif %}
+{%- endmacro %}
+
+{% macro double_recommendations_list(sport_recommendations, practice_center_recommendations) -%}
+<ul class="nav nav-tabs nav-fill" role="tablist">
+  <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#sport-recommendations">Sport recommendations</a></li>
+  <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#practice-center-recommendations">Practice center recommendations</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="sport-recommendations" class="tab-pane fade show active">
+    {{ sport_recommendations_list(sport_recommendations) }}
+  </div>
+  <div id="practice-center-recommendations" class="tab-pane fade">
+    {{ practice_center_recommendations_list(practice_center_recommendations) }}
+  </div>
+</div>
+{%- endmacro %}

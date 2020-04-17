@@ -47,5 +47,6 @@ class AnnouncesRepositoryTests(BasicRepositoryTests):
         announces = self.repository.get_all_for_equipment(equipment3.id)
         self.assertCountEqual(equipment3.announces, announces)
 
+
 if __name__ == "__main__":
     unittest.main()

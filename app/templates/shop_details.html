@@ -14,3 +14,7 @@ detail('Web site', shop.web_site),
 detail('Email', shop.email),
 detail('Phone number', shop.phone_number)]) }}
 {% endblock %}
+
+{% block associated_items %}
+{{ equipment_announces(shop.announces) }}
+{% endblock %}

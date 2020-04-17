@@ -11,6 +11,6 @@
 {{ details([detail('Name', sport.name), detail_list('Associated climates', sport.climates)]) }}
 {% endblock %}
 
-{% block recommendations %}
+{% block associated_items %}
 {{ user_recommendations_list(sport.recommendations) }}
 {% endblock %}
