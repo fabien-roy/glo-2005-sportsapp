@@ -1,7 +1,7 @@
 from injector import inject
 
 from app.climates.repositories import ClimateRepository
-from app.database import Database
+from app.interfaces.database import Database
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
 from app.practice_centers.infrastructure.queries import MySQLPracticeCenterQuery as Query
 from app.practice_centers.infrastructure.tables import MySQLPracticeCenterTable as PracticeCenters

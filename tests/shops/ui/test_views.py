@@ -1,7 +1,7 @@
 import unittest
 
+from tests.basics.ui.test_basic_views import BasicViewTests
 from tests.shops.fakes import shop1, shop2, shop3
-from tests.test_basic_views import BasicViewTests
 
 
 class ShopsViewTests(BasicViewTests):

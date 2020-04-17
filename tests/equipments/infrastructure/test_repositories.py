@@ -1,10 +1,10 @@
 from app.equipments.exceptions import EquipmentNotFoundException
 from app.equipments.infrastructure.repositories import MySQLEquipmentRepository
 from tests.announces.mocks import announce_repository
+from tests.basics.infrastructure.test_basic_repositories import BasicRepositoryTests
 from tests.equipments.fakes import equipment1, equipment2, equipment3
 from tests.equipments.forms import FakeEquipmentSearchForm
 from tests.repositories.mysql_test_database import test_database
-from tests.test_basic_repositories import BasicRepositoryTests
 
 
 class EquipmentRepositoryTests(BasicRepositoryTests):

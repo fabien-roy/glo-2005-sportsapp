@@ -1,6 +1,6 @@
 import unittest
 
-from tests.test_basic_views import BasicViewTests
+from tests.basics.ui.test_basic_views import BasicViewTests
 from tests.users.fakes import user1, user2, user3
 
 

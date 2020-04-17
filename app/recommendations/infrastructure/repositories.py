@@ -2,7 +2,7 @@ import datetime
 
 from injector import inject
 
-from app.database import Database
+from app.interfaces.database import Database
 from app.recommendations.infrastructure.tables import MySQLRecommendationTable as Recommendations
 from app.recommendations.infrastructure.queries import MySQLRecommendationQuery as Query
 from app.recommendations.models import Recommendation

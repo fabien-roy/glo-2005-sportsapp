@@ -1,7 +1,7 @@
 from injector import inject
 
 from app.climates.repositories import ClimateRepository
-from app.database import Database
+from app.interfaces.database import Database
 from app.recommendations.repositories import RecommendationRepository
 from app.sports.exceptions import SportNotFoundException
 from app.sports.infrastructure.queries import MySQLSportQuery as Query

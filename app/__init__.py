@@ -4,11 +4,11 @@ from flask_bootstrap import Bootstrap
 from flask_cors import CORS
 
 from app.practice_centers.ui.views import practice_center_blueprint
+from app.search.ui.views import search_blueprint
 from app.shops.ui.views import shop_blueprint
 from app.sports.ui.views import sport_blueprint
 from app.users.ui.views import user_blueprint
 from app.equipments.ui.views import equipment_blueprint
-from app.search.views import search_blueprint
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_pyfile('flask.cfg')

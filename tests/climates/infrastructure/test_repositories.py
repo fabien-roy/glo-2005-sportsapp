@@ -1,10 +1,10 @@
 import unittest
 
 from app.climates.infrastructure.repositories import MySQLClimateRepository
+from tests.basics.infrastructure.test_basic_repositories import BasicRepositoryTests
 from tests.practice_centers.fakes import center1, center2, center3
 from tests.repositories.mysql_test_database import test_database
 from tests.sports.fakes import sport1, sport2, sport3
-from tests.test_basic_repositories import BasicRepositoryTests
 
 
 class ClimateRepositoryTests(BasicRepositoryTests):

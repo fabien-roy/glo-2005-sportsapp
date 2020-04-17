@@ -1,7 +1,7 @@
 from injector import inject
 
 from app.announces.repositories import AnnounceRepository
-from app.database import Database
+from app.interfaces.database import Database
 from app.shops.exceptions import ShopNotFoundException
 from app.shops.infrastructure.queries import MySQLShopQuery as Query
 from app.shops.infrastructure.tables import MySQLShopTable as Shops

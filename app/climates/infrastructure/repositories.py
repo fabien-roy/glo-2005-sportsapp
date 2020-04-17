@@ -2,9 +2,9 @@ from injector import inject
 
 from app.climates.models import Climate
 from app.climates.repositories import ClimateRepository
-from app.database import Database
 
 from app.climates.infrastructure.queries import MySQLClimateQuery as Query
+from app.interfaces.database import Database
 
 
 class MySQLClimateRepository(ClimateRepository):

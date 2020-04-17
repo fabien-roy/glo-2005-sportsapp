@@ -1,12 +1,12 @@
 from injector import inject
 
 from app.announces.repositories import AnnounceRepository
-from app.database import Database
 from app.equipments.exceptions import EquipmentNotFoundException
 from app.equipments.models import Equipment
 from app.equipments.repositories import EquipmentRepository
 from app.equipments.infrastructure.queries import MySQLEquipmentsQuery as Query
 from app.equipments.infrastructure.tables import MySQLEquipmentTable as Equipments
+from app.interfaces.database import Database
 
 
 class MySQLEquipmentRepository(EquipmentRepository):

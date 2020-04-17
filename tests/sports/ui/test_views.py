@@ -1,7 +1,7 @@
 import unittest
 
+from tests.basics.ui.test_basic_views import BasicViewTests
 from tests.sports.fakes import sport1, sport3, sport2
-from tests.test_basic_views import BasicViewTests
 
 
 class SportsViewsTests(BasicViewTests):

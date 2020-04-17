@@ -1,7 +1,7 @@
 import unittest
 
+from tests.basics.ui.test_basic_views import BasicViewTests
 from tests.equipments.fakes import equipment1, equipment2, equipment3
-from tests.test_basic_views import BasicViewTests
 
 
 class EquipmentViewTests(BasicViewTests):

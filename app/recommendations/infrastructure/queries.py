@@ -1,6 +1,6 @@
 from app.interfaces.infrastructure.queries import MySQLQuery
-from app.interfaces.infrastructure.tables import MySQLSportTable as Sports, \
-    MySQLPracticeCenterTable as PracticeCenters
+from app.sports.infrastructure.tables import MySQLSportTable as Sports
+from app.practice_centers.infrastructure.tables import MySQLPracticeCenterTable as PracticeCenters
 from app.recommendations.infrastructure.tables import MySQLRecommendationTable as Recommendations, \
     MySQLSportRecommendationTable as SportRecommendations, MySQLPracticeCenterRecommendationTable \
     as PracticeCenterRecommendations

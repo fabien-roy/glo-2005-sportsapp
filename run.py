@@ -5,7 +5,7 @@ from flask_injector import FlaskInjector
 
 from app import app
 from app.bindings import configure
-from app.repositories.mysql_database import MySQLDatabase
+from app.interfaces.infrastructure.database import MySQLDatabase
 from instance.db_create import db_create
 from instance.db_populate import db_populate
 

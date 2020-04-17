@@ -1,10 +1,10 @@
 import unittest
 
 from app.recommendations.infrastructure.repositories import MySQLRecommendationRepository
+from tests.basics.infrastructure.test_basic_repositories import BasicRepositoryTests
 from tests.practice_centers.fakes import center1, center2, center3
 from tests.repositories.mysql_test_database import test_database
 from tests.sports.fakes import sport1, sport2, sport3
-from tests.test_basic_repositories import BasicRepositoryTests
 from tests.users.fakes import user1, user2, user3
 
 

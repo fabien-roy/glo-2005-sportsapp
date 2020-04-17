@@ -1,9 +1,9 @@
 import unittest
 
+from tests.basics.ui.test_basic_views import BasicViewTests
 from tests.practice_centers.fakes import center1, center2, center3
 from tests.shops.fakes import shop3, shop2, shop1
 from tests.sports.fakes import sport1, sport2, sport3
-from tests.test_basic_views import BasicViewTests
 from tests.users.fakes import user1, user2, user3
 
 

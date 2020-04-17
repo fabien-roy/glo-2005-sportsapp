@@ -1,7 +1,7 @@
 import pymysql.cursors
 
 from app import app
-from app.database import Database
+from app.interfaces.database import Database
 
 
 class MySQLTestDatabase(Database):

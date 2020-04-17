@@ -1,7 +1,7 @@
 import unittest
 
+from tests.basics.ui.test_basic_views import BasicViewTests
 from tests.practice_centers.fakes import center1, center2, center3
-from tests.test_basic_views import BasicViewTests
 
 
 class PracticeCentersViewTests(BasicViewTests):
