@@ -13,6 +13,6 @@
             detail('First Email', user.email)]) }}
 {% endblock %}
 
-{% block recommendations %}
+{% block associated_items %}
 {{ double_recommendations_list(user.sport_recommendations, user.practice_center_recommendations) }}
 {% endblock %}

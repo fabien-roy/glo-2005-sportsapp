@@ -1,6 +1,8 @@
+from app.announces.models import Announce
 from app.climates.models import Climate
 from app.practice_centers.models import PracticeCenter
 from app.recommendations.models import Recommendation
+from app.repositories.mysql_announce_repositories import MySQLAnnouncesRepository
 from app.repositories.mysql_climate_repositories import MySQLClimatesRepository
 from app.repositories.mysql_database import MySQLDatabase
 from app.repositories.mysql_recommendation_repositories import MySQLRecommendationsRepository
@@ -15,14 +17,15 @@ from app.equipments.models import Equipment
 from app.repositories.mysql_equipment_repositories import MySQLEquipmentsRepository
 
 database = MySQLDatabase()
-climate_repository = MySQLClimatesRepository(database)
-recommendation_repository = MySQLRecommendationsRepository(database)
-sport_repository = MySQLSportsRepository(database, climate_repository, recommendation_repository)
-practice_center_repository = MySQLPracticeCentersRepository(database, climate_repository,
-                                                            recommendation_repository)
-shop_repository = MySQLShopsRepository(database)
-equipment_repository = MySQLEquipmentsRepository(database)
-user_repository = MySQLUsersRepository(database, recommendation_repository)
+climates_repository = MySQLClimatesRepository(database)
+recommendations_repository = MySQLRecommendationsRepository(database)
+users_repository = MySQLUsersRepository(database, recommendations_repository)
+sports_repository = MySQLSportsRepository(database, climates_repository, recommendations_repository)
+practice_centers_repository = MySQLPracticeCentersRepository(database, climates_repository,
+                                                             recommendations_repository)
+announces_repository = MySQLAnnouncesRepository(database)
+shops_repository = MySQLShopsRepository(database, announces_repository)
+equipments_repository = MySQLEquipmentsRepository(database, announces_repository)
 
 
 def db_populate():
@@ -31,16 +34,16 @@ def db_populate():
     climate1 = Climate('Tundra')
     climate2 = Climate('Savane')
     climate3 = Climate('Aride')
-    climate_repository.add(climate1)
-    climate_repository.add(climate2)
-    climate_repository.add(climate3)
+    climates_repository.add(climate1)
+    climates_repository.add(climate2)
+    climates_repository.add(climate3)
 
     sport1 = Sport(None, name='Randonnee', climates=[climate1, climate2])
     sport2 = Sport(None, name='Escalade', climates=[climate2, climate3])
     sport3 = Sport(None, name='Natation', climates=[climate3])
-    sport_repository.add(sport1)
-    sport_repository.add(sport2)
-    sport_repository.add(sport3)
+    sports_repository.add(sport1)
+    sports_repository.add(sport2)
+    sports_repository.add(sport3)
 
     center1 = PracticeCenter(None,
                              name='Mont-Orford National Park',
@@ -57,9 +60,9 @@ def db_populate():
     center3 = PracticeCenter(None,
                              name='Gault Nature Reserve of McGill University',
                              climates=[climate1, climate3])
-    practice_center_repository.add(center1)
-    practice_center_repository.add(center2)
-    practice_center_repository.add(center3)
+    practice_centers_repository.add(center1)
+    practice_centers_repository.add(center2)
+    practice_centers_repository.add(center3)
 
     user1 = User(username='fabienroy28', email='fabienroy28@gmail.com',
                  first_name='Fabien', last_name='Roy', phone_number='123-456-7890')
@@ -67,9 +70,9 @@ def db_populate():
                  first_name='Mikael', last_name='Valliant')
     user3 = User(username='getoutmyswamp', email='shrek@swamp.ca', first_name='Shrek',
                  phone_number='1 800-555-0101')
-    user_repository.add(user1)
-    user_repository.add(user2)
-    user_repository.add(user3)
+    users_repository.add(user1)
+    users_repository.add(user2)
+    users_repository.add(user3)
 
     sport1_recommendation1 = Recommendation(None, sport1.id, user1.username,
                                             'Un super sport. J\' adore.', 5, sport1.name)
@@ -79,10 +82,10 @@ def db_populate():
                                             'Pourri.', 0, sport2.name)
     sport3_recommendation1 = Recommendation(None, sport3.id, user1.username,
                                             ':D', 5, sport3.name)
-    recommendation_repository.add_for_sport(sport1_recommendation1, sport1)
-    recommendation_repository.add_for_sport(sport2_recommendation1, sport2)
-    recommendation_repository.add_for_sport(sport2_recommendation2, sport2)
-    recommendation_repository.add_for_sport(sport3_recommendation1, sport3)
+    recommendations_repository.add_for_sport(sport1_recommendation1, sport1)
+    recommendations_repository.add_for_sport(sport2_recommendation1, sport2)
+    recommendations_repository.add_for_sport(sport2_recommendation2, sport2)
+    recommendations_repository.add_for_sport(sport3_recommendation1, sport3)
 
     center1_recommendation1 = Recommendation(None, center1.id, user1.username,
                                              'Un super centre. J\' adore.', 5, center1.name)
@@ -94,11 +97,11 @@ def db_populate():
                                              user3.username, ':D', 0, center3.name)
     center3_recommendation2 = Recommendation(None, center3.id,
                                              user1.username, 'Noice.', 4, center3.name)
-    recommendation_repository.add_for_practice_center(center1_recommendation1, center1)
-    recommendation_repository.add_for_practice_center(center2_recommendation1, center2)
-    recommendation_repository.add_for_practice_center(center2_recommendation2, center2)
-    recommendation_repository.add_for_practice_center(center3_recommendation1, center3)
-    recommendation_repository.add_for_practice_center(center3_recommendation2, center3)
+    recommendations_repository.add_for_practice_center(center1_recommendation1, center1)
+    recommendations_repository.add_for_practice_center(center2_recommendation1, center2)
+    recommendations_repository.add_for_practice_center(center2_recommendation2, center2)
+    recommendations_repository.add_for_practice_center(center3_recommendation1, center3)
+    recommendations_repository.add_for_practice_center(center3_recommendation2, center3)
 
     shop1 = Shop(None, name='MEC Quebec City', phone_number='418 522-8884',
                  web_site='https://www.mec.ca/fr/stores/quebec?utm_medium=organic&utm'
@@ -108,9 +111,9 @@ def db_populate():
     shop3 = Shop(None, name='Au Grand Bazar La Source Du Sport', phone_number='450 378-2022',
                  email='info@grandbazar.ca',
                  web_site='https://grandbazar.ca/fr/')
-    shop_repository.add(shop1)
-    shop_repository.add(shop2)
-    shop_repository.add(shop3)
+    shops_repository.add(shop1)
+    shops_repository.add(shop2)
+    shops_repository.add(shop3)
 
     equipment1 = Equipment(None, category='hiking', name="Men’s Wayfinder™ Mid OutDry™ Boot",
                            description="Our signature waterproof construction keeps "
@@ -125,8 +128,21 @@ def db_populate():
                                        "Sandal. Crafted with a supportive midsole"
                                        " and a moldable footbed to fit even the"
                                        " most tortured feet.")
-    equipment_repository.add(equipment1)
-    equipment_repository.add(equipment2)
-    equipment_repository.add(equipment3)
+    equipments_repository.add(equipment1)
+    equipments_repository.add(equipment2)
+    equipments_repository.add(equipment3)
+
+    announce1 = Announce(None, shop1.id, shop1.name, equipment1.id, equipment1.name, 'New', 199.99, )
+    announce2 = Announce(None, shop1.id, shop1.name, equipment2.id, equipment2.name, 'Used', 149.99, )
+    announce3 = Announce(None, shop2.id, shop2.name, equipment2.id, equipment2.name, 'New', 400.00, )
+    announce4 = Announce(None, shop2.id, shop2.name, equipment2.id, equipment2.name, 'Needs repair', 300.00, )
+    announce5 = Announce(None, shop3.id, shop3.name, equipment1.id, equipment1.name, 'Used', 49.99, )
+    announce6 = Announce(None, shop3.id, shop3.name, equipment3.id, equipment3.name, 'Used', 99.99, )
+    announces_repository.add(announce1)
+    announces_repository.add(announce2)
+    announces_repository.add(announce3)
+    announces_repository.add(announce4)
+    announces_repository.add(announce5)
+    announces_repository.add(announce6)
 
     print('...done!')

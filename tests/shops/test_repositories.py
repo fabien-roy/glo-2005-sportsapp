@@ -2,6 +2,7 @@ import unittest
 
 from app.repositories.mysql_shop_repositories import MySQLShopsRepository
 from app.shops.exceptions import ShopNotFoundException
+from tests.announces.mocks import announces_repository
 from tests.repositories.mysql_test_database import test_database
 from tests.shops.fakes import shop1, shop2, shop3
 from tests.shops.forms import FakeShopsSearchForm
@@ -12,7 +13,7 @@ class ShopsRepositoryTests(BasicRepositoryTests):
 
     def setUp(self):
         super().setUp()
-        self.repository = MySQLShopsRepository(test_database)
+        self.repository = MySQLShopsRepository(test_database, announces_repository)
 
     def test_get_with_no_shop_should_raise_shop_not_found_exception(self):
         self.recreate_database()
@@ -28,6 +29,14 @@ class ShopsRepositoryTests(BasicRepositoryTests):
         self.assertEqual(shop2, shop)
         shop = self.repository.get(shop3.id)
         self.assertEqual(shop3, shop)
+
+    def test_get_should_get_shop_announces(self):
+        shop = self.repository.get(shop1.id)
+        self.assertCountEqual(shop1.announces, shop.announces)
+        shop = self.repository.get(shop2.id)
+        self.assertCountEqual(shop2.announces, shop.announces)
+        shop = self.repository.get(shop3.id)
+        self.assertCountEqual(shop3.announces, shop.announces)
 
     def test_get_all_with_no_shop_get_no_shop(self):
         self.recreate_database()

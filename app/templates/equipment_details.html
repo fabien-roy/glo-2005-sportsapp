@@ -1,6 +1,7 @@
 {% extends "details.html" %}
-{% from 'macros/jumbotron.html' import jumbotron %}
+{% from 'macros/announces.html' import shop_announces_list %}
 {% from 'macros/details.html' import details, detail %}
+{% from 'macros/jumbotron.html' import jumbotron %}
 
 {% block jumbotron %}
 {{ jumbotron(equipment.name, 'equipments') }}
@@ -11,4 +12,8 @@
 detail('Name', equipment.name),
 detail('Category', equipment.category),
 detail('Description', equipment.description)]) }}
+{% endblock %}
+
+{% block associated_items %}
+    {{ shop_announces_list(equipment.announces) }}
 {% endblock %}

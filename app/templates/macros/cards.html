@@ -1,0 +1,33 @@
+{% macro card_title(url, title) -%}
+    <h5 class="card-title"><a class="mr-2" href="{{ url }}">{{ title }}</a></h5>
+{%- endmacro %}
+
+{% macro card_detail(detail) -%}
+    <h6 class="text-muted">{{ detail }}</h6>
+{%- endmacro %}
+
+{% macro card_details(details) -%}
+    {% for detail in details %}
+        {{ card_detail(detail) }}
+    {% endfor %}
+{%- endmacro %}
+
+{% macro card_text(text) -%}
+    <p class="card-text">{{ text }}</p>
+{%- endmacro %}
+
+{% macro card_texts(texts) -%}
+    {% for text in texts %}
+        {{ card_text(text) }}
+    {% endfor %}
+{%- endmacro %}
+
+{% macro card(url, title, details, texts) -%}
+    <div class="card">
+        <div class="card-body">
+            {{ card_title(url, title) }}
+            {{ card_details(details) }}
+            {{ card_texts(texts) }}
+        </div>
+    </div>
+{%- endmacro %}

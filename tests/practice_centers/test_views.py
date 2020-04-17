@@ -31,14 +31,33 @@ class PracticeCentersViewsTests(BasicViewTests):
 
     def test_practice_center_details_should_display_practice_center_details(self):
         self.assert_item_details_are_displayed([
-            (center1.id, center1.name),
-            (center2.id, center2.name),
-            (center3.id, center3.name),
+            (center1.id, self.get_center_details(center1)),
+            (center2.id, self.get_center_details(center2)),
+            (center3.id, self.get_center_details(center3))
         ])
 
     def test_practice_center_details__without_practice_center_should_respond_not_found(self):
         self.remove_practice_centers()
         self.assert_item_details_are_not_found([(center1.id, center1.name)])
+
+    def test_practice_center_details_should_display_recommendations(self):
+        self.assert_item_details_are_displayed([
+            (center1.id, self.get_recommendations_details(center1)),
+            (center2.id, self.get_recommendations_details(center2)),
+            (center3.id, self.get_recommendations_details(center3))
+        ])
+
+    @staticmethod
+    def get_center_details(center):
+        return [center.name, center.email, center.phone_number] \
+               + list(map(lambda climate: climate.name, center.climates))
+
+    @staticmethod
+    def get_recommendations_details(center):
+        details = []
+        for recommendation in center.recommendations:
+            details += [recommendation.username]
+        return details
 
 
 if __name__ == "__main__":

@@ -1,5 +1,6 @@
 from app.equipments.exceptions import EquipmentNotFoundException
 from app.repositories.mysql_equipment_repositories import MySQLEquipmentsRepository
+from tests.announces.mocks import announces_repository
 from tests.equipments.fakes import equipment1, equipment2, equipment3
 from tests.equipments.forms import FakeEquipmentsSearchForm
 from tests.repositories.mysql_test_database import test_database
@@ -10,7 +11,7 @@ class EquipmentRepositoryTests(BasicRepositoryTests):
 
     def setUp(self):
         super().setUp()
-        self.repository = MySQLEquipmentsRepository(test_database)
+        self.repository = MySQLEquipmentsRepository(test_database, announces_repository)
 
     def test_get_with_no_equipment_should_raise_equipment_not_found_exception(self):
         self.recreate_database()
@@ -26,6 +27,14 @@ class EquipmentRepositoryTests(BasicRepositoryTests):
         self.assertEqual(equipment2, equipment)
         equipment = self.repository.get(equipment3.id)
         self.assertEqual(equipment3, equipment)
+
+    def test_get_should_get_equipment_announces(self):
+        equipment = self.repository.get(equipment1.id)
+        self.assertCountEqual(equipment1.announces, equipment.announces)
+        equipment = self.repository.get(equipment2.id)
+        self.assertCountEqual(equipment2.announces, equipment.announces)
+        equipment = self.repository.get(equipment3.id)
+        self.assertCountEqual(equipment3.announces, equipment.announces)
 
     def test_get_all_with_no_equipment_get_no_equipment(self):
         self.recreate_database()

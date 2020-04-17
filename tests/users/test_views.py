@@ -31,14 +31,18 @@ class UsersViewsTests(BasicViewTests):
 
     def test_user_details_should_display_user_details(self):
         self.assert_item_details_are_displayed([
-            (user1.username, user1.username),
-            (user2.username, user2.username),
-            (user3.username, user3.username)
+            (user1.username, self.get_user_details(user1)),
+            (user2.username, self.get_user_details(user2)),
+            (user3.username, self.get_user_details(user3))
         ])
 
     def test_user_details__without_user_should_respond_not_found(self):
         self.remove_users()
         self.assert_item_details_are_not_found([(user1.username, user1.username)])
+
+    @staticmethod
+    def get_user_details(user):
+        return [user.username, user.first_name, user.last_name, user.email]
 
 
 if __name__ == "__main__":

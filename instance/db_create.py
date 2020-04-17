@@ -22,6 +22,8 @@ def db_create(database):
 
             cur.execute('DROP TABLE IF EXISTS users')
 
+            cur.execute('DROP TABLE IF EXISTS announces')
+
             cur.execute('DROP TABLE IF EXISTS shops')
 
             cur.execute('DROP TABLE IF EXISTS equipments')
@@ -111,6 +113,17 @@ def db_create(database):
                         'category varchar(50),'
                         'name varchar(100),'
                         'description varchar(1000)'
+                        ');')
+
+            cur.execute('CREATE TABLE announces('
+                        'id int NOT NULL AUTO_INCREMENT PRIMARY KEY,'
+                        'shop_id int NOT NULL,'
+                        'equipment_id int NOT NULL,'
+                        'state varchar(100),'
+                        'price decimal,'
+                        'date timestamp,'
+                        'FOREIGN KEY (shop_id) REFERENCES shops(id) ON DELETE CASCADE,'
+                        'FOREIGN KEY (equipment_id) REFERENCES equipments(id) ON DELETE CASCADE'
                         ');')
 
         database.connect().commit()

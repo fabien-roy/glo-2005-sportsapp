@@ -1,5 +1,6 @@
 from injector import inject
 
+from app.announces.repositories import AnnouncesRepository
 from app.database import Database
 from app.repositories.mysql_shop_queries import MySQLShopsQuery
 from app.repositories.mysql_tables import MySQLShopsTable
@@ -10,8 +11,9 @@ from app.shops.repositories import ShopsRepository
 
 class MySQLShopsRepository(ShopsRepository):
     @inject
-    def __init__(self, database: Database):
+    def __init__(self, database: Database, announces_repository: AnnouncesRepository):
         self.database = database
+        self.announces_repository = announces_repository
 
     def get_all(self, form=None):
         all_shops = []
@@ -38,7 +40,8 @@ class MySQLShopsRepository(ShopsRepository):
                 cur.execute(query)
 
                 for shop_cur in cur.fetchall():
-                    shop = self.build_shop(shop_cur)
+                    announces = self.announces_repository.get_all_for_shop(shop_id)
+                    shop = self.build_shop(shop_cur, announces)
         finally:
             cur.close()
 
@@ -48,12 +51,13 @@ class MySQLShopsRepository(ShopsRepository):
         return shop
 
     @staticmethod
-    def build_shop(cur):
+    def build_shop(cur, announces=None):
         return Shop(cur[MySQLShopsTable.id_col],
                     cur[MySQLShopsTable.name_col],
                     cur[MySQLShopsTable.email_col],
                     cur[MySQLShopsTable.phone_number_col],
-                    cur[MySQLShopsTable.web_site_col])
+                    cur[MySQLShopsTable.web_site_col],
+                    announces)
 
     def add(self, shop):
         try:
