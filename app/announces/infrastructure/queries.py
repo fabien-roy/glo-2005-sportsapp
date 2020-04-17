@@ -2,8 +2,7 @@ from app.announces.infrastructure.tables import MySQLAnnounceTable as Announces
 from app.equipments.infrastructure.tables import MySQLEquipmentTable as Equipments
 from app.interfaces.infrastructure.filters import MySQLFilter
 from app.interfaces.infrastructure.queries import MySQLQuery
-from app.interfaces.infrastructure.tables import \
-    MySQLShopsTable as Shops
+from app.shops.infrastructure.tables import MySQLShopTable as Shops
 
 all_fields_to_add = (f'{Announces.shop_id_col}'
                      f', {Announces.equipment_id_col}'

@@ -1,19 +1,19 @@
 import unittest
 
-from app.repositories.mysql_shop_repositories import MySQLShopsRepository
 from app.shops.exceptions import ShopNotFoundException
-from tests.announces.mocks import announces_repository
+from app.shops.infrastructure.repositories import MySQLShopRepository
+from tests.announces.mocks import announce_repository
 from tests.repositories.mysql_test_database import test_database
 from tests.shops.fakes import shop1, shop2, shop3
 from tests.shops.forms import FakeShopsSearchForm
 from tests.test_basic_repositories import BasicRepositoryTests
 
 
-class ShopsRepositoryTests(BasicRepositoryTests):
+class ShopRepositoryTests(BasicRepositoryTests):
 
     def setUp(self):
         super().setUp()
-        self.repository = MySQLShopsRepository(test_database, announces_repository)
+        self.repository = MySQLShopRepository(test_database, announce_repository)
 
     def test_get_with_no_shop_should_raise_shop_not_found_exception(self):
         self.recreate_database()

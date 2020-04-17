@@ -1,17 +1,17 @@
 from injector import inject
 
-from app.announces.repositories import AnnouncesRepository
+from app.announces.repositories import AnnounceRepository
 from app.database import Database
-from app.repositories.mysql_shop_queries import MySQLShopsQuery
-from app.repositories.mysql_tables import MySQLShopsTable
 from app.shops.exceptions import ShopNotFoundException
+from app.shops.infrastructure.queries import MySQLShopQuery as Query
+from app.shops.infrastructure.tables import MySQLShopTable as Shops
 from app.shops.models import Shop
 from app.shops.repositories import ShopsRepository
 
 
-class MySQLShopsRepository(ShopsRepository):
+class MySQLShopRepository(ShopsRepository):
     @inject
-    def __init__(self, database: Database, announces_repository: AnnouncesRepository):
+    def __init__(self, database: Database, announces_repository: AnnounceRepository):
         self.database = database
         self.announces_repository = announces_repository
 
@@ -20,7 +20,7 @@ class MySQLShopsRepository(ShopsRepository):
 
         try:
             with self.database.connect().cursor() as cur:
-                query = MySQLShopsQuery().get_all(form)
+                query = Query().get_all(form)
                 cur.execute(query)
 
                 for shop_cur in cur.fetchall():
@@ -36,7 +36,7 @@ class MySQLShopsRepository(ShopsRepository):
 
         try:
             with self.database.connect().cursor() as cur:
-                query = MySQLShopsQuery().get(shop_id)
+                query = Query().get(shop_id)
                 cur.execute(query)
 
                 for shop_cur in cur.fetchall():
@@ -52,17 +52,17 @@ class MySQLShopsRepository(ShopsRepository):
 
     @staticmethod
     def build_shop(cur, announces=None):
-        return Shop(cur[MySQLShopsTable.id_col],
-                    cur[MySQLShopsTable.name_col],
-                    cur[MySQLShopsTable.email_col],
-                    cur[MySQLShopsTable.phone_number_col],
-                    cur[MySQLShopsTable.web_site_col],
+        return Shop(cur[Shops.id_col],
+                    cur[Shops.name_col],
+                    cur[Shops.email_col],
+                    cur[Shops.phone_number_col],
+                    cur[Shops.web_site_col],
                     announces)
 
     def add(self, shop):
         try:
             with self.database.connect().cursor() as cur:
-                query = MySQLShopsQuery().add()
+                query = Query().add()
                 cur.execute(query, (shop.name, shop.email, shop.phone_number, shop.web_site))
 
                 self.database.connect().commit()
