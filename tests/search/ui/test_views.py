@@ -7,7 +7,7 @@ from tests.sports.fakes import sport1, sport2, sport3
 from tests.users.fakes import user1, user2, user3
 
 
-class RootViewsTests(ViewTests):
+class SearchViewTests(ViewTests):
 
     def test_search_with_sports_should_redirect(self):
         form = {'search_route': 'sports.sports'}
