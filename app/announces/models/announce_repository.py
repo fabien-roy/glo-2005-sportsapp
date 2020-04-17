@@ -1,4 +1,4 @@
-class AnnouncesRepository:
+class AnnounceRepository:
     def get_all_for_shop(self, shop_id):
         pass
 

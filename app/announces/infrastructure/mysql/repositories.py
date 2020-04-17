@@ -2,14 +2,14 @@ import datetime
 
 from injector import inject
 
-from app.announces.models import Announce
-from app.announces.repositories import AnnouncesRepository
+from app.announces.models.announce import Announce
+from app.announces.models.announce_repository import AnnounceRepository
 from app.database import Database
-from app.repositories.mysql_announce_queries import MySQLAnnouncesQuery as Query
-from app.repositories.mysql_tables import MySQLAnnouncesTable as Announces
+from app.announces.infrastructure.mysql.queries import MySQLAnnounceQuery as Query
+from app.announces.infrastructure.mysql.tables import MySQLAnnouncesTable as Announces
 
 
-class MySQLAnnouncesRepository(AnnouncesRepository):
+class MySQLAnnounceRepository(AnnounceRepository):
     @inject
     def __init__(self, database: Database):
         self.database = database

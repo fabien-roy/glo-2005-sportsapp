@@ -1,6 +1,7 @@
-from app.repositories.mysql_filters import MySQLFilter
-from app.repositories.mysql_queries import MySQLQuery
-from app.repositories.mysql_tables import MySQLAnnouncesTable as Announces, \
+from app.announces.infrastructure.mysql.tables import MySQLAnnouncesTable as Announces
+from app.interfaces.infrastructure.mysql.filters import MySQLFilter
+from app.interfaces.infrastructure.mysql.queries import MySQLQuery
+from app.interfaces.infrastructure.mysql.tables import \
     MySQLShopsTable as Shops, MySQLEquipmentsTable as Equipments
 
 all_fields_to_add = (f'{Announces.shop_id_col}'
@@ -10,7 +11,7 @@ all_fields_to_add = (f'{Announces.shop_id_col}'
                      f', {Announces.date_col}')
 
 
-class MySQLAnnouncesQuery(MySQLQuery):
+class MySQLAnnounceQuery(MySQLQuery):
     fake_shop_name_col = 'shop_name'
     fake_equipment_name_col = 'equipment_name'
 

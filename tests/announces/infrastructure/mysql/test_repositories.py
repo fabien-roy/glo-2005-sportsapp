@@ -1,17 +1,17 @@
 import unittest
 
-from app.repositories.mysql_announce_repositories import MySQLAnnouncesRepository
+from app.announces.infrastructure.mysql.repositories import MySQLAnnounceRepository
 from tests.equipments.fakes import equipment1, equipment2, equipment3
 from tests.repositories.mysql_test_database import test_database
 from tests.shops.fakes import shop3, shop2, shop1
 from tests.test_basic_repositories import BasicRepositoryTests
 
 
-class AnnouncesRepositoryTests(BasicRepositoryTests):
+class MySQLAnnounceRepositoryTests(BasicRepositoryTests):
 
     def setUp(self):
         super().setUp()
-        self.repository = MySQLAnnouncesRepository(test_database)
+        self.repository = MySQLAnnounceRepository(test_database)
 
     def test_get_all_for_shop_should_without_shop_get_no_announce(self):
         self.recreate_database()
