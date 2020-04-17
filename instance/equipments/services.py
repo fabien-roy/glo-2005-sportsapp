@@ -1,11 +1,15 @@
+from injector import inject
+
 from app.equipments.repositories import EquipmentRepository
-from instance import injector
 from instance.equipments.fakes import equipment1, equipment2, equipment3
 
-equipment_repository = injector.get(EquipmentRepository)
 
+class EquipmentPopulationService:
+    @inject
+    def __init__(self, equipment_repository: EquipmentRepository):
+        self.equipment_repository = equipment_repository
 
-def db_populate_with_equipments():
-    equipment_repository.add(equipment1)
-    equipment_repository.add(equipment2)
-    equipment_repository.add(equipment3)
+    def db_populate(self):
+        self.equipment_repository.add(equipment1)
+        self.equipment_repository.add(equipment2)
+        self.equipment_repository.add(equipment3)

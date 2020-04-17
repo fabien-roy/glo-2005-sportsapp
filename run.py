@@ -5,12 +5,12 @@ from flask_injector import FlaskInjector
 
 from app import app
 from app.bindings import configure
-from instance import db_create, db_populate
+from instance import instance
 from instance.injectors import InstanceInjector
 
 FlaskInjector(app=app, modules=[configure])
 
-InstanceInjector(modules=[configure])
+InstanceInjector(instance=instance, modules=[configure])
 
 
 def main(argv):
@@ -23,10 +23,10 @@ def main(argv):
 
     for opt, arg in opts:
         if opt in ("-c", "--db-create"):
-            db_create()
+            instance.db_create()
 
         if opt in ("-p", "--db-populate"):
-            db_populate()
+            instance.db_populate()
 
     app.run()
 

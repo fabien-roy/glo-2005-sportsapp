@@ -1,11 +1,15 @@
+from injector import inject
+
 from app.users.repositories import UserRepository
-from instance import injector
 from instance.users.fakes import user1, user2, user3
 
-user_repository = injector.get(UserRepository)
 
+class UserPopulationService:
+    @inject
+    def __init__(self, user_repository: UserRepository):
+        self.user_repository = user_repository
 
-def db_populate_with_users():
-    user_repository.add(user1)
-    user_repository.add(user2)
-    user_repository.add(user3)
+    def db_populate(self):
+        self.user_repository.add(user1)
+        self.user_repository.add(user2)
+        self.user_repository.add(user3)
