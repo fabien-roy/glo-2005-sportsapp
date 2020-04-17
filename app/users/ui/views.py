@@ -4,13 +4,13 @@ from injector import inject
 
 from app.users.exceptions import UserNotFoundException
 from app.users.forms import UsersSearchForm
-from app.users.repositories import UsersRepository
+from app.users.repositories import UserRepository
 
 user_blueprint = Blueprint('users', __name__)
 
 
 @user_blueprint.route('/users', methods=('GET', 'POST'))
-def users(users_repository: UsersRepository):
+def users(users_repository: UserRepository):
     form = UsersSearchForm(request.form)
 
     if request.method == 'POST' and form.validate_on_submit():
@@ -22,7 +22,7 @@ def users(users_repository: UsersRepository):
 
 
 @user_blueprint.route('/users/<username>')
-def user_details(users_repository: UsersRepository, username):
+def user_details(users_repository: UserRepository, username):
     try:
         user = users_repository.get(username)
     except UserNotFoundException:
@@ -36,5 +36,5 @@ class UserView(View):
         pass
 
     @inject
-    def __init__(self, users_repository: UsersRepository):
+    def __init__(self, users_repository: UserRepository):
         self.users_repository = users_repository

@@ -1,4 +1,4 @@
-class UsersRepository:
+class UserRepository:
     def get_all(self, form):
         pass
 

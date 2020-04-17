@@ -3,9 +3,9 @@ from app.climates.repositories import ClimateRepository
 from app.interfaces.database import Database
 from app.practice_centers.repositories import PracticeCenterRepository
 from app.recommendations.repositories import RecommendationRepository
-from app.shops.repositories import ShopsRepository
+from app.shops.repositories import ShopRepository
 from app.sports.repositories import SportRepository
-from app.users.repositories import UsersRepository
+from app.users.repositories import UserRepository
 from app.equipments.repositories import EquipmentRepository
 from tests.announces.mocks import announce_repository
 from tests.climates.mocks import climate_repository
@@ -25,6 +25,6 @@ def configure(binder):
     binder.bind(SportRepository, to=sport_repository)
     binder.bind(PracticeCenterRepository, to=practice_center_repository)
     binder.bind(AnnounceRepository, to=announce_repository)
-    binder.bind(ShopsRepository, to=shop_repository)
+    binder.bind(ShopRepository, to=shop_repository)
     binder.bind(EquipmentRepository, to=equipment_repository)
-    binder.bind(UsersRepository, to=user_repository)
+    binder.bind(UserRepository, to=user_repository)

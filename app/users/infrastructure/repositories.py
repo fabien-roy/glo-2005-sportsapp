@@ -8,10 +8,10 @@ from app.users.exceptions import UserNotFoundException
 from app.users.infrastructure.queries import MySQLUserQuery as Query
 from app.users.infrastructure.tables import MySQLUserTable as Users
 from app.users.models import User
-from app.users.repositories import UsersRepository
+from app.users.repositories import UserRepository
 
 
-class MySQLUserRepository(UsersRepository):
+class MySQLUserRepository(UserRepository):
     @inject
     def __init__(self, database: Database, recommendation_repository: RecommendationRepository):
         self.database = database

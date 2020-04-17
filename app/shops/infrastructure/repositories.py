@@ -6,10 +6,10 @@ from app.shops.exceptions import ShopNotFoundException
 from app.shops.infrastructure.queries import MySQLShopQuery as Query
 from app.shops.infrastructure.tables import MySQLShopTable as Shops
 from app.shops.models import Shop
-from app.shops.repositories import ShopsRepository
+from app.shops.repositories import ShopRepository
 
 
-class MySQLShopRepository(ShopsRepository):
+class MySQLShopRepository(ShopRepository):
     @inject
     def __init__(self, database: Database, announces_repository: AnnounceRepository):
         self.database = database

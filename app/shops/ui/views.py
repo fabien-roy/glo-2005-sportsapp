@@ -4,13 +4,13 @@ from injector import inject
 
 from app.shops.exceptions import ShopNotFoundException
 from app.shops.forms import ShopSearchForm
-from app.shops.repositories import ShopsRepository
+from app.shops.repositories import ShopRepository
 
 shop_blueprint = Blueprint('shops', __name__)
 
 
 @shop_blueprint.route('/shops', methods=('GET', 'POST'))
-def shops(shops_repository: ShopsRepository):
+def shops(shops_repository: ShopRepository):
     form = ShopSearchForm(request.form)
 
     if request.method == 'POST' and form.validate_on_submit():
@@ -22,7 +22,7 @@ def shops(shops_repository: ShopsRepository):
 
 
 @shop_blueprint.route('/shops/<shop_id>')
-def shop_details(shops_repository: ShopsRepository, shop_id):
+def shop_details(shops_repository: ShopRepository, shop_id):
     try:
         shop = shops_repository.get(shop_id)
     except ShopNotFoundException:
@@ -36,5 +36,5 @@ class ShopView(View):
         pass
 
     @inject
-    def __init__(self, shops_repository: ShopsRepository):
+    def __init__(self, shops_repository: ShopRepository):
         self.shops_repository = shops_repository
