@@ -1,7 +1,7 @@
 {% from 'macros/cards.html' import card %}
 
-{% macro announce_item(url, name, price, state, date) -%}
-    {{ card(url, name, [price, state], [date]) }}
+{% macro announce_item(url, name, announce) -%}
+    {{ card(url, name, [announce.price, announce.state], [announce.date]) }}
 {%- endmacro %}
 
 {% macro nothing() -%}
@@ -14,9 +14,20 @@
             {{ announce_item(url_for('equipments.equipment_details',
                                      equipment_id=announce.equipment_id),
                              announce.equipment_name,
-                             announce.price,
-                             announce.state,
-                             announce.date) }}
+                             announce) }}
+        {% endfor %}
+    {% else %}
+        {{ nothing() }}
+    {% endif %}
+{%- endmacro %}
+
+{% macro shop_announces_list(announces) -%}
+    {% if announces|length > 0 %}
+        {% for announce in announces %}
+            {{ announce_item(url_for('shops.shop_details',
+                                     shop_id=announce.shop_id),
+                             announce.shop_name,
+                             announce) }}
         {% endfor %}
     {% else %}
         {{ nothing() }}

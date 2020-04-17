@@ -51,7 +51,6 @@ class ShopsViewsTests(BasicViewTests):
     def get_shop_details(shop):
         return [shop.name, shop.email, shop.phone_number]
 
-    # TODO : Announce.date and Announce.price
     @staticmethod
     def get_announces_details(shop):
         details = []

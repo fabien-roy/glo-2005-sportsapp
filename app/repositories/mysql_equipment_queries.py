@@ -3,8 +3,8 @@ from app.repositories.mysql_equipment_filters import MySQLEquipmentsFilter
 from app.repositories.mysql_queries import MySQLQuery
 from app.repositories.mysql_tables import MySQLEquipmentsTable
 
-all_fields_to_add = (f'{MySQLEquipmentsTable.name_col}'
-                     f', {MySQLEquipmentsTable.category_col}'
+all_fields_to_add = (f'{MySQLEquipmentsTable.category_col}'
+                     f', {MySQLEquipmentsTable.name_col}'
                      f', {MySQLEquipmentsTable.description_col}')
 
 all_fields = f'{MySQLEquipmentsTable.id_col}, {all_fields_to_add}'

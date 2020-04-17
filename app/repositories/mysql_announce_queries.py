@@ -30,9 +30,9 @@ class MySQLAnnouncesQuery(MySQLQuery):
                      f', S.{Shops.name_col} AS {self.fake_shop_name_col}'
                      f', E.{Equipments.name_col} AS {self.fake_equipment_name_col}'
                      f' FROM {Announces.table_name} AS A'
-                     f' LEFT JOIN {Shops.table_name} S ON S.{Shops.id_col} ='
+                     f' JOIN {Shops.table_name} S ON S.{Shops.id_col} ='
                      f' A.{Announces.shop_id_col}'
-                     f' LEFT JOIN {Equipments.table_name} E ON E.{Equipments.id_col} ='
+                     f' JOIN {Equipments.table_name} E ON E.{Equipments.id_col} ='
                      f' A.{Announces.equipment_id_col}')
 
         return self.build_query(operation, filters)

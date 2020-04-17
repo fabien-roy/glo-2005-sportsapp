@@ -9,4 +9,4 @@ class MySQLEquipmentsFilter(MySQLFilter):
                 MySQLEquipmentsTable.description_col]
 
     def get_values(self, form=None):
-        return [] if form is None else [form.name.data, form.category.data, form.description.data]
+        return [] if form is None else [form.category.data, form.name.data, form.description.data]
