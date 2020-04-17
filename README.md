@@ -36,7 +36,7 @@ Then, in MySQL Shell (for Windows, UNIX use `mysql` CLI) :
 ## Run app
 
 - `python ./run.py`
-- `python ./run.py -d` (or `--db-create` : create database tables)
+- `python ./run.py -c` (or `--db-create` : create database tables)
 - `python ./run.py -p` (or `--db-populate` : populate database with mock data)
 - `python ./run.py -cp` (usually what you want)
 
