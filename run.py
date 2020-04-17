@@ -5,14 +5,12 @@ from flask_injector import FlaskInjector
 
 from app import app
 from app.bindings import configure
-from app.interfaces.infrastructure.database import MySQLDatabase
-from instance import Instance
-from instance.modules import InstanceModule
+from instance import db_create, db_populate
+from instance.injectors import InstanceInjector
 
 FlaskInjector(app=app, modules=[configure])
 
-database = MySQLDatabase()  # TODO : Wouldn't be necessary if app would create/populate db
-instance = Instance(database, InstanceModule)
+InstanceInjector(modules=[configure])
 
 
 def main(argv):
@@ -25,10 +23,10 @@ def main(argv):
 
     for opt, arg in opts:
         if opt in ("-c", "--db-create"):
-            instance.db_create()
+            db_create()
 
         if opt in ("-p", "--db-populate"):
-            instance.db_populate()
+            db_populate()
 
     app.run()
 

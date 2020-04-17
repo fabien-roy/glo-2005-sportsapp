@@ -11,5 +11,8 @@ class RecommendationRepository:
     def get_all_for_practice_center_and_user(self, username):
         pass
 
-    def add(self, recommendation):
+    def add_for_sport(self, recommendation, sport):
+        pass
+
+    def add_for_practice_center(self, recommendation, practice_center):
         pass
