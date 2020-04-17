@@ -1,91 +1,35 @@
-from injector import inject
+import inject
 
 from app.announces.models import Announce
-from app.announces.repositories import AnnounceRepository
-from app.climates.models import Climate
-from app.climates.repositories import ClimateRepository
 from app.equipments.models import Equipment
-from app.equipments.repositories import EquipmentRepository
-from app.interfaces.database import Database
 from app.practice_centers.models import PracticeCenter
-from app.practice_centers.repositories import PracticeCenterRepository
 from app.recommendations.models import Recommendation
-from app.recommendations.repositories import RecommendationRepository
 from app.shops.models import Shop
-from app.shops.repositories import ShopRepository
-from app.sports.models import Sport
-from app.sports.repositories import SportRepository
 from app.users.models import User
-from app.users.repositories import UserRepository
+from instance.climates.fakes import climate1
+from instance.climates.services import ClimatePopulationService
+from instance.practice_centers.services import PracticeCenterPopulationService
+from instance.sports.services import SportPopulationService
+from instance.users.services import UserPopulationService
 
 
 class MySQLPopulationService:
-    @inject
-    def __init__(self,
-                 database: Database,
-                 climate_repository: ClimateRepository,
-                 recommendation_repository: RecommendationRepository,
-                 user_repository: UserRepository,
-                 sport_repository: SportRepository,
-                 practice_center_repository: PracticeCenterRepository,
-                 announce_repository: AnnounceRepository,
-                 shop_repository: ShopRepository,
-                 equipment_repository: EquipmentRepository):
-        self.database = database
-        self.climate_repository = climate_repository,
-        self.recommendation_repository = recommendation_repository,
-        self.user_repository = user_repository,
-        self.sport_repository = sport_repository,
-        self.practice_center_repository = practice_center_repository,
-        self.announce_repository = announce_repository,
-        self.shop_repository = shop_repository,
-        self.equipment_repository = equipment_repository
+    climate_population_service = inject.attr(ClimatePopulationService)
+    sport_population_service = inject.attr(SportPopulationService)
+    practice_population_service = inject.attr(PracticeCenterPopulationService)
+    user_population_service = inject.attr(UserPopulationService)
+    recommendation_repository = inject.attr(recommendation_repository)
+    announce_repository = inject.attr(announce_repository)
+    shop_repository = inject.attr(shop_repository)
+    equipment_repository = inject.attr(equipment_repository)
 
     def db_populate(self):
         print('Populating database tables for SportsApp...')
 
-        climate1 = Climate('Tundra')
-        climate2 = Climate('Savane')
-        climate3 = Climate('Aride')
-        self.climate_repository.add(climate1)
-        self.climate_repository.add(climate2)
-        self.climate_repository.add(climate3)
-
-        sport1 = Sport(None, name='Randonnee', climates=[climate1, climate2])
-        sport2 = Sport(None, name='Escalade', climates=[climate2, climate3])
-        sport3 = Sport(None, name='Natation', climates=[climate3])
-        self.sport_repository.add(sport1)
-        self.sport_repository.add(sport2)
-        self.sport_repository.add(sport3)
-
-        center1 = PracticeCenter(None,
-                                 name='Mont-Orford National Park',
-                                 email='parc.mont-orford@sepaq.com',
-                                 web_site='https://www.sepaq.com/pq/mor/',
-                                 phone_number='819 843-9855',
-                                 climates=[climate2])
-        center2 = PracticeCenter(None,
-                                 name='Parc des Montagnards',
-                                 email='info@censhefford.ca',
-                                 web_site='https://www.cantonsdelest.com/quoi-faire/980'
-                                          '/parc-des-montagnards',
-                                 climates=[])
-        center3 = PracticeCenter(None,
-                                 name='Gault Nature Reserve of McGill University',
-                                 climates=[climate1, climate3])
-        self.practice_center_repository.add(center1)
-        self.practice_center_repository.add(center2)
-        self.practice_center_repository.add(center3)
-
-        user1 = User(username='fabienroy28', email='fabienroy28@gmail.com',
-                     first_name='Fabien', last_name='Roy', phone_number='123-456-7890')
-        user2 = User(username='mikaelvalliant', email='mikaelvalliant@gmail.com',
-                     first_name='Mikael', last_name='Valliant')
-        user3 = User(username='getoutmyswamp', email='shrek@swamp.ca', first_name='Shrek',
-                     phone_number='1 800-555-0101')
-        self.user_repository.add(user1)
-        self.user_repository.add(user2)
-        self.user_repository.add(user3)
+        self.climate_population_service.db_populate()
+        self.sport_population_service.db_populate()
+        self.practice_population_service.db_populate()
+        self.user_population_service.db_populate()
 
         sport1_recommendation1 = Recommendation(None, sport1.id, user1.username,
                                                 'Un super sport. J\' adore.', 5, sport1.name)
