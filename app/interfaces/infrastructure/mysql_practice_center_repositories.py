@@ -5,7 +5,7 @@ from app.database import Database
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
 from app.practice_centers.models import PracticeCenter
 from app.practice_centers.repositories import PracticeCentersRepository
-from app.recommendations.repositories import RecommendationsRepository
+from app.recommendations.repositories import RecommendationRepository
 from app.repositories.mysql_practice_center_queries import MySQLPracticeCentersQuery
 from app.repositories.mysql_tables import MySQLPracticeCentersTable
 
@@ -13,7 +13,7 @@ from app.repositories.mysql_tables import MySQLPracticeCentersTable
 class MySQLPracticeCentersRepository(PracticeCentersRepository):
     @inject
     def __init__(self, database: Database, climates_repository: ClimatesRepository,
-                 recommendations_repository: RecommendationsRepository):
+                 recommendations_repository: RecommendationRepository):
         self.database = database
         self.climates_repository = climates_repository
         self.recommendations_repository = recommendations_repository

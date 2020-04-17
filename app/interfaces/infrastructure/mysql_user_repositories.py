@@ -3,7 +3,7 @@ import datetime
 from injector import inject
 
 from app.database import Database
-from app.recommendations.repositories import RecommendationsRepository
+from app.recommendations.repositories import RecommendationRepository
 from app.repositories.mysql_tables import MySQLUsersTable
 from app.repositories.mysql_user_queries import MySQLUsersQuery
 from app.users.exceptions import UserNotFoundException
@@ -13,7 +13,7 @@ from app.users.repositories import UsersRepository
 
 class MySQLUsersRepository(UsersRepository):
     @inject
-    def __init__(self, database: Database, recommendations_repository: RecommendationsRepository):
+    def __init__(self, database: Database, recommendations_repository: RecommendationRepository):
         self.database = database
         self.recommendations_repository = recommendations_repository
 

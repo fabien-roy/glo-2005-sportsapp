@@ -2,7 +2,7 @@ from injector import inject
 
 from app.climates.climate_repository import ClimatesRepository
 from app.database import Database
-from app.recommendations.repositories import RecommendationsRepository
+from app.recommendations.repositories import RecommendationRepository
 from app.repositories.mysql_sport_queries import MySQLSportsQuery
 from app.repositories.mysql_tables import MySQLSportsTable
 from app.sports.exceptions import SportNotFoundException
@@ -13,7 +13,7 @@ from app.sports.repositories import SportsRepository
 class MySQLSportsRepository(SportsRepository):
     @inject
     def __init__(self, database: Database, climates_repository: ClimatesRepository,
-                 recommendations_repository: RecommendationsRepository):
+                 recommendations_repository: RecommendationRepository):
         self.database = database
         self.climates_repository = climates_repository
         self.recommendations_repository = recommendations_repository

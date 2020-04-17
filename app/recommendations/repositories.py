@@ -1,4 +1,4 @@
-class RecommendationsRepository:
+class RecommendationRepository:
     def get_all_for_sport(self, sport_id):
         pass
 
