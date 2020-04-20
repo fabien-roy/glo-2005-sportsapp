@@ -1,4 +1,4 @@
-SportsApp
+# SportsApp
 
 ![Build](https://github.com/ExiledNarwal28/glo-2005-sportsapp/workflows/Build/badge.svg?branch=master)
 [![codecov](https://codecov.io/gh/ExiledNarwal28/glo-2005-sportsapp/branch/master/graph/badge.svg?token=R9AKC1L5PE)](https://codecov.io/gh/ExiledNarwal28/glo-2005-sportsapp)
