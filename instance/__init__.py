@@ -3,8 +3,7 @@ from instance.population.services import PopulationService
 
 
 class Instance:
-    def set_injector(self, injector):
-        self.injector = injector
+    injector = None
 
     def db_create(self):
         creation_service = self.injector.get(CreationService)
