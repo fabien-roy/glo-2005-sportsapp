@@ -6,6 +6,7 @@ source = app
 exclude_lines =
     if self.debug:
     pragma: no cover
+    @abstract
     raise NotImplementedError
     if __name__ == .__main__.:
 ignore_errors = True

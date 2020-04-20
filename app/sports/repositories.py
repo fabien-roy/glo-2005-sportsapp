@@ -1,9 +1,17 @@
+from abc import ABCMeta, abstractmethod
+
+
 class SportRepository:
+    __metaclass__ = ABCMeta
+
+    @abstractmethod
     def get_all(self, form=None):
-        pass
+        """ abstract method """
 
+    @abstractmethod
     def get(self, sport_id):
-        pass
+        """ abstract method """
 
+    @abstractmethod
     def add(self, sport):
-        pass
+        """ abstract method """

@@ -1,9 +1,17 @@
+from abc import ABCMeta, abstractmethod
+
+
 class ShopRepository:
+    __metaclass__ = ABCMeta
+
+    @abstractmethod
     def get_all(self, form=None):
-        pass
+        """ abstract method """
 
+    @abstractmethod
     def get(self, shop_id):
-        pass
+        """ abstract method """
 
+    @abstractmethod
     def add(self, shop):
-        pass
+        """ abstract method """

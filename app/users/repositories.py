@@ -1,9 +1,17 @@
+from abc import abstractmethod, ABCMeta
+
+
 class UserRepository:
+    __metaclass__ = ABCMeta
+
+    @abstractmethod
     def get_all(self, form):
-        pass
+        """ abstract method """
 
+    @abstractmethod
     def get(self, username):
-        pass
+        """ abstract method """
 
+    @abstractmethod
     def add(self, user):
-        pass
+        """ abstract method """
