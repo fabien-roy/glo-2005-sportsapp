@@ -10,7 +10,7 @@ class PracticeCentersViewTests(ViewTests):
 
     def test_construct_should_inject_repository(self):
         view = PracticeCenterView(practice_center_repository)
-        self.assertEquals(practice_center_repository, view.practice_center_repository)
+        self.assertEqual(practice_center_repository, view.practice_center_repository)
 
     def get_path(self):
         return '/practice-centers'

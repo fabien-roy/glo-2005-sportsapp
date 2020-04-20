@@ -10,7 +10,7 @@ class ShopsViewTests(ViewTests):
 
     def test_construct_should_inject_repository(self):
         view = ShopView(shop_repository)
-        self.assertEquals(shop_repository, view.shop_repository)
+        self.assertEqual(shop_repository, view.shop_repository)
 
     def get_path(self):
         return '/shops'

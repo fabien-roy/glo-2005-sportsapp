@@ -10,7 +10,7 @@ class EquipmentViewTests(ViewTests):
 
     def test_construct_should_inject_repository(self):
         view = EquipmentView(equipment_repository)
-        self.assertEquals(equipment_repository, view.equipment_repository)
+        self.assertEqual(equipment_repository, view.equipment_repository)
 
     def get_path(self):
         return '/equipments'

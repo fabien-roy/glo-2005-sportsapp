@@ -10,7 +10,7 @@ class SportsViewsTests(ViewTests):
 
     def test_construct_should_inject_repository(self):
         view = SportView(sport_repository)
-        self.assertEquals(sport_repository, view.sport_repository)
+        self.assertEqual(sport_repository, view.sport_repository)
 
     def get_path(self):
         return '/sports'

@@ -10,7 +10,7 @@ class UserViewTests(ViewTests):
 
     def test_construct_should_inject_repository(self):
         view = UserView(user_repository)
-        self.assertEquals(user_repository, view.user_repository)
+        self.assertEqual(user_repository, view.user_repository)
 
     def get_path(self):
         return '/users'
