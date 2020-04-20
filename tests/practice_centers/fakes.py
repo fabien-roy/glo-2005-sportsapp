@@ -1,22 +1,13 @@
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
-from app.practice_centers.models import PracticeCenter
-from tests.climates.fakes import climate2, climate1, climate3
+from tests.climates.fakes import climate1, climate2, climate3
+from instance.practice_centers.fakes import center1, center2, center3
 
-center1 = PracticeCenter(1,
-                         name='Mont-Orford National Park',
-                         email='parc.mont-orford@sepaq.com',
-                         web_site='https://www.sepaq.com/pq/mor/',
-                         phone_number='819 843-9855',
-                         climates=[climate2])
-center2 = PracticeCenter(2,
-                         name='Parc des Montagnards',
-                         email='info@censhefford.ca',
-                         web_site=
-                         'https://www.cantonsdelest.com/quoi-faire/980/parc-des-montagnards',
-                         climates=[])
-center3 = PracticeCenter(3,
-                         name='Gault Nature Reserve of McGill University',
-                         climates=[climate1, climate3])
+center1.id = 1
+center1.climates = [climate2]
+center2.id = 2
+center2.climates = []
+center3.id = 3
+center1.climates = [climate1, climate3]
 
 
 def get_practice_center(practice_center_id):
