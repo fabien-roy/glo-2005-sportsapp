@@ -31,10 +31,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Lint app
-        run: pylint --output-format=text app
-      - name: Lint tests
-        run: pylint --output-format=text tests
+      - name: Lint app, instance and tests
+        run: |
+          pylint --output-format=text app
+          pylint --output-format=text instance
+          pylint --output-format=text tests
       - name: Create test database
         run: |
           mysql -h 127.0.0.1 --port 3306 -u root -ppassword -e "

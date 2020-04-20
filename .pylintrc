@@ -10,3 +10,4 @@ disable=
     R0903, # too-few-public-methods
     R0904, # too-many-public-methods
     R0913, # too-many-arguments
+    W0201, # attribute-defined-outside-init

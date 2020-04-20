@@ -24,7 +24,8 @@ class MySQLRecommendationQuery:
                 'practice_center_id int NOT NULL,'
                 'recommendation_id int NOT NULL,'
                 'PRIMARY KEY (practice_center_id, recommendation_id),'
-                'FOREIGN KEY (practice_center_id) REFERENCES practice_centers(id) ON DELETE CASCADE,'
+                'FOREIGN KEY (practice_center_id) REFERENCES practice_centers(id) '
+                'ON DELETE CASCADE,'
                 'FOREIGN KEY (recommendation_id) REFERENCES recommendations(id) ON DELETE CASCADE'
                 ');')
 
@@ -35,11 +36,10 @@ class MySQLRecommendationQuery:
     @staticmethod
     def create_recommendations():
         return ('CREATE TABLE recommendations ('
-                    'id int NOT NULL AUTO_INCREMENT PRIMARY KEY,'
-                    'username varchar(50) NOT NULL,'
-                    'comment varchar(1000) NOT NULL,'
-                    'note int NOT NULL,'
-                    'date timestamp NOT NULL,'
-                    'FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE'
-                    ');')
-
+                'id int NOT NULL AUTO_INCREMENT PRIMARY KEY,'
+                'username varchar(50) NOT NULL,'
+                'comment varchar(1000) NOT NULL,'
+                'note int NOT NULL,'
+                'date timestamp NOT NULL,'
+                'FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE'
+                ');')

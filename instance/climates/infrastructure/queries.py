@@ -24,7 +24,8 @@ class MySQLClimateQuery:
                 'practice_center_id int NOT NULL,'
                 'climate_name varchar(50) NOT NULL,'
                 'PRIMARY KEY (practice_center_id, climate_name),'
-                'FOREIGN KEY (practice_center_id) REFERENCES practice_centers(id) ON DELETE CASCADE,'
+                'FOREIGN KEY (practice_center_id) REFERENCES practice_centers(id) '
+                'ON DELETE CASCADE,'
                 'FOREIGN KEY (climate_name) REFERENCES climates(name) ON DELETE CASCADE'
                 ');')
 
