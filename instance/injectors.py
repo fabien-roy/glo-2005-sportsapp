@@ -12,4 +12,4 @@ class InstanceInjector:
 
         injector.binder.install(InstanceModule)
 
-        instance.set_injector(injector)
+        instance.injector = injector

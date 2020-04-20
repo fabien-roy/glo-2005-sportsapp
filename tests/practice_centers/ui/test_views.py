@@ -1,10 +1,16 @@
 import unittest
 
+from app.practice_centers.ui.views import PracticeCenterView
 from tests.interfaces.ui.test_views import ViewTests
 from tests.practice_centers.fakes import center1, center2, center3
+from tests.practice_centers.mocks import practice_center_repository
 
 
 class PracticeCentersViewTests(ViewTests):
+
+    def test_construct_should_inject_repository(self):
+        view = PracticeCenterView(practice_center_repository)
+        self.assertEqual(practice_center_repository, view.practice_center_repository)
 
     def get_path(self):
         return '/practice-centers'

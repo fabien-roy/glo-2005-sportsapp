@@ -1,10 +1,16 @@
 import unittest
 
+from app.equipments.ui.views import EquipmentView
 from tests.equipments.fakes import equipment1, equipment2, equipment3
+from tests.equipments.mocks import equipment_repository
 from tests.interfaces.ui.test_views import ViewTests
 
 
 class EquipmentViewTests(ViewTests):
+
+    def test_construct_should_inject_repository(self):
+        view = EquipmentView(equipment_repository)
+        self.assertEqual(equipment_repository, view.equipment_repository)
 
     def get_path(self):
         return '/equipments'

@@ -1,3 +1,5 @@
+from abc import abstractmethod, ABCMeta
+
 from flask import render_template, request, Blueprint
 from flask.views import View
 from injector import inject
@@ -32,9 +34,12 @@ def shop_details(shops_repository: ShopRepository, shop_id):
 
 
 class ShopView(View):
+    __metaclass__ = ABCMeta
+
+    @abstractmethod
     def dispatch_request(self):
-        pass
+        """ abstract method """
 
     @inject
-    def __init__(self, shops_repository: ShopRepository):
-        self.shops_repository = shops_repository
+    def __init__(self, shop_repository: ShopRepository):
+        self.shop_repository = shop_repository

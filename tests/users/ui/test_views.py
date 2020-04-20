@@ -1,10 +1,16 @@
 import unittest
 
+from app.users.ui.views import UserView
 from tests.interfaces.ui.test_views import ViewTests
 from tests.users.fakes import user1, user2, user3
+from tests.users.mocks import user_repository
 
 
 class UserViewTests(ViewTests):
+
+    def test_construct_should_inject_repository(self):
+        view = UserView(user_repository)
+        self.assertEqual(user_repository, view.user_repository)
 
     def get_path(self):
         return '/users'

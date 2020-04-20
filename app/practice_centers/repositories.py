@@ -1,9 +1,17 @@
+from abc import abstractmethod, ABCMeta
+
+
 class PracticeCenterRepository:
+    __metaclass__ = ABCMeta
+
+    @abstractmethod
     def get_all(self, form=None):
-        pass
+        """ abstract method """
 
+    @abstractmethod
     def get(self, practice_center_id):
-        pass
+        """ abstract method """
 
+    @abstractmethod
     def add(self, practice_center):
-        pass
+        """ abstract method """

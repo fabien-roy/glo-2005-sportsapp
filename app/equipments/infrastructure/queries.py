@@ -12,7 +12,7 @@ all_fields = f'{Equipments.id_col}, {all_fields_to_add}'
 select_all_operation = f'SELECT {all_fields} FROM {Equipments.table_name}'
 
 
-class MySQLEquipmentsQuery(MySQLQuery):
+class MySQLEquipmentQuery(MySQLQuery):
     def get(self, equipment_id):
         filters = [MySQLFilter.filter_equal(Equipments.id_col, equipment_id)]
 

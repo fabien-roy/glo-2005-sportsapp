@@ -1,11 +1,13 @@
 [run]
 branch = True
-source = app
+source = app,instance
 
 [report]
 exclude_lines =
     if self.debug:
     pragma: no cover
+    @abstract
+    @app.errorhandler
     raise NotImplementedError
     if __name__ == .__main__.:
 ignore_errors = True

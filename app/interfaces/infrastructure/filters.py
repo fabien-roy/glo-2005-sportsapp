@@ -1,4 +1,9 @@
+from abc import abstractmethod, ABCMeta
+
+
 class MySQLFilter:
+    __metaclass__ = ABCMeta
+
     @staticmethod
     def filter_equal(col, value):
         return f'{col} = {value}'
@@ -11,11 +16,13 @@ class MySQLFilter:
     def filter_like(col, value):
         return f'{col} LIKE \'%{value}%\''
 
+    @abstractmethod
     def get_col_names(self):
-        pass
+        """ abstract method """
 
+    @abstractmethod
     def get_values(self, form=None):
-        pass
+        """ abstract method """
 
     def build_filters(self, form=None):
         if form is not None:

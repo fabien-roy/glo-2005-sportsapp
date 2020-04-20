@@ -9,6 +9,12 @@ from tests.users.fakes import user1, user2, user3
 
 class SearchViewTests(ViewTests):
 
+    def test_get_should_display_home(self):
+        response = self.app.get('/', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'SportsApp', response.data)
+        self.assertIn(b'Search', response.data)
+
     def test_search_with_sports_should_redirect(self):
         form = {'search_route': 'sports.sports'}
         response = self.app.post('/', follow_redirects=True, data=form)
