@@ -5,6 +5,7 @@ disable=
     C0115, # missing-class-docstring
     C0116, # missing-function-docstring
     E1111, # assignment-from-no-return
+    R0124, # comparison-with-itself
     R0801, # duplicate-code
     R0902, # too-many-instance-attributes
     R0903, # too-few-public-methods
