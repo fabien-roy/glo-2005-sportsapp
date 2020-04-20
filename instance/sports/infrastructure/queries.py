@@ -1,14 +1,12 @@
-class MySQLRecommendationQuery:
+class MySQLSportQuery:
 
     @staticmethod
-    def drop_sport_recommendations():
-        return 'DROP TABLE IF EXISTS sport_recommendations'
+    def drop_sports():
+        return 'DROP TABLE IF EXISTS sports'
 
     @staticmethod
-    def drop_practice_center_recommendations():
-        return 'DROP TABLE IF EXISTS practice_center_recommendations'
-
-    @staticmethod
-    def drop_recommendations():
-        return 'DROP TABLE IF EXISTS recommendations'
-
+    def create_sports():
+        return ('CREATE TABLE sports ('
+                'id int NOT NULL AUTO_INCREMENT PRIMARY KEY,'
+                'name varchar(50) NOT NULL'
+                ');')

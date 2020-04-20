@@ -4,7 +4,7 @@ from app.announces.repositories import AnnounceRepository
 from app.equipments.exceptions import EquipmentNotFoundException
 from app.equipments.models import Equipment
 from app.equipments.repositories import EquipmentRepository
-from app.equipments.infrastructure.queries import MySQLEquipmentsQuery as Query
+from app.equipments.infrastructure.queries import MySQLEquipmentQuery as Query
 from app.equipments.infrastructure.tables import MySQLEquipmentTable as Equipments
 from app.interfaces.database import Database
 
