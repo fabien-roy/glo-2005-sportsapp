@@ -1,3 +1,5 @@
+from abc import abstractmethod, ABCMeta
+
 from flask import render_template, request, Blueprint
 from flask.views import View
 from injector import inject
@@ -32,9 +34,12 @@ def sport_details(sports_repository: SportRepository, sport_id):
 
 
 class SportView(View):
+    __metaclass__ = ABCMeta
+
+    @abstractmethod
     def dispatch_request(self):
-        pass
+        """ abstract method """
 
     @inject
-    def __init__(self, sports_repository: SportRepository):
-        self.sports_repository = sports_repository
+    def __init__(self, sport_repository: SportRepository):
+        self.sport_repository = sport_repository

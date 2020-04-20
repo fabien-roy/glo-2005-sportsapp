@@ -1,10 +1,16 @@
 import unittest
 
+from app.shops.ui.views import ShopView
 from tests.interfaces.ui.test_views import ViewTests
 from tests.shops.fakes import shop1, shop2, shop3
+from tests.shops.mocks import shop_repository
 
 
 class ShopsViewTests(ViewTests):
+
+    def test_construct_should_inject_repository(self):
+        view = ShopView(shop_repository)
+        self.assertEquals(shop_repository, view.shop_repository)
 
     def get_path(self):
         return '/shops'
