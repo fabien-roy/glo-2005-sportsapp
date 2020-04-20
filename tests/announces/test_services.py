@@ -1,13 +1,13 @@
-from instance.shops.services import ShopPopulationService
-from tests.shops.mocks import shop_repository
+from instance.announces.services import AnnouncePopulationService
+from tests.announces.mocks import announce_repository
 from tests.interfaces import test_basic
 
 
-class ShopPopulationServiceTests(test_basic.BasicTests):
+class AnnouncePopulationServiceTests(test_basic.BasicTests):
 
     def setUp(self):
-        self.shop_population_service = ShopPopulationService(shop_repository)
+        self.announce_population_service = AnnouncePopulationService(announce_repository)
 
     def test_db_populate_adds_fakes(self):
-        self.shop_population_service.db_populate()
-        assert shop_repository.add.called
+        self.announce_population_service.db_populate()
+        assert announce_repository.add.called
