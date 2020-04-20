@@ -9,6 +9,10 @@ class RecommendationPopulationServiceTests(test_basic.BasicTests):
         self.recommendation_population_service = RecommendationPopulationService(
             recommendation_repository)
 
-    def test_db_populate_adds_fakes(self):
+    def test_db_populate_adds_fake_sports(self):
         self.recommendation_population_service.db_populate()
-        assert recommendation_repository.add.called
+        assert recommendation_repository.add_for_sport.called
+
+    def test_db_populate_adds_fake_practice_centers(self):
+        self.recommendation_population_service.db_populate()
+        assert recommendation_repository.add_for_practice_center.called
