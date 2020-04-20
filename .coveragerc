@@ -1,6 +1,6 @@
 [run]
 branch = True
-source = app
+source = app,instance
 
 [report]
 exclude_lines =

@@ -2,7 +2,7 @@ from instance.equipments.fakes import equipment1, equipment2
 from tests.interfaces import test_basic
 
 
-class TestEquipment(test_basic.BasicTests):
+class EquipmentTests(test_basic.BasicTests):
 
     def test_equals_with_non_equipment_should_return_false(self):
         self.assertFalse(equipment1 == object)

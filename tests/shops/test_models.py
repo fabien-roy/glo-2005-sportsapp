@@ -2,7 +2,7 @@ from instance.shops.fakes import shop1, shop2
 from tests.interfaces import test_basic
 
 
-class TestShop(test_basic.BasicTests):
+class ShopTests(test_basic.BasicTests):
 
     def test_equals_with_non_shop_should_return_false(self):
         self.assertFalse(shop1 == object)

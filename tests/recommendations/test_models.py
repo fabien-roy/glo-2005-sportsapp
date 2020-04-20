@@ -3,7 +3,7 @@ from instance.recommendations.fakes import sport1_recommendation1_user1, \
 from tests.interfaces import test_basic
 
 
-class TestRecommendation(test_basic.BasicTests):
+class RecommendationTests(test_basic.BasicTests):
 
     def test_equals_with_non_announce_should_return_false(self):
         self.assertFalse(sport1_recommendation1_user1 == object)
