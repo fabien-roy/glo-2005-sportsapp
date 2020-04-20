@@ -1,8 +1,14 @@
+from abc import ABCMeta, abstractmethod
+
+
 class Database:
+    __metaclass__ = ABCMeta
+
     connection = None
 
+    @abstractmethod
     def create_connection(self):
-        pass
+        """ abstract method """
 
     def connect(self):
         if self.connection is None:
