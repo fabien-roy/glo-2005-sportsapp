@@ -1,21 +1,24 @@
 # Flask
 Flask==1.1.2
-Flask-Bootstrap==3.3.7.1
-Flask_Bcrypt==0.7.1
 Flask_Cors==3.0.8
-flask_injector
+
+# Forms
 Flask_wtf==0.14.3
 wtforms==2.3.0
+email-validator===1.0.5
 
 # Templating
 Jinja2==2.11.2
+Flask-Bootstrap==3.3.7.1
 
 # Injection
 inject==4.1.2
 injector==0.18.3
+flask_injector
 
 # Encrption
 cryptography==2.9.1
+Flask_Bcrypt==0.7.1
 
 # Code coverage
 codecov==2.0.22
