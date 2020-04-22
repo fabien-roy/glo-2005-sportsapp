@@ -1,7 +1,7 @@
 inject
 injector==0.18.3
 Click==7.1.1
-cryptography==2.9
+cryptography==2.9.1
 codecov==2.0.22
 Flask==1.1.2
 Flask-Bootstrap==3.3.7.1
