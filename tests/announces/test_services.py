@@ -1,9 +1,9 @@
 from instance.announces.services import AnnouncePopulationService
 from tests.announces.mocks import announce_repository
-from tests.interfaces import test_basic
+from tests.interfaces.test_basic import BasicTests
 
 
-class AnnouncePopulationServiceTests(test_basic.BasicTests):
+class AnnouncePopulationServiceTests(BasicTests):
 
     def setUp(self):
         self.announce_population_service = AnnouncePopulationService(announce_repository)

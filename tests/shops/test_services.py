@@ -1,9 +1,9 @@
 from instance.shops.services import ShopPopulationService
 from tests.shops.mocks import shop_repository
-from tests.interfaces import test_basic
+from tests.interfaces.test_basic import BasicTests
 
 
-class ShopPopulationServiceTests(test_basic.BasicTests):
+class ShopPopulationServiceTests(BasicTests):
 
     def setUp(self):
         self.shop_population_service = ShopPopulationService(shop_repository)

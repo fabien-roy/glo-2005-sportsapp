@@ -1,5 +1,3 @@
-import unittest
-
 from app.recommendations.infrastructure.repositories import MySQLRecommendationRepository
 from tests.interfaces.infrastructure.database import test_database
 from tests.interfaces.infrastructure.test_repositories import RepositoryTests
@@ -81,7 +79,3 @@ class RecommendationsRepositoryTests(RepositoryTests):
         self.assertCountEqual(user2.practice_center_recommendations, recommendations)
         recommendations = self.repository.get_all_for_practice_center_and_user(user3.username)
         self.assertCountEqual(user3.practice_center_recommendations, recommendations)
-
-
-if __name__ == "__main__":
-    unittest.main()

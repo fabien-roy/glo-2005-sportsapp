@@ -1,5 +1,3 @@
-import unittest
-
 from app.sports.ui.views import SportView
 from tests.interfaces.ui.test_views import ViewTests
 from tests.sports.fakes import sport1, sport3, sport2
@@ -63,7 +61,3 @@ class SportsViewsTests(ViewTests):
         for recommendation in sport.recommendations:
             details += [recommendation.username]
         return details
-
-
-if __name__ == "__main__":
-    unittest.main()

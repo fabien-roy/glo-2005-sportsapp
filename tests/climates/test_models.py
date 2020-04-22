@@ -1,8 +1,8 @@
 from instance.climates.fakes import climate1, climate2
-from tests.interfaces import test_basic
+from tests.interfaces.test_basic import BasicTests
 
 
-class ClimateTests(test_basic.BasicTests):
+class ClimateTests(BasicTests):
 
     def test_equals_with_non_climate_should_return_false(self):
         self.assertFalse(climate1 == object)

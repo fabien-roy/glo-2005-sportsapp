@@ -1,8 +1,8 @@
 from instance.practice_centers.fakes import center1, center2
-from tests.interfaces import test_basic
+from tests.interfaces.test_basic import BasicTests
 
 
-class PracticeCenterTests(test_basic.BasicTests):
+class PracticeCenterTests(BasicTests):
 
     def test_equals_with_non_practice_center_should_return_false(self):
         self.assertFalse(center1 == object)

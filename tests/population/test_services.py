@@ -1,10 +1,10 @@
 from unittest import mock
 
 from instance import PopulationService
-from tests.interfaces import test_basic
+from tests.interfaces.test_basic import BasicTests
 
 
-class ShopPopulationServiceTests(test_basic.BasicTests):
+class ShopPopulationServiceTests(BasicTests):
     climate_population_service = mock.Mock()
     sport_population_service = mock.Mock()
     practice_center_population_service = mock.Mock()

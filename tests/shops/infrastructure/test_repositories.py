@@ -1,5 +1,3 @@
-import unittest
-
 from app.shops.exceptions import ShopNotFoundException
 from app.shops.infrastructure.repositories import MySQLShopRepository
 from tests.announces.mocks import announce_repository
@@ -84,7 +82,3 @@ class ShopRepositoryTests(RepositoryTests):
         self.assertIn(shop1, shops)
         self.assertNotIn(shop2, shops)
         self.assertNotIn(shop3, shops)
-
-
-if __name__ == "__main__":
-    unittest.main()

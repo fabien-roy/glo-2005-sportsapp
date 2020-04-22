@@ -1,9 +1,9 @@
 from instance.equipments.services import EquipmentPopulationService
 from tests.equipments.mocks import equipment_repository
-from tests.interfaces import test_basic
+from tests.interfaces.test_basic import BasicTests
 
 
-class EquipmentPopulationServiceTests(test_basic.BasicTests):
+class EquipmentPopulationServiceTests(BasicTests):
 
     def setUp(self):
         self.equipment_population_service = EquipmentPopulationService(equipment_repository)

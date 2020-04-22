@@ -1,5 +1,3 @@
-import unittest
-
 from app.announces.infrastructure.repositories import MySQLAnnounceRepository
 from tests.equipments.fakes import equipment1, equipment2, equipment3
 from tests.interfaces.infrastructure.database import test_database
@@ -46,7 +44,3 @@ class MySQLAnnounceRepositoryTests(RepositoryTests):
         self.assertCountEqual(equipment2.announces, announces)
         announces = self.repository.get_all_for_equipment(equipment3.id)
         self.assertCountEqual(equipment3.announces, announces)
-
-
-if __name__ == "__main__":
-    unittest.main()

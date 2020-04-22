@@ -1,9 +1,9 @@
 from instance.sports.services import SportPopulationService
 from tests.sports.mocks import sport_repository
-from tests.interfaces import test_basic
+from tests.interfaces.test_basic import BasicTests
 
 
-class SportPopulationServiceTests(test_basic.BasicTests):
+class SportPopulationServiceTests(BasicTests):
 
     def setUp(self):
         self.sport_population_service = SportPopulationService(sport_repository)

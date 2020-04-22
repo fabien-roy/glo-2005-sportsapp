@@ -1,9 +1,9 @@
 from instance.users.services import UserPopulationService
 from tests.users.mocks import user_repository
-from tests.interfaces import test_basic
+from tests.interfaces.test_basic import BasicTests
 
 
-class UserPopulationServiceTests(test_basic.BasicTests):
+class UserPopulationServiceTests(BasicTests):
 
     def setUp(self):
         self.user_population_service = UserPopulationService(user_repository)

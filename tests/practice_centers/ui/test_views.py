@@ -1,5 +1,3 @@
-import unittest
-
 from app.practice_centers.ui.views import PracticeCenterView
 from tests.interfaces.ui.test_views import ViewTests
 from tests.practice_centers.fakes import center1, center2, center3
@@ -64,7 +62,3 @@ class PracticeCentersViewTests(ViewTests):
         for recommendation in center.recommendations:
             details += [recommendation.username]
         return details
-
-
-if __name__ == "__main__":
-    unittest.main()

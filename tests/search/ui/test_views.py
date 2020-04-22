@@ -1,5 +1,3 @@
-import unittest
-
 from tests.interfaces.ui.test_views import ViewTests
 from tests.practice_centers.fakes import center1, center2, center3
 from tests.shops.fakes import shop3, shop2, shop1
@@ -54,7 +52,3 @@ class SearchViewTests(ViewTests):
         self.assertIn(user1.username.encode(), response.data)
         self.assertNotIn(user2.username.encode(), response.data)
         self.assertNotIn(user3.username.encode(), response.data)
-
-
-if __name__ == "__main__":
-    unittest.main()

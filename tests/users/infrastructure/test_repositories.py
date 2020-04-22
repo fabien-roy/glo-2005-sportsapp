@@ -1,5 +1,3 @@
-import unittest
-
 from app.users.exceptions import UserNotFoundException
 from app.users.infrastructure.repositories import MySQLUserRepository
 from tests.interfaces.infrastructure.database import test_database
@@ -100,7 +98,3 @@ class UserRepositoryTests(RepositoryTests):
         self.assertIn(user1, users)
         self.assertNotIn(user2, users)
         self.assertNotIn(user3, users)
-
-
-if __name__ == "__main__":
-    unittest.main()

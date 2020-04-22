@@ -1,5 +1,3 @@
-import unittest
-
 from app.announces.infrastructure.repositories import MySQLAnnounceRepository
 from app.bindings import configure_modules
 from app.climates.infrastructure.repositories import MySQLClimateRepository
@@ -16,8 +14,9 @@ from tests.announces.fakes import shop1_equipment1_announce1, shop1_equipment2_a
     shop3_equipment3_announce1
 from tests.bindings import configure_test_database
 from tests.climates.fakes import climate1, climate2, climate3
-from tests.interfaces import test_basic
+from tests.equipments.fakes import equipment1, equipment2, equipment3
 from tests.interfaces.infrastructure.database import test_database
+from tests.interfaces.test_basic import BasicTests
 from tests.practice_centers.fakes import center1, center2, center3
 from tests.recommendations.fakes import sport1_recommendation1_user1, \
     sport2_recommendation1_user3, sport2_recommendation2_user2, sport3_recommendation1_user1, \
@@ -26,10 +25,9 @@ from tests.recommendations.fakes import sport1_recommendation1_user1, \
 from tests.shops.fakes import shop1, shop2, shop3
 from tests.sports.fakes import sport1, sport2, sport3
 from tests.users.fakes import user1, user2, user3
-from tests.equipments.fakes import equipment1, equipment2, equipment3
 
 
-class RepositoryTests(test_basic.BasicTests):
+class RepositoryTests(BasicTests):
     database_populated = False
 
     climates_repository = MySQLClimateRepository(test_database)
@@ -135,7 +133,3 @@ class RepositoryTests(test_basic.BasicTests):
     def tearDown(self):
         if not self.database_populated:
             self.populate_database()
-
-
-if __name__ == "__main__":
-    unittest.main()

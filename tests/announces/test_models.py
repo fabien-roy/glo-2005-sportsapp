@@ -1,8 +1,8 @@
 from instance.announces.fakes import shop1_equipment1_announce1, shop1_equipment2_announce1
-from tests.interfaces import test_basic
+from tests.interfaces.test_basic import BasicTests
 
 
-class AnnounceTests(test_basic.BasicTests):
+class AnnounceTests(BasicTests):
 
     def test_equals_with_non_announce_should_return_false(self):
         self.assertFalse(shop1_equipment1_announce1 == object)

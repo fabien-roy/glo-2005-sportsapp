@@ -1,8 +1,6 @@
-import unittest
-
 from tests.equipments.fakes import get_equipment, get_equipments_filtered, no_equipment
 from tests.equipments.mocks import equipment_repository
-from tests.interfaces import test_basic
+from tests.interfaces.test_basic import BasicTests
 from tests.practice_centers.fakes import get_practice_center, get_practice_centers_filtered, \
     no_practice_center
 from tests.practice_centers.mocks import practice_center_repository
@@ -14,7 +12,7 @@ from tests.shops.fakes import get_shop, no_shop, get_shops_filtered
 from tests.users.mocks import user_repository
 
 
-class ViewTests(test_basic.BasicTests):
+class ViewTests(BasicTests):
     def setUp(self):
         super().setUp()
         self.reset_mocks()
@@ -130,7 +128,3 @@ class ViewTests(test_basic.BasicTests):
             response = self.request_get(reference)
             self.assert_page_is_not_found(response)
             self.assertNotIn(expected_data.encode(), response.data)
-
-
-if __name__ == "__main__":
-    unittest.main()

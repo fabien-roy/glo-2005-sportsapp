@@ -1,9 +1,9 @@
 from instance.practice_centers.services import PracticeCenterPopulationService
 from tests.practice_centers.mocks import practice_center_repository
-from tests.interfaces import test_basic
+from tests.interfaces.test_basic import BasicTests
 
 
-class PracticeCenterPopulationServiceTests(test_basic.BasicTests):
+class PracticeCenterPopulationServiceTests(BasicTests):
 
     def setUp(self):
         self.practice_center_population_service = PracticeCenterPopulationService(

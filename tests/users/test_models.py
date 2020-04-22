@@ -1,8 +1,8 @@
 from instance.users.fakes import user1, user2
-from tests.interfaces import test_basic
+from tests.interfaces.test_basic import BasicTests
 
 
-class UserTests(test_basic.BasicTests):
+class UserTests(BasicTests):
 
     def test_equals_with_non_user_should_return_false(self):
         self.assertFalse(user1 == object)

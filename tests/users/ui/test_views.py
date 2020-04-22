@@ -1,5 +1,3 @@
-import unittest
-
 from app.users.ui.views import UserView
 from tests.interfaces.ui.test_views import ViewTests
 from tests.users.fakes import user1, user2, user3
@@ -49,7 +47,3 @@ class UserViewTests(ViewTests):
     @staticmethod
     def get_user_details(user):
         return [user.username, user.first_name, user.last_name, user.email]
-
-
-if __name__ == "__main__":
-    unittest.main()

@@ -1,9 +1,9 @@
 from instance.recommendations.services import RecommendationPopulationService
 from tests.recommendations.mocks import recommendation_repository
-from tests.interfaces import test_basic
+from tests.interfaces.test_basic import BasicTests
 
 
-class RecommendationPopulationServiceTests(test_basic.BasicTests):
+class RecommendationPopulationServiceTests(BasicTests):
 
     def setUp(self):
         self.recommendation_population_service = RecommendationPopulationService(

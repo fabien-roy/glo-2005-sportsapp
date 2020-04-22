@@ -1,5 +1,3 @@
-import unittest
-
 from app.shops.ui.views import ShopView
 from tests.interfaces.ui.test_views import ViewTests
 from tests.shops.fakes import shop1, shop2, shop3
@@ -63,7 +61,3 @@ class ShopsViewTests(ViewTests):
         for announce in shop.announces:
             details += [announce.equipment_name, announce.state]
         return details
-
-
-if __name__ == "__main__":
-    unittest.main()

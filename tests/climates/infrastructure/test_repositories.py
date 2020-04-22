@@ -1,5 +1,3 @@
-import unittest
-
 from app.climates.infrastructure.repositories import MySQLClimateRepository
 from tests.interfaces.infrastructure.database import test_database
 from tests.interfaces.infrastructure.test_repositories import RepositoryTests
@@ -46,7 +44,3 @@ class ClimateRepositoryTests(RepositoryTests):
         self.assertCountEqual(center2.climates, climates)
         climates = self.repository.get_all_for_practice_center(center3.id)
         self.assertCountEqual(center3.climates, climates)
-
-
-if __name__ == "__main__":
-    unittest.main()

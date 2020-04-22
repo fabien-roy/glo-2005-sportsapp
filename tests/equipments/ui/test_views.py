@@ -1,5 +1,3 @@
-import unittest
-
 from app.equipments.ui.views import EquipmentView
 from tests.equipments.fakes import equipment1, equipment2, equipment3
 from tests.equipments.mocks import equipment_repository
@@ -64,7 +62,3 @@ class EquipmentViewTests(ViewTests):
         for announce in equipment.announces:
             details += [announce.shop_name, announce.state]
         return details
-
-
-if __name__ == "__main__":
-    unittest.main()
