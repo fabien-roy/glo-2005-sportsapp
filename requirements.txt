@@ -25,7 +25,7 @@ codecov==2.0.22
 
 # Lint (TODO : We only use pep8 I think)
 pep8==1.7.1
-pyLint==2.4.4
+pyLint==2.5.0
 
 # SQL
 pymysql==0.9.3
