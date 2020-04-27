@@ -10,4 +10,4 @@ class ClimatePopulationServiceTests(BasicTests):
 
     def test_db_populate_adds_fakes(self):
         self.climate_population_service.db_populate()
-        assert climate_repository.add.called
+        self.assertTrue(climate_repository.add.called)

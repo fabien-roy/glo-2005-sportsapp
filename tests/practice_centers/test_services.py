@@ -11,4 +11,4 @@ class PracticeCenterPopulationServiceTests(BasicTests):
 
     def test_db_populate_adds_fakes(self):
         self.practice_center_population_service.db_populate()
-        assert practice_center_repository.add.called
+        self.assertTrue(practice_center_repository.add.called)

@@ -23,7 +23,7 @@ Flask_Bcrypt==0.7.1
 # Code coverage
 codecov==2.0.22
 
-# Lint (TODO : We only use pep8 I think)
+# Lint
 pep8==1.7.1
 pyLint==2.5.0
 

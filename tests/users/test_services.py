@@ -10,4 +10,4 @@ class UserPopulationServiceTests(BasicTests):
 
     def test_db_populate_adds_fakes(self):
         self.user_population_service.db_populate()
-        assert user_repository.add.called
+        self.assertTrue(user_repository.add.called)

@@ -10,4 +10,4 @@ class SportPopulationServiceTests(BasicTests):
 
     def test_db_populate_adds_fakes(self):
         self.sport_population_service.db_populate()
-        assert sport_repository.add.called
+        self.assertTrue(sport_repository.add.called)

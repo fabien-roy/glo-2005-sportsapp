@@ -10,4 +10,4 @@ class AnnouncePopulationServiceTests(BasicTests):
 
     def test_db_populate_adds_fakes(self):
         self.announce_population_service.db_populate()
-        assert announce_repository.add.called
+        self.assertTrue(announce_repository.add.called)

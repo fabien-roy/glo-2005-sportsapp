@@ -15,13 +15,13 @@ InstanceInjector(instance=instance, modules=[configure_database, configure_modul
 
 def main(argv):
     try:
-        opts, args = getopt.getopt(argv, "cp", ["db-create", "db-populate"])
+        opts = getopt.getopt(argv, "cp", ["db-create", "db-populate"])
     except getopt.GetoptError:
         print('run.py [-c] [--db-create]')
         print('run.py [-p] [--db-populate]')
         sys.exit()
 
-    for opt, arg in opts:
+    for opt in opts:
         if opt in ("-c", "--db-create"):
             instance.db_create()
 

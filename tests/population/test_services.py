@@ -28,25 +28,25 @@ class ShopPopulationServiceTests(BasicTests):
         self.population_service.db_populate()
 
     def test_db_populate_adds_climates(self):
-        assert self.climate_population_service.db_populate.called
+        self.assertTrue(self.climate_population_service.db_populate.called)
 
     def test_db_populate_adds_sports(self):
-        assert self.sport_population_service.db_populate.called
+        self.assertTrue(self.sport_population_service.db_populate.called)
 
     def test_db_populate_adds_practice_centers(self):
-        assert self.practice_center_population_service.db_populate.called
+        self.assertTrue(self.practice_center_population_service.db_populate.called)
 
     def test_db_populate_adds_users(self):
-        assert self.user_population_service.db_populate.called
+        self.assertTrue(self.user_population_service.db_populate.called)
 
     def test_db_populate_adds_recommendations(self):
-        assert self.recommendation_population_service.db_populate.called
+        self.assertTrue(self.recommendation_population_service.db_populate.called)
 
     def test_db_populate_adds_shops(self):
-        assert self.shop_population_service.db_populate.called
+        self.assertTrue(self.shop_population_service.db_populate.called)
 
     def test_db_populate_adds_equipments(self):
-        assert self.equipment_population_service.db_populate.called
+        self.assertTrue(self.equipment_population_service.db_populate.called)
 
     def test_db_populate_adds_announces(self):
-        assert self.announce_population_service.db_populate.called
+        self.assertTrue(self.announce_population_service.db_populate.called)
