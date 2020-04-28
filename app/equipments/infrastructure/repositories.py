@@ -53,6 +53,7 @@ class MySQLEquipmentRepository(EquipmentRepository):
     @staticmethod
     def build_equipment(cur, announces=None):
         return Equipment(cur[Equipments.id_col],
+                         cur[Equipments.manufacturer_id_col],
                          cur[Query.fake_manufacturer_name_col],
                          cur[Equipments.category_col],
                          cur[Equipments.name_col],

@@ -15,6 +15,7 @@ class MySQLEquipmentQuery(MySQLQuery):
 
     # TODO : Only get manufacturer_name for get (not for get_all)
     select_all_operation = (f'SELECT E.{Equipments.id_col}'
+                            f', E.{Equipments.manufacturer_id_col}'
                             f', {Filter.joined_manufacturer_name_col} AS'
                             f' {fake_manufacturer_name_col}'
                             f', E.{Equipments.category_col}'

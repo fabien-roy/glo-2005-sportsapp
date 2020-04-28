@@ -31,11 +31,14 @@ class EquipmentRepositoryTests(RepositoryTests):
 
     def test_get_should_get_manufacturer(self):
         equipment = self.repository.get(equipment1.id)
-        self.assertEqual(equipment1.manufacturer, equipment.manufacturer)
+        self.assertEqual(equipment1.manufacturer_id, equipment.manufacturer_id)
+        self.assertEqual(equipment1.manufacturer_name, equipment.manufacturer_name)
         equipment = self.repository.get(equipment2.id)
-        self.assertEqual(equipment2.manufacturer, equipment.manufacturer)
+        self.assertEqual(equipment2.manufacturer_id, equipment.manufacturer_id)
+        self.assertEqual(equipment2.manufacturer_name, equipment.manufacturer_name)
         equipment = self.repository.get(equipment3.id)
-        self.assertEqual(equipment3.manufacturer, equipment.manufacturer)
+        self.assertEqual(equipment3.manufacturer_id, equipment.manufacturer_id)
+        self.assertEqual(equipment3.manufacturer_name, equipment.manufacturer_name)
 
     def test_get_should_get_equipment_announces(self):
         equipment = self.repository.get(equipment1.id)
