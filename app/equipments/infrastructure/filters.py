@@ -13,5 +13,5 @@ class MySQLEquipmentFilter(MySQLFilter):
                 f'E.{Equipments.description_col}']
 
     def get_values(self, form=None):
-        return [] if form is None else [form.manufacturer_name.data, form.category.data,
+        return [] if form is None else [form.manufacturer.data, form.category.data,
                                         form.name.data, form.description.data]
