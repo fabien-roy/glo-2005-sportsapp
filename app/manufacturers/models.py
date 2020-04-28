@@ -5,5 +5,5 @@ class Manufacturer:
 
     def __eq__(self, other):
         if isinstance(other, Manufacturer):
-            return self.id == other.id and self.name == other.name
+            return self.id == other.id
         return False

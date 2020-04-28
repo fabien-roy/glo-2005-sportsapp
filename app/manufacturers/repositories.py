@@ -5,5 +5,5 @@ class ManufacturerRepository:
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def add(self, equipment):
+    def add(self, manufacturer):
         """ abstract method """

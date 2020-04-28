@@ -4,9 +4,9 @@ from app.equipments.infrastructure.tables import MySQLEquipmentTable as Equipmen
 
 class MySQLEquipmentFilter(MySQLFilter):
     def get_col_names(self):
-        return [Equipments.category_col,
-                Equipments.name_col,
-                Equipments.description_col]
+        return [f'E.{Equipments.category_col}',
+                f'E.{Equipments.name_col}',
+                f'E.{Equipments.description_col}']
 
     def get_values(self, form=None):
         return [] if form is None else [form.category.data, form.name.data, form.description.data]
