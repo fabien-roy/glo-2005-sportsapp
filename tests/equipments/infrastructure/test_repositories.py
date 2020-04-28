@@ -2,6 +2,7 @@ from app.equipments.exceptions import EquipmentNotFoundException
 from app.equipments.infrastructure.repositories import MySQLEquipmentRepository
 from tests.announces.mocks import announce_repository
 from tests.equipments.fakes import equipment1, equipment2, equipment3
+from tests.manufacturers.fakes import manufacturer1
 from tests.equipments.forms import FakeEquipmentSearchForm
 from tests.interfaces.infrastructure.database import test_database
 from tests.interfaces.infrastructure.test_repositories import RepositoryTests
@@ -28,6 +29,14 @@ class EquipmentRepositoryTests(RepositoryTests):
         equipment = self.repository.get(equipment3.id)
         self.assertEqual(equipment3, equipment)
 
+    def test_get_should_get_manufacturer(self):
+        equipment = self.repository.get(equipment1.id)
+        self.assertEqual(equipment1.manufacturer_name, equipment.manufacturer_name)
+        equipment = self.repository.get(equipment2.id)
+        self.assertEqual(equipment2.manufacturer_name, equipment.manufacturer_name)
+        equipment = self.repository.get(equipment3.id)
+        self.assertEqual(equipment3.manufacturer_name, equipment.manufacturer_name)
+
     def test_get_should_get_equipment_announces(self):
         equipment = self.repository.get(equipment1.id)
         self.assertCountEqual(equipment1.announces, equipment.announces)
@@ -49,6 +58,13 @@ class EquipmentRepositoryTests(RepositoryTests):
 
     def test_get_all_with_all_filter_equipments(self):
         form = FakeEquipmentSearchForm(any_field=equipment1.name)
+        equipments = self.repository.get_all(form)
+        self.assertIn(equipment1, equipments)
+        self.assertNotIn(equipment2, equipments)
+        self.assertNotIn(equipment3, equipments)
+
+    def test_get_all_with_manufacturer_name_filter_equipments(self):
+        form = FakeEquipmentSearchForm(manufacturer_name=manufacturer1.name)
         equipments = self.repository.get_all(form)
         self.assertIn(equipment1, equipments)
         self.assertNotIn(equipment2, equipments)

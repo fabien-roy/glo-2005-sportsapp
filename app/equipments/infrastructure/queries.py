@@ -14,7 +14,8 @@ class MySQLEquipmentQuery(MySQLQuery):
     fake_manufacturer_name_col = 'manufacturer_name'
 
     select_all_operation = (f'SELECT E.{Equipments.id_col}'
-                            f', M.{Manufacturers.name_col} AS {fake_manufacturer_name_col}'
+                            f', {Filter.joined_manufacturer_name_col} AS'
+                            f' {fake_manufacturer_name_col}'
                             f', E.{Equipments.category_col}'
                             f', E.{Equipments.name_col}'
                             f', E.{Equipments.description_col}'
