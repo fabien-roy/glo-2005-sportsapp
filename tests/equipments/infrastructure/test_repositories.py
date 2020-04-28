@@ -31,11 +31,11 @@ class EquipmentRepositoryTests(RepositoryTests):
 
     def test_get_should_get_manufacturer(self):
         equipment = self.repository.get(equipment1.id)
-        self.assertEqual(equipment1.manufacturer_name, equipment.manufacturer_name)
+        self.assertEqual(equipment1.manufacturer, equipment.manufacturer)
         equipment = self.repository.get(equipment2.id)
-        self.assertEqual(equipment2.manufacturer_name, equipment.manufacturer_name)
+        self.assertEqual(equipment2.manufacturer, equipment.manufacturer)
         equipment = self.repository.get(equipment3.id)
-        self.assertEqual(equipment3.manufacturer_name, equipment.manufacturer_name)
+        self.assertEqual(equipment3.manufacturer, equipment.manufacturer)
 
     def test_get_should_get_equipment_announces(self):
         equipment = self.repository.get(equipment1.id)
@@ -63,8 +63,8 @@ class EquipmentRepositoryTests(RepositoryTests):
         self.assertNotIn(equipment2, equipments)
         self.assertNotIn(equipment3, equipments)
 
-    def test_get_all_with_manufacturer_name_filter_equipments(self):
-        form = FakeEquipmentSearchForm(manufacturer_name=manufacturer1.name)
+    def test_get_all_with_manufacturer_filter_equipments(self):
+        form = FakeEquipmentSearchForm(manufacturer=manufacturer1.name)
         equipments = self.repository.get_all(form)
         self.assertIn(equipment1, equipments)
         self.assertNotIn(equipment2, equipments)

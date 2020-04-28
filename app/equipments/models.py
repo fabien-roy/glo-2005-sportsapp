@@ -1,8 +1,8 @@
 class Equipment:
-    def __init__(self, equipment_id, manufacturer_name, category, name, description=None,
+    def __init__(self, equipment_id, manufacturer, category, name, description=None,
                  announces=None):
         self.id = equipment_id
-        self.manufacturer_name = manufacturer_name
+        self.manufacturer = manufacturer
         self.category = category
         self.name = name
         self.description = description

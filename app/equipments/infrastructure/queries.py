@@ -13,6 +13,7 @@ all_fields_to_add = (f'{Equipments.manufacturer_id_col}'
 class MySQLEquipmentQuery(MySQLQuery):
     fake_manufacturer_name_col = 'manufacturer_name'
 
+    # TODO : Only get manufacturer_name for get (not for get_all)
     select_all_operation = (f'SELECT E.{Equipments.id_col}'
                             f', {Filter.joined_manufacturer_name_col} AS'
                             f' {fake_manufacturer_name_col}'
