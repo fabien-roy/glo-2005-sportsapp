@@ -11,6 +11,7 @@ class ShopPopulationServiceTests(BasicTests):
     user_population_service = mock.Mock()
     recommendation_population_service = mock.Mock()
     shop_population_service = mock.Mock()
+    manufacturer_population_service = mock.Mock()
     equipment_population_service = mock.Mock()
     announce_population_service = mock.Mock()
 
@@ -22,6 +23,7 @@ class ShopPopulationServiceTests(BasicTests):
             self.user_population_service,
             self.recommendation_population_service,
             self.shop_population_service,
+            self.manufacturer_population_service,
             self.equipment_population_service,
             self.announce_population_service)
 
@@ -44,6 +46,9 @@ class ShopPopulationServiceTests(BasicTests):
 
     def test_db_populate_adds_shops(self):
         self.assertTrue(self.shop_population_service.db_populate.called)
+
+    def test_db_populate_adds_manufacturers(self):
+        self.assertTrue(self.manufacturer_population_service.db_populate.called)
 
     def test_db_populate_adds_equipments(self):
         self.assertTrue(self.equipment_population_service.db_populate.called)
