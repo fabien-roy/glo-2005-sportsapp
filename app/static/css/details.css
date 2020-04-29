@@ -1,47 +1,47 @@
 .details-label {
-    font-weight: bold;
-    float: right;
+  font-weight: bold;
+  float: right;
 }
 
 .list-pane {
-    background-color: #343a40;
-    padding: 0;
-    border-radius: .25rem;
+  background-color: #343a40;
+  padding: 0;
+  border-radius: .25rem;
 }
 
 .list-pane .nav-tabs {
-    background-color: #999;
-    border-radius: .25rem;
+  background-color: #999;
+  border-radius: .25rem;
 }
 
 .list-pane .nav-link.active {
-    background-color: #343a40;
-    color: #fff;
-    border-color: #343a40;
+  background-color: #343a40;
+  color: #fff;
+  border-color: #343a40;
 }
 
 .list-pane .tab-content {
-    padding: 0;
+  padding: 0;
 }
 
 .list-pane .card {
-    margin: 1em;
+  margin: 1em;
 }
 
 .list-pane a {
-    color: #222;
+  color: #222;
 }
 
 .list-pane li:hover a {
-    color: #333;
+  color: #333;
 }
 
 .list-pane h5 a {
-    color: #212529;
+  color: #212529;
 }
 
 @media only screen and (max-width: 767px) {
-    .details-label {
-        float: left;
-    }
+  .details-label {
+    float: left;
+  }
 }
