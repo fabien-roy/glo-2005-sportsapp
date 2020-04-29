@@ -13,6 +13,7 @@ from instance.sports.infrastructure.queries import MySQLSportQuery as SportQuery
 from instance.users.infrastructure.queries import MySQLUserQuery as UserQuery
 from instance.manufacturers.infrastructure.queries import \
     MySQLManufacturerQuery as ManufacturerQuery
+from instance.categories.infrastructure.queries import MySQLCategoryQuery as CategoryQuery
 
 
 class MySQLCreationService:
@@ -50,6 +51,7 @@ class MySQLCreationService:
         cur.execute(AnnounceQuery().drop_announces())
         cur.execute(ShopQuery().drop_shops())
         cur.execute(EquipmentQuery().drop_equipments())
+        cur.execute(CategoryQuery().drop_categories())
         cur.execute(ManufacturerQuery().drop_manufacturers())
 
         self.database.connect().commit()
@@ -71,6 +73,7 @@ class MySQLCreationService:
 
         cur.execute(ShopQuery().create_shops())
         cur.execute(ManufacturerQuery().create_manufacturers())
+        cur.execute(CategoryQuery().create_categories())
         cur.execute(EquipmentQuery().create_equipments())
         cur.execute(AnnounceQuery().create_announces())
 

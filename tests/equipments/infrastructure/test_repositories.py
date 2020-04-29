@@ -81,7 +81,7 @@ class EquipmentRepositoryTests(RepositoryTests):
         self.assertNotIn(equipment3, equipments)
 
     def test_get_all_with_category_filter_equipments(self):
-        form = FakeEquipmentSearchForm(category=equipment1.category)
+        form = FakeEquipmentSearchForm(category=equipment1.category_name)
         equipments = self.repository.get_all(form)
         self.assertIn(equipment1, equipments)
         self.assertNotIn(equipment2, equipments)
