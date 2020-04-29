@@ -1,5 +1,6 @@
 from injector import inject
 
+from instance.categories.services import CategoryPopulationService
 from instance.climates.services import ClimatePopulationService
 from instance.manufacturers.services import ManufacturerPopulationService
 from instance.sports.services import SportPopulationService
@@ -21,6 +22,7 @@ class PopulationService:
                  recommendation_population_service: RecommendationPopulationService,
                  shop_population_service: ShopPopulationService,
                  manufacturer_population_service: ManufacturerPopulationService,
+                 category_population_service: CategoryPopulationService,
                  equipment_population_service: EquipmentPopulationService,
                  announce_population_service: AnnouncePopulationService):
         self.climate_population_service = climate_population_service
@@ -30,6 +32,7 @@ class PopulationService:
         self.recommendation_population_service = recommendation_population_service
         self.shop_population_service = shop_population_service
         self.manufacturer_population_service = manufacturer_population_service
+        self.category_population_service = category_population_service
         self.equipment_population_service = equipment_population_service
         self.announce_population_service = announce_population_service
 
@@ -43,6 +46,7 @@ class PopulationService:
         self.recommendation_population_service.db_populate()
         self.shop_population_service.db_populate()
         self.manufacturer_population_service.db_populate()
+        self.category_population_service.db_populate()
         self.equipment_population_service.db_populate()
         self.announce_population_service.db_populate()
 
