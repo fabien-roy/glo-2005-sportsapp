@@ -1,27 +1,39 @@
 .jumbotron {
-  height: 23rem;
-  background-position: center center;
-  background-size: cover;
+    height: 23rem;
+    background-position: center center;
+    background-size: cover;
 }
 
 .search-pane {
-  background-color: #fff;
-  padding: 0;
-  border-radius: .25rem;
+    background-color: #fff;
+    padding: 0;
+    border-radius: .25rem;
 }
 
-.search-pane .tab-content {
-  padding: 1em 15px 0 15px;
+.search-pane .nav-tabs {
+    background-color: #aaa;
+    border-radius: .25rem;
 }
 
 .search-pane a {
-  color: #495057;
+    color: #fff;
 }
 
 .search-pane li:hover a {
-  color: #343539;
+    background-color: #bebebe;
 }
 
 .list-pane {
-  padding-right: 0;
+    padding-right: 0;
+}
+
+.list-pane a {
+    color: #fff;
+    background-color: #333;
+    border-color: #333;
+}
+
+.list-pane a:hover {
+    background-color: #5b5b5b;
+    border-color: #5b5b5b;
 }
