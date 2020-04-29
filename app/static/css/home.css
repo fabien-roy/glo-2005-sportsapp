@@ -21,7 +21,7 @@ body {
 .home-landing h1 {
   text-align: center;
   font-weight: 800;
-  font-size: 4em;
+  font-size: 4rem;
   color: #fff;
   mix-blend-mode: difference;
 }
@@ -32,6 +32,26 @@ body {
 }
 
 .home-landing form {
-  border: 2em solid rgba(0, 0, 0, .5);
+    margin-bottom: 0;
+}
+
+.home-landing .form-box {
+  background-color: rgba(0, 0, 0, .5);
+  padding: 2rem;
   border-radius: .25rem;
+}
+
+@media only screen and (max-width: 767px) {
+  .home-landing h1 {
+    font-size: 3rem;
+  }
+
+  .home-landing .input-group:not(:last-child) {
+      margin-bottom: 1.5rem;
+  }
+
+  .home-landing .input-group input,
+  .home-landing .input-group select {
+      text-align: center;
+  }
 }
