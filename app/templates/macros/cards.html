@@ -1,5 +1,5 @@
-{% macro card_title(url, title) -%}
-    <h5 class="card-title"><a class="mr-2" href="{{ url }}">{{ title }}</a></h5>
+{% macro card_title(title) -%}
+    <h5 class="card-title">{{ title }}</h5>
 {%- endmacro %}
 
 {% macro card_detail(detail) -%}
@@ -23,11 +23,13 @@
 {%- endmacro %}
 
 {% macro card(url, title, details, texts) -%}
-    <div class="card">
-        <div class="card-body">
-            {{ card_title(url, title) }}
-            {{ card_details(details) }}
-            {{ card_texts(texts) }}
+    <a href="{{ url }}">
+        <div class="card">
+            <div class="card-body">
+                {{ card_title(title) }}
+                {{ card_details(details) }}
+                {{ card_texts(texts) }}
+            </div>
         </div>
-    </div>
+    </a>
 {%- endmacro %}
