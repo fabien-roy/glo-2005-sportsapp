@@ -1,3 +1,17 @@
-.tab-content {
-    padding-top: 1em;
+.search-pane {
+  background-color: #fff;
+  padding: 0;
+  border-radius: .25rem;
+}
+
+.search-pane .tab-content {
+  padding: 1em 15px 0 15px;
+}
+
+.search-pane a {
+  color: #495057;
+}
+
+.search-pane li:hover a {
+  color: #343539;
 }
