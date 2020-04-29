@@ -1,21 +1,27 @@
 {% from 'macros/nav.html' import navlink %}
 
 {% block navbar %}
-<nav class="navbar navbar-expand-sm navbar-dark fixed-top header" style="background-color:#e65100">
-    <div class="container">
-        <a class="navbar-brand ml-8" href="{{ url_for('search.search') }}">
-            <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="40" height="40" alt="" id="logo"/>
-            SportsApp
-        </a>
-        <div class="collapse navbar-collapse">
-            <div class="navbar-nav">
-                {{ navlink('sports.sports', 'Sports') }}
-                {{ navlink('practice_centers.practice_centers', 'Practice Centers') }}
-                {{ navlink('shops.shops', 'Shops') }}
-                {{ navlink('equipments.equipments', 'Equipments') }}
-                {{ navlink('users.users', 'Users') }}
+    <nav class="navbar navbar-expand-sm navbar-dark fixed-top header">
+        <div class="container">
+            <a class="navbar-brand ml-8 navbar-expand-md" href="{{ url_for('search.search') }}">
+                <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="40"
+                     height="40" alt="" id="logo"/>
+                SportsApp
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarHeader" aria-controls="navbarHeader"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarHeader">
+                <div class="navbar-nav">
+                    {{ navlink('sports.sports', 'Sports') }}
+                    {{ navlink('practice_centers.practice_centers', 'Practice Centers') }}
+                    {{ navlink('shops.shops', 'Shops') }}
+                    {{ navlink('equipments.equipments', 'Equipments') }}
+                    {{ navlink('users.users', 'Users') }}
+                </div>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
 {% endblock %}

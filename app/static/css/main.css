@@ -82,4 +82,8 @@ html, body {
     .hidden-sm {
         display: none;
     }
+
+    #navbarHeader .nav-item {
+        text-align: center;
+    }
 }
