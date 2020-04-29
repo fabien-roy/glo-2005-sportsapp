@@ -44,3 +44,7 @@ body {
     display: inline-block;
     float: left;
 }
+
+.input-group {
+    border-radius: .25rem;
+}
