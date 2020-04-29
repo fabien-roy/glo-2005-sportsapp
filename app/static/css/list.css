@@ -1,15 +1,39 @@
-.jumbotron-sports {
-    background-image: url("https://images.pexels.com/photos/848595/pexels-photo-848595.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+.jumbotron {
+    height: 23rem;
+    background-position: center center;
+    background-size: cover;
 }
 
-.jumbotron-practice-centers {
-    background-image: url("https://images.pexels.com/photos/2403502/pexels-photo-2403502.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+.search-pane {
+    background-color: #fff;
+    padding: 0;
+    border-radius: .25rem;
 }
 
-.jumbotron-users {
-    background-image: url("https://images.pexels.com/photos/939328/pexels-photo-939328.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+.search-pane .nav-tabs {
+    background-color: #aaa;
+    border-radius: .25rem;
 }
 
-.tab-content {
-    padding-top: 1em;
+.search-pane a {
+    color: #fff;
+}
+
+.search-pane li:hover a {
+    background-color: #bebebe;
+}
+
+.list-pane {
+    padding-right: 0;
+}
+
+.list-pane a {
+    color: #fff;
+    background-color: #333;
+    border-color: #333;
+}
+
+.list-pane a:hover {
+    background-color: #5b5b5b;
+    border-color: #5b5b5b;
 }
