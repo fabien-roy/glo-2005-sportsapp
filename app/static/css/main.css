@@ -1,6 +1,10 @@
-body {
-    padding: 60px 0 70px;
-    background: #ffffff;
+html, body {
+  padding: 60px 0 70px;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to bottom, #fff, #eee, #ccc);
+  background-color: #ffffff;
 }
 
 .header {
