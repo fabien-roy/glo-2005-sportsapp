@@ -1,3 +1,8 @@
+body {
+  background-image: url("/static/images/search.jpg");
+  background-size: cover;
+}
+
 .home-landing {
   display: flex;
   align-items: center;
