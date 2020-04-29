@@ -7,12 +7,12 @@
 .search-pane {
   background-color: #fff;
   padding: 0;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
 }
 
 .search-pane .nav-tabs {
   background-color: #aaa;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
 }
 
 .search-pane form {
@@ -22,10 +22,6 @@
 
 .search-pane a {
   color: #fff;
-}
-
-.search-pane li:hover a {
-  background-color: #bebebe;
 }
 
 .list-pane {
@@ -41,6 +37,10 @@
 .list-pane a:hover {
   background-color: #5b5b5b;
   border-color: #5b5b5b;
+}
+
+.search-pane li:hover a {
+  background-color: #bebebe;
 }
 
 @media only screen and (max-width: 767px) {

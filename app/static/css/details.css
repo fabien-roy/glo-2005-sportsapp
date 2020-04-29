@@ -6,12 +6,12 @@
 .list-pane {
   background-color: #343a40;
   padding: 0;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
 }
 
 .list-pane .nav-tabs {
   background-color: #999;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
 }
 
 .list-pane .nav-link.active {
@@ -32,12 +32,12 @@
   color: #222;
 }
 
-.list-pane li:hover a {
-  color: #333;
-}
-
 .list-pane h5 a {
   color: #212529;
+}
+
+.list-pane li:hover a {
+  color: #333;
 }
 
 @media only screen and (max-width: 767px) {
