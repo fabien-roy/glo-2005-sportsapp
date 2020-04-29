@@ -8,7 +8,10 @@ class MySQLEquipmentQuery:
     def create_equipments():
         return ('CREATE TABLE equipments('
                 'id int NOT NULL AUTO_INCREMENT PRIMARY KEY,'
-                'category varchar(50),'
+                'manufacturer_id int NOT NULL,'
+                'category_id int not NULL,'
                 'name varchar(100),'
-                'description varchar(1000)'
+                'description varchar(1000),'
+                'FOREIGN KEY (manufacturer_id) REFERENCES manufacturers(id) ON DELETE CASCADE,'
+                'FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE'
                 ');')

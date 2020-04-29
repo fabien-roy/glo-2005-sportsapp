@@ -2,6 +2,7 @@ from app.equipments.exceptions import EquipmentNotFoundException
 from app.equipments.infrastructure.repositories import MySQLEquipmentRepository
 from tests.announces.mocks import announce_repository
 from tests.equipments.fakes import equipment1, equipment2, equipment3
+from tests.manufacturers.fakes import manufacturer1
 from tests.equipments.forms import FakeEquipmentSearchForm
 from tests.interfaces.infrastructure.database import test_database
 from tests.interfaces.infrastructure.test_repositories import RepositoryTests
@@ -27,6 +28,17 @@ class EquipmentRepositoryTests(RepositoryTests):
         self.assertEqual(equipment2, equipment)
         equipment = self.repository.get(equipment3.id)
         self.assertEqual(equipment3, equipment)
+
+    def test_get_should_get_manufacturer(self):
+        equipment = self.repository.get(equipment1.id)
+        self.assertEqual(equipment1.manufacturer_id, equipment.manufacturer_id)
+        self.assertEqual(equipment1.manufacturer_name, equipment.manufacturer_name)
+        equipment = self.repository.get(equipment2.id)
+        self.assertEqual(equipment2.manufacturer_id, equipment.manufacturer_id)
+        self.assertEqual(equipment2.manufacturer_name, equipment.manufacturer_name)
+        equipment = self.repository.get(equipment3.id)
+        self.assertEqual(equipment3.manufacturer_id, equipment.manufacturer_id)
+        self.assertEqual(equipment3.manufacturer_name, equipment.manufacturer_name)
 
     def test_get_should_get_equipment_announces(self):
         equipment = self.repository.get(equipment1.id)
@@ -54,6 +66,13 @@ class EquipmentRepositoryTests(RepositoryTests):
         self.assertNotIn(equipment2, equipments)
         self.assertNotIn(equipment3, equipments)
 
+    def test_get_all_with_manufacturer_filter_equipments(self):
+        form = FakeEquipmentSearchForm(manufacturer=manufacturer1.name)
+        equipments = self.repository.get_all(form)
+        self.assertIn(equipment1, equipments)
+        self.assertNotIn(equipment2, equipments)
+        self.assertNotIn(equipment3, equipments)
+
     def test_get_all_with_name_filter_equipments(self):
         form = FakeEquipmentSearchForm(name=equipment1.name)
         equipments = self.repository.get_all(form)
@@ -62,7 +81,7 @@ class EquipmentRepositoryTests(RepositoryTests):
         self.assertNotIn(equipment3, equipments)
 
     def test_get_all_with_category_filter_equipments(self):
-        form = FakeEquipmentSearchForm(category=equipment1.category)
+        form = FakeEquipmentSearchForm(category=equipment1.category_name)
         equipments = self.repository.get_all(form)
         self.assertIn(equipment1, equipments)
         self.assertNotIn(equipment2, equipments)

@@ -1,8 +1,10 @@
 from app.announces.modules import AnnounceModule
+from app.categories.modules import CategoryModule
 from app.climates.modules import ClimateModule
 from app.equipments.modules import EquipmentModule
 from app.interfaces.database import Database
 from app.interfaces.infrastructure.database import MySQLDatabase
+from app.manufacturers.modules import ManufacturerModule
 from app.practice_centers.modules import PracticeCenterModule
 from app.recommendations.modules import RecommendationModule
 from app.shops.modules import ShopModule
@@ -23,3 +25,5 @@ def configure_modules(binder):
     binder.install(AnnounceModule)
     binder.install(ShopModule)
     binder.install(EquipmentModule)
+    binder.install(ManufacturerModule)
+    binder.install(CategoryModule)

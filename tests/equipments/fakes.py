@@ -1,9 +1,13 @@
 from app.equipments.exceptions import EquipmentNotFoundException
 from instance.equipments.fakes import equipment1, equipment2, equipment3
+from tests.manufacturers.fakes import manufacturer1, manufacturer2, manufacturer3
 
 equipment1.id = 1
+equipment1.manufacturer_id = manufacturer1.id
 equipment2.id = 2
+equipment2.manufacturer_id = manufacturer2.id
 equipment3.id = 3
+equipment3.manufacturer_id = manufacturer3.id
 
 
 def get_equipment(equipment_id):

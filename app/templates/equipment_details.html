@@ -10,7 +10,8 @@
 {% block details %}
 {{ details([
 detail('Name', equipment.name),
-detail('Category', equipment.category),
+detail('Manufacturer', equipment.manufacturer_name),
+detail('Category', equipment.category_name),
 detail('Description', equipment.description)]) }}
 {% endblock %}
 
