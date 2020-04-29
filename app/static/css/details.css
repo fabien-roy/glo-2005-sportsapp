@@ -39,3 +39,9 @@
 .list-pane h5 a {
     color: #212529;
 }
+
+@media only screen and (max-width: 767px) {
+    .details-label {
+        float: left;
+    }
+}
