@@ -1,9 +1,9 @@
 from abc import abstractmethod, ABCMeta
 
 
-class CategoryRepository:
+class EquipmentTypeRepository:
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def add(self, category):
+    def add(self, equipment_type):
         """ abstract method """

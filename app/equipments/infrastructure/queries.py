@@ -3,31 +3,31 @@ from app.equipments.infrastructure.tables import MySQLEquipmentTable as Equipmen
 from app.interfaces.infrastructure.filters import MySQLFilter
 from app.interfaces.infrastructure.queries import MySQLQuery
 from app.manufacturers.infrastructure.tables import MySQLManufacturerTable as Manufacturers
-from app.categories.infrastructure.tables import MySQLCategoryTable as Categories
+from app.equipment_types.infrastructure.tables import MySQLEquipmentTypeTable as EquipmentTypes
 
 all_fields_to_add = (f'{Equipments.manufacturer_id_col}'
-                     f', {Equipments.category_id_col}'
+                     f', {Equipments.type_id_col}'
                      f', {Equipments.name_col}'
                      f', {Equipments.description_col}')
 
 
 class MySQLEquipmentQuery(MySQLQuery):
     fake_manufacturer_name_col = 'manufacturer_name'
-    fake_category_name_col = 'category_name'
+    fake_type_name_col = 'type_name'
 
     select_all_operation = (f'SELECT E.{Equipments.id_col}'
                             f', E.{Equipments.manufacturer_id_col}'
                             f', {Filter.joined_manufacturer_name_col} AS'
                             f' {fake_manufacturer_name_col}'
-                            f', E.{Equipments.category_id_col}'
-                            f', {Filter.joined_category_name_col} AS {fake_category_name_col}'
+                            f', E.{Equipments.type_id_col}'
+                            f', {Filter.joined_type_name_col} AS {fake_type_name_col}'
                             f', E.{Equipments.name_col}'
                             f', E.{Equipments.description_col}'
                             f' FROM {Equipments.table_name} E'
                             f' JOIN {Manufacturers.table_name} M ON M.{Manufacturers.id_col} ='
                             f' E.{Equipments.manufacturer_id_col}'
-                            f' JOIN {Categories.table_name} C ON C.{Categories.id_col} ='
-                            f' E.{Equipments.category_id_col}')
+                            f' JOIN {EquipmentTypes.table_name} T ON T.{EquipmentTypes.id_col} ='
+                            f' E.{Equipments.type_id_col}')
 
     def get(self, equipment_id):
         filters = [MySQLFilter.filter_equal(f'E.{Equipments.id_col}', equipment_id)]

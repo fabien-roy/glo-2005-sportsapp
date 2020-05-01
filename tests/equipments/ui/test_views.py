@@ -54,7 +54,7 @@ class EquipmentViewTests(ViewTests):
 
     @staticmethod
     def get_equipment_details(equipment):
-        return [equipment.name, equipment.manufacturer_name, equipment.category_name,
+        return [equipment.name, equipment.manufacturer_name, equipment.type_name,
                 equipment.description]
 
     @staticmethod

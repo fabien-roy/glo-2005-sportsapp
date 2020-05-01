@@ -1,6 +1,6 @@
 from app.announces.infrastructure.repositories import MySQLAnnounceRepository
 from app.bindings import configure_modules
-from app.categories.infrastructure.repositories import MySQLCategoryRepository
+from app.equipment_types.infrastructure.repositories import MySQLEquipmentTypeRepository
 from app.climates.infrastructure.repositories import MySQLClimateRepository
 from app.manufacturers.infrastructure.repositories import MySQLManufacturerRepository
 from app.equipments.infrastructure.repositories import MySQLEquipmentRepository
@@ -12,7 +12,7 @@ from app.users.infrastructure.repositories import MySQLUserRepository
 from instance import instance
 from instance.injectors import InstanceInjector
 from tests.manufacturers.fakes import manufacturer1, manufacturer2, manufacturer3
-from tests.categories.fakes import category1, category2, category3
+from tests.equipment_types.fakes import type1, type2, type3
 from tests.announces.fakes import shop1_equipment1_announce1, shop1_equipment2_announce1, \
     shop2_equipment2_announce1, shop2_equipment2_announce2, shop3_equipment1_announce1, \
     shop3_equipment3_announce1
@@ -43,7 +43,7 @@ class RepositoryTests(BasicTests):
     announce_repository = MySQLAnnounceRepository(test_database)
     shop_repository = MySQLShopRepository(test_database, announce_repository)
     manufacturer_repository = MySQLManufacturerRepository(test_database)
-    category_repository = MySQLCategoryRepository(test_database)
+    category_repository = MySQLEquipmentTypeRepository(test_database)
     equipment_repository = MySQLEquipmentRepository(test_database, announce_repository)
     user_repository = MySQLUserRepository(test_database, recommendation_repository)
 
@@ -131,9 +131,9 @@ class RepositoryTests(BasicTests):
 
     @classmethod
     def add_categories(cls):
-        cls.category_repository.add(category1)
-        cls.category_repository.add(category2)
-        cls.category_repository.add(category3)
+        cls.category_repository.add(type1)
+        cls.category_repository.add(type2)
+        cls.category_repository.add(type3)
 
     @classmethod
     def add_equipments(cls):

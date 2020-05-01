@@ -1,24 +1,24 @@
 from injector import inject
 
-from app.categories.repositories import CategoryRepository
-from app.categories.infrastructure.queries import MySQLCategoryQuery as Query
+from app.equipment_types.repositories import EquipmentTypeRepository
+from app.equipment_types.infrastructure.queries import MySQLCategoryQuery as Query
 from app.interfaces.database import Database
 
 
-class MySQLCategoryRepository(CategoryRepository):
+class MySQLEquipmentTypeRepository(EquipmentTypeRepository):
     @inject
     def __init__(self, database: Database):
         self.database = database
 
-    def add(self, category):
+    def add(self, equipment_type):
         try:
             with self.database.connect().cursor() as cur:
                 query = Query().add()
-                cur.execute(query, category.name)
+                cur.execute(query, equipment_type.name)
 
                 self.database.connect().commit()
 
-                category.id = cur.lastrowid
+                equipment_type.id = cur.lastrowid
 
         finally:
             cur.close()

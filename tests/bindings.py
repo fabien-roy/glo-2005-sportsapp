@@ -1,6 +1,6 @@
 from app.interfaces.database import Database
 from tests.announces.modules import MockAnnounceModule
-from tests.categories.modules import MockCategoryModule
+from tests.equipment_types.modules import MockEquipmentTypeModule
 from tests.climates.modules import MockClimateModule
 from tests.equipments.modules import MockEquipmentModule
 from tests.interfaces.infrastructure.database import test_database
@@ -17,13 +17,13 @@ def configure_test_database(binder):
 
 
 def configure_mock_modules(binder):
+    binder.install(MockUserModule)
     binder.install(MockClimateModule)
+    binder.install(MockShopModule)
+    binder.install(MockManufacturerModule)
+    binder.install(MockEquipmentTypeModule)
+    binder.install(MockEquipmentModule)
+    binder.install(MockAnnounceModule)
     binder.install(MockSportModule)
     binder.install(MockPracticeCenterModule)
     binder.install(MockRecommendationModule)
-    binder.install(MockUserModule)
-    binder.install(MockAnnounceModule)
-    binder.install(MockShopModule)
-    binder.install(MockEquipmentModule)
-    binder.install(MockManufacturerModule)
-    binder.install(MockCategoryModule)

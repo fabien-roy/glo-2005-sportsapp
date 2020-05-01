@@ -55,8 +55,8 @@ class MySQLEquipmentRepository(EquipmentRepository):
         return Equipment(cur[Equipments.id_col],
                          cur[Equipments.manufacturer_id_col],
                          cur[Query.fake_manufacturer_name_col],
-                         cur[Equipments.category_id_col],
-                         cur[Query.fake_category_name_col],
+                         cur[Equipments.type_id_col],
+                         cur[Query.fake_type_name_col],
                          cur[Equipments.name_col],
                          cur[Equipments.description_col],
                          announces)
@@ -65,7 +65,7 @@ class MySQLEquipmentRepository(EquipmentRepository):
         try:
             with self.database.connect().cursor() as cur:
                 query = Query().add()
-                cur.execute(query, (equipment.manufacturer_id, equipment.category_id,
+                cur.execute(query, (equipment.manufacturer_id, equipment.type_id,
                                     equipment.name, equipment.description))
 
                 self.database.connect().commit()

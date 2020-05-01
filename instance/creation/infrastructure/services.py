@@ -13,7 +13,7 @@ from instance.sports.infrastructure.queries import MySQLSportQuery as SportQuery
 from instance.users.infrastructure.queries import MySQLUserQuery as UserQuery
 from instance.manufacturers.infrastructure.queries import \
     MySQLManufacturerQuery as ManufacturerQuery
-from instance.categories.infrastructure.queries import MySQLCategoryQuery as CategoryQuery
+from instance.equipment_types.infrastructure.queries import MySQLEquipmentTypeQuery as CategoryQuery
 
 
 class MySQLCreationService:
