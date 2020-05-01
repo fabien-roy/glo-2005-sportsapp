@@ -7,12 +7,17 @@ from app.equipments.repositories import EquipmentRepository
 from app.equipments.infrastructure.queries import MySQLEquipmentQuery as Query
 from app.equipments.infrastructure.tables import MySQLEquipmentTable as Equipments
 from app.interfaces.database import Database
+from app.sports.repositories import SportRepository
 
 
+# TODO : Test getting sports
 class MySQLEquipmentRepository(EquipmentRepository):
     @inject
-    def __init__(self, database: Database, announce_repository: AnnounceRepository):
+    def __init__(self, database: Database,
+                 sport_repository: SportRepository,
+                 announce_repository: AnnounceRepository):
         self.database = database
+        self.sport_repository = sport_repository
         self.announce_repository = announce_repository
 
     def get_all(self, form=None):
@@ -40,8 +45,10 @@ class MySQLEquipmentRepository(EquipmentRepository):
                 cur.execute(query)
 
             for equipment_cur in cur.fetchall():
+                associated_sports = self.sport_repository.get_all_for_equipment_type(
+                    equipment_cur[Equipments.type_id_col])
                 announces = self.announce_repository.get_all_for_equipment(equipment_id)
-                equipment = self.build_equipment(equipment_cur, announces)
+                equipment = self.build_equipment(equipment_cur, associated_sports, announces)
         finally:
             cur.close()
 
@@ -51,7 +58,7 @@ class MySQLEquipmentRepository(EquipmentRepository):
         return equipment
 
     @staticmethod
-    def build_equipment(cur, announces=None):
+    def build_equipment(cur, associated_sports=None, announces=None):
         return Equipment(cur[Equipments.id_col],
                          cur[Equipments.manufacturer_id_col],
                          cur[Query.fake_manufacturer_name_col],
@@ -59,6 +66,7 @@ class MySQLEquipmentRepository(EquipmentRepository):
                          cur[Query.fake_type_name_col],
                          cur[Equipments.name_col],
                          cur[Equipments.description_col],
+                         associated_sports,
                          announces)
 
     def add(self, equipment):

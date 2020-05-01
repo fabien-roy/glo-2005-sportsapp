@@ -22,20 +22,28 @@ class MySQLSportRepository(SportRepository):
         self.recommendations_repository = recommendation_repository
 
     def get_all(self, form=None):
-        all_sports = []
+        query = Query().get_all(form)
+        return self.get_all_for_query(query)
+
+    # TODO : Test
+    def get_all_for_equipment_type(self, type_id):
+        query = Query().get_all_for_equipment_type(type_id)
+        return self.get_all_for_query(query)
+
+    def get_all_for_query(self, query):
+        sports = []
 
         try:
             with self.database.connect().cursor() as cur:
-                query = Query().get_all(form)
                 cur.execute(query)
 
                 for sport_cur in cur.fetchall():
                     sport = self.build_sport(sport_cur)
-                    all_sports.append(sport)
+                    sports.append(sport)
         finally:
             cur.close()
 
-        return all_sports
+        return sports
 
     def get(self, sport_id):
         sport = None

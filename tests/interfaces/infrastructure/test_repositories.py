@@ -46,7 +46,8 @@ class RepositoryTests(BasicTests):
 
     announce_repository = MySQLAnnounceRepository(test_database)
     manufacturer_repository = MySQLManufacturerRepository(test_database)
-    equipment_repository = MySQLEquipmentRepository(test_database, announce_repository)
+    equipment_repository = MySQLEquipmentRepository(test_database, sport_repository,
+                                                    announce_repository)
     shop_repository = MySQLShopRepository(test_database, announce_repository)
 
     user_repository = MySQLUserRepository(test_database, recommendation_repository)

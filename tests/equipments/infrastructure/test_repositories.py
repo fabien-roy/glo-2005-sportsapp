@@ -6,13 +6,16 @@ from tests.manufacturers.fakes import manufacturer1
 from tests.equipments.forms import FakeEquipmentSearchForm
 from tests.interfaces.infrastructure.database import test_database
 from tests.interfaces.infrastructure.test_repositories import RepositoryTests
+from tests.sports.mocks import sport_repository
 
 
 class EquipmentRepositoryTests(RepositoryTests):
 
     def setUp(self):
         super().setUp()
-        self.repository = MySQLEquipmentRepository(test_database, announce_repository)
+        self.repository = MySQLEquipmentRepository(test_database,
+                                                   sport_repository,
+                                                   announce_repository)
 
     def test_get_with_no_equipment_should_raise_equipment_not_found_exception(self):
         self.recreate_database()

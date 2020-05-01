@@ -51,10 +51,9 @@ class PracticeCentersViewTests(ViewTests):
             (center3.id, self.get_recommendations_details(center3))
         ])
 
-    @staticmethod
-    def get_center_details(center):
-        return [center.name, center.email, center.phone_number] \
-               + list(map(lambda climate: climate.name, center.climates))
+    def get_center_details(self, center):
+        return [center.name, center.email, center.phone_number] + \
+               self.list_detail_list_names(center.climates)
 
     @staticmethod
     def get_recommendations_details(center):

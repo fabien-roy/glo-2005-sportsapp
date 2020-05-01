@@ -13,7 +13,8 @@ class SportsRepositoryTests(RepositoryTests):
 
     def setUp(self):
         super().setUp()
-        self.repository = MySQLSportRepository(test_database, climate_repository,
+        self.repository = MySQLSportRepository(test_database,
+                                               climate_repository,
                                                equipment_type_repository,
                                                recommendation_repository)
 

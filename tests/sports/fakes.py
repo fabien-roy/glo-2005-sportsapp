@@ -41,3 +41,7 @@ def get_sports_filtered(form):
 
 def get_climates_for_sport(sport_id):
     return get_sport(sport_id).climates
+
+
+def get_equipment_types_for_sport(sport_id):
+    return get_sport(sport_id).required_equipment_types

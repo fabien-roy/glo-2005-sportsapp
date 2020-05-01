@@ -128,3 +128,7 @@ class ViewTests(BasicTests):
             response = self.request_get(reference)
             self.assert_page_is_not_found(response)
             self.assertNotIn(expected_data.encode(), response.data)
+
+    @staticmethod
+    def list_detail_list_names(detail_list):
+        return list(map(lambda detail: detail.name, detail_list))

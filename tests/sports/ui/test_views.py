@@ -51,12 +51,10 @@ class SportsViewsTests(ViewTests):
             (sport3.id, self.get_recommendations_details(sport3))
         ])
 
-    @staticmethod
-    def get_sport_details(sport):
-        return [sport.name] \
-               + list(map(lambda climate: climate.name, sport.climates)) \
-               + list(map(lambda equipment_type: equipment_type.name,
-                          sport.required_equipment_types))
+    def get_sport_details(self, sport):
+        return [sport.name] + \
+               self.list_detail_list_names(sport.climates) + \
+               self.list_detail_list_names(sport.required_equipment_types)
 
     @staticmethod
     def get_recommendations_details(sport):

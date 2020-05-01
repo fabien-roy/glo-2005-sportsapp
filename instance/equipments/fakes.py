@@ -1,6 +1,6 @@
 from app.equipments.models import Equipment
-from instance.equipment_types.fakes import type1, type3, type2
-from instance.manufacturers.fakes import manufacturer2, manufacturer1, manufacturer3
+from tests.equipment_types.fakes import type1, type3, type2
+from tests.manufacturers.fakes import manufacturer2, manufacturer1, manufacturer3
 
 equipment1 = Equipment(None, manufacturer_id=manufacturer1.id, manufacturer_name=manufacturer1.name,
                        type_id=type1.id, type_name=type1.name,

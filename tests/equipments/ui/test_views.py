@@ -52,10 +52,9 @@ class EquipmentViewTests(ViewTests):
             (equipment3.id, self.get_announces_details(equipment3))
         ])
 
-    @staticmethod
-    def get_equipment_details(equipment):
+    def get_equipment_details(self, equipment):
         return [equipment.name, equipment.manufacturer_name, equipment.type_name,
-                equipment.description]
+                equipment.description] + self.list_detail_list_names(equipment.associated_sports)
 
     @staticmethod
     def get_announces_details(equipment):
