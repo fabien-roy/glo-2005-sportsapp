@@ -46,5 +46,11 @@ class MySQLEquipmentTypeRepository(EquipmentTypeRepository):
             cur.close()
 
     def add_to_sport(self, equipment_type, sport):
-        # TODO
-        pass
+        try:
+            with self.database.connect().cursor() as cur:
+                query = Query().add_to_sport()
+                cur.execute(query, (equipment_type.id, sport.id))
+
+                self.database.connect().commit()
+        finally:
+            cur.close()

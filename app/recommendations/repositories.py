@@ -21,9 +21,9 @@ class RecommendationRepository:
         """ abstract method """
 
     @abstractmethod
-    def add_for_sport(self, recommendation, sport_id):
+    def add_to_sport(self, recommendation, sport_id):
         """ abstract method """
 
     @abstractmethod
-    def add_for_practice_center(self, recommendation, practice_center_id):
+    def add_to_practice_center(self, recommendation, practice_center_id):
         """ abstract method """

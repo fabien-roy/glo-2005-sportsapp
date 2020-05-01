@@ -51,7 +51,7 @@ class MySQLClimateRepository(ClimateRepository):
             cur.close()
 
     def add_to_sport(self, climate, sport):
-        query = Query().add_for_sport()
+        query = Query().add_to_sport()
         return self.add_to_type(query, climate.name, sport.id)
 
     def add_to_practice_center(self, climate, practice_center):

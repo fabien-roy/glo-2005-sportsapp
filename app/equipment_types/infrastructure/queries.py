@@ -6,12 +6,6 @@ from app.interfaces.infrastructure.queries import MySQLQuery
 
 # TODO : Test
 class MySQLEquipmentTypeQuery(MySQLQuery):
-    def add(self):
-        operation = (f'INSERT INTO {EquipmentTypes.table_name}'
-                     f'({EquipmentTypes.name_col}) VALUES (%s)')
-
-        return self.build_query(operation)
-
     def get_all_for_sport(self, sport_id):
         operation = (f'SELECT E.{EquipmentTypes.id_col}, E.{EquipmentTypes.name_col} '
                      f'FROM {EquipmentTypes.table_name} E '
@@ -23,3 +17,17 @@ class MySQLEquipmentTypeQuery(MySQLQuery):
         orders = [f'E.{EquipmentTypes.name_col}']
 
         return self.build_query(operation, filters, orders)
+
+    def add(self):
+        operation = (f'INSERT INTO {EquipmentTypes.table_name}'
+                     f'({EquipmentTypes.name_col}) VALUES (%s)')
+
+        return self.build_query(operation)
+
+    def add_to_sport(self):
+        operation = (f'INSERT INTO {SportEquipmentTypes.table_name}'
+                     f' ({SportEquipmentTypes.equipment_id_col}'
+                     f', {SportEquipmentTypes.sport_id_col})'
+                     f' VALUES (%s, %s);')
+
+        return self.build_query(operation)

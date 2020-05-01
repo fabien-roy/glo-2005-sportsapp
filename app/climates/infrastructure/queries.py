@@ -36,7 +36,7 @@ class MySQLClimateQuery(MySQLQuery):
 
         return self.build_query(operation)
 
-    def add_for_sport(self):
+    def add_to_sport(self):
         return self.add_for_type(MySQLSportClimateTable.table_name,
                                  MySQLSportClimateTable.climate_name_col,
                                  MySQLSportClimateTable.sport_id_col)
