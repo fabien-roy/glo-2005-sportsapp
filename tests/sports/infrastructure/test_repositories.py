@@ -1,6 +1,7 @@
 from app.sports.exceptions import SportNotFoundException
 from app.sports.infrastructure.repositories import MySQLSportRepository
 from tests.climates.mocks import climate_repository
+from tests.equipment_types.mocks import equipment_type_repository
 from tests.interfaces.infrastructure.database import test_database
 from tests.interfaces.infrastructure.test_repositories import RepositoryTests
 from tests.recommendations.mocks import recommendation_repository
@@ -13,6 +14,7 @@ class SportsRepositoryTests(RepositoryTests):
     def setUp(self):
         super().setUp()
         self.repository = MySQLSportRepository(test_database, climate_repository,
+                                               equipment_type_repository,
                                                recommendation_repository)
 
     def test_get_with_no_sport_should_raise_sport_not_found_exception(self):
@@ -37,6 +39,8 @@ class SportsRepositoryTests(RepositoryTests):
         self.assertCountEqual(sport2.climates, sport.climates)
         sport = self.repository.get(sport3.id)
         self.assertCountEqual(sport3.climates, sport.climates)
+
+    # TODO : test_get_should_get_sport_required_equipment_types
 
     def test_get_should_get_sport_recommendations(self):
         sport = self.repository.get(sport1.id)

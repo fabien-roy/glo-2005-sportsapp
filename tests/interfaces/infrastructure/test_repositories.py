@@ -36,15 +36,19 @@ class RepositoryTests(BasicTests):
 
     climate_repository = MySQLClimateRepository(test_database)
     recommendation_repository = MySQLRecommendationRepository(test_database)
+    equipment_type_repository = MySQLEquipmentTypeRepository(test_database)
+
     sport_repository = MySQLSportRepository(test_database, climate_repository,
+                                            equipment_type_repository,
                                             recommendation_repository)
     practice_center_repository = MySQLPracticeCenterRepository(test_database, climate_repository,
                                                                recommendation_repository)
+
     announce_repository = MySQLAnnounceRepository(test_database)
-    shop_repository = MySQLShopRepository(test_database, announce_repository)
     manufacturer_repository = MySQLManufacturerRepository(test_database)
-    category_repository = MySQLEquipmentTypeRepository(test_database)
     equipment_repository = MySQLEquipmentRepository(test_database, announce_repository)
+    shop_repository = MySQLShopRepository(test_database, announce_repository)
+
     user_repository = MySQLUserRepository(test_database, recommendation_repository)
 
     @classmethod
@@ -131,9 +135,9 @@ class RepositoryTests(BasicTests):
 
     @classmethod
     def add_categories(cls):
-        cls.category_repository.add(type1)
-        cls.category_repository.add(type2)
-        cls.category_repository.add(type3)
+        cls.equipment_type_repository.add(type1)
+        cls.equipment_type_repository.add(type2)
+        cls.equipment_type_repository.add(type3)
 
     @classmethod
     def add_equipments(cls):
