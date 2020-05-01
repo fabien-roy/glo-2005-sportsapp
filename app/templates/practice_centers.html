@@ -1,6 +1,6 @@
 {% extends "list.html" %}
 {% from 'macros/jumbotron.html' import jumbotron %}
-{% from 'macros/search.html' import input_group, search_pane_advanced %}
+{% from 'macros/search.html' import input, search_pane_advanced %}
 {% from 'macros/list.html' import list, list_item %}
 
 {% block jumbotron %}
@@ -9,10 +9,10 @@
 
 {% block search_pane %}
 {{ search_pane_advanced(form,
-                        [input_group('name', 'Name', form.name.data),
-                         input_group('email', 'Email', form.email.data),
-                         input_group('web_site', 'Web site', form.web_site.data),
-                         input_group('phone_number', 'Phone number', form.phone_number.data)]) }}
+                        [input('name', 'Name', form.name.data),
+                         input('email', 'Email', form.email.data),
+                         input('web_site', 'Web site', form.web_site.data),
+                         input('phone_number', 'Phone number', form.phone_number.data)]) }}
 {% endblock %}
 
 {% block list_pane %}

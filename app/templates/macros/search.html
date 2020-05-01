@@ -5,12 +5,6 @@
            placeholder="{{ placeholder }}" value="{{ value }}">
 {%- endmacro %}
 
-{% macro input_group(name, placeholder, value) -%}
-    <div class="form-group">
-        {{ input(name, placeholder, value) }}
-    </div>
-{%- endmacro %}
-
 {% macro reset() -%}
     <button type="reset" class="btn btn-block btn-danger">Clear</button>
 {%- endmacro %}
@@ -27,9 +21,11 @@
         {{ form.hidden_tag() }}
         {{ wtf.form_errors(form, hiddens="only") }}
 
-        {% for input in inputs %}
-            {{ input }}
-        {% endfor %}
+        <div class="form-group">
+            {% for input in inputs %}
+                {{ input }}
+            {% endfor %}
+        </div>
 
         <div class="row">
             <div class="col-md-6">
@@ -43,7 +39,7 @@
 {%- endmacro %}
 
 {% macro search_form_general(form) -%}
-    {{ search_form(form, [input_group('any_field', 'Any field', form.any_field.data)]) }}
+    {{ search_form(form, [input('any_field', 'Any field', form.any_field.data)]) }}
 {%- endmacro %}
 
 {% macro search_pane(form, inputs) -%}
