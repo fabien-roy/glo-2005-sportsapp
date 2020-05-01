@@ -64,18 +64,62 @@ class RepositoryTests(BasicTests):
 
     @classmethod
     def populate_database(cls):
-        cls.add_climates()
-        cls.add_sports()
-        cls.add_practice_centers()
         cls.add_users()
-        cls.add_sport_recommendations()
-        cls.add_practice_center_recommendations()
+
         cls.add_shops()
         cls.add_manufacturers()
-        cls.add_categories()
+        cls.add_equipment_types()
         cls.add_equipments()
         cls.add_announces()
+
+        cls.add_climates()
+
+        cls.add_sports()
+        cls.add_practice_centers()
+
+        cls.add_sport_recommendations()
+        cls.add_practice_center_recommendations()
+
         cls.database_populated = True
+
+    @classmethod
+    def add_users(cls):
+        cls.user_repository.add(user1)
+        cls.user_repository.add(user2)
+        cls.user_repository.add(user3)
+
+    @classmethod
+    def add_shops(cls):
+        cls.shop_repository.add(shop1)
+        cls.shop_repository.add(shop2)
+        cls.shop_repository.add(shop3)
+
+    @classmethod
+    def add_manufacturers(cls):
+        cls.manufacturer_repository.add(manufacturer1)
+        cls.manufacturer_repository.add(manufacturer2)
+        cls.manufacturer_repository.add(manufacturer3)
+
+    @classmethod
+    def add_equipment_types(cls):
+        cls.equipment_type_repository.add(type1)
+        cls.equipment_type_repository.add(type2)
+        cls.equipment_type_repository.add(type3)
+
+    @classmethod
+    def add_equipments(cls):
+        cls.equipment_repository.add(equipment1)
+        cls.equipment_repository.add(equipment2)
+        cls.equipment_repository.add(equipment3)
+
+    @classmethod
+    def add_announces(cls):
+        cls.announce_repository.add(shop1_equipment1_announce1, shop1.id, equipment1.id)
+        cls.announce_repository.add(shop1_equipment2_announce1, shop1.id, equipment2.id)
+        cls.announce_repository.add(shop2_equipment2_announce1, shop2.id, equipment2.id)
+        cls.announce_repository.add(shop2_equipment2_announce2, shop2.id, equipment2.id)
+        cls.announce_repository.add(shop3_equipment1_announce1, shop3.id, equipment1.id)
+        cls.announce_repository.add(shop3_equipment3_announce1, shop3.id, equipment3.id)
 
     @classmethod
     def add_climates(cls):
@@ -96,12 +140,6 @@ class RepositoryTests(BasicTests):
         cls.practice_center_repository.add(center3)
 
     @classmethod
-    def add_users(cls):
-        cls.user_repository.add(user1)
-        cls.user_repository.add(user2)
-        cls.user_repository.add(user3)
-
-    @classmethod
     def add_sport_recommendations(cls):
         cls.recommendation_repository.add_to_sport(sport1_recommendation1_user1, sport1.id)
         cls.recommendation_repository.add_to_sport(sport2_recommendation1_user3, sport2.id)
@@ -120,39 +158,6 @@ class RepositoryTests(BasicTests):
                                                              center3.id)
         cls.recommendation_repository.add_to_practice_center(center3_recommendation2_user1,
                                                              center3.id)
-
-    @classmethod
-    def add_shops(cls):
-        cls.shop_repository.add(shop1)
-        cls.shop_repository.add(shop2)
-        cls.shop_repository.add(shop3)
-
-    @classmethod
-    def add_manufacturers(cls):
-        cls.manufacturer_repository.add(manufacturer1)
-        cls.manufacturer_repository.add(manufacturer2)
-        cls.manufacturer_repository.add(manufacturer3)
-
-    @classmethod
-    def add_categories(cls):
-        cls.equipment_type_repository.add(type1)
-        cls.equipment_type_repository.add(type2)
-        cls.equipment_type_repository.add(type3)
-
-    @classmethod
-    def add_equipments(cls):
-        cls.equipment_repository.add(equipment1)
-        cls.equipment_repository.add(equipment2)
-        cls.equipment_repository.add(equipment3)
-
-    @classmethod
-    def add_announces(cls):
-        cls.announce_repository.add(shop1_equipment1_announce1, shop1.id, equipment1.id)
-        cls.announce_repository.add(shop1_equipment2_announce1, shop1.id, equipment2.id)
-        cls.announce_repository.add(shop2_equipment2_announce1, shop2.id, equipment2.id)
-        cls.announce_repository.add(shop2_equipment2_announce2, shop2.id, equipment2.id)
-        cls.announce_repository.add(shop3_equipment1_announce1, shop3.id, equipment1.id)
-        cls.announce_repository.add(shop3_equipment3_announce1, shop3.id, equipment3.id)
 
     def tearDown(self):
         if not self.database_populated:

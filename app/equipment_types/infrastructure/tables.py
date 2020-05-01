@@ -6,5 +6,5 @@ class MySQLEquipmentTypeTable:
 
 class MySQLSportEquipmentTypeTable:
     table_name = 'sport_equipment_types'
+    type_id_col = 'type_id'
     sport_id_col = 'sport_id'
-    equipment_id_col = 'equipment_id'

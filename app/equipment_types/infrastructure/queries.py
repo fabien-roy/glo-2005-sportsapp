@@ -10,7 +10,7 @@ class MySQLEquipmentTypeQuery(MySQLQuery):
         operation = (f'SELECT E.{EquipmentTypes.id_col}, E.{EquipmentTypes.name_col} '
                      f'FROM {EquipmentTypes.table_name} E '
                      f'JOIN {SportEquipmentTypes.table_name} S ON '
-                     f'S.{SportEquipmentTypes.equipment_id_col} = E.{EquipmentTypes.id_col}')
+                     f'S.{SportEquipmentTypes.type_id_col} = E.{EquipmentTypes.id_col}')
 
         filters = [MySQLFilter.filter_equal(SportEquipmentTypes.sport_id_col, sport_id)]
 
@@ -26,7 +26,7 @@ class MySQLEquipmentTypeQuery(MySQLQuery):
 
     def add_to_sport(self):
         operation = (f'INSERT INTO {SportEquipmentTypes.table_name}'
-                     f' ({SportEquipmentTypes.equipment_id_col}'
+                     f' ({SportEquipmentTypes.type_id_col}'
                      f', {SportEquipmentTypes.sport_id_col})'
                      f' VALUES (%s, %s);')
 
