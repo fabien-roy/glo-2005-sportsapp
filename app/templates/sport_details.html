@@ -1,6 +1,6 @@
 {% extends "details.html" %}
 {% from 'macros/jumbotron.html' import jumbotron %}
-{% from 'macros/details.html' import details, detail, detail_list %}
+{% from 'macros/details.html' import details, detail, detail_list, search_link_list %}
 {% from 'macros/recommendations.html' import user_recommendations_list %}
 
 {% block jumbotron %}
@@ -10,7 +10,8 @@
 {% block details %}
     {{ details([detail('Name', sport.name),
         detail_list('Associated climates', sport.climates),
-        detail_list('Required equipment types', sport.required_equipment_types)]) }}
+        search_link_list('Required equipment types',
+        sport.required_equipment_types, url_for('equipments.equipments'))]) }}
 {% endblock %}
 
 {% block associated_items %}

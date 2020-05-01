@@ -1,19 +1,19 @@
 {% extends "details.html" %}
 {% from 'macros/announces.html' import shop_announces_list %}
-{% from 'macros/details.html' import details, detail, search_link_list %}
+{% from 'macros/details.html' import details, detail, details_link_list %}
 {% from 'macros/jumbotron.html' import jumbotron %}
 
 {% block jumbotron %}
-{{ jumbotron(equipment.name, 'equipments') }}
+    {{ jumbotron(equipment.name, 'equipments') }}
 {% endblock %}
 
 {% block details %}
-{{ details([
+    {{ details([
 detail('Name', equipment.name),
 detail('Manufacturer', equipment.manufacturer_name),
 detail('Equipment Type', equipment.type_name),
 detail('Description', equipment.description),
-search_link_list('Associated sports', equipment.associated_sports, url_for('sports.sports'))]) }}
+details_link_list('Associated sports', equipment.associated_sports, 'sports.sport_details')]) }}
 {% endblock %}
 
 {% block associated_items %}

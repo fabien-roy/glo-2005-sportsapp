@@ -22,10 +22,21 @@
     {% endif %}
 {%- endmacro %}
 
+{% macro details_links_or_none(values, details_route) -%}
+    {% if values != None and values|length > 0 %}
+        {% for value in values %}
+            <a role="button" href="{{ url_for(details_route, sport_id=value.id) }}"
+               class="btn btn-search-link">{{ value.name }}</a>
+        {% endfor %}
+    {% else %}
+        None
+    {% endif %}
+{%- endmacro %}
+
 {% macro search_links_or_none(values) -%}
     {% if values != None and values|length > 0 %}
         {% for value in values %}
-            <button name="name" type="submit" value="{{ value.name }}"
+            <button name="equipment_type" type="submit" value="{{ value.name }}"
                     class="btn btn-search-link">{{ value.name }}</button>
         {% endfor %}
     {% else %}
@@ -51,6 +62,17 @@
         </div>
         <div class="col-md-6">
             <p>{{ values_or_unspecified(values) }}</p>
+        </div>
+    </div>
+{%- endmacro %}
+
+{% macro details_link_list(name, values, details_route) -%}
+    <div class="row">
+        <div class="col-md-6">
+            <label class="details-label">{{ name }}</label>
+        </div>
+        <div class="col-md-6">
+            <p>{{ details_links_or_none(values, details_route) }}</p>
         </div>
     </div>
 {%- endmacro %}

@@ -12,11 +12,13 @@
   height: 100%;
 }
 
+.details-pane a.btn-search-link,
 .details-pane form .btn-search-link {
   color: #fff;
   background-color: #343a40;
 }
 
+.details-pane a.btn-search-link:hover,
 .details-pane form .btn-search-link:hover {
   background-color: #3e3e3e;
 }
