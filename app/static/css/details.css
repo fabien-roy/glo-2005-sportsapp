@@ -3,6 +3,24 @@
   float: right;
 }
 
+.details-pane form {
+  width: 100%;
+  display: inherit;
+}
+
+.details-pane form > div {
+  height: 100%;
+}
+
+.details-pane form .btn-search-link {
+  color: #fff;
+  background-color: #343a40;
+}
+
+.details-pane form .btn-search-link:hover {
+  background-color: #3e3e3e;
+}
+
 .list-pane {
   background-color: #343a40;
   padding: 0;
@@ -37,7 +55,7 @@
 }
 
 .list-pane li:hover a {
-  color: #333;
+  background-color: #888;
 }
 
 @media only screen and (max-width: 767px) {
