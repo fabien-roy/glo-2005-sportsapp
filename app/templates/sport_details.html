@@ -4,13 +4,15 @@
 {% from 'macros/recommendations.html' import user_recommendations_list %}
 
 {% block jumbotron %}
-{{ jumbotron(sport.name, 'sports') }}
+    {{ jumbotron(sport.name, 'sports') }}
 {% endblock %}
 
 {% block details %}
-{{ details([detail('Name', sport.name), detail_list('Associated climates', sport.climates)]) }}
+    {{ details([detail('Name', sport.name),
+        detail_list('Associated climates', sport.climates),
+        detail_list('Required equipment types', sport.required_equipment_types)]) }}
 {% endblock %}
 
 {% block associated_items %}
-{{ user_recommendations_list(sport.recommendations) }}
+    {{ user_recommendations_list(sport.recommendations) }}
 {% endblock %}

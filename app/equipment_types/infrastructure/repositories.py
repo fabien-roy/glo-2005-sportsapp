@@ -30,7 +30,7 @@ class MySQLEquipmentTypeRepository(EquipmentTypeRepository):
 
     @staticmethod
     def build_equipment_type(cur):
-        return EquipmentType(cur[EquipmentTypes.id_col], EquipmentTypes.name_col)
+        return EquipmentType(cur[EquipmentTypes.id_col], cur[EquipmentTypes.name_col])
 
     def add(self, equipment_type):
         try:
