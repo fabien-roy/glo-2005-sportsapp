@@ -1,15 +1,11 @@
 from app.sports.exceptions import SportNotFoundException
 from app.sports.models import Sport
+from tests.equipment_types.fakes import type1, type2, type3
 from instance.sports.fakes import sport1, sport2, sport3
 
-from tests.climates.fakes import climate1, climate2, climate3
-
 sport1.id = 1
-sport1.climates = [climate1, climate2]
 sport2.id = 2
-sport2.climates = [climate2, climate3]
 sport3.id = 3
-sport3.climates = [climate3]
 
 sport1_no_climates = Sport(sport_id=1, name='Randonnee', climates=[])
 sport2_no_climates = Sport(sport_id=2, name='Escalade', climates=[])
@@ -37,6 +33,18 @@ def get_sports_filtered(form):
         return [sport1, sport2, sport3]
 
     return [sport1]
+
+
+def get_sports_for_equipment_type(type_id):
+    int_id = int(type_id)
+    if int_id == type1.id:
+        return [sport1, sport3]
+    if int_id == type2.id:
+        return [sport3]
+    if int_id == type3.id:
+        return [sport1]
+
+    return None
 
 
 def get_climates_for_sport(sport_id):

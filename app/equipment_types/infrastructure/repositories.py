@@ -7,7 +7,6 @@ from app.equipment_types.infrastructure.tables import MySQLEquipmentTypeTable as
 from app.interfaces.database import Database
 
 
-# TODO: Test
 class MySQLEquipmentTypeRepository(EquipmentTypeRepository):
     @inject
     def __init__(self, database: Database):

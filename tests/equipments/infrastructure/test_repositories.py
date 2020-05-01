@@ -43,6 +43,14 @@ class EquipmentRepositoryTests(RepositoryTests):
         self.assertEqual(equipment3.manufacturer_id, equipment.manufacturer_id)
         self.assertEqual(equipment3.manufacturer_name, equipment.manufacturer_name)
 
+    def test_get_should_get_equipment_associated_sports(self):
+        equipment = self.repository.get(equipment1.id)
+        self.assertCountEqual(equipment1.associated_sports, equipment.associated_sports)
+        equipment = self.repository.get(equipment2.id)
+        self.assertCountEqual(equipment2.associated_sports, equipment.associated_sports)
+        equipment = self.repository.get(equipment3.id)
+        self.assertCountEqual(equipment3.associated_sports, equipment.associated_sports)
+
     def test_get_should_get_equipment_announces(self):
         equipment = self.repository.get(equipment1.id)
         self.assertCountEqual(equipment1.announces, equipment.announces)

@@ -4,7 +4,6 @@ from app.interfaces.infrastructure.filters import MySQLFilter
 from app.interfaces.infrastructure.queries import MySQLQuery
 
 
-# TODO : Test
 class MySQLEquipmentTypeQuery(MySQLQuery):
     def get_all_for_sport(self, sport_id):
         operation = (f'SELECT E.{EquipmentTypes.id_col}, E.{EquipmentTypes.name_col} '

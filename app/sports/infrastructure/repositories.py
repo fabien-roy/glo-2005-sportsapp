@@ -25,7 +25,6 @@ class MySQLSportRepository(SportRepository):
         query = Query().get_all(form)
         return self.get_all_for_query(query)
 
-    # TODO : Test
     def get_all_for_equipment_type(self, type_id):
         query = Query().get_all_for_equipment_type(type_id)
         return self.get_all_for_query(query)

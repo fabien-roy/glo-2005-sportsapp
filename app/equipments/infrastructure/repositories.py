@@ -10,7 +10,6 @@ from app.interfaces.database import Database
 from app.sports.repositories import SportRepository
 
 
-# TODO : Test getting sports
 class MySQLEquipmentRepository(EquipmentRepository):
     @inject
     def __init__(self, database: Database,
