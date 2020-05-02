@@ -5,7 +5,7 @@ Flask_Cors==3.0.8
 # Forms
 Flask_wtf==0.14.3
 wtforms==2.3.1
-email-validator===1.0.5
+email-validator===1.1.0
 
 # Templating
 Jinja2==2.11.2
