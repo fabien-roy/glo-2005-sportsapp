@@ -1,11 +1,12 @@
 from app.sports.exceptions import SportNotFoundException
 from app.sports.infrastructure.repositories import MySQLSportRepository
+from tests.equipment_types.fakes import type1, type2, type3
 from tests.climates.mocks import climate_repository
 from tests.equipment_types.mocks import equipment_type_repository
 from tests.interfaces.infrastructure.database import test_database
 from tests.interfaces.infrastructure.test_repositories import RepositoryTests
 from tests.recommendations.mocks import recommendation_repository
-from tests.sports.fakes import sport1, sport2, sport3
+from tests.sports.fakes import sport1, sport2, sport3, get_sports_for_equipment_type
 from tests.sports.forms import FakeSportSearchForm
 
 
@@ -56,6 +57,14 @@ class SportsRepositoryTests(RepositoryTests):
         self.assertCountEqual(sport2.recommendations, sport.recommendations)
         sport = self.repository.get(sport3.id)
         self.assertCountEqual(sport3.recommendations, sport.recommendations)
+
+    def test_get_all_for_equipment_type_should_get_sports_for_type(self):
+        sports = self.repository.get_all_for_equipment_type(type1.id)
+        self.assertCountEqual(get_sports_for_equipment_type(type1.id), sports)
+        sports = self.repository.get_all_for_equipment_type(type2.id)
+        self.assertCountEqual(get_sports_for_equipment_type(type2.id), sports)
+        sports = self.repository.get_all_for_equipment_type(type3.id)
+        self.assertCountEqual(get_sports_for_equipment_type(type3.id), sports)
 
     def test_get_all_with_no_sport_get_no_sport(self):
         self.recreate_database()
