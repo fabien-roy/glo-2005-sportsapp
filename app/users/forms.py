@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import StringField, PasswordField
+from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length, EqualTo, Email
 
 from app.search.forms import GeneralSearchForm
@@ -22,11 +22,13 @@ class RegisterForm(Form):
     first_name = StringField('Name', validators=[DataRequired(), Length(min=2, max=50)])
     email = StringField('Email', validators=[DataRequired(), Email(), Length(min=2, max=50)])
     telephone = StringField('Telephone number', validators=[DataRequired(), Length(min=10, max=20)])
+    submit = SubmitField('Register')
 
 
 class LoginForm(Form):
-    email = StringField('Email', validators=[DataRequired(), Email(), Length(min=6, max=40)])
+    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=50)])
     password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Log in')
 
 
 class EditUserPasswordForm(Form):

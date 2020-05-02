@@ -47,6 +47,7 @@ class MySQLCreationService:
         cur.execute(RecommendationQuery().drop_recommendations())
 
         cur.execute(UserQuery().drop_users())
+        cur.execute(UserQuery().drop_passwords())
 
         cur.execute(AnnounceQuery().drop_announces())
         cur.execute(ShopQuery().drop_shops())
@@ -58,6 +59,7 @@ class MySQLCreationService:
 
     def create_tables(self, cur):
         cur.execute(UserQuery().create_users())
+        cur.execute(UserQuery().create_passwords())
 
         cur.execute(SportQuery().create_sports())
 

@@ -1,6 +1,7 @@
 import datetime
 
 from injector import inject
+import bcrypt
 
 from app.interfaces.database import Database
 from app.recommendations.repositories import RecommendationRepository
@@ -68,6 +69,18 @@ class MySQLUserRepository(UserRepository):
                     sport_recommendations,
                     practice_center_recommendations)
 
+    def add_password(self, user):
+        try:
+            with self.database.connect().cursor() as cur:
+
+                query = Query().add_password()
+                cur.execute(query, (user.username, bcrypt.hashpw(user.password.encode('utf-8'), bcrypt.gensalt())))
+                self.database.connect().commit()
+        finally:
+            cur.close()
+
+        return cur.lastrowid
+
     def add(self, user):
         try:
             with self.database.connect().cursor() as cur:
@@ -81,4 +94,20 @@ class MySQLUserRepository(UserRepository):
         finally:
             cur.close()
 
+        self.add_password(user)
+
         return cur.lastrowid
+
+    def get_password(self, username):
+        try:
+            with self.database.connect().cursor() as cur:
+
+                query = Query().get_password(username)
+                cur.execute(query)
+                password = cur.fetchall()[0]['password']
+        finally:
+            cur.close()
+
+        return password
+
+

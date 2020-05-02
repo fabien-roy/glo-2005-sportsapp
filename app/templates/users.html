@@ -5,7 +5,8 @@
 
 {% block jumbotron %}
 {{ jumbotron('Users', 'users') }}
-{% endblock %}
+{% endblock jumbotron%}
+
 
 {% block search_pane %}
 {{ search_pane_advanced(form,
@@ -27,3 +28,5 @@
 
 {{ list(items) }}
 {% endblock %}
+
+
