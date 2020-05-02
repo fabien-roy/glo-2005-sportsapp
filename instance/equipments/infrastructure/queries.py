@@ -9,9 +9,9 @@ class MySQLEquipmentQuery:
         return ('CREATE TABLE equipments('
                 'id int NOT NULL AUTO_INCREMENT PRIMARY KEY,'
                 'manufacturer_id int NOT NULL,'
-                'category_id int not NULL,'
+                'type_id int not NULL,'
                 'name varchar(100),'
                 'description varchar(1000),'
                 'FOREIGN KEY (manufacturer_id) REFERENCES manufacturers(id) ON DELETE CASCADE,'
-                'FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE'
+                'FOREIGN KEY (type_id) REFERENCES equipment_types(id) ON DELETE CASCADE'
                 ');')

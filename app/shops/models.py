@@ -11,6 +11,3 @@ class Shop:
         if isinstance(other, Shop):
             return self.id == other.id
         return False
-
-    def add_announce(self, announce):
-        self.announces.append(announce)

@@ -17,17 +17,16 @@ class ShopPopulationServiceTests(BasicTests):
     announce_population_service = mock.Mock()
 
     def setUp(self):
-        self.population_service = PopulationService(
-            self.climate_population_service,
-            self.sport_population_service,
-            self.practice_center_population_service,
-            self.user_population_service,
-            self.recommendation_population_service,
-            self.shop_population_service,
-            self.manufacturer_population_service,
-            self.category_population_service,
-            self.equipment_population_service,
-            self.announce_population_service)
+        self.population_service = PopulationService(self.user_population_service,
+                                                    self.shop_population_service,
+                                                    self.manufacturer_population_service,
+                                                    self.category_population_service,
+                                                    self.equipment_population_service,
+                                                    self.announce_population_service,
+                                                    self.climate_population_service,
+                                                    self.sport_population_service,
+                                                    self.practice_center_population_service,
+                                                    self.recommendation_population_service)
 
         self.population_service.db_populate()
 

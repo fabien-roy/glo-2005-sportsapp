@@ -1,51 +1,97 @@
 {% macro enumeration(values) -%}
-{% for value in values %}
-{{ value.name }},
-{% endfor %}
+    {% for value in values %}
+        {{ value.name }},
+    {% endfor %}
 {%- endmacro %}
 
 {% macro value_or_unspecified(value) -%}
-{% if value != None %}
-{{ value }}
-{% else %}
-Unspecified
-{% endif %}
+    {% if value != None %}
+        {{ value }}
+    {% else %}
+        Unspecified
+    {% endif %}
 {%- endmacro %}
 
 {% macro values_or_unspecified(values) -%}
-{% if values != None and values|length > 0 %}
-{% for value in values %}
-{{ value.name }},
-{% endfor %}
-{% else %}
-Unspecified
-{% endif %}
+    {% if values != None and values|length > 0 %}
+        {% for value in values %}
+            {{ value.name }},
+        {% endfor %}
+    {% else %}
+        Unspecified
+    {% endif %}
+{%- endmacro %}
+
+{% macro details_links_or_none(values, details_route) -%}
+    {% if values != None and values|length > 0 %}
+        {% for value in values %}
+            <a role="button" href="{{ url_for(details_route, sport_id=value.id) }}"
+               class="btn btn-search-link">{{ value.name }}</a>
+        {% endfor %}
+    {% else %}
+        None
+    {% endif %}
+{%- endmacro %}
+
+{% macro search_links_or_none(values) -%}
+    {% if values != None and values|length > 0 %}
+        {% for value in values %}
+            <button name="equipment_type" type="submit" value="{{ value.name }}"
+                    class="btn btn-search-link">{{ value.name }}</button>
+        {% endfor %}
+    {% else %}
+        None
+    {% endif %}
 {%- endmacro %}
 
 {% macro detail(name, value) -%}
-<div class="row">
-    <div class="col-md-6">
-        <label class="details-label">{{ name }}</label>
+    <div class="row">
+        <div class="col-md-6">
+            <label class="details-label">{{ name }}</label>
+        </div>
+        <div class="col-md-6">
+            <p>{{ value_or_unspecified(value) }}</p>
+        </div>
     </div>
-    <div class="col-md-6">
-        <p>{{ value_or_unspecified(value) }}</p>
-    </div>
-</div>
 {%- endmacro %}
 
 {% macro detail_list(name, values) -%}
-<div class="row">
-    <div class="col-md-6">
-        <label class="details-label">{{ name }}</label>
+    <div class="row">
+        <div class="col-md-6">
+            <label class="details-label">{{ name }}</label>
+        </div>
+        <div class="col-md-6">
+            <p>{{ values_or_unspecified(values) }}</p>
+        </div>
     </div>
-    <div class="col-md-6">
-        <p>{{ values_or_unspecified(values) }}</p>
+{%- endmacro %}
+
+{% macro details_link_list(name, values, details_route) -%}
+    <div class="row">
+        <div class="col-md-6">
+            <label class="details-label">{{ name }}</label>
+        </div>
+        <div class="col-md-6">
+            <p>{{ details_links_or_none(values, details_route) }}</p>
+        </div>
     </div>
-</div>
+{%- endmacro %}
+
+{% macro search_link_list(name, values, search_route) -%}
+    <div class="row">
+        <form class="form form-horizontal" method="post" role="form" action="{{ search_route }}">
+            <div class="col-md-6">
+                <label class="details-label">{{ name }}</label>
+            </div>
+            <div class="col-md-6">
+                <p>{{ search_links_or_none(values) }}</p>
+            </div>
+        </form>
+    </div>
 {%- endmacro %}
 
 {% macro details(items) -%}
-{% for item in items %}
-{{ item }}
-{% endfor %}
+    {% for item in items %}
+        {{ item }}
+    {% endfor %}
 {%- endmacro %}

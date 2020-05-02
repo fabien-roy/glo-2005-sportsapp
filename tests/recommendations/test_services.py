@@ -11,8 +11,8 @@ class RecommendationPopulationServiceTests(BasicTests):
 
     def test_db_populate_adds_fake_sports(self):
         self.recommendation_population_service.db_populate()
-        self.assertTrue(recommendation_repository.add_for_sport.called)
+        self.assertTrue(recommendation_repository.add_to_sport.called)
 
     def test_db_populate_adds_fake_practice_centers(self):
         self.recommendation_population_service.db_populate()
-        self.assertTrue(recommendation_repository.add_for_practice_center.called)
+        self.assertTrue(recommendation_repository.add_to_practice_center.called)

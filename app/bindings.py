@@ -1,5 +1,5 @@
 from app.announces.modules import AnnounceModule
-from app.categories.modules import CategoryModule
+from app.equipment_types.modules import EquipmentTypeModule
 from app.climates.modules import ClimateModule
 from app.equipments.modules import EquipmentModule
 from app.interfaces.database import Database
@@ -17,13 +17,13 @@ def configure_database(binder):
 
 
 def configure_modules(binder):
+    binder.install(UserModule)
     binder.install(ClimateModule)
+    binder.install(ShopModule)
+    binder.install(ManufacturerModule)
+    binder.install(EquipmentTypeModule)
+    binder.install(EquipmentModule)
+    binder.install(AnnounceModule)
     binder.install(SportModule)
     binder.install(PracticeCenterModule)
     binder.install(RecommendationModule)
-    binder.install(UserModule)
-    binder.install(AnnounceModule)
-    binder.install(ShopModule)
-    binder.install(EquipmentModule)
-    binder.install(ManufacturerModule)
-    binder.install(CategoryModule)
