@@ -10,7 +10,7 @@ from tests.sports.fakes import sport1, sport2, sport3, get_sports_for_equipment_
 from tests.sports.forms import FakeSportSearchForm
 
 
-class SportsRepositoryTests(RepositoryTests):
+class SportRepositoryTests(RepositoryTests):
 
     def setUp(self):
         super().setUp()
