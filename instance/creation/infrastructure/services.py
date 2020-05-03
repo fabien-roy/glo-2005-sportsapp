@@ -29,6 +29,7 @@ class MySQLCreationService:
             with self.database.connect().cursor() as cur:
                 self.drop_tables(cur)
                 self.create_tables(cur)
+                self.create_triggers(cur)
         finally:
             cur.close()
 
@@ -79,5 +80,10 @@ class MySQLCreationService:
         cur.execute(EquipmentTypeQuery().create_sport_equipment_types())
         cur.execute(EquipmentQuery().create_equipments())
         cur.execute(AnnounceQuery().create_announces())
+
+        self.database.connect().commit()
+
+    def create_triggers(self, cur):
+        cur.execute(RecommendationQuery().create_validate_recommendation_note())
 
         self.database.connect().commit()

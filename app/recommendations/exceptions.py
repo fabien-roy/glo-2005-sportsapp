@@ -1,0 +1,2 @@
+class OutOfBoundsNoteException(Exception):
+    pass

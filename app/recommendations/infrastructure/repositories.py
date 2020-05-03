@@ -1,8 +1,10 @@
 import datetime
 
 from injector import inject
+from pymysql import MySQLError
 
 from app.interfaces.database import Database
+from app.recommendations.exceptions import OutOfBoundsNoteException
 from app.recommendations.infrastructure.tables import MySQLRecommendationTable as Recommendations
 from app.recommendations.infrastructure.queries import MySQLRecommendationQuery as Query
 from app.recommendations.models import Recommendation
@@ -66,6 +68,8 @@ class MySQLRecommendationRepository(RecommendationRepository):
                 self.database.connect().commit()
 
                 recommendation.id = cur.lastrowid
+        except MySQLError as error:
+            raise OutOfBoundsNoteException
         finally:
             cur.close()
 
