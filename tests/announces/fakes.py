@@ -28,19 +28,14 @@ shop3_equipment3_announce1.id = 6
 shop3_equipment3_announce1.shop_id = shop3.id
 shop3_equipment3_announce1.equipment_id = equipment3.id
 
-shop1.add_announce(shop1_equipment1_announce1)
-shop1.add_announce(shop1_equipment2_announce1)
-shop2.add_announce(shop2_equipment2_announce1)
-shop2.add_announce(shop2_equipment2_announce2)
-shop3.add_announce(shop3_equipment1_announce1)
-shop3.add_announce(shop3_equipment3_announce1)
+shop1.announces = [shop1_equipment1_announce1, shop1_equipment2_announce1]
+shop2.announces = [shop2_equipment2_announce1, shop2_equipment2_announce2]
+shop3.announces = [shop3_equipment1_announce1, shop3_equipment3_announce1]
 
-equipment1.add_announce(shop1_equipment1_announce1)
-equipment1.add_announce(shop3_equipment1_announce1)
-equipment2.add_announce(shop1_equipment2_announce1)
-equipment2.add_announce(shop2_equipment2_announce1)
-equipment2.add_announce(shop2_equipment2_announce2)
-equipment3.add_announce(shop3_equipment3_announce1)
+equipment1.announces = [shop1_equipment1_announce1, shop3_equipment1_announce1]
+equipment2.announces = [shop1_equipment2_announce1, shop2_equipment2_announce1,
+                        shop2_equipment2_announce2]
+equipment3.announces = [shop3_equipment3_announce1]
 
 
 def get_announces_for_shop(shop_id):

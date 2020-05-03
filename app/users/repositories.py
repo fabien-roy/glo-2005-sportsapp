@@ -12,6 +12,9 @@ class UserRepository:
     def get(self, username):
         """ abstract method """
 
+    @abstractmethod
+    def get_by_api_key(self, api_key):
+        """ abstract method """
 
     @abstractmethod
     def add(self, user):
@@ -22,5 +25,5 @@ class UserRepository:
         """ abstract method """
 
     @abstractmethod
-    def get_password(self, user):
+    def get_password(self, username):
         """ abstract method """

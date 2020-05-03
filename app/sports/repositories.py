@@ -9,6 +9,10 @@ class SportRepository:
         """ abstract method """
 
     @abstractmethod
+    def get_all_for_equipment_type(self, type_id):
+        """ abstract method """
+
+    @abstractmethod
     def get(self, sport_id):
         """ abstract method """
 

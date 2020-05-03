@@ -1,6 +1,6 @@
 {% extends "list.html" %}
 {% from 'macros/jumbotron.html' import jumbotron %}
-{% from 'macros/search.html' import input_group, search_pane_advanced %}
+{% from 'macros/search.html' import input, search_pane_advanced %}
 {% from 'macros/list.html' import list, list_item %}
 
 {% block jumbotron %}
@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block search_pane %}
-{{ search_pane_advanced(form, [input_group('name', 'Name', form.name.data)]) }}
+{{ search_pane_advanced(form, [input('name', 'Name', form.name.data)]) }}
 {% endblock %}
 
 {% block list_pane %}

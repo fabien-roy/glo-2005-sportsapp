@@ -13,6 +13,7 @@ from app.users.repositories import UserRepository
 
 
 class MySQLUserRepository(UserRepository):
+
     @inject
     def __init__(self, database: Database, recommendation_repository: RecommendationRepository):
         self.database = database
@@ -43,9 +44,9 @@ class MySQLUserRepository(UserRepository):
                 cur.execute(query)
 
                 for user_cur in cur.fetchall():
-                    sport_recommendations = self.recommendation_repository\
+                    sport_recommendations = self.recommendation_repository \
                         .get_all_for_sport_and_user(username)
-                    practice_center_recommendations = self.recommendation_repository\
+                    practice_center_recommendations = self.recommendation_repository \
                         .get_all_for_practice_center_and_user(username)
                     user = self.build_user(user_cur, sport_recommendations,
                                            practice_center_recommendations)
@@ -56,6 +57,10 @@ class MySQLUserRepository(UserRepository):
             raise UserNotFoundException
 
         return user
+
+    # TODO
+    def get_by_api_key(self, api_key):
+        pass
 
     @staticmethod
     def build_user(cur, sport_recommendations=None, practice_center_recommendations=None):
@@ -68,18 +73,6 @@ class MySQLUserRepository(UserRepository):
                     cur[Users.last_login_date_col],
                     sport_recommendations,
                     practice_center_recommendations)
-
-    def add_password(self, user):
-        try:
-            with self.database.connect().cursor() as cur:
-
-                query = Query().add_password()
-                cur.execute(query, (user.username, bcrypt.hashpw(user.password.encode('utf-8'), bcrypt.gensalt())))
-                self.database.connect().commit()
-        finally:
-            cur.close()
-
-        return cur.lastrowid
 
     def add(self, user):
         try:
@@ -98,10 +91,23 @@ class MySQLUserRepository(UserRepository):
 
         return cur.lastrowid
 
+    # TODO : Test this
+    def add_password(self, user):
+        try:
+            with self.database.connect().cursor() as cur:
+                query = Query().add_password()
+                cur.execute(query, (
+                    user.username, bcrypt.hashpw(user.password.encode('utf-8'), bcrypt.gensalt())))
+                self.database.connect().commit()
+        finally:
+            cur.close()
+
+        return cur.lastrowid
+
+    # TODO : Test this
     def get_password(self, username):
         try:
             with self.database.connect().cursor() as cur:
-
                 query = Query().get_password(username)
                 cur.execute(query)
                 password = cur.fetchall()[0]['password']
@@ -109,5 +115,3 @@ class MySQLUserRepository(UserRepository):
             cur.close()
 
         return password
-
-

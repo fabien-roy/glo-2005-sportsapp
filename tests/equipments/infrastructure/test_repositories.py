@@ -6,13 +6,16 @@ from tests.manufacturers.fakes import manufacturer1
 from tests.equipments.forms import FakeEquipmentSearchForm
 from tests.interfaces.infrastructure.database import test_database
 from tests.interfaces.infrastructure.test_repositories import RepositoryTests
+from tests.sports.mocks import sport_repository
 
 
 class EquipmentRepositoryTests(RepositoryTests):
 
     def setUp(self):
         super().setUp()
-        self.repository = MySQLEquipmentRepository(test_database, announce_repository)
+        self.repository = MySQLEquipmentRepository(test_database,
+                                                   sport_repository,
+                                                   announce_repository)
 
     def test_get_with_no_equipment_should_raise_equipment_not_found_exception(self):
         self.recreate_database()
@@ -39,6 +42,14 @@ class EquipmentRepositoryTests(RepositoryTests):
         equipment = self.repository.get(equipment3.id)
         self.assertEqual(equipment3.manufacturer_id, equipment.manufacturer_id)
         self.assertEqual(equipment3.manufacturer_name, equipment.manufacturer_name)
+
+    def test_get_should_get_equipment_associated_sports(self):
+        equipment = self.repository.get(equipment1.id)
+        self.assertCountEqual(equipment1.associated_sports, equipment.associated_sports)
+        equipment = self.repository.get(equipment2.id)
+        self.assertCountEqual(equipment2.associated_sports, equipment.associated_sports)
+        equipment = self.repository.get(equipment3.id)
+        self.assertCountEqual(equipment3.associated_sports, equipment.associated_sports)
 
     def test_get_should_get_equipment_announces(self):
         equipment = self.repository.get(equipment1.id)
@@ -81,7 +92,7 @@ class EquipmentRepositoryTests(RepositoryTests):
         self.assertNotIn(equipment3, equipments)
 
     def test_get_all_with_category_filter_equipments(self):
-        form = FakeEquipmentSearchForm(category=equipment1.category_name)
+        form = FakeEquipmentSearchForm(equipment_type=equipment1.type_name)
         equipments = self.repository.get_all(form)
         self.assertIn(equipment1, equipments)
         self.assertNotIn(equipment2, equipments)

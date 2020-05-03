@@ -13,6 +13,3 @@ class PracticeCenter:
         if isinstance(other, PracticeCenter):
             return self.id == other.id
         return False
-
-    def add_recommendation(self, recommendation):
-        self.recommendations.append(recommendation)

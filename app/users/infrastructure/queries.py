@@ -4,7 +4,6 @@ from app.users.infrastructure.filters import MySQLUserFilter as Filter
 from app.users.infrastructure.tables import MySQLUserTable as Users
 from app.users.infrastructure.tables import MySQLPasswordTable as Passwords
 
-
 all_fields_to_add = (f'{Users.username_col}'
                      f', {Users.email_col}'
                      f', {Users.first_name_col}'
@@ -33,17 +32,17 @@ class MySQLUserQuery(MySQLQuery):
 
         return self.build_query(select_all_operation, filters, orders, inner_filtering)
 
-    def add_password(self):
-        operation = (f'INSERT INTO {Passwords.table_name}'
-                     f' ({password_fields_to_add})'
-                     f' VALUES (%s, %s)')
-
-        return self.build_query(operation)
-
     def add(self):
         operation = (f'INSERT INTO {Users.table_name}'
                      f' ({all_fields_to_add})'
                      f' VALUES (%s, %s, %s, %s, %s, %s)')
+
+        return self.build_query(operation)
+
+    def add_password(self):
+        operation = (f'INSERT INTO {Passwords.table_name}'
+                     f' ({password_fields_to_add})'
+                     f' VALUES (%s, %s)')
 
         return self.build_query(operation)
 

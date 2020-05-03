@@ -20,6 +20,10 @@
   margin-bottom: 0;
 }
 
+.search-pane form input {
+  margin-bottom: 1.5rem;
+}
+
 .search-pane a {
   color: #fff;
 }
@@ -46,6 +50,10 @@
 @media only screen and (max-width: 767px) {
   .search-pane {
     margin-bottom: 1.5rem;
+  }
+
+  .search-pane .row .btn:first-child {
+    margin-bottom: 1rem;
   }
 
   .list-pane {
