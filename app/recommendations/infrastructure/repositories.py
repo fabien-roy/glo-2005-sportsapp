@@ -68,7 +68,7 @@ class MySQLRecommendationRepository(RecommendationRepository):
                 self.database.connect().commit()
 
                 recommendation.id = cur.lastrowid
-        except MySQLError as error:
+        except MySQLError:
             raise OutOfBoundsNoteException
         finally:
             cur.close()
