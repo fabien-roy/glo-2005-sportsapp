@@ -12,6 +12,14 @@
     {% endif %}
 {%- endmacro %}
 
+{% macro link_or_unspecified(value) -%}
+    {% if value != None %}
+        <a href="value">{{ value }}</a>
+    {% else %}
+        Unspecified
+    {% endif %}
+{%- endmacro %}
+
 {% macro values_or_unspecified(values) -%}
     {% if values != None and values|length > 0 %}
         {% for value in values %}
@@ -51,6 +59,17 @@
         </div>
         <div class="col-md-6">
             <p>{{ value_or_unspecified(value) }}</p>
+        </div>
+    </div>
+{%- endmacro %}
+
+{% macro detail_link(name, value) -%}
+    <div class="row">
+        <div class="col-md-6">
+            <label class="details-label">{{ name }}</label>
+        </div>
+        <div class="col-md-6">
+            <p>{{ link_or_unspecified(value) }}</p>
         </div>
     </div>
 {%- endmacro %}

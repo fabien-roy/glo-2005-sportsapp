@@ -2,6 +2,8 @@
 
 {% block inner_landing %}
 
+    <!-- TODO : Move form fields of login and register to reusable macros -->
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
 
     <h1>Welcome among us!</h1>
@@ -100,6 +102,9 @@
                     {{ form.submit(class="btn btn-success btn-block") }}
                 </div>
             </form>
+            <p>
+                Have an account? <a href="{{ url_for('auth.login') }}">Login</a>
+            </p>
         </div>
     </div>
 

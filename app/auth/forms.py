@@ -27,9 +27,10 @@ class LoginForm(Form):
                            render_kw={'placeholder': 'Username'})
     password = PasswordField('Password', validators=[DataRequired()],
                              render_kw={'placeholder': 'Password'})
-    submit = SubmitField('Log in')
+    submit = SubmitField('Login')
 
 
+# TODO : Remove if unused
 class EditPasswordForm(Form):
     new_password = PasswordField('New password', validators=[],
                                  render_kw={'placeholder': 'New password'})
