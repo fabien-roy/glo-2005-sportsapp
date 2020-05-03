@@ -12,6 +12,7 @@ body {
 
 .header {
   background-color: #e65100;
+  border-bottom: 1px solid #973500;
 }
 
 .header img {
@@ -40,6 +41,7 @@ body {
   display: inline-block;
   color: white;
   background-color: #343a40;
+  border-top: 1px solid #1d2022;
   padding-top: 1rem;
 }
 
