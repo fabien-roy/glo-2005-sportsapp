@@ -1,8 +1,7 @@
 class User:
     def __init__(self, username, email, password=None, first_name=None, last_name=None,
                  phone_number=None, creation_date=None, last_login_date=None,
-                 sport_recommendations=None, practice_center_recommendations=None,
-                 authenticated=False, active=True, anonymous=False):
+                 sport_recommendations=None, practice_center_recommendations=None):
         self.username = username
         self.email = email
         self.password = password
@@ -14,9 +13,6 @@ class User:
         self.sport_recommendations = [] if sport_recommendations is None else sport_recommendations
         self.practice_center_recommendations = [] if practice_center_recommendations is None else \
             practice_center_recommendations
-        self.is_authenticated = authenticated
-        self.is_active = active
-        self.is_anonymous = anonymous
 
     def __eq__(self, other):
         if isinstance(other, User):
@@ -25,3 +21,15 @@ class User:
 
     def get_id(self):
         return self.username
+
+    @staticmethod
+    def is_authenticated():
+        return True
+
+    @staticmethod
+    def is_active():
+        return True
+
+    @staticmethod
+    def is_anonymous():
+        return False

@@ -1,5 +1,6 @@
 import base64
 
+from flask import session
 from flask_login import LoginManager
 from injector import Injector
 
@@ -7,11 +8,16 @@ from app.users.repositories import UserRepository
 
 login_manager = LoginManager()
 user_repository = Injector().get(UserRepository)
+login_manager.session_protection = None
 
 
 @login_manager.user_loader
 def load_user(username):
-    return user_repository.get(username.decode('utf-8'))
+    print(username)
+    user = user_repository.get(username)
+    print(user)
+    print(session)
+    return user
 
 
 @login_manager.request_loader

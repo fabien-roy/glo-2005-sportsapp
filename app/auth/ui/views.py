@@ -1,9 +1,9 @@
 from abc import abstractmethod, ABCMeta
 
 import bcrypt
-from flask import render_template, request, Blueprint, url_for, redirect, flash
+from flask import render_template, request, Blueprint, url_for, redirect, flash, session
 from flask.views import View
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, logout_user
 from injector import inject
 
 from app.auth.forms import LoginForm, RegisterForm
@@ -24,7 +24,7 @@ def register(users_repository: UserRepository):
         users_repository.add(user)
 
         flash('Your account has been created! You are now able to log in', 'success')
-        return redirect(url_for('auth.login')), 307
+        return redirect(url_for('auth.login'))
 
     return render_template('register.html', form=form)
 
@@ -34,7 +34,7 @@ def login(users_repository: UserRepository):
     form = LoginForm(request.form)
 
     if current_user.is_authenticated:
-        return redirect(url_for('users.user')), 307
+        return redirect(url_for('users.user'))
 
     if form.validate_on_submit():
         user_password = users_repository.get_password(form.username.data)
@@ -44,12 +44,20 @@ def login(users_repository: UserRepository):
             user = users_repository.get(form.username.data)
             user.is_authenticated = True
             login_user(user)
+            session['username'] = user.username
             flash('You are now logged in as ' + current_user.username + '.', 'success')
-            return redirect(url_for('users.user_details', username=current_user.username)), 307
+            return redirect(url_for('users.user_details', username=user.username), 302)
 
         flash('Login Unsuccessful. Please check email and password', 'error')
 
-    return render_template('login.html', form=form), 307
+    return render_template('login.html', form=form)
+
+
+@auth_blueprint.route('/logout', methods=('GET', 'POST'))
+def logout():
+    logout_user()
+    session.pop('username', None)
+    return redirect(url_for('search.search'))
 
 
 class AuthView(View):

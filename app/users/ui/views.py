@@ -1,8 +1,8 @@
 from abc import abstractmethod, ABCMeta
 
-from flask import render_template, request, Blueprint
-from flask.views import View
+from flask import render_template, request, Blueprint, session
 from flask_login import current_user
+from flask.views import View
 from injector import inject
 
 from app.users.exceptions import UserNotFoundException
@@ -21,7 +21,7 @@ def users(users_repository: UserRepository):
     else:
         all_users = users_repository.get_all(None)
 
-    return render_template('users.html', users=all_users, form=form, current_user=current_user)
+    return render_template('users.html', users=all_users, form=form)
 
 
 @user_blueprint.route('/users/<username>')
@@ -30,8 +30,6 @@ def user_details(users_repository: UserRepository, username):
         user = users_repository.get(username)
     except UserNotFoundException:
         return render_template('404.html'), 404
-
-    print(current_user)
 
     return render_template('user_details.html', user=user)
 
