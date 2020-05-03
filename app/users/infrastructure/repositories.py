@@ -64,15 +64,15 @@ class MySQLUserRepository(UserRepository):
 
     @staticmethod
     def build_user(cur, sport_recommendations=None, practice_center_recommendations=None):
-        return User(cur[Users.username_col],
-                    cur[Users.email_col],
-                    cur[Users.first_name_col],
-                    cur[Users.last_name_col],
-                    cur[Users.phone_number_col],
-                    cur[Users.creation_date_col],
-                    cur[Users.last_login_date_col],
-                    sport_recommendations,
-                    practice_center_recommendations)
+        return User(username=cur[Users.username_col],
+                    email=cur[Users.email_col],
+                    first_name=cur[Users.first_name_col],
+                    last_name=cur[Users.last_name_col],
+                    phone_number=cur[Users.phone_number_col],
+                    creation_date=cur[Users.creation_date_col],
+                    last_login_date=cur[Users.last_login_date_col],
+                    sport_recommendations=sport_recommendations,
+                    practice_center_recommendations=practice_center_recommendations)
 
     def add(self, user):
         try:

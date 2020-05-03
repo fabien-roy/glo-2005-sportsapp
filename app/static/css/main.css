@@ -22,6 +22,20 @@ body {
   font-weight: 600;
 }
 
+.header .navbar-right {
+  margin-left: auto;
+}
+
+.header .navbar-right .nav-link {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.header .navbar-right .nav-link:hover {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+}
+
 .footer {
   display: inline-block;
   color: white;

@@ -1,5 +1,5 @@
 class User:
-    def __init__(self, username, email, password, first_name=None, last_name=None,
+    def __init__(self, username, email, password=None, first_name=None, last_name=None,
                  phone_number=None, creation_date=None, last_login_date=None,
                  sport_recommendations=None, practice_center_recommendations=None,
                  authenticated=False, active=True, anonymous=False):
