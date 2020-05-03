@@ -1,55 +1,54 @@
-{% extends "layout.html" %}
+{% extends "landing.html" %}
 {% from 'macros/search.html' import input, submit %}
 
-{% block inner_content %}
+{% block inner_landing %}
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 
-    <div class="home-landing">
-        <h1>Discover your next passion</h1>
-        <div class="form-box">
-            <div class="hidden-sm">
-                <form class="form form-horizontal" method="post" role="form"
-                      action="{{ url_for('search.search') }}">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            {{ input('any_field', 'Any field', form.any_field.data) }}
-                        </div>
-                        <select class="custom-select" name="search_route">
-                            <option selected value="sports.sports">Sports</option>
-                            <option value="practice_centers.practice_centers">Practice Centers
-                            </option>
-                            <option value="shops.shops">Shops</option>
-                            <option value="equipments.equipments">Equipments</option>
-                            <option value="users.users">Users</option>
-                        </select>
-                        <div class="input-group-append">
-                            {{ submit() }}
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="visible-sm">
-                <form class="form form-horizontal" method="post" role="form"
-                      action="{{ url_for('search.search') }}">
-                    <div class="input-group">
+    <h1>Discover your next passion</h1>
+
+    <div class="form-box">
+        <div class="hidden-sm">
+            <form class="form form-horizontal" method="post" role="form"
+                  action="{{ url_for('search.search') }}">
+                <div class="input-group">
+                    <div class="input-group-prepend">
                         {{ input('any_field', 'Any field', form.any_field.data) }}
                     </div>
-                    <div class="input-group">
-                        <select class="custom-select" name="search_route">
-                            <option selected value="sports.sports">Sports</option>
-                            <option value="practice_centers.practice_centers">Practice Centers
-                            </option>
-                            <option value="shops.shops">Shops</option>
-                            <option value="equipments.equipments">Equipments</option>
-                            <option value="users.users">Users</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
+                    <select class="custom-select" name="search_route">
+                        <option selected value="sports.sports">Sports</option>
+                        <option value="practice_centers.practice_centers">Practice Centers
+                        </option>
+                        <option value="shops.shops">Shops</option>
+                        <option value="equipments.equipments">Equipments</option>
+                        <option value="users.users">Users</option>
+                    </select>
+                    <div class="input-group-append">
                         {{ submit() }}
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
+        </div>
+        <div class="visible-sm">
+            <form class="form form-horizontal" method="post" role="form"
+                  action="{{ url_for('search.search') }}">
+                <div class="input-group">
+                    {{ input('any_field', 'Any field', form.any_field.data) }}
+                </div>
+                <div class="input-group">
+                    <select class="custom-select" name="search_route">
+                        <option selected value="sports.sports">Sports</option>
+                        <option value="practice_centers.practice_centers">Practice Centers
+                        </option>
+                        <option value="shops.shops">Shops</option>
+                        <option value="equipments.equipments">Equipments</option>
+                        <option value="users.users">Users</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    {{ submit() }}
+                </div>
+            </form>
         </div>
     </div>
 

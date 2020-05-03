@@ -32,7 +32,7 @@ body {
 }
 
 .header .navbar-right .nav-link:hover {
-  color: rgba(255, 255, 255, 0.75);
+  color: #fff;
   text-decoration: none;
 }
 
