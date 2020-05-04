@@ -73,8 +73,6 @@ class SportsViewsTests(ViewTests):
         form = {'note': -1, 'comment': ''}
         response = self.request_post(sport1.id, form)
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'SportsApp', response.data)
-        self.assertIn(b'Sports', response.data)
         self.assertIn(b'Error adding recommendation.', response.data)
 
     def test_sport_details_with_valid_form_should_add_recommendation(self):
@@ -82,8 +80,6 @@ class SportsViewsTests(ViewTests):
         form = {'note': 3, 'comment': 'This is my comment!'}
         response = self.request_post(sport1.id, form)
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'SportsApp', response.data)
-        self.assertIn(b'Sports', response.data)
         self.assertTrue(recommendation_service.add_to_sport.called)
 
     def test_sport_details_with_valid_and_logged_out_user_should_flash_error(self):
@@ -91,8 +87,6 @@ class SportsViewsTests(ViewTests):
         form = {'note': 3, 'comment': 'This is my comment!'}
         response = self.request_post(sport1.id, form)
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'SportsApp', response.data)
-        self.assertIn(b'Sports', response.data)
         self.assertIn(b'Error adding recommendation.', response.data)
 
     def get_sport_details(self, sport):

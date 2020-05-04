@@ -56,6 +56,39 @@ class PracticeCentersViewTests(ViewTests):
             (center3.id, self.get_recommendations_details(center3))
         ])
 
+    def test_practice_center_details_with_logged_in_user_should_display_add_btn(self):
+        self.logged_in_session()
+        response = self.request_get(center1.id)
+        self.assert_page_is_found(response)
+        self.assert_items_are_listed(response, ['#addRecommendation'])
+
+    def test_practice_center_details_with_logged_out_user_should_not_display_add_btn(self):
+        self.logged_out_session()
+        response = self.request_get(center1.id)
+        self.assert_page_is_found(response)
+        self.assert_items_are_not_listed(response, ['#addRecommendation'])
+
+    def test_practice_center_details_with_invalid_form_should_flash_error(self):
+        self.logged_in_session()
+        form = {'note': -1, 'comment': ''}
+        response = self.request_post(center1.id, form)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Error adding recommendation.', response.data)
+
+    def test_practice_center_details_with_valid_form_should_add_recommendation(self):
+        self.logged_in_session()
+        form = {'note': 3, 'comment': 'This is my comment!'}
+        response = self.request_post(center1.id, form)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(recommendation_service.add_to_practice_center.called)
+
+    def test_practice_center_details_with_valid_and_logged_out_user_should_flash_error(self):
+        self.logged_out_session()
+        form = {'note': 3, 'comment': 'This is my comment!'}
+        response = self.request_post(center1.id, form)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Error adding recommendation.', response.data)
+
     def get_center_details(self, center):
         return [center.name, center.email, center.phone_number] + \
                self.list_detail_list_names(center.climates)
