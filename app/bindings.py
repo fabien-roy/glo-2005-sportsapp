@@ -1,3 +1,4 @@
+from app.admin.modules import AdminModule
 from app.announces.modules import AnnounceModule
 from app.equipment_types.modules import EquipmentTypeModule
 from app.climates.modules import ClimateModule
@@ -17,6 +18,7 @@ def configure_database(binder):
 
 
 def configure_modules(binder):
+    binder.install(AdminModule)
     binder.install(UserModule)
     binder.install(ClimateModule)
     binder.install(ShopModule)

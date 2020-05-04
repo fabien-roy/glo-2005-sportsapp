@@ -25,5 +25,5 @@ class RecommendationRepository:
         """ abstract method """
 
     @abstractmethod
-    def add_to_practice_center(self, recommendation, practice_center_id):
+    def add_to_practice_center(self, recommendation: object, practice_center_id: object) -> object:
         """ abstract method """

@@ -1,6 +1,7 @@
 from injector import inject
 
 from app.interfaces.database import Database
+from instance.admin.infrastructure.queries import MySQLStatQuery as StatQuery
 from instance.announces.infrastructure.queries import MySQLAnnounceQuery as AnnounceQuery
 from instance.climates.infrastructure.queries import MySQLClimateQuery as ClimateQuery
 from instance.equipments.infrastructure.queries import MySQLEquipmentQuery as EquipmentQuery
@@ -32,12 +33,16 @@ class MySQLCreationService:
                 self.create_tables(cur)
                 self.create_functions(cur)
                 self.create_triggers(cur)
+                self.add_event_types(cur)
         finally:
             cur.close()
 
         print('...done!')
 
     def drop_tables(self, cur):
+        cur.execute(StatQuery().drop_stat_events())
+        cur.execute(StatQuery().drop_stat_event_types())
+
         cur.execute(ClimateQuery().drop_sport_climates())
         cur.execute(RecommendationQuery().drop_sport_recommendations())
         cur.execute(EquipmentTypeQuery().drop_sport_equipment_types())
@@ -69,6 +74,9 @@ class MySQLCreationService:
         self.database.connect().commit()
 
     def create_tables(self, cur):
+        cur.execute(StatQuery().create_stat_event_types())
+        cur.execute(StatQuery().create_stat_events())
+
         cur.execute(UserQuery().create_users())
         cur.execute(UserQuery().create_passwords())
 
@@ -100,6 +108,15 @@ class MySQLCreationService:
         self.database.connect().commit()
 
     def create_triggers(self, cur):
+        cur.execute(UserQuery().create_report_user_register())
         cur.execute(RecommendationQuery().create_validate_recommendation_note())
+        cur.execute(RecommendationQuery().create_report_recommendation_add())
+
+        self.database.connect().commit()
+
+    def add_event_types(self, cur):
+        cur.execute(StatQuery().add_stat_event_types('USER_LOGIN'))
+        cur.execute(StatQuery().add_stat_event_types('USER_REGISTER'))
+        cur.execute(StatQuery().add_stat_event_types('RECOMMENDATION_ADD'))
 
         self.database.connect().commit()
