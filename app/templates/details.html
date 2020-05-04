@@ -13,14 +13,14 @@
 </div>
 
 <div class="box-layout col-md-6 col-sm-12">
-    {% block associated_items_title %}
-    {% endblock %}
+    <div class="box-layout col-md-12 list-pane-title">
+        {% block associated_items_title %}
+        {% endblock %}
+    </div>
     <div class="box-layout col-md-12 list-pane">
         {% block associated_items %}
         {% endblock %}
     </div>
-    {% block associated_items_button %}
-    {% endblock %}
 </div>
 
 {% endblock %}
