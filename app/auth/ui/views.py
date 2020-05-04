@@ -1,9 +1,9 @@
 from abc import abstractmethod, ABCMeta
 
+import datetime
 import bcrypt
 from flask import render_template, request, Blueprint, url_for, redirect, flash, session
 from flask.views import View
-from flask_login import login_user, current_user, logout_user
 from injector import inject
 
 from app.auth.forms import LoginForm, RegisterForm
@@ -33,19 +33,16 @@ def register(users_repository: UserRepository):
 def login(users_repository: UserRepository):
     form = LoginForm(request.form)
 
-    if current_user.is_authenticated:
-        return redirect(url_for('users.user'))
-
     if form.validate_on_submit():
         user_password = users_repository.get_password(form.username.data)
         decoded_password = (bcrypt.hashpw(form.password.data.encode('utf-8'),
                                           user_password.encode('utf-8'))).decode('utf-8')
         if user_password and decoded_password == user_password:
             user = users_repository.get(form.username.data)
-            user.is_authenticated = True
-            login_user(user)
-            session['username'] = user.username
-            flash('You are now logged in as ' + current_user.username + '.', 'success')
+            user.last_login_date = datetime.datetime.today()
+            session['logged_in'] = True
+            session['_user_id'] = user.username
+            flash('You are now logged in as ' + session['_user_id'] + '.', 'success')
             return redirect(url_for('users.user_details', username=user.username), 302)
 
         flash('Login Unsuccessful. Please check email and password', 'error')
@@ -55,8 +52,7 @@ def login(users_repository: UserRepository):
 
 @auth_blueprint.route('/logout', methods=('GET', 'POST'))
 def logout():
-    logout_user()
-    session.pop('username', None)
+    session['logged_in'] = False
     return redirect(url_for('search.search'))
 
 
