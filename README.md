@@ -44,7 +44,7 @@ CREATE USER 'sportsapp'@'localhost' IDENTIFIED BY 'sportsapp';
 GRANT ALL PRIVILEGES ON *. * TO 'sportsapp'@'localhost';
 CREATE DATABASE 'sportsapp';
 CREATE DATABASE 'sportsapp_test';
-SET log_bin_trust_function_creators=1;
+SET GLOBAL log_bin_trust_function_creators=1;
 ```
 
 ## Install requirements
