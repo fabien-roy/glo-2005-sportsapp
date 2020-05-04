@@ -32,6 +32,10 @@ class StatServiceTests(BasicTests):
     def build_events_for_amount(event, amount):
         return [event] * amount
 
+    def test_add_user_login_should_add_event(self):
+        self.stat_service.add_user_login()
+        stat_event_repository.add.assert_called()
+
     def assert_contains(self, event_sums, user_logins, user_registers, recommendation_adds):
         self.assertEqual(3, len(event_sums))
         self.assertEqual(event_sums['USER_LOGIN'], user_logins)
