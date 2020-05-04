@@ -16,14 +16,18 @@ class MySQLPracticeCenterQuery:
 
     @staticmethod
     def drop_get_practice_center_average_note():
-        return 'DROP PROCEDURE IF EXISTS get_practice_center_average_note'
+        return 'DROP FUNCTION IF EXISTS get_practice_center_average_note'
 
     @staticmethod
     def create_get_practice_center_average_note():
-        return ('CREATE PROCEDURE get_practice_center_average_note(IN practice_center_id integer) '
+        return ('CREATE FUNCTION get_practice_center_average_note(practice_center_id integer) '
+                'RETURNS decimal(10,2) '
                 'BEGIN'
-                ' SELECT AVG(R.note) AS average_note'
+                ' DECLARE average decimal(10,2);'
+                ' SET average = 0;'
+                ' SELECT AVG(R.note) INTO average'
                 '   FROM recommendations R'
                 '   JOIN practice_center_recommendations S ON S.recommendation_id = R.id'
                 '   WHERE S.practice_center_id = practice_center_id;'
+                ' RETURN average;'
                 'END')

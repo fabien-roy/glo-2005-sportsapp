@@ -7,33 +7,27 @@ from app.sports.infrastructure.tables import MySQLSportTable as Sports
 
 all_fields_to_add = Sports.name_col
 
-all_fields = f'{Sports.id_col}, {all_fields_to_add}'
-
-select_all_operation = (f'SELECT {all_fields}'
-                        f' FROM {Sports.table_name}')
-
-
-def select_average_note(sport_id):
-    return f'CALL get_sport_average_note({sport_id})'
-
 
 class MySQLSportQuery(MySQLQuery):
     fake_average_note_col = 'average_note'
+    get_average_note = 'get_sport_average_note'
+
+    select_all_operation = (f'SELECT {Sports.id_col},'
+                            f'{all_fields_to_add},'
+                            f'{get_average_note}({Sports.id_col}) AS {fake_average_note_col}'
+                            f' FROM {Sports.table_name}')
 
     def get(self, sport_id):
         filters = [MySQLFilter.filter_equal(Sports.id_col, sport_id)]
 
-        return self.build_query(select_all_operation, filters)
-
-    def get_average_note(self, sport_id):
-        return self.build_query(select_average_note(sport_id))
+        return self.build_query(self.select_all_operation, filters)
 
     def get_all(self, form=None):
         filters, inner_filtering = Filter().build_filters(form)
 
         orders = [Sports.name_col]
 
-        return self.build_query(select_all_operation, filters, orders, inner_filtering)
+        return self.build_query(self.select_all_operation, filters, orders, inner_filtering)
 
     def get_all_for_equipment_type(self, type_id):
         operation = (f'SELECT S.{Sports.id_col}, S.{Sports.name_col} '

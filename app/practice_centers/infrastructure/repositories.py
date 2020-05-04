@@ -3,8 +3,7 @@ from injector import inject
 from app.climates.repositories import ClimateRepository
 from app.interfaces.database import Database
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
-from app.practice_centers.infrastructure.queries import MySQLPracticeCenterQuery as Query, \
-    select_average_note
+from app.practice_centers.infrastructure.queries import MySQLPracticeCenterQuery as Query
 from app.practice_centers.infrastructure.tables import MySQLPracticeCenterTable as PracticeCenters
 from app.practice_centers.models import PracticeCenter
 from app.practice_centers.repositories import PracticeCenterRepository
@@ -28,10 +27,7 @@ class MySQLPracticeCenterRepository(PracticeCenterRepository):
                 cur.execute(query)
 
                 for practice_center_cur in cur.fetchall():
-                    average_note = self.get_average_note(
-                        practice_center_cur[PracticeCenters.id_col])
-                    practice_center = self.build_practice_center(practice_center_cur,
-                                                                 average_note=average_note)
+                    practice_center = self.build_practice_center(practice_center_cur)
                     all_practice_centers.append(practice_center)
         finally:
             cur.close()
@@ -51,9 +47,8 @@ class MySQLPracticeCenterRepository(PracticeCenterRepository):
                         .get_all_for_practice_center(practice_center_id)
                     recommendations = self.recommendation_repository\
                         .get_all_for_practice_center(practice_center_id)
-                    average_note = self.get_average_note(practice_center_id)
                     practice_center = self.build_practice_center(practice_center_cur, climates,
-                                                                 recommendations, average_note)
+                                                                 recommendations)
         finally:
             cur.close()
 
@@ -62,21 +57,8 @@ class MySQLPracticeCenterRepository(PracticeCenterRepository):
 
         return practice_center
 
-    def get_average_note(self, practice_center_id):
-        try:
-            with self.database.connect().cursor() as cur:
-                query = select_average_note(practice_center_id)
-                cur.execute(query)
-
-                for note_cur in cur.fetchall():
-                    return note_cur[Query.fake_average_note_col]
-        finally:
-            cur.close()
-
-        return 0
-
     @staticmethod
-    def build_practice_center(cur, climates=None, recommendations=None, average_note=None):
+    def build_practice_center(cur, climates=None, recommendations=None):
         return PracticeCenter(cur[PracticeCenters.id_col],
                               cur[PracticeCenters.name_col],
                               cur[PracticeCenters.email_col],
@@ -84,7 +66,7 @@ class MySQLPracticeCenterRepository(PracticeCenterRepository):
                               cur[PracticeCenters.phone_number_col],
                               climates,
                               recommendations,
-                              average_note)
+                              cur[Query.fake_average_note_col])
 
     def add(self, practice_center):
         try:
