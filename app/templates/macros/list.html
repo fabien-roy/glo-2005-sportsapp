@@ -1,21 +1,30 @@
+{% macro list_item_with_note(name, url, note) -%}
+    <a class="btn btn-outline-dark btn-block" href="{{ url }}">
+        <div class="item-text">
+            <span class="item-name">{{ name }}</span>
+            <span class="item-note">({{ note }} / 5)</span>
+        </div>
+    </a>
+{%- endmacro %}
+
 {% macro list_item(name, url) -%}
-<a class="btn btn-outline-dark btn-block" href="{{ url }}">{{ name }}</a>
+    <a class="btn btn-outline-dark btn-block" href="{{ url }}">{{ name }}</a>
 {%- endmacro %}
 
 {% macro nothing() -%}
-<p>There is nothing here...</p>
+    <p>There is nothing here...</p>
 {%- endmacro %}
 
 {% macro list(items) -%}
-{% if items|length > 0 %}
+    {% if items|length > 0 %}
 
-{% for item in items %}
-{{ item }}
-{% endfor %}
+        {% for item in items %}
+            {{ item }}
+        {% endfor %}
 
-{% else %}
+    {% else %}
 
-{{ nothing() }}
+        {{ nothing() }}
 
-{% endif %}
+    {% endif %}
 {%- endmacro %}

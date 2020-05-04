@@ -58,6 +58,14 @@ class SportRepositoryTests(RepositoryTests):
         sport = self.repository.get(sport3.id)
         self.assertCountEqual(sport3.recommendations, sport.recommendations)
 
+    def test_get_should_get_average_note(self):
+        sport = self.repository.get(sport1.id)
+        self.assertEqual(sport1.average_note, sport.average_note)
+        sport = self.repository.get(sport2.id)
+        self.assertEqual(sport2.average_note, sport.average_note)
+        sport = self.repository.get(sport3.id)
+        self.assertEqual(sport3.average_note, sport.average_note)
+
     def test_get_all_for_equipment_type_should_get_sports_for_type(self):
         sports = self.repository.get_all_for_equipment_type(type1.id)
         self.assertCountEqual(get_sports_for_equipment_type(type1.id), sports)

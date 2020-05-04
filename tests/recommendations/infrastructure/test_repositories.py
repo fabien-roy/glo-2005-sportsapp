@@ -1,4 +1,8 @@
+from datetime import datetime
+
+from app.recommendations.exceptions import OutOfBoundsNoteException
 from app.recommendations.infrastructure.repositories import MySQLRecommendationRepository
+from app.recommendations.models import Recommendation
 from tests.interfaces.infrastructure.database import test_database
 from tests.interfaces.infrastructure.test_repositories import RepositoryTests
 from tests.practice_centers.fakes import center1, center2, center3
@@ -11,6 +15,14 @@ class RecommendationsRepositoryTests(RepositoryTests):
     def setUp(self):
         super().setUp()
         self.repository = MySQLRecommendationRepository(test_database)
+
+    def test_add_with_negative_note_should_raise_out_of_bounds_note_exception(self):
+        recommendation = Recommendation(None, None, user1.username, 'comment', -1, datetime.now())
+        self.assertRaises(OutOfBoundsNoteException, self.repository.add, recommendation)
+
+    def test_add_with_over_maximum_note_should_raise_out_of_bounds_note_exception(self):
+        recommendation = Recommendation(None, None, user1.username, 'comment', 6, datetime.now())
+        self.assertRaises(OutOfBoundsNoteException, self.repository.add, recommendation)
 
     def test_get_all_for_sport_without_sport_should_get_no_recommendation(self):
         self.recreate_database()

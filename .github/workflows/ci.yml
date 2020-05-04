@@ -42,7 +42,8 @@ jobs:
             USE mysql;
             CREATE USER 'sportsapp'@'localhost' IDENTIFIED BY 'sportsapp';
             GRANT ALL PRIVILEGES ON *. * TO sportsapp@localhost;
-            CREATE DATABASE IF NOT EXISTS sportsapp_test;"
+            CREATE DATABASE IF NOT EXISTS sportsapp_test;
+            SET global log_bin_trust_function_creators=1;"
       - name: Unit tests
         run: coverage run -m nose2 tests
       - name: Generate coverage report

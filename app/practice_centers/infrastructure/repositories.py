@@ -65,7 +65,8 @@ class MySQLPracticeCenterRepository(PracticeCenterRepository):
                               cur[PracticeCenters.web_site_col],
                               cur[PracticeCenters.phone_number_col],
                               climates,
-                              recommendations)
+                              recommendations,
+                              cur[Query.fake_average_note_col])
 
     def add(self, practice_center):
         try:

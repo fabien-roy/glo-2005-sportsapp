@@ -14,6 +14,11 @@
         sport.required_equipment_types, url_for('equipments.equipments'))]) }}
 {% endblock %}
 
+{% block associated_items_title %}
+    <h2>Recommendations</h2>
+    <h3>Average : <strong>{{ sport.average_note }} / 5</strong></h3>
+{% endblock %}
+
 {% block associated_items %}
     {{ user_recommendations_list(sport.recommendations) }}
 {% endblock %}
