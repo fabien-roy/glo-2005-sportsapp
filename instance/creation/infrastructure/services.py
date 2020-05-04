@@ -54,8 +54,8 @@ class MySQLCreationService:
 
         cur.execute(RecommendationQuery().drop_recommendations())
 
-        cur.execute(UserQuery().drop_users())
         cur.execute(UserQuery().drop_passwords())
+        cur.execute(UserQuery().drop_users())
 
         self.database.connect().commit()
 

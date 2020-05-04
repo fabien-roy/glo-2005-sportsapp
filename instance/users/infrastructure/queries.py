@@ -24,4 +24,6 @@ class MySQLUserQuery:
     def create_passwords():
         return ('CREATE TABLE passwords ('
                 'username varchar(50) NOT NULL PRIMARY KEY,'
-                'password varchar(1000) NOT NULL);')
+                'password varchar(1000) NOT NULL, '
+                'FOREIGN KEY (username) REFERENCES users (username) '
+                'ON UPDATE CASCADE ON DELETE CASCADE);')
