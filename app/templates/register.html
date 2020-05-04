@@ -1,10 +1,16 @@
 {% extends "landing.html" %}
-{% from 'macros/forms.html' import formbox %}
+{% from 'macros/forms.html' import formbox_custom %}
 
 {% macro footer() -%}
     <p>
         Have an account? <a href="{{ url_for('auth.login') }}">Login</a>
     </p>
+{%- endmacro %}
+
+{% macro submit_button() -%}
+    <div class="form-group">
+        {{ form.submit(class="btn btn-success btn-block") }}
+    </div>
 {%- endmacro %}
 
 {% block inner_landing %}
@@ -13,6 +19,6 @@
 
     <h1>Welcome among us!</h1>
 
-    {{ formbox(form, [form.username, form.email, form.password, form.first_name, form.last_name,
-    form.telephone ], footer()) }}
+    {{ formbox_custom(form, [form.username, form.email, form.password, form.first_name,
+    form.last_name, form.telephone ], [submit_button()], footer()) }}
 {% endblock %}

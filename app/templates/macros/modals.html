@@ -1,4 +1,29 @@
-{% macro add_recommendation_modal() -%}
+{% from 'macros/forms.html' import formbox %}
+
+{% macro half_width_buttons(buttons) -%}
+    <div class="row">
+        {% for button in buttons %}
+            <div class="col-md-6 col-sm-12">
+                {{ button }}
+            </div>
+        {% endfor %}
+    </div>
+{%- endmacro %}
+
+{% macro cancel_button() -%}
+    <button type="button" class="btn btn-secondary btn-block"
+            data-dismiss="modal">
+        Cancel
+    </button>
+{%- endmacro %}
+
+{% macro submit_button() -%}
+    <button type="submit" class="btn btn-primary btn-block">
+        Add
+    </button>
+{%- endmacro %}
+
+{% macro add_recommendation_modal(form) -%}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/modals.css') }}">
 
     <div class="modal fade" id="addRecommendation" tabindex="-1" role="dialog"
@@ -12,20 +37,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <div class="col-md-6 col-sm-12">
-                        <button type="button" class="btn btn-secondary btn-block"
-                                data-dismiss="modal">
-                            Cancel
-                        </button>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <button type="button" class="btn btn-primary btn-block">
-                            Add
-                        </button>
-                    </div>
+                    {{ formbox(form, [form.note, form.comment],
+                    [half_width_buttons([cancel_button(), submit_button()])]) }}
                 </div>
             </div>
         </div>

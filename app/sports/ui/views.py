@@ -29,17 +29,18 @@ def sports(sports_repository: SportRepository):
 @sport_blueprint.route('/sports/<sport_id>', methods=('GET', 'POST'))
 def sport_details(sports_repository: SportRepository,
                   recommendation_service: RecommendationService, sport_id):
+    form = AddRecommendationForm(request.form)
+
     try:
         sport = sports_repository.get(sport_id)
     except SportNotFoundException:
         return render_template('404.html'), 404
 
     if request.method == 'POST':
-        form = AddRecommendationForm(request.form)
         if form.validate_on_submit():
             recommendation_service.add_to_sport(session['user_id'], sport, form)
 
-    return render_template('sport_details.html', sport=sport)
+    return render_template('sport_details.html', sport=sport, form=form)
 
 
 class SportView(View):

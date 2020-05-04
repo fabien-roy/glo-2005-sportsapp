@@ -1,4 +1,5 @@
-.modal-footer {
-  justify-content: center;
-  flex-wrap: nowrap;
+@media only screen and (max-width: 767px) {
+  .modal-body .row .col-md-6:first-child {
+    margin-bottom: 1rem;
+  }
 }

@@ -13,7 +13,7 @@
     </div>
 {%- endmacro %}
 
-{% macro formbox(form, fields, footer) -%}
+{% macro formbox_general(form, fields, buttons, footer) -%}
     <div class="form-box">
         <div class="inner-form-box">
             <form class="form form-horizontal" method="POST" action="">
@@ -23,11 +23,21 @@
                         {{ formfield(field) }}
                     {%  endfor %}
                 </fieldset>
-                <div class="form-group">
-                    {{ form.submit(class="btn btn-success btn-block") }}
-                </div>
+                {% for button in buttons %}
+                    {{ button }}
+                {%  endfor %}
             </form>
-            {{ footer }}
+            {% if footer %}
+                {{ footer }}
+            {% endif %}
         </div>
     </div>
+{%- endmacro %}
+
+{% macro formbox(form, fields, buttons) -%}
+    {{ formbox_general(form, fields, buttons, None) }}
+{%- endmacro %}
+
+{% macro formbox_custom(form, fields, buttons, footer) -%}
+    {{ formbox_general(form, fields, buttons, footer) }}
 {%- endmacro %}
