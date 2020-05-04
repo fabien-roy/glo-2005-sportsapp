@@ -10,7 +10,7 @@ admin_blueprint = Blueprint('admin', __name__)
 
 
 @admin_blueprint.route('/admin/stats')
-def register(stat_service: StatService):
+def stats(stat_service: StatService):
     stat_event_sums = stat_service.get_all_stat_event_sums()
     return render_template('stats.html', stats=stat_event_sums)
 
