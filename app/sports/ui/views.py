@@ -1,9 +1,11 @@
 from abc import abstractmethod, ABCMeta
 
-from flask import render_template, request, Blueprint
+from flask import render_template, request, Blueprint, session
 from flask.views import View
 from injector import inject
 
+from app.recommendations.forms import AddRecommendationForm
+from app.recommendations.services import RecommendationService
 from app.sports.exceptions import SportNotFoundException
 from app.sports.forms import SportSearchForm
 from app.sports.repositories import SportRepository
@@ -23,12 +25,19 @@ def sports(sports_repository: SportRepository):
     return render_template('sports.html', sports=all_sports, form=form)
 
 
-@sport_blueprint.route('/sports/<sport_id>')
-def sport_details(sports_repository: SportRepository, sport_id):
+# TODO : Test POST sports.sport_details (add recommendation)
+@sport_blueprint.route('/sports/<sport_id>', methods=('GET', 'POST'))
+def sport_details(sports_repository: SportRepository,
+                  recommendation_service: RecommendationService, sport_id):
     try:
         sport = sports_repository.get(sport_id)
     except SportNotFoundException:
         return render_template('404.html'), 404
+
+    if request.method == 'POST':
+        form = AddRecommendationForm(request.form)
+        if form.validate_on_submit():
+            recommendation_service.add_to_sport(session['user_id'], sport, form)
 
     return render_template('sport_details.html', sport=sport)
 
@@ -41,5 +50,7 @@ class SportView(View):
         """ abstract method """
 
     @inject
-    def __init__(self, sport_repository: SportRepository):
+    def __init__(self, sport_repository: SportRepository,
+                 recommendation_service: RecommendationService):
         self.sport_repository = sport_repository
+        self.recommendation_service = recommendation_service

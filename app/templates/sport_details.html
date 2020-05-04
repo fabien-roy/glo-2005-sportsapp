@@ -2,6 +2,7 @@
 {% from 'macros/jumbotron.html' import jumbotron %}
 {% from 'macros/details.html' import details, detail, detail_list, search_link_list %}
 {% from 'macros/recommendations.html' import user_recommendations_list %}
+{% from 'macros/modals.html' import add_recommendation_modal %}
 
 {% block jumbotron %}
     {{ jumbotron(sport.name, 'sports') }}
@@ -21,4 +22,13 @@
 
 {% block associated_items %}
     {{ user_recommendations_list(sport.recommendations) }}
+{% endblock %}
+
+<!-- TODO : Hide button to add recommendation when logged out -->
+{% block associated_items_button %}
+    <button type="button" class="btn btn-success" data-toggle="modal"
+            data-target="#addRecommendation">
+        Write your own!
+    </button>
+    {{ add_recommendation_modal() }}
 {% endblock %}
