@@ -27,6 +27,8 @@ class PracticeCentersViewTests(ViewTests):
         self.assert_page_is_found(response)
         self.assert_items_are_listed(response, [center1.name, center2.name, center3.name])
 
+    # TODO : Test average note
+
     def test_practice_centers_with_form_should_display_filtered_practice_centers(self):
         response = self.request_post()
         self.assert_page_is_found(response)

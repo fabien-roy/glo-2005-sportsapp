@@ -1,7 +1,7 @@
 {% extends "list.html" %}
 {% from 'macros/jumbotron.html' import jumbotron %}
 {% from 'macros/search.html' import input, search_pane_advanced %}
-{% from 'macros/list.html' import list, list_item %}
+{% from 'macros/list.html' import list, list_item_with_note %}
 
 {% block jumbotron %}
 {{ jumbotron('Practice Centers', 'practice-centers') }}
@@ -20,7 +20,10 @@
 
 <div class="invisible">
     {% for practice_center in practice_centers %}
-    {{ items.append(list_item(practice_center.name, url_for('practice_centers.practice_center_details', practice_center_id=practice_center.id))) }}
+    {{ items.append(list_item_with_note(practice_center.name,
+                                        url_for('practice_centers.practice_center_details',
+                                        practice_center_id=practice_center.id),
+                    practice_center.average_note)) }}
     {% endfor %}
 </div>
 

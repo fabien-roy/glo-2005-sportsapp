@@ -47,6 +47,12 @@
   background-color: #bebebe;
 }
 
+.list-pane a .item-text .item-note {
+  color: #aaa;
+  font-size: 0.75rem;
+  vertical-align: middle;
+}
+
 @media only screen and (max-width: 767px) {
   .search-pane {
     margin-bottom: 1.5rem;

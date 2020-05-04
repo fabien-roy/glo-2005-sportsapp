@@ -27,6 +27,8 @@ class SportsViewsTests(ViewTests):
         self.assert_page_is_found(response)
         self.assert_items_are_listed(response, [sport1.name, sport2.name, sport3.name])
 
+    # TODO : Test average note
+
     def test_sports_with_form_should_display_filtered_sports(self):
         response = self.request_post()
         self.assert_page_is_found(response)

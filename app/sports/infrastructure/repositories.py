@@ -23,13 +23,13 @@ class MySQLSportRepository(SportRepository):
 
     def get_all(self, form=None):
         query = Query().get_all(form)
-        return self.get_all_for_query(query)
+        return self.get_all_for_query(query, self.build_sport_with_note)
 
     def get_all_for_equipment_type(self, type_id):
         query = Query().get_all_for_equipment_type(type_id)
-        return self.get_all_for_query(query)
+        return self.get_all_for_query(query, self.build_sport)
 
-    def get_all_for_query(self, query):
+    def get_all_for_query(self, query, build_sport_fn):
         sports = []
 
         try:
@@ -37,7 +37,7 @@ class MySQLSportRepository(SportRepository):
                 cur.execute(query)
 
                 for sport_cur in cur.fetchall():
-                    sport = self.build_sport(sport_cur)
+                    sport = build_sport_fn(sport_cur)
                     sports.append(sport)
         finally:
             cur.close()
@@ -58,9 +58,8 @@ class MySQLSportRepository(SportRepository):
                     required_equipment_types = self.equipment_type_repository.\
                         get_all_for_sport(sport_id)
                     recommendations = self.recommendations_repository.get_all_for_sport(sport_id)
-                    average_note = sport_cur[Query.fake_average_note_col]
-                    sport = self.build_sport(sport_cur, climates, required_equipment_types,
-                                             recommendations, average_note)
+                    sport = self.build_sport_with_note(sport_cur, climates,
+                                                       required_equipment_types, recommendations)
         finally:
             cur.close()
 
@@ -70,14 +69,22 @@ class MySQLSportRepository(SportRepository):
         return sport
 
     @staticmethod
-    def build_sport(cur, climates=None, required_equipment_types=None, recommendations=None,
-                    average_note=None):
+    def build_sport(cur, climates=None, required_equipment_types=None, recommendations=None):
+        return Sport(cur[Sports.id_col],
+                     cur[Sports.name_col],
+                     climates,
+                     required_equipment_types,
+                     recommendations)
+
+    @staticmethod
+    def build_sport_with_note(cur, climates=None, required_equipment_types=None,
+                              recommendations=None):
         return Sport(cur[Sports.id_col],
                      cur[Sports.name_col],
                      climates,
                      required_equipment_types,
                      recommendations,
-                     average_note)
+                     cur[Query.fake_average_note_col])
 
     def add(self, sport):
         try:
