@@ -2,13 +2,18 @@ from app.practice_centers.ui.views import PracticeCenterView
 from tests.interfaces.ui.test_views import ViewTests
 from tests.practice_centers.fakes import center1, center2, center3
 from tests.practice_centers.mocks import practice_center_repository
+from tests.recommendations.mocks import recommendation_service
 
 
 class PracticeCentersViewTests(ViewTests):
 
     def test_construct_should_inject_repository(self):
-        view = PracticeCenterView(practice_center_repository)
+        view = PracticeCenterView(practice_center_repository, recommendation_service)
         self.assertEqual(practice_center_repository, view.practice_center_repository)
+
+    def test_construct_should_inject_service(self):
+        view = PracticeCenterView(practice_center_repository, recommendation_service)
+        self.assertEqual(recommendation_service, view.recommendation_service)
 
     def get_path(self):
         return '/practice-centers'

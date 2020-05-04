@@ -1,5 +1,6 @@
 from app.sports.ui.views import SportView
 from tests.interfaces.ui.test_views import ViewTests
+from tests.recommendations.mocks import recommendation_service
 from tests.sports.fakes import sport1, sport3, sport2
 from tests.sports.mocks import sport_repository
 
@@ -7,8 +8,12 @@ from tests.sports.mocks import sport_repository
 class SportsViewsTests(ViewTests):
 
     def test_construct_should_inject_repository(self):
-        view = SportView(sport_repository)
+        view = SportView(sport_repository, recommendation_service)
         self.assertEqual(sport_repository, view.sport_repository)
+
+    def test_construct_should_inject_recommendation_service(self):
+        view = SportView(sport_repository, recommendation_service)
+        self.assertEqual(recommendation_service, view.recommendation_service)
 
     def get_path(self):
         return '/sports'

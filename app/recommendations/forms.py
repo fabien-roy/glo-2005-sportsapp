@@ -1,4 +1,4 @@
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Length
 
@@ -10,7 +10,7 @@ def range_to_select_choices(items):
     return choices
 
 
-class AddRecommendationForm(Form):
+class AddRecommendationForm(FlaskForm):
     note = SelectField('Note', choices=range_to_select_choices(range(1, 5)), validate_choice=False)
     comment = StringField('Comment', validators=[DataRequired(), Length(min=0, max=1000)],
                           render_kw={'placeholder': 'Comment'})

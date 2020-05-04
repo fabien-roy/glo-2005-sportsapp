@@ -14,34 +14,34 @@ sport_blueprint = Blueprint('sports', __name__)
 
 
 @sport_blueprint.route('/sports', methods=('GET', 'POST'))
-def sports(sports_repository: SportRepository):
+def sports(sport_repository: SportRepository):
     form = SportSearchForm(request.form)
 
     if request.method == 'POST' and form.validate_on_submit():
-        all_sports = sports_repository.get_all(form)
+        all_sports = sport_repository.get_all(form)
     else:
-        all_sports = sports_repository.get_all(None)
+        all_sports = sport_repository.get_all(None)
 
     return render_template('sports.html', sports=all_sports, form=form)
 
 
 # TODO : Test POST sports.sport_details (add recommendation)
 @sport_blueprint.route('/sports/<sport_id>', methods=('GET', 'POST'))
-def sport_details(sports_repository: SportRepository,
+def sport_details(sport_repository: SportRepository,
                   recommendation_service: RecommendationService, sport_id):
-    form = AddRecommendationForm(request.form)
-
     try:
-        sport = sports_repository.get(sport_id)
+        sport = sport_repository.get(sport_id)
     except SportNotFoundException:
         return render_template('404.html'), 404
+
+    form = AddRecommendationForm(request.form)
 
     if request.method == 'POST':
         if form.validate_on_submit():
             recommendation_service.add_to_sport(session['_user_id'], sport, form)
             return redirect(url_for('sports.sport_details', sport_id=sport_id), 302)
-        else:
-            flash('Error adding recommendation.', 'error')
+
+        flash('Error adding recommendation.', 'error')
 
     return render_template('sport_details.html', sport=sport, form=form)
 
