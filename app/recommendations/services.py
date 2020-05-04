@@ -6,7 +6,6 @@ from app.recommendations.models import Recommendation
 from app.recommendations.repositories import RecommendationRepository
 
 
-# TODO : Test
 class RecommendationService:
     @inject
     def __init__(self, recommendation_repository: RecommendationRepository):

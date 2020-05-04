@@ -25,7 +25,6 @@ def sports(sport_repository: SportRepository):
     return render_template('sports.html', sports=all_sports, form=form)
 
 
-# TODO : Test POST sports.sport_details (add recommendation)
 @sport_blueprint.route('/sports/<sport_id>', methods=('GET', 'POST'))
 def sport_details(sport_repository: SportRepository,
                   recommendation_service: RecommendationService, sport_id):

@@ -26,7 +26,6 @@ def practice_centers(practice_center_repository: PracticeCenterRepository):
                            form=form)
 
 
-# TODO : Test POST practice_centers.practice_center_details (add recommendation)
 @practice_center_blueprint.route('/practice-centers/<practice_center_id>', methods=('GET', 'POST'))
 def practice_center_details(practice_center_repository: PracticeCenterRepository,
                             recommendation_service: RecommendationService, practice_center_id):
