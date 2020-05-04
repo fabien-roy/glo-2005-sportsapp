@@ -1,52 +1,56 @@
 {% from 'macros/nav.html' import navlink %}
 
 {% block navbar %}
-<nav class="navbar navbar-expand-sm navbar-dark fixed-top header">
-    <div class="container">
-        <a class="navbar-brand ml-8 navbar-expand-md" href="{{ url_for('search.search') }}">
-            <img alt="" height="40"
-                 id="logo" src="{{ url_for('static', filename='images/logo.jpg') }}" width="40"/>
-            SportsApp
-        </a>
-        <button aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation"
-                class="navbar-toggler" data-target="#navbarHeader"
-                data-toggle="collapse" type="button">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarHeader">
-            <ul class="nav navbar-nav navbar-left">
-                {{ navlink('sports.sports', 'Sports') }}
-                {{ navlink('practice_centers.practice_centers', 'Practice Centers') }}
-                {{ navlink('shops.shops', 'Shops') }}
-                {{ navlink('equipments.equipments', 'Equipments') }}
-                {{ navlink('users.users', 'Users') }}
-            </ul>
+    <nav class="navbar navbar-expand-sm navbar-dark fixed-top header">
+        <div class="container">
+            <a class="navbar-brand ml-8 navbar-expand-md" href="{{ url_for('search.search') }}">
+                <img alt="" height="40"
+                     id="logo" src="{{ url_for('static', filename='images/logo.jpg') }}"
+                     width="40"/>
+                SportsApp
+            </a>
+            <button aria-controls="navbarHeader" aria-expanded="false"
+                    aria-label="Toggle navigation"
+                    class="navbar-toggler" data-target="#navbarHeader"
+                    data-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarHeader">
+                <ul class="nav navbar-nav navbar-left">
+                    {{ navlink('sports.sports', 'Sports') }}
+                    {{ navlink('practice_centers.practice_centers', 'Practice Centers') }}
+                    {{ navlink('shops.shops', 'Shops') }}
+                    {{ navlink('equipments.equipments', 'Equipments') }}
+                    {{ navlink('users.users', 'Users') }}
+                </ul>
 
-            <ul class="nav navbar-nav navbar-right">
-                {% if session['logged_in'] %}
-                <a class="nav-link" href="{{ url_for('users.user_details', username=session['_user_id'] )}}">
-                    {{session['_user_id'] }}</a>
-                {% else %}
-                <li class="nav-item dropdown">
-                    <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
-                       data-toggle="dropdown" href="#" id="navbarDropdown"
-                       role="button">
-                        Want to join?
-                    </a>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item dropdown">
+                        <a aria-expanded="false" aria-haspopup="true"
+                           class="nav-link dropdown-toggle"
+                           data-toggle="dropdown" href="#" id="navbarDropdown"
+                           role="button">
+                            {% if session['logged_in'] %}
+                                Hi, {{ session['_user_id'] }}!
+                            {% else %}
+                                Want to join?
+                            {% endif %}
+                        </a>
 
-                    <div aria-labelledby="navbarDropdown" class="dropdown-menu">
-                        <a class="dropdown-item" href="{{ url_for('auth.login') }}">Login</a>
-                        <a class="dropdown-item"
-                           href="{{ url_for('auth.register') }}">Register</a>
-                    </div>
-                </li>
-                {% endif %}
-
-                {% if session['logged_in'] %}
-                <a class="btn btn-danger" href="{{ url_for('auth.logout') }}" role="button">Logout</a>
-                {% endif %}
-            </ul>
+                        <div aria-labelledby="navbarDropdown" class="dropdown-menu">
+                            {% if session['logged_in'] %}
+                                <a class="dropdown-item" href="{{ url_for('users.user_details', username=session['_user_id']) }}">My profile</a>
+                                <a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a>
+                            {% else %}
+                                <a class="dropdown-item"
+                                   href="{{ url_for('auth.login') }}">Login</a>
+                                <a class="dropdown-item"
+                                   href="{{ url_for('auth.register') }}">Register</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 {% endblock %}
