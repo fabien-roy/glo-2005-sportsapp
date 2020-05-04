@@ -19,6 +19,6 @@
 
     <h1>Welcome among us!</h1>
 
-    {{ formbox_custom(form, [form.username, form.email, form.password, form.first_name,
-    form.last_name, form.telephone ], [submit_button()], footer()) }}
+    {{ formbox_custom(form, [form.username, form.email, form.password, form.confirm_password,
+    form.first_name, form.last_name, form.telephone ], [submit_button()], footer()) }}
 {% endblock %}
