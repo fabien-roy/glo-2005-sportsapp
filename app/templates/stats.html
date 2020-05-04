@@ -1,11 +1,14 @@
-{% extends "layout.html" %}
+{% extends "details.html" %}
+{% from 'macros/details.html' import details, detail %}
+{% from 'macros/jumbotron.html' import jumbotron %}
 
-{% block inner_content %}
-
-<div class="box-layout col-md-12 details-pane">
-{% block details %}
-    Stats
+{% block jumbotron %}
+    {{ jumbotron('Statistics', 'stats') }}
 {% endblock %}
-</div>
 
+{% block details %}
+    {{ details([
+            detail('User login', stats['USER_LOGIN']),
+            detail('User register', stats['USER_REGISTER']),
+            detail('Recommendation add', stats['RECOMMENDATION_ADD'])]) }}
 {% endblock %}
