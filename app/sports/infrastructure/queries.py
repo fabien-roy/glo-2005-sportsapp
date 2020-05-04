@@ -25,9 +25,9 @@ class MySQLSportQuery(MySQLQuery):
     def get_all(self, form=None):
         filters, inner_filtering = Filter().build_filters(form)
 
-        orders = [Sports.name_col]
+        orders = [self.fake_average_note_col]
 
-        return self.build_query(self.select_all_operation, filters, orders, inner_filtering)
+        return self.build_query(self.select_all_operation, filters, orders, inner_filtering, True)
 
     def get_all_for_equipment_type(self, type_id):
         operation = (f'SELECT S.{Sports.id_col}, S.{Sports.name_col} '

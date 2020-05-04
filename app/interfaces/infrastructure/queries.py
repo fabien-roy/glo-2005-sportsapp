@@ -1,6 +1,6 @@
 class MySQLQuery:
     @staticmethod
-    def build_query(operation, filters=None, orders=None, inner_filtering=True):
+    def build_query(operation, filters=None, orders=None, inner_filtering=True, desc=False):
         query = operation
 
         if filters is not None and len(filters) > 0:
@@ -13,8 +13,9 @@ class MySQLQuery:
 
         if orders is not None and len(orders) > 0:
             query += ' ORDER BY '
+            desc = ' DESC' if desc else ''
 
             for order in orders:
-                query += order + ' '
+                query += order + desc + ' '
 
         return f'{query};'

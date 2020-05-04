@@ -29,9 +29,9 @@ class MySQLPracticeCenterQuery(MySQLQuery):
     def get_all(self, form=None):
         filters, inner_filtering = Filter().build_filters(form)
 
-        orders = [PracticeCenters.name_col]
+        orders = [self.fake_average_note_col]
 
-        return self.build_query(self.select_all_operation, filters, orders, inner_filtering)
+        return self.build_query(self.select_all_operation, filters, orders, inner_filtering, True)
 
     def add(self):
         operation = (f'INSERT INTO {PracticeCenters.table_name}'
