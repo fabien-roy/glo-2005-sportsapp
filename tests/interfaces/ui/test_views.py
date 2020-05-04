@@ -1,3 +1,5 @@
+from tests.admin.fakes import get_events, get_nonnull_stat_event_sums, get_null_stat_event_sums
+from tests.admin.mocks import stat_event_repository, stat_service
 from tests.equipments.fakes import get_equipment, get_equipments_filtered, no_equipment
 from tests.equipments.mocks import equipment_repository
 from tests.interfaces.test_basic import BasicTests
@@ -21,6 +23,7 @@ class ViewTests(BasicTests):
         self.add_users()
         self.add_shops()
         self.add_equipments()
+        self.add_events()
 
     def get_path(self):
         pass
@@ -98,6 +101,16 @@ class ViewTests(BasicTests):
     def remove_equipments():
         equipment_repository.get.side_effect = lambda equipment_id: no_equipment()
         equipment_repository.get_all.side_effect = lambda form: []
+
+    @staticmethod
+    def add_events():
+        stat_event_repository.get_all.side_effect = get_events
+        stat_service.get_all_stat_event_sums.side_effect = get_nonnull_stat_event_sums
+
+    @staticmethod
+    def remove_events():
+        stat_event_repository.get_all.side_effect = []
+        stat_service.get_all_stat_event_sums.side_effect = get_null_stat_event_sums
 
     def assert_page_is_found(self, response):
         self.assertEqual(response.status_code, 200)

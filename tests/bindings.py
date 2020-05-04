@@ -1,4 +1,5 @@
 from app.interfaces.database import Database
+from tests.admin.modules import MockAdminModule
 from tests.announces.modules import MockAnnounceModule
 from tests.equipment_types.modules import MockEquipmentTypeModule
 from tests.climates.modules import MockClimateModule
@@ -17,6 +18,7 @@ def configure_test_database(binder):
 
 
 def configure_mock_modules(binder):
+    binder.install(MockAdminModule)
     binder.install(MockUserModule)
     binder.install(MockClimateModule)
     binder.install(MockShopModule)
