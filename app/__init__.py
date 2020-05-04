@@ -4,6 +4,7 @@ from flask_bootstrap import Bootstrap
 from flask_cors import CORS
 
 # from app.auth.services import login_manager
+from app.admin.ui.views import admin_blueprint
 from app.auth.ui.views import auth_blueprint
 from app.equipments.ui.views import equipment_blueprint
 from app.practice_centers.ui.views import practice_center_blueprint
@@ -20,6 +21,7 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 Bootstrap(app)
 
 
+app.register_blueprint(admin_blueprint)
 app.register_blueprint(search_blueprint)
 app.register_blueprint(sport_blueprint)
 app.register_blueprint(practice_center_blueprint)

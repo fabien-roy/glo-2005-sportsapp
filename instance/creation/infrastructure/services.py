@@ -1,6 +1,7 @@
 from injector import inject
 
 from app.interfaces.database import Database
+from instance.admin.infrastructure.queries import MySQLStatQuery as StatQuery
 from instance.announces.infrastructure.queries import MySQLAnnounceQuery as AnnounceQuery
 from instance.climates.infrastructure.queries import MySQLClimateQuery as ClimateQuery
 from instance.equipments.infrastructure.queries import MySQLEquipmentQuery as EquipmentQuery
@@ -38,6 +39,9 @@ class MySQLCreationService:
         print('...done!')
 
     def drop_tables(self, cur):
+        cur.execute(StatQuery().drop_stat_events())
+        cur.execute(StatQuery().drop_stat_event_types())
+
         cur.execute(ClimateQuery().drop_sport_climates())
         cur.execute(RecommendationQuery().drop_sport_recommendations())
         cur.execute(EquipmentTypeQuery().drop_sport_equipment_types())
@@ -69,6 +73,9 @@ class MySQLCreationService:
         self.database.connect().commit()
 
     def create_tables(self, cur):
+        cur.execute(StatQuery().create_stat_event_types())
+        cur.execute(StatQuery().create_stat_events())
+
         cur.execute(UserQuery().create_users())
         cur.execute(UserQuery().create_passwords())
 
