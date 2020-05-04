@@ -4,8 +4,11 @@ from tests.equipment_types.fakes import type1, type2, type3
 from instance.sports.fakes import sport1, sport2, sport3
 
 sport1.id = 1
+sport1.average_note = 5.00
 sport2.id = 2
+sport2.average_note = 1.50
 sport3.id = 3
+sport3.average_note = 5.00
 
 sport1_no_climates = Sport(sport_id=1, name='Randonnee', climates=[])
 sport2_no_climates = Sport(sport_id=2, name='Escalade', climates=[])

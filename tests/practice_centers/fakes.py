@@ -1,13 +1,16 @@
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
-from tests.climates.fakes import climate1, climate2, climate3
 from instance.practice_centers.fakes import center1, center2, center3
+from tests.climates.fakes import climate1, climate2, climate3
 
 center1.id = 1
 center1.climates = [climate2]
+center1.average_note = 5.00
 center2.id = 2
 center2.climates = []
+center2.average_note = 2.50
 center3.id = 3
-center1.climates = [climate1, climate3]
+center3.climates = [climate1, climate3]
+center3.average_note = 2.00
 
 
 def get_practice_center(practice_center_id):

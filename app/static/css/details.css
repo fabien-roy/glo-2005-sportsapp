@@ -1,3 +1,9 @@
+.box-layout > h2,
+.box-layout > h3 {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 .details-label {
   font-weight: bold;
   float: right;

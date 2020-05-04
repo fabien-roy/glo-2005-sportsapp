@@ -28,7 +28,10 @@ class MySQLCreationService:
         try:
             with self.database.connect().cursor() as cur:
                 self.drop_tables(cur)
+                self.drop_functions(cur)
                 self.create_tables(cur)
+                self.create_functions(cur)
+                self.create_triggers(cur)
         finally:
             cur.close()
 
@@ -59,6 +62,12 @@ class MySQLCreationService:
 
         self.database.connect().commit()
 
+    def drop_functions(self, cur):
+        cur.execute(SportQuery().drop_get_sport_average_note())
+        cur.execute(PracticeCenterQuery().drop_get_practice_center_average_note())
+
+        self.database.connect().commit()
+
     def create_tables(self, cur):
         cur.execute(UserQuery().create_users())
         cur.execute(UserQuery().create_passwords())
@@ -81,5 +90,16 @@ class MySQLCreationService:
         cur.execute(EquipmentTypeQuery().create_sport_equipment_types())
         cur.execute(EquipmentQuery().create_equipments())
         cur.execute(AnnounceQuery().create_announces())
+
+        self.database.connect().commit()
+
+    def create_functions(self, cur):
+        cur.execute(SportQuery().create_get_sport_average_note())
+        cur.execute(PracticeCenterQuery().create_get_practice_center_average_note())
+
+        self.database.connect().commit()
+
+    def create_triggers(self, cur):
+        cur.execute(RecommendationQuery().create_validate_recommendation_note())
 
         self.database.connect().commit()

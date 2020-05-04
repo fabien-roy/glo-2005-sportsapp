@@ -46,6 +46,14 @@ class PracticeCenterRepositoryTests(RepositoryTests):
         practice_center = self.repository.get(center3.id)
         self.assertCountEqual(center3.recommendations, practice_center.recommendations)
 
+    def test_get_should_get_average_note(self):
+        practice_center = self.repository.get(center1.id)
+        self.assertEqual(center1.average_note, practice_center.average_note)
+        practice_center = self.repository.get(center2.id)
+        self.assertEqual(center2.average_note, practice_center.average_note)
+        practice_center = self.repository.get(center3.id)
+        self.assertEqual(center3.average_note, practice_center.average_note)
+
     def test_get_all_with_no_practice_center_get_no_practice_center(self):
         self.recreate_database()
         practice_centers = self.repository.get_all()

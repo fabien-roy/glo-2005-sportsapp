@@ -43,3 +43,15 @@ class MySQLRecommendationQuery:
                 'date timestamp NOT NULL,'
                 'FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE'
                 ');')
+
+    @staticmethod
+    def create_validate_recommendation_note():
+        return ('CREATE TRIGGER validate_recommendation_note '
+                'BEFORE INSERT ON recommendations '
+                'FOR EACH ROW '
+                'BEGIN '
+                ' IF NEW.note < 0 OR NEW.note > 5 THEN'
+                '   SIGNAL SQLSTATE \'45000\''
+                '   SET MESSAGE_TEXT = \'Recommendation note must be between 0 and 5.\';'
+                ' END IF;'
+                'END;')
