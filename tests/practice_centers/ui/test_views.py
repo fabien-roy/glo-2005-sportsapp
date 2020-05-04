@@ -2,13 +2,18 @@ from app.practice_centers.ui.views import PracticeCenterView
 from tests.interfaces.ui.test_views import ViewTests
 from tests.practice_centers.fakes import center1, center2, center3
 from tests.practice_centers.mocks import practice_center_repository
+from tests.recommendations.mocks import recommendation_service
 
 
 class PracticeCentersViewTests(ViewTests):
 
     def test_construct_should_inject_repository(self):
-        view = PracticeCenterView(practice_center_repository)
+        view = PracticeCenterView(practice_center_repository, recommendation_service)
         self.assertEqual(practice_center_repository, view.practice_center_repository)
+
+    def test_construct_should_inject_service(self):
+        view = PracticeCenterView(practice_center_repository, recommendation_service)
+        self.assertEqual(recommendation_service, view.recommendation_service)
 
     def get_path(self):
         return '/practice-centers'
@@ -50,6 +55,39 @@ class PracticeCentersViewTests(ViewTests):
             (center2.id, self.get_recommendations_details(center2)),
             (center3.id, self.get_recommendations_details(center3))
         ])
+
+    def test_practice_center_details_with_logged_in_user_should_display_add_btn(self):
+        self.logged_in_session()
+        response = self.request_get(center1.id)
+        self.assert_page_is_found(response)
+        self.assert_items_are_listed(response, ['#addRecommendation'])
+
+    def test_practice_center_details_with_logged_out_user_should_not_display_add_btn(self):
+        self.logged_out_session()
+        response = self.request_get(center1.id)
+        self.assert_page_is_found(response)
+        self.assert_items_are_not_listed(response, ['#addRecommendation'])
+
+    def test_practice_center_details_with_invalid_form_should_flash_error(self):
+        self.logged_in_session()
+        form = {'note': -1, 'comment': ''}
+        response = self.request_post(center1.id, form)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Error adding recommendation.', response.data)
+
+    def test_practice_center_details_with_valid_form_should_add_recommendation(self):
+        self.logged_in_session()
+        form = {'note': 3, 'comment': 'This is my comment!'}
+        response = self.request_post(center1.id, form)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(recommendation_service.add_to_practice_center.called)
+
+    def test_practice_center_details_with_valid_and_logged_out_user_should_flash_error(self):
+        self.logged_out_session()
+        form = {'note': 3, 'comment': 'This is my comment!'}
+        response = self.request_post(center1.id, form)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Error adding recommendation.', response.data)
 
     def get_center_details(self, center):
         return [center.name, center.email, center.phone_number] + \

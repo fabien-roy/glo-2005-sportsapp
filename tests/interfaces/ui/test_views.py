@@ -35,8 +35,8 @@ class ViewTests(BasicTests):
     def request_get(self, reference=None):
         return self.app.get(self.request_path(reference), follow_redirects=True)
 
-    def request_post(self, reference=None):
-        return self.app.post(self.request_path(reference), follow_redirects=True)
+    def request_post(self, reference=None, data=None):
+        return self.app.post(self.request_path(reference), follow_redirects=True, data=data)
 
     def request_path(self, reference=None):
         return self.get_path() if reference is None else f'{self.get_path()}/{reference}'

@@ -1,5 +1,6 @@
 from app.sports.ui.views import SportView
 from tests.interfaces.ui.test_views import ViewTests
+from tests.recommendations.mocks import recommendation_service
 from tests.sports.fakes import sport1, sport3, sport2
 from tests.sports.mocks import sport_repository
 
@@ -7,8 +8,12 @@ from tests.sports.mocks import sport_repository
 class SportsViewsTests(ViewTests):
 
     def test_construct_should_inject_repository(self):
-        view = SportView(sport_repository)
+        view = SportView(sport_repository, recommendation_service)
         self.assertEqual(sport_repository, view.sport_repository)
+
+    def test_construct_should_inject_recommendation_service(self):
+        view = SportView(sport_repository, recommendation_service)
+        self.assertEqual(recommendation_service, view.recommendation_service)
 
     def get_path(self):
         return '/sports'
@@ -50,6 +55,39 @@ class SportsViewsTests(ViewTests):
             (sport2.id, self.get_recommendations_details(sport2)),
             (sport3.id, self.get_recommendations_details(sport3))
         ])
+
+    def test_sport_details_with_logged_in_user_should_display_add_recommendation_button(self):
+        self.logged_in_session()
+        response = self.request_get(sport1.id)
+        self.assert_page_is_found(response)
+        self.assert_items_are_listed(response, ['#addRecommendation'])
+
+    def test_sport_details_with_logged_out_user_should_not_display_add_recommendation_button(self):
+        self.logged_out_session()
+        response = self.request_get(sport1.id)
+        self.assert_page_is_found(response)
+        self.assert_items_are_not_listed(response, ['#addRecommendation'])
+
+    def test_sport_details_with_invalid_form_should_flash_error(self):
+        self.logged_in_session()
+        form = {'note': -1, 'comment': ''}
+        response = self.request_post(sport1.id, form)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Error adding recommendation.', response.data)
+
+    def test_sport_details_with_valid_form_should_add_recommendation(self):
+        self.logged_in_session()
+        form = {'note': 3, 'comment': 'This is my comment!'}
+        response = self.request_post(sport1.id, form)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(recommendation_service.add_to_sport.called)
+
+    def test_sport_details_with_valid_and_logged_out_user_should_flash_error(self):
+        self.logged_out_session()
+        form = {'note': 3, 'comment': 'This is my comment!'}
+        response = self.request_post(sport1.id, form)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Error adding recommendation.', response.data)
 
     def get_sport_details(self, sport):
         return [sport.name] + \

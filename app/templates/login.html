@@ -1,4 +1,17 @@
 {% extends "landing.html" %}
+{% from 'macros/forms.html' import formbox_custom %}
+
+{% macro footer() -%}
+    <p>
+        Don't have an account yet? <a href="{{ url_for('auth.register') }}">Register</a>
+    </p>
+{%- endmacro %}
+
+{% macro submit_button() -%}
+    <div class="form-group">
+        {{ form.submit(class="btn btn-success btn-block") }}
+    </div>
+{%- endmacro %}
 
 {% block inner_landing %}
 
@@ -6,44 +19,5 @@
 
     <h1>It's good to have you back.</h1>
 
-    <div class="form-box">
-        <div class="inner-form-box">
-            <form class="form form-horizontal" method="POST" action="">
-                {{ form.hidden_tag() }}
-                <fieldset class="form-group">
-                    <div class="form-group">
-                        {% if form.username.errors %}
-                            {{ form.username(class="form-control is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.username.errors %}
-                                    <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.username(class="form-control") }}
-                        {% endif %}
-                    </div>
-                    <div class="form-group">
-                        {% if form.password.errors %}
-                            {{ form.password(class="form-control is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.password.errors %}
-                                    <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.password(class="form-control") }}
-                        {% endif %}
-                    </div>
-                </fieldset>
-                <div class="form-group">
-                    {{ form.submit(class="btn btn-success btn-block") }}
-                </div>
-            </form>
-            <p>
-                Don't have an account yet? <a href="{{ url_for('auth.register') }}">Register</a>
-            </p>
-        </div>
-    </div>
-
+    {{ formbox_custom(form, [form.username, form.password], [submit_button()], footer()) }}
 {% endblock %}
