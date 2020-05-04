@@ -1,9 +1,8 @@
-from flask import Flask, render_template, session
+from flask import Flask, render_template
 from flask_bcrypt import Bcrypt
 from flask_bootstrap import Bootstrap
 from flask_cors import CORS
 
-# from app.auth.services import login_manager
 from app.admin.ui.views import admin_blueprint
 from app.auth.ui.views import auth_blueprint
 from app.equipments.ui.views import equipment_blueprint

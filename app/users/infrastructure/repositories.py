@@ -58,7 +58,7 @@ class MySQLUserRepository(UserRepository):
 
         return user
 
-    def touch(self, username):
+    def get_touch(self, username):
         user = self.get(username)
         user.last_login_date = datetime.now()
 

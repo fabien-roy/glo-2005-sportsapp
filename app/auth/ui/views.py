@@ -38,7 +38,7 @@ def login(user_repository: UserRepository, stat_service: StatService):
         decoded_password = (bcrypt.hashpw(form.password.data.encode('utf-8'),
                                           user_password.encode('utf-8'))).decode('utf-8')
         if user_password and decoded_password == user_password:
-            user = user_repository.touch(form.username.data)
+            user = user_repository.get_touch(form.username.data)
             session['logged_in'] = True
             session['_user_id'] = user.username
 
