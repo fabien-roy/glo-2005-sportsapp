@@ -1,8 +1,6 @@
 html,
 body {
   padding: 60px 0 70px;
-  width: 100vw;
-  height: 100vh;
   background-image: linear-gradient(to bottom, #fff, #eee, #ccc);
   background-color: #fff;
   background-attachment: fixed;

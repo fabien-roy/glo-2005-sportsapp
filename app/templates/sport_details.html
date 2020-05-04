@@ -24,11 +24,12 @@
     {{ user_recommendations_list(sport.recommendations) }}
 {% endblock %}
 
-<!-- TODO : Hide button to add recommendation when logged out -->
-{% block associated_items_button %}
-    <button type="button" class="btn btn-success" data-toggle="modal"
-            data-target="#addRecommendation">
-        Write your own!
-    </button>
-    {{ add_recommendation_modal(form) }}
-{% endblock %}
+{% if session['logged_in'] %}
+    {% block associated_items_button %}
+        <button type="button" class="btn btn-success" data-toggle="modal"
+                data-target="#addRecommendation">
+            Write your own!
+        </button>
+        {{ add_recommendation_modal(form) }}
+    {% endblock %}
+{% endif %}
