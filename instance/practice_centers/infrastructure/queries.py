@@ -22,7 +22,6 @@ class MySQLPracticeCenterQuery:
     def create_get_practice_center_average_note():
         return ('CREATE FUNCTION get_practice_center_average_note(practice_center_id integer) '
                 'RETURNS decimal(10,2) '
-                'READS SQL DATA '
                 'BEGIN'
                 ' DECLARE average decimal(10,2);'
                 ' SET average = 0;'

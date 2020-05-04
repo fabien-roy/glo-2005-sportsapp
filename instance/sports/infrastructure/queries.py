@@ -19,7 +19,6 @@ class MySQLSportQuery:
     def create_get_sport_average_note():
         return ('CREATE FUNCTION get_sport_average_note(sport_id integer) '
                 'RETURNS decimal(10,2) '
-                'READS SQL DATA '
                 'BEGIN'
                 ' DECLARE average decimal(10,2);'
                 ' SET average = 0;'

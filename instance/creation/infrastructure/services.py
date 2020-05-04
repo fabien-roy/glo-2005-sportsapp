@@ -27,6 +27,7 @@ class MySQLCreationService:
 
         try:
             with self.database.connect().cursor() as cur:
+                self.configure_vars(cur)
                 self.drop_tables(cur)
                 self.drop_functions(cur)
                 self.create_tables(cur)
@@ -36,6 +37,10 @@ class MySQLCreationService:
             cur.close()
 
         print('...done!')
+
+    def configure_vars(self, cur):
+        cur.execute('SET GLOBAL log_bin_trust_function_creators = 1;')
+        self.database.connect().commit()
 
     def drop_tables(self, cur):
         cur.execute(ClimateQuery().drop_sport_climates())
