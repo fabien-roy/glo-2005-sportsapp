@@ -58,10 +58,6 @@ class MySQLUserRepository(UserRepository):
 
         return user
 
-    # TODO
-    def get_by_api_key(self, api_key):
-        pass
-
     @staticmethod
     def build_user(cur, sport_recommendations=None, practice_center_recommendations=None):
         return User(username=cur[Users.username_col],
@@ -91,7 +87,6 @@ class MySQLUserRepository(UserRepository):
 
         return cur.lastrowid
 
-    # TODO : Test this
     def add_password(self, user):
         try:
             with self.database.connect().cursor() as cur:
@@ -104,7 +99,6 @@ class MySQLUserRepository(UserRepository):
 
         return cur.lastrowid
 
-    # TODO : Test this
     def get_password(self, username):
         try:
             with self.database.connect().cursor() as cur:

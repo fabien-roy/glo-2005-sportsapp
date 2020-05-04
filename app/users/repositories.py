@@ -13,10 +13,6 @@ class UserRepository:
         """ abstract method """
 
     @abstractmethod
-    def get_by_api_key(self, api_key):
-        """ abstract method """
-
-    @abstractmethod
     def add(self, user):
         """ abstract method """
 

@@ -1,7 +1,6 @@
 from abc import abstractmethod, ABCMeta
 
-from flask import render_template, request, Blueprint, session
-from flask_login import current_user
+from flask import render_template, request, Blueprint
 from flask.views import View
 from injector import inject
 
