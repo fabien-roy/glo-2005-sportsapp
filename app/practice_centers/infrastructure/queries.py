@@ -10,28 +10,31 @@ all_fields_to_add = (f'{PracticeCenters.name_col}'
 
 all_fields = f'{PracticeCenters.id_col}, {all_fields_to_add}'
 
+select_all_operation = (f'SELECT {all_fields}'
+                        f' FROM {PracticeCenters.table_name}')
+
+
+def select_average_note(practice_center_id):
+    return f'CALL get_practice_center_average_note({practice_center_id});'
+
 
 class MySQLPracticeCenterQuery(MySQLQuery):
     fake_average_note_col = 'average_note'
-    get_average_note = 'get_practice_center_average_note'
-
-    select_all_operation = (f'SELECT {PracticeCenters.id_col},'
-                            f'{all_fields_to_add},'
-                            f'{get_average_note}({PracticeCenters.id_col})'
-                            f' AS {fake_average_note_col}'
-                            f' FROM {PracticeCenters.table_name}')
 
     def get(self, practice_center_id):
         filters = [MySQLFilter.filter_equal(PracticeCenters.id_col, practice_center_id)]
 
-        return self.build_query(self.select_all_operation, filters)
+        return self.build_query(select_all_operation, filters)
+
+    def get_average_note(self, practice_center_id):
+        return self.build_query(select_average_note(practice_center_id))
 
     def get_all(self, form=None):
         filters, inner_filtering = Filter().build_filters(form)
 
         orders = [PracticeCenters.name_col]
 
-        return self.build_query(self.select_all_operation, filters, orders, inner_filtering)
+        return self.build_query(select_all_operation, filters, orders, inner_filtering)
 
     def add(self):
         operation = (f'INSERT INTO {PracticeCenters.table_name}'

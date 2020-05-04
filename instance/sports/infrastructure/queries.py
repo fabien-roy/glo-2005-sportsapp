@@ -13,18 +13,14 @@ class MySQLSportQuery:
 
     @staticmethod
     def drop_get_sport_average_note():
-        return 'DROP FUNCTION IF EXISTS get_sport_average_note'
+        return 'DROP PROCEDURE IF EXISTS get_sport_average_note'
 
     @staticmethod
     def create_get_sport_average_note():
-        return ('CREATE FUNCTION get_sport_average_note(sport_id integer) '
-                'RETURNS decimal(10,2) '
+        return ('CREATE PROCEDURE get_sport_average_note(IN sport_id integer) '
                 'BEGIN'
-                ' DECLARE average decimal(10,2);'
-                ' SET average = 0;'
-                ' SELECT AVG(R.note) INTO average'
+                ' SELECT AVG(R.note) AS average_note'
                 '   FROM recommendations R'
                 '   JOIN sport_recommendations S ON S.recommendation_id = R.id'
                 '   WHERE S.sport_id = sport_id;'
-                ' RETURN average;'
                 'END')
