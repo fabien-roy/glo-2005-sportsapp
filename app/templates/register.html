@@ -1,111 +1,18 @@
 {% extends "landing.html" %}
+{% from 'macros/forms.html' import formbox %}
+
+{% macro footer() -%}
+    <p>
+        Have an account? <a href="{{ url_for('auth.login') }}">Login</a>
+    </p>
+{%- endmacro %}
 
 {% block inner_landing %}
-
-    <!-- TODO : Move form fields of login and register to reusable macros -->
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
 
     <h1>Welcome among us!</h1>
 
-    <div class="form-box">
-        <div class="inner-form-box">
-            <form class="form form-horizontal" method="POST" action="">
-                {{ form.hidden_tag() }}
-                <fieldset class="form-group">
-                    <div class="form-group">
-                        {% if form.username.errors %}
-                            {{ form.username(class="form-control is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.username.errors %}
-                                    <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.username(class="form-control") }}
-                        {% endif %}
-                    </div>
-                    <div class="form-group">
-                        {% if form.email.errors %}
-                            {{ form.email(class="form-control is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.email.errors %}
-                                    <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.email(class="form-control") }}
-                        {% endif %}
-                    </div>
-                    <div class="form-group">
-                        {% if form.password.errors %}
-                            {{ form.password(class="form-control is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.password.errors %}
-                                    <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.password(class="form-control") }}
-                        {% endif %}
-                    </div>
-                    <div class="form-group">
-                        {% if form.confirm_password.errors %}
-                            {{ form.confirm_password(class="form-control is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.confirm_password.errors %}
-                                    <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.confirm_password(class="form-control") }}
-                        {% endif %}
-                    </div>
-                    <div class="form-group">
-                        {% if form.first_name.errors %}
-                            {{ form.first_name(class="form-control is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.first_name.errors %}
-                                    <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.first_name(class="form-control") }}
-                        {% endif %}
-                    </div>
-                    <div class="form-group">
-                        {% if form.last_name.errors %}
-                            {{ form.last_name(class="form-control is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.last_name.errors %}
-                                    <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.last_name(class="form-control") }}
-                        {% endif %}
-                    </div>
-                    <div class="form-group">
-                        {% if form.telephone.errors %}
-                            {{ form.telephone(class="form-control is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.telephone.errors %}
-                                    <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.telephone(class="form-control") }}
-                        {% endif %}
-                    </div>
-                </fieldset>
-                <div class="form-group">
-                    {{ form.submit(class="btn btn-success btn-block") }}
-                </div>
-            </form>
-            <p>
-                Have an account? <a href="{{ url_for('auth.login') }}">Login</a>
-            </p>
-        </div>
-    </div>
-
+    {{ formbox(form, [form.username, form.email, form.password, form.first_name, form.last_name,
+    form.telephone ], footer()) }}
 {% endblock %}
