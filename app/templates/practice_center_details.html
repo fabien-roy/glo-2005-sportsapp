@@ -16,6 +16,11 @@ detail('Phone number', practice_center.phone_number),
 detail_list('Associated climates', practice_center.climates)]) }}
 {% endblock %}
 
+{% block associated_items_title %}
+    <h2>Recommendations</h2>
+    <h3>Average : <strong>{{ practice_center.average_note }} / 5</strong></h3>
+{% endblock %}
+
 {% block associated_items %}
 {{ user_recommendations_list(practice_center.recommendations) }}
 {% endblock %}
