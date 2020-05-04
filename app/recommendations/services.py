@@ -18,5 +18,5 @@ class RecommendationService:
 
     @staticmethod
     def create_recommendation(username, sport, form):
-        return Recommendation(None, sport.id, username, form.data.comment, form.data.note, sport.id,
+        return Recommendation(None, sport.id, username, form.comment.data, form.note.data, sport.id,
                               datetime.now())

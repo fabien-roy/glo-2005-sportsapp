@@ -24,7 +24,7 @@ def register(users_repository: UserRepository):
         users_repository.add(user)
 
         flash('Your account has been created! You are now able to log in', 'success')
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('auth.login'), 302)
 
     return render_template('register.html', form=form)
 
@@ -53,7 +53,7 @@ def login(users_repository: UserRepository):
 @auth_blueprint.route('/logout', methods=('GET', 'POST'))
 def logout():
     session['logged_in'] = False
-    return redirect(url_for('search.search'))
+    return redirect(url_for('search.search'), 302)
 
 
 class AuthView(View):

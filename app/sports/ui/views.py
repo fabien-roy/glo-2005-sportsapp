@@ -1,6 +1,6 @@
 from abc import abstractmethod, ABCMeta
 
-from flask import render_template, request, Blueprint, session
+from flask import render_template, request, Blueprint, session, flash, redirect, url_for
 from flask.views import View
 from injector import inject
 
@@ -38,7 +38,10 @@ def sport_details(sports_repository: SportRepository,
 
     if request.method == 'POST':
         if form.validate_on_submit():
-            recommendation_service.add_to_sport(session['user_id'], sport, form)
+            recommendation_service.add_to_sport(session['_user_id'], sport, form)
+            return redirect(url_for('sports.sport_details', sport_id=sport_id), 302)
+        else:
+            flash('Error adding recommendation.', 'error')
 
     return render_template('sport_details.html', sport=sport, form=form)
 
