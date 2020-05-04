@@ -15,7 +15,7 @@ auth_blueprint = Blueprint('auth', __name__)
 
 
 @auth_blueprint.route('/register', methods=('GET', 'POST'))
-def register(user_repository: UserRepository, stat_service: StatService):
+def register(user_repository: UserRepository):
     form = RegisterForm(request.form)
 
     if request.method == 'POST' and form.validate_on_submit():
@@ -25,7 +25,6 @@ def register(user_repository: UserRepository, stat_service: StatService):
         user_repository.add(user)
 
         flash('Your account has been created! You are now able to log in', 'success')
-        stat_service.add_user_register()
         return redirect(url_for('auth.login'), 302)
 
     return render_template('register.html', form=form)

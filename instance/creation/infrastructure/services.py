@@ -108,6 +108,7 @@ class MySQLCreationService:
         self.database.connect().commit()
 
     def create_triggers(self, cur):
+        cur.execute(UserQuery().create_report_user_register())
         cur.execute(RecommendationQuery().create_validate_recommendation_note())
         cur.execute(RecommendationQuery().create_report_recommendation_add())
 
