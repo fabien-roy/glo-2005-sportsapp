@@ -50,3 +50,11 @@ class MySQLUserQuery(MySQLQuery):
         operation = (f'SELECT {Passwords.password_col} FROM {Passwords.table_name} P '
                      f"WHERE P.{Passwords.username_col} = '{username}' ")
         return self.build_query(operation)
+
+    def update_last_login_date(self, username, last_login_date):
+        filters = [MySQLFilter.filter_equal_string(Users.username_col, username)]
+
+        operation = (f'UPDATE {Users.table_name} '
+                     f"SET {Users.last_login_date_col} = '{last_login_date}' ")
+
+        return self.build_query(operation, filters)

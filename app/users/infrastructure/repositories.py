@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 from injector import inject
 import bcrypt
@@ -58,6 +58,21 @@ class MySQLUserRepository(UserRepository):
 
         return user
 
+    def touch(self, username):
+        user = self.get(username)
+        user.last_login_date = datetime.now()
+
+        try:
+            with self.database.connect().cursor() as cur:
+                query = Query().update_last_login_date(user.username, user.last_login_date)
+                cur.execute(query)
+
+                self.database.connect().commit()
+        finally:
+            cur.close()
+
+        return user
+
     @staticmethod
     def build_user(cur, sport_recommendations=None, practice_center_recommendations=None):
         return User(username=cur[Users.username_col],
@@ -73,7 +88,7 @@ class MySQLUserRepository(UserRepository):
     def add(self, user):
         try:
             with self.database.connect().cursor() as cur:
-                user.creation_date = datetime.datetime.now()
+                user.creation_date = datetime.now()
 
                 query = Query().add()
                 cur.execute(query, (user.username, user.email, user.first_name, user.last_name,
