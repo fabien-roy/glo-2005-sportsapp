@@ -13,7 +13,7 @@ class UserRepository:
         """ abstract method """
 
     @abstractmethod
-    def touch(self, data):
+    def touch(self, username):
         """ abstract method """
 
     @abstractmethod

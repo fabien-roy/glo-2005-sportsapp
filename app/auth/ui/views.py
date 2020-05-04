@@ -1,6 +1,5 @@
 from abc import abstractmethod, ABCMeta
 
-import datetime
 import bcrypt
 from flask import render_template, request, Blueprint, url_for, redirect, flash, session
 from flask.views import View
