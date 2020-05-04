@@ -21,33 +21,60 @@ Then, you will need to create a MySQL database. This database must fit the infor
 
 First, check that the MySQL service is well running on `localhost:3306`.
 
-Then, in MySQL Shell (for Windows, UNIX use `mysql` CLI) : 
+### Access MySQL CLI
+On windows, using MySQL Shell :
 
-- `\connect --mysql root@localhost:3306`
-- Enter root password
-- `\sql CREATE USER 'sportsapp'@'localhost' IDENTIFIED BY 'sportsapp'`
-- `\sql GRANT ALL PRIVILEGES ON *. * TO 'sportsapp'@'localhost'`
-- `\sql CREATE DATABASE 'sportsapp'`
-- `\sql CREATE DATABASE 'sportsapp_test'`
+```shell script
+\connect --mysql root@localhost:3306
+# Enter root password
+```
+
+On UNIX, using `mysql` CLI : 
+
+```shell script
+mysql -u root -p
+# Enter root password
+```
+
+### Create database
+Now, on Windows or UNIX (Windows needs to add `\sql` before each query)
+
+```mysql
+CREATE USER 'sportsapp'@'localhost' IDENTIFIED BY 'sportsapp';
+GRANT ALL PRIVILEGES ON *. * TO 'sportsapp'@'localhost';
+CREATE DATABASE 'sportsapp';
+CREATE DATABASE 'sportsapp_test';
+SET log_bin_trust_function_creators=1;
+```
 
 ## Install requirements
 
-- `pip install -q -r requirements.txt`
+```shell script
+pip install -q -r requirements.txt
+```
 
 ## Run app
 
-- `python ./run.py`
-- `python ./run.py -c` (or `--db-create` : create database tables)
-- `python ./run.py -p` (or `--db-populate` : populate database with mock data)
-- `python ./run.py -cp` (usually what you want)
+Choose one option for running the app : 
+
+```shell script
+python ./run.py
+python ./run.py -c  # or --db-create : create database tables
+python ./run.py -p  # or --db-populate : populate database with mock data
+python ./run.py -cp # usually what you want
+```
 
 By default, web API is hosted on port `5000` : [http://127.0.0.1:5000](http://127.0.0.1:5000).
 
 ## Run tests
 
-- `nose2 -v --with-coverage tests`
+```shell script
+nose2 -v --with-coverage tests
+```
 
 ## Lint app and tests
 
-- `pylint --output-format=text app`
-- `pylint --output-format=text tests`
+```shell script
+pylint --output-format=text app
+pylint --output-format=text tests
+```
