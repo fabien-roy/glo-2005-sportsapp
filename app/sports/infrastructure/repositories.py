@@ -44,6 +44,7 @@ class MySQLSportRepository(SportRepository):
 
         return sports
 
+    # TODO : Test average note
     def get(self, sport_id):
         sport = None
 
@@ -57,8 +58,9 @@ class MySQLSportRepository(SportRepository):
                     required_equipment_types = self.equipment_type_repository.\
                         get_all_for_sport(sport_id)
                     recommendations = self.recommendations_repository.get_all_for_sport(sport_id)
+                    average_note = sport_cur[Query.fake_average_note_col]
                     sport = self.build_sport(sport_cur, climates, required_equipment_types,
-                                             recommendations)
+                                             recommendations, average_note)
         finally:
             cur.close()
 
@@ -68,12 +70,14 @@ class MySQLSportRepository(SportRepository):
         return sport
 
     @staticmethod
-    def build_sport(cur, climates=None, required_equipment_types=None, recommendations=None):
+    def build_sport(cur, climates=None, required_equipment_types=None, recommendations=None,
+                    average_note=None):
         return Sport(cur[Sports.id_col],
                      cur[Sports.name_col],
                      climates,
                      required_equipment_types,
-                     recommendations)
+                     recommendations,
+                     average_note)
 
     def add(self, sport):
         try:

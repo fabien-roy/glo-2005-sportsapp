@@ -34,6 +34,7 @@ class MySQLPracticeCenterRepository(PracticeCenterRepository):
 
         return all_practice_centers
 
+    # TODO : Test average note
     def get(self, practice_center_id):
         practice_center = None
 
@@ -65,7 +66,8 @@ class MySQLPracticeCenterRepository(PracticeCenterRepository):
                               cur[PracticeCenters.web_site_col],
                               cur[PracticeCenters.phone_number_col],
                               climates,
-                              recommendations)
+                              recommendations,
+                              cur[Query.fake_average_note_col])
 
     def add(self, practice_center):
         try:

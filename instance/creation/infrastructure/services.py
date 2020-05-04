@@ -63,6 +63,7 @@ class MySQLCreationService:
 
     def drop_functions(self, cur):
         cur.execute(SportQuery().drop_get_sport_average_note())
+        cur.execute(PracticeCenterQuery().drop_get_practice_center_average_note())
 
         self.database.connect().commit()
 
@@ -92,6 +93,7 @@ class MySQLCreationService:
 
     def create_functions(self, cur):
         cur.execute(SportQuery().create_get_sport_average_note())
+        cur.execute(PracticeCenterQuery().create_get_practice_center_average_note())
 
         self.database.connect().commit()
 
