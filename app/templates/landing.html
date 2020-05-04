@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block inner_content %}
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+
+    <div class="landing">
+        {%  block inner_landing %}
+        {% endblock %}
+    </div>
+
+{% endblock %}

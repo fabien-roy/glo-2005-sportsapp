@@ -12,6 +12,7 @@ body {
 
 .header {
   background-color: #e65100;
+  border-bottom: 1px solid #973500;
 }
 
 .header img {
@@ -22,10 +23,25 @@ body {
   font-weight: 600;
 }
 
+.header .navbar-right {
+  margin-left: auto;
+}
+
+.header .navbar-right .nav-link {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.header .navbar-right .nav-link:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
 .footer {
   display: inline-block;
   color: white;
   background-color: #343a40;
+  border-top: 1px solid #1d2022;
   padding-top: 1rem;
 }
 

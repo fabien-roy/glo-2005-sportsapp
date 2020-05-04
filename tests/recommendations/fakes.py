@@ -61,9 +61,9 @@ def get_recommendations_for_practice_center(practice_center_id):
     return get_practice_center(practice_center_id).recommendations
 
 
-def get_recommendations_for_sport_and_user(user_id):
-    return get_user(user_id).sport_recommendations
+def get_recommendations_for_sport_and_user(username):
+    return get_user(username).sport_recommendations
 
 
-def get_recommendations_for_practice_center_and_user(user_id):
-    return get_user(user_id).practice_center_recommendations
+def get_recommendations_for_practice_center_and_user(username):
+    return get_user(username).practice_center_recommendations

@@ -7,3 +7,9 @@ class MySQLUserTable:
     phone_number_col = 'phone_number'
     creation_date_col = 'creation_date'
     last_login_date_col = 'last_login_date'
+
+
+class MySQLPasswordTable:
+    table_name = 'passwords'
+    username_col = 'username'
+    password_col = 'password'

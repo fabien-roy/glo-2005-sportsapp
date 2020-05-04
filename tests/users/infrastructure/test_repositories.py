@@ -46,6 +46,14 @@ class UserRepositoryTests(RepositoryTests):
         self.assertCountEqual(user3.practice_center_recommendations,
                               user.practice_center_recommendations)
 
+    def test_get_password_should_get_user_password(self):
+        password = self.repository.get_password(user1.username)
+        self.assertIsNotNone(password)
+        password = self.repository.get_password(user2.username)
+        self.assertIsNotNone(password)
+        password = self.repository.get_password(user3.username)
+        self.assertIsNotNone(password)
+
     def test_get_all_with_no_user_center_get_no_user(self):
         self.recreate_database()
         users = self.repository.get_all()

@@ -15,3 +15,11 @@ class UserRepository:
     @abstractmethod
     def add(self, user):
         """ abstract method """
+
+    @abstractmethod
+    def add_password(self, user):
+        """ abstract method """
+
+    @abstractmethod
+    def get_password(self, username):
+        """ abstract method """

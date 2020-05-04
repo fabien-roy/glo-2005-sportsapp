@@ -15,3 +15,15 @@ class MySQLUserQuery:
                 'last_name varchar(50) NULL,'
                 'phone_number varchar(20) NULL'
                 ');')
+
+    @staticmethod
+    def drop_passwords():
+        return 'DROP TABLE IF EXISTS passwords'
+
+    @staticmethod
+    def create_passwords():
+        return ('CREATE TABLE passwords ('
+                'username varchar(50) NOT NULL PRIMARY KEY,'
+                'password varchar(1000) NOT NULL, '
+                'FOREIGN KEY (username) REFERENCES users (username) '
+                'ON UPDATE CASCADE ON DELETE CASCADE);')

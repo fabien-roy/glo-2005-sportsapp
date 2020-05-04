@@ -57,6 +57,7 @@ class MySQLCreationService:
 
         cur.execute(RecommendationQuery().drop_recommendations())
 
+        cur.execute(UserQuery().drop_passwords())
         cur.execute(UserQuery().drop_users())
 
         self.database.connect().commit()
@@ -69,6 +70,7 @@ class MySQLCreationService:
 
     def create_tables(self, cur):
         cur.execute(UserQuery().create_users())
+        cur.execute(UserQuery().create_passwords())
 
         cur.execute(SportQuery().create_sports())
 
