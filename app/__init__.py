@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, session
 from flask_bcrypt import Bcrypt
 from flask_bootstrap import Bootstrap
 from flask_cors import CORS
