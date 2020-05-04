@@ -44,7 +44,6 @@ class MySQLSportRepository(SportRepository):
 
         return sports
 
-    # TODO : Test average note
     def get(self, sport_id):
         sport = None
 

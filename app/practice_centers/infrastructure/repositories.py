@@ -34,7 +34,6 @@ class MySQLPracticeCenterRepository(PracticeCenterRepository):
 
         return all_practice_centers
 
-    # TODO : Test average note
     def get(self, practice_center_id):
         practice_center = None
 
