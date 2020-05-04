@@ -24,12 +24,12 @@
     {{ user_recommendations_list(sport.recommendations) }}
 {% endblock %}
 
-{% if session['logged_in'] %}
-    {% block associated_items_button %}
+{% block associated_items_button %}
+    {% if session['logged_in'] %}
         <button type="button" class="btn btn-success" data-toggle="modal"
                 data-target="#addRecommendation">
             Write your own!
         </button>
         {{ add_recommendation_modal(form) }}
-    {% endblock %}
-{% endif %}
+    {% endif %}
+{% endblock %}

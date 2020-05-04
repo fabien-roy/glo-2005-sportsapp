@@ -38,7 +38,7 @@ def sport_details(sport_repository: SportRepository,
     if request.method == 'POST':
         if form.validate_on_submit():
             recommendation_service.add_to_sport(session['_user_id'], sport, form)
-            return redirect(url_for('sports.sport_details', sport_id=sport_id), 302)
+            return redirect(url_for('sports.sport_details', sport_id=sport_id), 307)
 
         flash('Error adding recommendation.', 'error')
 

@@ -56,6 +56,45 @@ class SportsViewsTests(ViewTests):
             (sport3.id, self.get_recommendations_details(sport3))
         ])
 
+    def test_sport_details_with_logged_in_user_should_display_add_recommendation_button(self):
+        self.logged_in_session()
+        response = self.request_get(sport1.id)
+        self.assert_page_is_found(response)
+        self.assert_items_are_listed(response, ['#addRecommendation'])
+
+    def test_sport_details_with_logged_out_user_should_not_display_add_recommendation_button(self):
+        self.logged_out_session()
+        response = self.request_get(sport1.id)
+        self.assert_page_is_found(response)
+        self.assert_items_are_not_listed(response, ['#addRecommendation'])
+
+    def test_sport_details_with_invalid_form_should_flash_error(self):
+        self.logged_in_session()
+        form = {'note': -1, 'comment': ''}
+        response = self.request_post(sport1.id, form)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'SportsApp', response.data)
+        self.assertIn(b'Sports', response.data)
+        self.assertIn(b'Error adding recommendation.', response.data)
+
+    def test_sport_details_with_valid_form_should_add_recommendation(self):
+        self.logged_in_session()
+        form = {'note': 3, 'comment': 'This is my comment!'}
+        response = self.request_post(sport1.id, form)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'SportsApp', response.data)
+        self.assertIn(b'Sports', response.data)
+        self.assertTrue(recommendation_service.add_to_sport.called)
+
+    def test_sport_details_with_valid_and_logged_out_user_should_flash_error(self):
+        self.logged_out_session()
+        form = {'note': 3, 'comment': 'This is my comment!'}
+        response = self.request_post(sport1.id, form)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'SportsApp', response.data)
+        self.assertIn(b'Sports', response.data)
+        self.assertIn(b'Error adding recommendation.', response.data)
+
     def get_sport_details(self, sport):
         return [sport.name] + \
                self.list_detail_list_names(sport.climates) + \
