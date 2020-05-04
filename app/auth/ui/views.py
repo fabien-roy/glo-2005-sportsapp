@@ -6,6 +6,7 @@ from flask import render_template, request, Blueprint, url_for, redirect, flash,
 from flask.views import View
 from injector import inject
 
+from app.admin.services import StatService
 from app.auth.forms import LoginForm, RegisterForm
 from app.users.models import User
 from app.users.repositories import UserRepository
@@ -14,35 +15,38 @@ auth_blueprint = Blueprint('auth', __name__)
 
 
 @auth_blueprint.route('/register', methods=('GET', 'POST'))
-def register(users_repository: UserRepository):
+def register(user_repository: UserRepository, stat_service: StatService):
     form = RegisterForm(request.form)
 
     if request.method == 'POST' and form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data, password=form.password.data,
                     first_name=form.first_name.data, last_name=form.last_name.data,
                     phone_number=form.telephone.data)
-        users_repository.add(user)
+        user_repository.add(user)
 
         flash('Your account has been created! You are now able to log in', 'success')
+        stat_service.add_user_register()
         return redirect(url_for('auth.login'), 302)
 
     return render_template('register.html', form=form)
 
 
 @auth_blueprint.route('/login', methods=('GET', 'POST'))
-def login(users_repository: UserRepository):
+def login(user_repository: UserRepository, stat_service: StatService):
     form = LoginForm(request.form)
 
     if form.validate_on_submit():
-        user_password = users_repository.get_password(form.username.data)
+        user_password = user_repository.get_password(form.username.data)
         decoded_password = (bcrypt.hashpw(form.password.data.encode('utf-8'),
                                           user_password.encode('utf-8'))).decode('utf-8')
         if user_password and decoded_password == user_password:
-            user = users_repository.get(form.username.data)
+            user = user_repository.get(form.username.data)  # TODO : Update login here
             user.last_login_date = datetime.datetime.today()
             session['logged_in'] = True
             session['_user_id'] = user.username
+
             flash('You are now logged in as ' + session['_user_id'] + '.', 'success')
+            stat_service.add_user_login()
             return redirect(url_for('users.user_details', username=user.username), 302)
 
         flash('Login Unsuccessful. Please check email and password', 'error')
@@ -64,5 +68,6 @@ class AuthView(View):
         """ abstract method """
 
     @inject
-    def __init__(self, user_repository: UserRepository):
+    def __init__(self, user_repository: UserRepository, stat_service: StatService):
         self.user_repository = user_repository
+        self.stat_service = stat_service

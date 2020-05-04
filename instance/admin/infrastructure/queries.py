@@ -10,7 +10,7 @@ class MySQLStatQuery:
 
     @staticmethod
     def create_stat_event_types():
-        return 'CREATE TABLE stat_event_types(name varchar(20) PRIMARY KEY)'
+        return 'CREATE TABLE stat_event_types(name varchar(20) PRIMARY KEY);'
 
     @staticmethod
     def create_stat_events():
@@ -21,7 +21,5 @@ class MySQLStatQuery:
                 'FOREIGN KEY (type_name) REFERENCES stat_event_types(name) ON DELETE CASCADE);')
 
     @staticmethod
-    def add_stat_event_types():
-        return ('INSERT INTO stat_event_types (name) VALUES (\'USER_REGISTER\');'
-                'INSERT INTO stat_event_types (name) VALUES (\'USER_LOGIN\');'
-                'INSERT INTO stat_event_types (name) VALUES (\'RECOMMENDATION_ADD\');')
+    def add_stat_event_types(event_type):
+        return f"INSERT INTO stat_event_types (name) VALUES ('{event_type}');"

@@ -33,6 +33,7 @@ class MySQLCreationService:
                 self.create_tables(cur)
                 self.create_functions(cur)
                 self.create_triggers(cur)
+                self.add_event_types(cur)
         finally:
             cur.close()
 
@@ -108,5 +109,12 @@ class MySQLCreationService:
 
     def create_triggers(self, cur):
         cur.execute(RecommendationQuery().create_validate_recommendation_note())
+
+        self.database.connect().commit()
+
+    def add_event_types(self, cur):
+        cur.execute(StatQuery().add_stat_event_types('USER_LOGIN'))
+        cur.execute(StatQuery().add_stat_event_types('USER_REGISTER'))
+        cur.execute(StatQuery().add_stat_event_types('RECOMMENDATION_ADD'))
 
         self.database.connect().commit()

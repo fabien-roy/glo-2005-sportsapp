@@ -40,7 +40,7 @@ class StatService:
 
         for event in events:
             for event_type in event_types:
-                if event.type == event_type:
+                if event.type_name == event_type:
                     stat_event_sums[event_type] += 1
 
         return stat_event_sums
