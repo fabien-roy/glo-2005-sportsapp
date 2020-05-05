@@ -18,7 +18,7 @@ all_fields_with_alias = (f'P.{PracticeCenters.id_col}'
                          f', P.{PracticeCenters.web_site_col}'
                          f', P.{PracticeCenters.phone_number_col}')
 
-select_all_simple_operation = f'SELECT {all_fields}, FROM {PracticeCenters.table_name}'
+select_all_simple_operation = f'SELECT {all_fields} FROM {PracticeCenters.table_name}'
 
 
 class MySQLPracticeCenterQuery(MySQLQuery):
