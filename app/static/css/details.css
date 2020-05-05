@@ -35,6 +35,11 @@
   margin-bottom: 1rem;
 }
 
+.list-pane .nothing {
+  color: #fff;
+  margin: 0.5rem 15px;
+}
+
 .list-pane .nav-tabs {
   background-color: #999;
   border-radius: 0.25rem;
