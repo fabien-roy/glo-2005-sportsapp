@@ -27,16 +27,17 @@ class MySQLPracticeCenterQuery(MySQLQuery):
     get_average_note = 'get_practice_center_average_note'
 
     from_tables = (f' FROM {PracticeCenters.table_name} P'
-                   f' JOIN {PracticeCenterClimates.table_name} C ON '
+                   f' LEFT JOIN {PracticeCenterClimates.table_name} C ON '
                    f' C.{PracticeCenterClimates.practice_center_id_col} = '
                    f' P.{PracticeCenters.id_col}')
 
-    select_all_operation = (f'SELECT {all_fields_with_alias},'
+    select_all_operation = (f'SELECT DISTINCT {all_fields_with_alias},'
                             f' {get_average_note}({PracticeCenters.id_col})'
                             f' AS {fake_average_note_col}'
                             f' {from_tables}')
 
-    select_count_operation = f'SELECT COUNT(*) AS {fake_count_col} {from_tables}'
+    select_count_operation = (f'SELECT COUNT(DISTINCT P.{PracticeCenters.id_col})'
+                              f' AS {fake_count_col} {from_tables}')
 
     def get_all(self, form=None, offset=None, per_page=None):
         filters, inner_filtering = Filter().build_filters(form)
@@ -52,7 +53,7 @@ class MySQLPracticeCenterQuery(MySQLQuery):
         return self.build_query(self.select_count_operation, filters, None, inner_filtering)
 
     def get(self, practice_center_id):
-        filters = [MySQLFilter.filter_equal(PracticeCenters.id_col, practice_center_id)]
+        filters = [MySQLFilter.filter_equal(f'P.{PracticeCenters.id_col}', practice_center_id)]
 
         return self.build_query(self.select_all_operation, filters)
 

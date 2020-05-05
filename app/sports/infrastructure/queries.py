@@ -17,15 +17,16 @@ class MySQLSportQuery(MySQLQuery):
     get_average_note = 'get_sport_average_note'
 
     from_tables = (f" FROM {Sports.table_name} S"
-                   f" JOIN {SportClimates.table_name} C ON C.{SportClimates.sport_id_col}"
+                   f" LEFT JOIN {SportClimates.table_name} C ON C.{SportClimates.sport_id_col}"
                    f" = S.{Sports.id_col}")
 
-    select_all_operation = (f'SELECT S.{Sports.id_col},'
+    select_all_operation = (f'SELECT DISTINCT S.{Sports.id_col},'
                             f' S.{Sports.name_col},'
                             f' {get_average_note}({Sports.id_col}) AS {fake_average_note_col}'
                             f' {from_tables} ')
 
-    select_count_operation = f'SELECT COUNT(*) AS {fake_count_col} {from_tables}'
+    select_count_operation = (f'SELECT COUNT(DISTINCT S.{Sports.id_col}) '
+                              f' AS {fake_count_col} {from_tables}')
 
     def get_all(self, form=None, offset=None, per_page=None):
         filters, inner_filtering = Filter().build_filters(form)
