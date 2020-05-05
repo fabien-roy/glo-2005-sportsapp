@@ -21,9 +21,22 @@ class MySQLSportRepository(SportRepository):
         self.equipment_type_repository = equipment_type_repository
         self.recommendations_repository = recommendation_repository
 
-    def get_all(self, form=None):
-        query = Query().get_all(form)
+    def get_all(self, form=None, offset=None, per_page=None):
+        query = Query().get_all(form, offset, per_page)
         return self.get_all_for_query(query, self.build_sport_with_note)
+
+    def get_count(self, form=None):
+        try:
+            with self.database.connect().cursor() as cur:
+                query = Query().get_count(form)
+                cur.execute(query)
+
+                for sport_cur in cur.fetchall():
+                    return sport_cur[Query.fake_count_col]
+        finally:
+            cur.close()
+
+        return 0
 
     def get_all_for_equipment_type(self, type_id):
         query = Query().get_all_for_equipment_type(type_id)

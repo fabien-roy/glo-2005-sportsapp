@@ -25,3 +25,7 @@
 
     {{ list(items) }}
 {% endblock %}
+
+{% block list_pane_pagination %}
+    {{ pagination.links }}
+{% endblock %}

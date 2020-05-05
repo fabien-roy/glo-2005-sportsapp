@@ -1,7 +1,7 @@
 from injector import inject
 
 from app.sports.repositories import SportRepository
-from instance.sports.fakes import sport1, sport2, sport3
+from instance.sports.fakes import sport1, sport2, sport3, sportN
 
 
 class SportPopulationService:
@@ -13,3 +13,6 @@ class SportPopulationService:
         self.sport_repository.add(sport1)
         self.sport_repository.add(sport2)
         self.sport_repository.add(sport3)
+        # TODO : Remove
+        for i in range(100):
+            self.sport_repository.add(sportN)

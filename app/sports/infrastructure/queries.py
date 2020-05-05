@@ -10,6 +10,7 @@ all_fields_to_add = Sports.name_col
 
 class MySQLSportQuery(MySQLQuery):
     fake_average_note_col = 'average_note'
+    fake_count_col = 'count'
     get_average_note = 'get_sport_average_note'
 
     select_all_operation = (f'SELECT {Sports.id_col},'
@@ -17,17 +18,25 @@ class MySQLSportQuery(MySQLQuery):
                             f'{get_average_note}({Sports.id_col}) AS {fake_average_note_col}'
                             f' FROM {Sports.table_name}')
 
+    select_count_operation = f'SELECT COUNT(*) AS {fake_count_col} FROM {Sports.table_name}'
+
     def get(self, sport_id):
         filters = [MySQLFilter.filter_equal(Sports.id_col, sport_id)]
 
         return self.build_query(self.select_all_operation, filters)
 
-    def get_all(self, form=None):
+    def get_all(self, form=None, offset=None, per_page=None):
         filters, inner_filtering = Filter().build_filters(form)
 
         orders = [self.fake_average_note_col]
 
-        return self.build_query(self.select_all_operation, filters, orders, inner_filtering, True)
+        return self.build_query(self.select_all_operation, filters, orders, inner_filtering, True,
+                                offset, per_page)
+
+    def get_count(self, form):
+        filters, inner_filtering = Filter().build_filters(form)
+
+        return self.build_query(self.select_count_operation, filters, None, inner_filtering)
 
     def get_all_for_equipment_type(self, type_id):
         operation = (f'SELECT S.{Sports.id_col}, S.{Sports.name_col} '

@@ -1,20 +1,26 @@
 {% extends "layout.html" %}
 
 {% block inner_content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/list.css') }}">
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/list.css') }}">
+    {% block jumbotron %}
+    {% endblock %}
 
-{% block jumbotron %}
-{% endblock %}
+    <div class="row">
+        <div class="col-md-6 col-sm-12 box-layout search-pane">
+            {% block search_pane %}
+            {% endblock %}
+        </div>
+        <div class="col-md-6 col-sm-12 box-layout list-pane">
+            {% block list_pane %}
+            {% endblock %}
+        </div>
+    </div>
 
-<div class="col-md-6 col-sm-12 box-layout search-pane">
-{% block search_pane %}
-{% endblock %}
-</div>
-
-<div class="col-md-6 col-sm-12 box-layout list-pane">
-{% block list_pane %}
-{% endblock %}
-</div>
-
+    <div class="row">
+        <div class="col-md-8 col-sm-12 pagination-wrapper">
+            {% block list_pane_pagination %}
+            {% endblock %}
+        </div>
+    </div>
 {% endblock %}
