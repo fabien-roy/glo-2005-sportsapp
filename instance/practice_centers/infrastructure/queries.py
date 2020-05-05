@@ -16,9 +16,7 @@ class MySQLPracticeCenterQuery:
 
     @staticmethod
     def create_btree_index():
-        return ('CREATE INDEX practice_center_index'
-                ' ON practice_centers(name, email, web_site, phone_number)'
-                ' USING BTREE;')
+        return 'CREATE INDEX practice_center_index ON practice_centers(name) USING BTREE;'
 
     @staticmethod
     def drop_get_practice_center_average_note():
