@@ -60,7 +60,7 @@
   border: 1px solid #343a40;
 }
 
-.list-pane .nav-link:hover {
+.list-pane .nav-link:not(.active):hover {
   background-color: #888;
   border-color: #888;
 }
