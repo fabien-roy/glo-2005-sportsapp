@@ -14,6 +14,10 @@ def manufacturers_csv():
     return absolute_path('csv/shops.csv')
 
 
+def equipment_types_csv():
+    return absolute_path('csv/equipment_types.csv')
+
+
 def absolute_path(file):
     return f'{pathlib.Path(__file__).parent.absolute()}/{file}'
 
