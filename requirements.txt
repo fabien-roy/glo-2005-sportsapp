@@ -39,9 +39,11 @@ pymysql==0.9.3
 # Test
 nose2==0.9.2
 
+# Web debugging
+Werkzeug==1.0.1
+
 # ? (TODO : Verify)
 Click==7.1.2
 itsdangerous==1.1.0
 MarkupSafe==1.1.1
 six==1.14.0
-Werkzeug==1.0.1

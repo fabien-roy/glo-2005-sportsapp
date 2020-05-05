@@ -10,6 +10,11 @@ all_fields_to_add = (f'{Equipments.manufacturer_id_col}'
                      f', {Equipments.name_col}'
                      f', {Equipments.description_col}')
 
+select_all_simple_operation = (f"SELECT {Equipments.id_col},"
+                               f" {Equipments.name_col},"
+                               f" {Equipments.description_col}"
+                               f" FROM {Equipments.table_name}")
+
 
 class MySQLEquipmentQuery(MySQLQuery):
     fake_count_col = 'count'
@@ -34,11 +39,6 @@ class MySQLEquipmentQuery(MySQLQuery):
 
     select_count_operation = f'SELECT COUNT(E.id) AS {fake_count_col} {from_tables}'
 
-    def get(self, equipment_id):
-        filters = [MySQLFilter.filter_equal(f'E.{Equipments.id_col}', equipment_id)]
-
-        return self.build_query(self.select_all_operation, filters)
-
     def get_all(self, form=None, offset=None, per_page=None):
         filters, inner_filtering = Filter().build_filters(form)
 
@@ -51,6 +51,16 @@ class MySQLEquipmentQuery(MySQLQuery):
         filters, inner_filtering = Filter().build_filters(form)
 
         return self.build_query(self.select_count_operation, filters, None, inner_filtering)
+
+    def get(self, equipment_id):
+        filters = [MySQLFilter.filter_equal(f'E.{Equipments.id_col}', equipment_id)]
+
+        return self.build_query(self.select_all_operation, filters)
+
+    def get_by_name(self, name):
+        filters = [MySQLFilter.filter_equal_string(f'{Equipments.name_col}', name)]
+
+        return self.build_query(select_all_simple_operation, filters)
 
     def add(self):
         operation = (f'INSERT INTO {Equipments.table_name}'

@@ -1,7 +1,8 @@
 from injector import inject
 
+from app.manufacturers.models import Manufacturer
 from app.manufacturers.repositories import ManufacturerRepository
-from instance.manufacturers.fakes import manufacturer1, manufacturer2, manufacturer3
+from instance.resources.helpers import read_elements, manufacturers_csv
 
 
 class ManufacturerPopulationService:
@@ -10,6 +11,12 @@ class ManufacturerPopulationService:
         self.manufacturer_repository = manufacturer_repository
 
     def db_populate(self):
-        self.manufacturer_repository.add(manufacturer1)
-        self.manufacturer_repository.add(manufacturer2)
-        self.manufacturer_repository.add(manufacturer3)
+        for manufacturer in self.read_manufacturers():
+            self.manufacturer_repository.add(manufacturer)
+
+    def read_manufacturers(self):
+        return read_elements(manufacturers_csv(), self.build_manufacturer)
+
+    @staticmethod
+    def build_manufacturer(row):
+        return Manufacturer(manufacturer_id=None, name=row[0])

@@ -17,5 +17,9 @@ class PracticeCenterRepository:
         """ abstract method """
 
     @abstractmethod
+    def get_by_name(self, name):
+        """ abstract method """
+
+    @abstractmethod
     def add(self, practice_center):
         """ abstract method """

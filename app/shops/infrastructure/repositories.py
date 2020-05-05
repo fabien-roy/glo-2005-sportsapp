@@ -45,8 +45,6 @@ class MySQLShopRepository(ShopRepository):
         return 0
 
     def get(self, shop_id):
-        shop = None
-
         try:
             with self.database.connect().cursor() as cur:
                 query = Query().get(shop_id)
@@ -54,14 +52,24 @@ class MySQLShopRepository(ShopRepository):
 
                 for shop_cur in cur.fetchall():
                     announces = self.announces_repository.get_all_for_shop(shop_id)
-                    shop = self.build_shop(shop_cur, announces)
+                    return self.build_shop(shop_cur, announces)
         finally:
             cur.close()
 
-        if shop is None:
-            raise ShopNotFoundException
+        raise ShopNotFoundException
 
-        return shop
+    def get_by_name(self, name):
+        try:
+            with self.database.connect().cursor() as cur:
+                query = Query().get_by_name(name)
+                cur.execute(query)
+
+                for shop_cur in cur.fetchall():
+                    return self.build_shop(shop_cur)
+        finally:
+            cur.close()
+
+        raise ShopNotFoundException
 
     @staticmethod
     def build_shop(cur, announces=None):

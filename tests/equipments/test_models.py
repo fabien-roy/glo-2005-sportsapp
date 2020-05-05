@@ -1,4 +1,4 @@
-from instance.equipments.fakes import equipment1, equipment2
+from tests.equipments.fakes import equipment1, equipment2
 from tests.interfaces.test_basic import BasicTests
 
 

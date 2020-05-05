@@ -3,8 +3,8 @@ import unittest
 from flask_injector import FlaskInjector
 
 from app import app
-from instance.users.fakes import user1
 from tests.bindings import configure_test_database, configure_mock_modules
+from tests.users.fakes import user1
 
 
 class BasicTests(unittest.TestCase):

@@ -1,9 +1,14 @@
 from app.shops.exceptions import ShopNotFoundException
-from instance.shops.fakes import shop1, shop2, shop3
+from app.shops.models import Shop
 
-shop1.id = 1
-shop2.id = 2
-shop3.id = 3
+shop1 = Shop(1, name='MEC Quebec City', phone_number='418 522-8884',
+             web_site='https://www.mec.ca/fr/stores/quebec?utm_medium=organic&utm'
+                      'source=google&utm_campaign=my-business-listings&utm_content=quebec')
+shop2 = Shop(2, name='Sportium', phone_number='418 627-0073',
+             web_site='https://www.sportium.ca/fr/nos-magasins/quebec')
+shop3 = Shop(3, name='Au Grand Bazar La Source Du Sport', phone_number='450 378-2022',
+             email='info@grandbazar.ca',
+             web_site='https://grandbazar.ca/fr/')
 
 
 def get_shop(shop_id):

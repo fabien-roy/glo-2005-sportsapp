@@ -16,4 +16,4 @@ class MySQLShopQuery:
 
     @staticmethod
     def create_btree_index():
-        return 'CREATE INDEX shop_index ON shops(name, email, web_site, phone_number) USING  BTREE;'
+        return 'CREATE INDEX shop_index ON shops(name, email, web_site, phone_number) USING BTREE;'

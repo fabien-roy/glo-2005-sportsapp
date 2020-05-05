@@ -1,7 +1,8 @@
 from injector import inject
 
+from app.shops.models import Shop
 from app.shops.repositories import ShopRepository
-from instance.shops.fakes import shop1, shop2, shop3
+from instance.resources.helpers import read_elements, shops_csv
 
 
 class ShopPopulationService:
@@ -10,6 +11,12 @@ class ShopPopulationService:
         self.shop_repository = shop_repository
 
     def db_populate(self):
-        self.shop_repository.add(shop1)
-        self.shop_repository.add(shop2)
-        self.shop_repository.add(shop3)
+        for shop in self.read_shops():
+            self.shop_repository.add(shop)
+
+    def read_shops(self):
+        return read_elements(shops_csv(), self.build_shop)
+
+    @staticmethod
+    def build_shop(row):
+        return Shop(shop_id=None, name=row[0], email=row[1], web_site=row[2], phone_number=row[3])

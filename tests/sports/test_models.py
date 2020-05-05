@@ -1,4 +1,4 @@
-from instance.sports.fakes import sport1, sport2
+from tests.sports.fakes import sport1, sport2
 from tests.interfaces.test_basic import BasicTests
 
 

@@ -1,5 +1,5 @@
-from instance.climates.fakes import climate1, climate2, climate3
+from app.climates.models import Climate
 
-climate1.name = 'tundra'
-climate2.name = 'savane'
-climate3.name = 'aride'
+climate1 = Climate('Tundra')
+climate2 = Climate('Savane')
+climate3 = Climate('Aride')

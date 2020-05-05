@@ -1,13 +1,15 @@
 from app.sports.exceptions import SportNotFoundException
 from app.sports.models import Sport
+from tests.climates.fakes import climate1, climate2, climate3
 from tests.equipment_types.fakes import type1, type2, type3
-from instance.sports.fakes import sport1, sport2, sport3
 
-sport1.id = 1
+sport1 = Sport(1, name='Randonnee', climates=[climate1, climate2],
+               required_equipment_types=[type1, type3])
+sport2 = Sport(2, name='Escalade', climates=[climate2, climate3])
+sport3 = Sport(3, name='Natation', climates=[climate3], required_equipment_types=[type1, type2])
+
 sport1.average_note = 5.00
-sport2.id = 2
 sport2.average_note = 1.50
-sport3.id = 3
 sport3.average_note = 5.00
 
 sport1_no_climates = Sport(sport_id=1, name='Randonnee', climates=[])

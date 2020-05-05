@@ -27,6 +27,17 @@ class MySQLEquipmentTypeRepository(EquipmentTypeRepository):
 
         return equipment_types
 
+    def get_by_name(self, name):
+        try:
+            with self.database.connect().cursor() as cur:
+                query = Query().get_by_name(name)
+                cur.execute(query)
+
+                for type_cur in cur.fetchall():
+                    return self.build_equipment_type(type_cur)
+        finally:
+            cur.close()
+
     @staticmethod
     def build_equipment_type(cur):
         return EquipmentType(cur[EquipmentTypes.id_col], cur[EquipmentTypes.name_col])
@@ -40,7 +51,6 @@ class MySQLEquipmentTypeRepository(EquipmentTypeRepository):
                 self.database.connect().commit()
 
                 equipment_type.id = cur.lastrowid
-
         finally:
             cur.close()
 

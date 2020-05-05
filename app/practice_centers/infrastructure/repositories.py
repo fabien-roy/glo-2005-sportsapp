@@ -27,7 +27,7 @@ class MySQLPracticeCenterRepository(PracticeCenterRepository):
                 cur.execute(query)
 
                 for practice_center_cur in cur.fetchall():
-                    practice_center = self.build_practice_center(practice_center_cur)
+                    practice_center = self.build_practice_center_with_note(practice_center_cur)
                     all_practice_centers.append(practice_center)
         finally:
             cur.close()
@@ -48,8 +48,6 @@ class MySQLPracticeCenterRepository(PracticeCenterRepository):
         return 0
 
     def get(self, practice_center_id):
-        practice_center = None
-
         try:
             with self.database.connect().cursor() as cur:
                 query = Query().get(practice_center_id)
@@ -60,18 +58,15 @@ class MySQLPracticeCenterRepository(PracticeCenterRepository):
                         .get_all_for_practice_center(practice_center_id)
                     recommendations = self.recommendation_repository\
                         .get_all_for_practice_center(practice_center_id)
-                    practice_center = self.build_practice_center(practice_center_cur, climates,
-                                                                 recommendations)
+                    return self.build_practice_center_with_note(practice_center_cur, climates,
+                                                                recommendations)
         finally:
             cur.close()
 
-        if practice_center is None:
-            raise PracticeCenterNotFoundException
-
-        return practice_center
+        raise PracticeCenterNotFoundException
 
     @staticmethod
-    def build_practice_center(cur, climates=None, recommendations=None):
+    def build_practice_center_with_note(cur, climates=None, recommendations=None):
         return PracticeCenter(cur[PracticeCenters.id_col],
                               cur[PracticeCenters.name_col],
                               cur[PracticeCenters.email_col],
@@ -80,6 +75,27 @@ class MySQLPracticeCenterRepository(PracticeCenterRepository):
                               climates,
                               recommendations,
                               cur[Query.fake_average_note_col])
+
+    def get_by_name(self, name):
+        try:
+            with self.database.connect().cursor() as cur:
+                query = Query().get_by_name(name)
+                cur.execute(query)
+
+                for practice_center_cur in cur.fetchall():
+                    return self.build_practice_center(practice_center_cur)
+        finally:
+            cur.close()
+
+        raise PracticeCenterNotFoundException
+
+    @staticmethod
+    def build_practice_center(cur):
+        return PracticeCenter(cur[PracticeCenters.id_col],
+                              cur[PracticeCenters.name_col],
+                              cur[PracticeCenters.email_col],
+                              cur[PracticeCenters.web_site_col],
+                              cur[PracticeCenters.phone_number_col])
 
     def add(self, practice_center):
         try:

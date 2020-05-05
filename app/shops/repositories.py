@@ -17,5 +17,9 @@ class ShopRepository:
         """ abstract method """
 
     @abstractmethod
+    def get_by_name(self, name):
+        """ abstract method """
+
+    @abstractmethod
     def add(self, shop):
         """ abstract method """

@@ -18,11 +18,6 @@ class MySQLShopQuery(MySQLQuery):
 
     select_count_operation = f'SELECT COUNT(*) AS {fake_count_col} FROM {Shops.table_name}'
 
-    def get(self, shop_id):
-        filters = [MySQLFilter.filter_equal(Shops.id_col, shop_id)]
-
-        return self.build_query(select_all_operation, filters)
-
     def get_all(self, form=None, offset=None, per_page=None):
         filters, inner_filtering = Filter().build_filters(form)
 
@@ -35,6 +30,16 @@ class MySQLShopQuery(MySQLQuery):
         filters, inner_filtering = Filter().build_filters(form)
 
         return self.build_query(self.select_count_operation, filters, None, inner_filtering)
+
+    def get(self, shop_id):
+        filters = [MySQLFilter.filter_equal(Shops.id_col, shop_id)]
+
+        return self.build_query(select_all_operation, filters)
+
+    def get_by_name(self, name):
+        filters = [MySQLFilter.filter_equal_string(Shops.name_col, name)]
+
+        return self.build_query(select_all_operation, filters)
 
     def add(self):
         operation = (f'INSERT INTO {Shops.table_name}'
