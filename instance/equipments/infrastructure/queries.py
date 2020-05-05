@@ -15,3 +15,7 @@ class MySQLEquipmentQuery:
                 'FOREIGN KEY (manufacturer_id) REFERENCES manufacturers(id) ON DELETE CASCADE,'
                 'FOREIGN KEY (type_id) REFERENCES equipment_types(id) ON DELETE CASCADE'
                 ');')
+
+    @staticmethod
+    def create_btree_index():
+        return 'CREATE INDEX equipment_index ON equipments(name) USING BTREE;'

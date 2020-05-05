@@ -24,3 +24,7 @@ class MySQLEquipmentTypeQuery:
                 'id int NOT NULL AUTO_INCREMENT PRIMARY KEY,'
                 'name varchar(100)'
                 ');')
+
+    @staticmethod
+    def create_btree_index():
+        return 'CREATE INDEX equipment_type_index ON equipment_types(name) USING BTREE;'

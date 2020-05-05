@@ -31,6 +31,7 @@ class MySQLCreationService:
                 self.drop_tables(cur)
                 self.drop_functions(cur)
                 self.create_tables(cur)
+                self.create_indexes(cur)
                 self.create_functions(cur)
                 self.create_triggers(cur)
                 self.add_event_types(cur)
@@ -98,6 +99,17 @@ class MySQLCreationService:
         cur.execute(EquipmentTypeQuery().create_sport_equipment_types())
         cur.execute(EquipmentQuery().create_equipments())
         cur.execute(AnnounceQuery().create_announces())
+
+        self.database.connect().commit()
+
+    def create_indexes(self, cur):
+        cur.execute(UserQuery().create_btree_index())
+        cur.execute(SportQuery().create_btree_index())
+        cur.execute(PracticeCenterQuery().create_btree_index())
+        cur.execute(ShopQuery().create_btree_index())
+        cur.execute(EquipmentTypeQuery().create_btree_index())
+        cur.execute(ManufacturerQuery().create_btree_index())
+        cur.execute(EquipmentQuery().create_btree_index())
 
         self.database.connect().commit()
 
