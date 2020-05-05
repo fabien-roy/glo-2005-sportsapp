@@ -1,4 +1,4 @@
-from instance.climates.fakes import climate1, climate2
+from tests.climates.fakes import climate1, climate2
 from tests.interfaces.test_basic import BasicTests
 
 

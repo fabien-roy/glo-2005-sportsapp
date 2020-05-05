@@ -1,42 +1,32 @@
-from instance.recommendations.fakes import sport1_recommendation1_user1, \
-    sport2_recommendation1_user3, sport2_recommendation2_user2, sport3_recommendation1_user1, \
-    center1_recommendation1_user1, center2_recommendation1_user1, center2_recommendation2_user2, \
-    center3_recommendation1_user3, center3_recommendation2_user1
+from app.recommendations.models import Recommendation
 
 from tests.practice_centers.fakes import center1, center2, center3, get_practice_center
 from tests.sports.fakes import sport1, sport2, sport3, get_sport
 from tests.users.fakes import user1, user3, user2, get_user
 
-sport1_recommendation1_user1.id = 1
-sport1_recommendation1_user1.item_id = sport1.id
+sport1_recommendation1_user1 = Recommendation(1, sport1.id, user1.username,
+                                              'Un super sport. J\' adore.', 5, sport1.name)
+sport2_recommendation1_user3 = Recommendation(2, sport2.id, user3.username,
+                                              'Cool.', 3, sport2.name)
+sport2_recommendation2_user2 = Recommendation(3, sport2.id, user2.username,
+                                              'Pourri.', 0, sport2.name)
+sport3_recommendation1_user1 = Recommendation(4, sport3.id, user1.username,
+                                              ':D', 5, sport3.name)
 
-sport2_recommendation1_user3.id = 2
-sport2_recommendation1_user3.item_id = sport2.id
-
-sport2_recommendation2_user2.id = 3
-sport2_recommendation2_user2.item_id = sport2.id
-
-sport3_recommendation1_user1.id = 4
-sport3_recommendation1_user1.item_id = sport3.id
+center1_recommendation1_user1 = Recommendation(5, center1.id, user1.username,
+                                               'Un super centre. J\' adore.', 5, center1.name)
+center2_recommendation1_user1 = Recommendation(6, center2.id, user1.username,
+                                               'Cool.', 3, center2.name)
+center2_recommendation2_user2 = Recommendation(7, center2.id, user2.username,
+                                               'Pourri, mais bon, 2 étoiles.', 2, center2.name)
+center3_recommendation1_user3 = Recommendation(8, center3.id,
+                                               user3.username, ':D', 0, center3.name)
+center3_recommendation2_user1 = Recommendation(9, center3.id,
+                                               user1.username, 'Noice.', 4, center3.name)
 
 sport1.recommendations = [sport1_recommendation1_user1]
 sport2.recommendations = [sport2_recommendation1_user3, sport2_recommendation2_user2]
 sport3.recommendations = [sport3_recommendation1_user1]
-
-center1_recommendation1_user1.id = 1
-center1_recommendation1_user1.item_id = center1.id
-
-center2_recommendation1_user1.id = 2
-center2_recommendation1_user1.item_id = center2.id
-
-center2_recommendation2_user2.id = 3
-center2_recommendation2_user2.item_id = center2.id
-
-center3_recommendation1_user3.id = 4
-center3_recommendation1_user3.item_id = center3.id
-
-center3_recommendation2_user1.id = 5
-center3_recommendation2_user1.item_id = center3.id
 
 center1.recommendations = [center1_recommendation1_user1]
 center2.recommendations = [center2_recommendation1_user1, center2_recommendation2_user2]

@@ -1,5 +1,5 @@
-from instance.equipment_types.fakes import type1, type2, type3
+from app.equipment_types.models import EquipmentType
 
-type1.id = 1
-type2.id = 2
-type3.id = 3
+type1 = EquipmentType(1, name='Hiking')
+type2 = EquipmentType(2, name='Running')
+type3 = EquipmentType(3, name='Recovery')

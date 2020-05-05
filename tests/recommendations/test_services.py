@@ -1,13 +1,13 @@
 from app.recommendations.services import RecommendationService
-from instance.practice_centers.fakes import center1
 from instance.recommendations.services import RecommendationPopulationService
-from instance.sports.fakes import sport1
-from instance.users.fakes import user1
+from tests.practice_centers.fakes import center1
 from tests.practice_centers.mocks import practice_center_repository
 from tests.recommendations.forms import FakeAddRecommendationForm
 from tests.recommendations.mocks import recommendation_repository
 from tests.interfaces.test_basic import BasicTests
+from tests.sports.fakes import sport1
 from tests.sports.mocks import sport_repository
+from tests.users.fakes import user1
 
 
 class RecommendationServiceTests(BasicTests):

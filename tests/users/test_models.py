@@ -1,5 +1,5 @@
 from app.users.models import User
-from instance.users.fakes import user1, user2
+from tests.users.fakes import user1, user2
 from tests.interfaces.test_basic import BasicTests
 
 

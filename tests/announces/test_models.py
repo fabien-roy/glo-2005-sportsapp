@@ -1,4 +1,4 @@
-from instance.announces.fakes import shop1_equipment1_announce1, shop1_equipment2_announce1
+from tests.announces.fakes import shop1_equipment1_announce1, shop1_equipment2_announce1
 from tests.interfaces.test_basic import BasicTests
 
 

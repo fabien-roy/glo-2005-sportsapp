@@ -1,5 +1,5 @@
-from instance.manufacturers.fakes import manufacturer1, manufacturer2, manufacturer3
+from app.manufacturers.models import Manufacturer
 
-manufacturer1.id = 1
-manufacturer2.id = 2
-manufacturer3.id = 3
+manufacturer1 = Manufacturer(1, name='Papa John')
+manufacturer2 = Manufacturer(2, name='Master Chief')
+manufacturer3 = Manufacturer(3, name='GLO Official')

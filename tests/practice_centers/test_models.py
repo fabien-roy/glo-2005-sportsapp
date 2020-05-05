@@ -1,4 +1,4 @@
-from instance.practice_centers.fakes import center1, center2
+from tests.practice_centers.fakes import center1, center2
 from tests.interfaces.test_basic import BasicTests
 
 

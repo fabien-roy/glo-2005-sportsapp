@@ -1,5 +1,4 @@
-from instance.recommendations.fakes import sport1_recommendation1_user1, \
-    sport2_recommendation1_user3
+from tests.recommendations.fakes import sport1_recommendation1_user1, sport2_recommendation1_user3
 from tests.interfaces.test_basic import BasicTests
 
 

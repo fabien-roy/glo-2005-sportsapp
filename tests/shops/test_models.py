@@ -1,4 +1,4 @@
-from instance.shops.fakes import shop1, shop2
+from tests.shops.fakes import shop1, shop2
 from tests.interfaces.test_basic import BasicTests
 
 
