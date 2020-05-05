@@ -1,4 +1,4 @@
-from tests.admin.fakes import get_events, get_nonnull_stat_event_sums, get_null_stat_event_sums
+from tests.admin.fakes import events, nonnull_stat_event_sums, null_stat_event_sums
 from tests.admin.mocks import stat_event_repository, stat_service
 from tests.equipments.fakes import get_equipment, get_equipments_filtered, no_equipment
 from tests.equipments.mocks import equipment_repository
@@ -104,13 +104,13 @@ class ViewTests(BasicTests):
 
     @staticmethod
     def add_events():
-        stat_event_repository.get_all.side_effect = get_events
-        stat_service.get_all_stat_event_sums.side_effect = get_nonnull_stat_event_sums
+        stat_event_repository.get_all.return_value = events
+        stat_service.get_all_stat_event_sums.return_value = nonnull_stat_event_sums
 
     @staticmethod
     def remove_events():
-        stat_event_repository.get_all.side_effect = []
-        stat_service.get_all_stat_event_sums.side_effect = get_null_stat_event_sums
+        stat_event_repository.get_all.return_value = []
+        stat_service.get_all_stat_event_sums.return_value = null_stat_event_sums
 
     def assert_page_is_found(self, response):
         self.assertEqual(response.status_code, 200)
