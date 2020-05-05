@@ -12,6 +12,7 @@
   background-color: #fff;
   padding: 0;
   border-radius: 0.25rem;
+  height: 100%;
 }
 
 .search-pane .nav-tabs {

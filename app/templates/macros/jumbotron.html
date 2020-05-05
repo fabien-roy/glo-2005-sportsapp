@@ -1,5 +1,5 @@
 {% macro jumbotron(title, type) -%}
-<div class="jumbotron jumbotron-{{type}}" style="background-image: url({{ url_for('resources', filename='images/' + type + '.jpg') }})">
+<div class="jumbotron jumbotron-{{type}}" style="background-image: url({{ url_for('static', filename='images/' + type + '.jpg') }})">
     <h1>{{title}}</h1>
 </div>
 {%- endmacro %}
