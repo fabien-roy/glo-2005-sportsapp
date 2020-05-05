@@ -6,7 +6,7 @@
 {%- endmacro %}
 
 {% macro reset() -%}
-    <button type="reset" class="btn btn-block btn-danger">Clear</button>
+    <button type="button" onclick="clearForm(form)" class="btn btn-block btn-danger">Clear</button>
 {%- endmacro %}
 
 {% macro submit() -%}

@@ -22,4 +22,10 @@
             {{ pagination.links }}
         </div>
     </div>
+
+    <script type="text/javascript">
+        const clearForm = form => {
+            for (let element of form.elements) element.value = ''
+        }
+    </script>
 {% endblock %}
