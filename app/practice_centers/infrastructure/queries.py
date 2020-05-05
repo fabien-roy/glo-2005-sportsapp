@@ -12,6 +12,7 @@ all_fields = f'{PracticeCenters.id_col}, {all_fields_to_add}'
 
 
 class MySQLPracticeCenterQuery(MySQLQuery):
+    fake_count_col = 'count'
     fake_average_note_col = 'average_note'
     get_average_note = 'get_practice_center_average_note'
 
@@ -21,17 +22,26 @@ class MySQLPracticeCenterQuery(MySQLQuery):
                             f' AS {fake_average_note_col}'
                             f' FROM {PracticeCenters.table_name}')
 
+    select_count_operation = (f'SELECT COUNT(*) AS {fake_count_col} '
+                              f'FROM {PracticeCenters.table_name}')
+
     def get(self, practice_center_id):
         filters = [MySQLFilter.filter_equal(PracticeCenters.id_col, practice_center_id)]
 
         return self.build_query(self.select_all_operation, filters)
 
-    def get_all(self, form=None):
+    def get_all(self, form=None, offset=None, per_page=None):
         filters, inner_filtering = Filter().build_filters(form)
 
         orders = [self.fake_average_note_col]
 
-        return self.build_query(self.select_all_operation, filters, orders, inner_filtering, True)
+        return self.build_query(self.select_all_operation, filters, orders, inner_filtering, True,
+                                offset, per_page)
+
+    def get_count(self, form):
+        filters, inner_filtering = Filter().build_filters(form)
+
+        return self.build_query(self.select_count_operation, filters, None, inner_filtering)
 
     def add(self):
         operation = (f'INSERT INTO {PracticeCenters.table_name}'

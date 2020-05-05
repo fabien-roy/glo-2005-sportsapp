@@ -17,11 +17,11 @@ sport_blueprint = Blueprint('sports', __name__)
 @sport_blueprint.route('/sports', methods=('GET', 'POST'))
 def sports(sport_repository: SportRepository):
     form = SportSearchForm(request.form)
-    requested_form = form if request.method == 'POST' and form.validate_on_submit() else None
+    request_form = form if request.method == 'POST' and form.validate_on_submit() else None
 
     page, per_page, offset = get_page_args()
-    total = sport_repository.get_count(requested_form)
-    paged_sports = sport_repository.get_all(requested_form, offset, per_page)
+    total = sport_repository.get_count(request_form)
+    paged_sports = sport_repository.get_all(request_form, offset, per_page)
 
     pagination = Pagination(page=page, per_page=per_page, total=total, record_name='sports',
                             format_total=True, format_number=True)

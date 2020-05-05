@@ -1,7 +1,7 @@
 from injector import inject
 
 from app.practice_centers.repositories import PracticeCenterRepository
-from instance.practice_centers.fakes import center1, center2, center3
+from instance.practice_centers.fakes import center1, center2, center3, centerN
 
 
 class PracticeCenterPopulationService:
@@ -13,3 +13,6 @@ class PracticeCenterPopulationService:
         self.practice_center_repository.add(center1)
         self.practice_center_repository.add(center2)
         self.practice_center_repository.add(center3)
+        # TODO : Remove
+        for i in range(100):
+            self.practice_center_repository.add(centerN)

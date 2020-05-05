@@ -18,12 +18,12 @@ class MySQLPracticeCenterRepository(PracticeCenterRepository):
         self.climates_repository = climate_repository
         self.recommendation_repository = recommendation_repository
 
-    def get_all(self, form=None):
+    def get_all(self, form=None, offset=None, per_page=None):
         all_practice_centers = []
 
         try:
             with self.database.connect().cursor() as cur:
-                query = Query().get_all(form)
+                query = Query().get_all(form, offset, per_page)
                 cur.execute(query)
 
                 for practice_center_cur in cur.fetchall():
@@ -33,6 +33,19 @@ class MySQLPracticeCenterRepository(PracticeCenterRepository):
             cur.close()
 
         return all_practice_centers
+
+    def get_count(self, form=None):
+        try:
+            with self.database.connect().cursor() as cur:
+                query = Query().get_count(form)
+                cur.execute(query)
+
+                for practice_center_cur in cur.fetchall():
+                    return practice_center_cur[Query.fake_count_col]
+        finally:
+            cur.close()
+
+        return 0
 
     def get(self, practice_center_id):
         practice_center = None
