@@ -106,6 +106,8 @@ class MySQLCreationService:
         cur.execute(UserQuery().create_btree_index())
         cur.execute(SportQuery().create_btree_index())
         cur.execute(PracticeCenterQuery().create_btree_index())
+        cur.execute(ClimateQuery().create_btree_index_for_sports())
+        cur.execute(ClimateQuery().create_btree_index_for_practice_centers())
         cur.execute(ShopQuery().create_btree_index())
         cur.execute(EquipmentTypeQuery().create_btree_index())
         cur.execute(ManufacturerQuery().create_btree_index())
