@@ -13,3 +13,7 @@ class MySQLShopQuery:
                 'web_site varchar(200) NULL,'
                 'phone_number varchar(20) NULL'
                 ');')
+
+    @staticmethod
+    def create_btree_index():
+        return 'CREATE INDEX shop_index ON shops(name, email, web_site, phone_number) USING  BTREE;'

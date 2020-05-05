@@ -12,6 +12,10 @@ class MySQLSportQuery:
                 ');')
 
     @staticmethod
+    def create_btree_index():
+        return 'CREATE INDEX sport_index ON sports(name) USING BTREE;'
+
+    @staticmethod
     def drop_get_sport_average_note():
         return 'DROP FUNCTION IF EXISTS get_sport_average_note'
 

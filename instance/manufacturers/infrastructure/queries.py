@@ -10,3 +10,7 @@ class MySQLManufacturerQuery:
                 'id int NOT NULL AUTO_INCREMENT PRIMARY KEY,'
                 'name varchar(100)'
                 ');')
+
+    @staticmethod
+    def create_btree_index():
+        return 'CREATE INDEX manufacturer_index ON manufacturers(name) USING BTREE;'
