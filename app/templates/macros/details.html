@@ -14,7 +14,7 @@
 
 {% macro link_or_unspecified(value) -%}
     {% if value != None %}
-        <a href="value">{{ value }}</a>
+        <a href="{{ value }}" target="_blank">{{ value }}</a>
     {% else %}
         Unspecified
     {% endif %}
