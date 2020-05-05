@@ -1,6 +1,7 @@
 class MySQLQuery:
     @staticmethod
-    def build_query(operation, filters=None, orders=None, inner_filtering=True, desc=False):
+    def build_query(operation, filters=None, orders=None, inner_filtering=True, desc=False,
+                    offset=None, per_page=None):
         query = operation
 
         if filters is not None and len(filters) > 0:
@@ -17,5 +18,11 @@ class MySQLQuery:
 
             for order in orders:
                 query += order + desc + ' '
+
+        if offset is not None:
+            query = f'{query} LIMIT {offset}'
+
+            if per_page is not None:
+                query = f'{query}, {per_page}'
 
         return f'{query};'

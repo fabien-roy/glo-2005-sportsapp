@@ -4,6 +4,10 @@
   background-size: cover;
 }
 
+.box-layout {
+  margin-bottom: 1rem;
+}
+
 .search-pane {
   background-color: #fff;
   padding: 0;
@@ -22,6 +26,10 @@
 
 .search-pane form input {
   margin-bottom: 1.5rem;
+}
+
+.search-pane li:hover a {
+  background-color: #bebebe;
 }
 
 .search-pane a {
@@ -43,14 +51,21 @@
   border-color: #5b5b5b;
 }
 
-.search-pane li:hover a {
-  background-color: #bebebe;
-}
-
 .list-pane a .item-text .item-note {
   color: #aaa;
   font-size: 0.75rem;
   vertical-align: middle;
+}
+
+.pagination-wrapper {
+  margin: auto;
+}
+
+.pagination > ul {
+  list-style: none;
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
 }
 
 @media only screen and (max-width: 767px) {

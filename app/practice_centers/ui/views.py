@@ -2,6 +2,7 @@ from abc import abstractmethod, ABCMeta
 
 from flask import render_template, request, Blueprint, url_for, redirect, flash, session
 from flask.views import View
+from flask_paginate import get_page_args, Pagination
 from injector import inject
 
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
@@ -16,14 +17,16 @@ practice_center_blueprint = Blueprint('practice_centers', __name__)
 @practice_center_blueprint.route('/practice-centers', methods=('GET', 'POST'))
 def practice_centers(practice_center_repository: PracticeCenterRepository):
     form = PracticeCenterSearchForm(request.form)
+    request_form = form if request.method == 'POST' and form.validate_on_submit() else None
 
-    if request.method == 'POST' and form.validate_on_submit():
-        all_practice_centers = practice_center_repository.get_all(form)
-    else:
-        all_practice_centers = practice_center_repository.get_all(None)
+    page, per_page, offset = get_page_args()
+    total = practice_center_repository.get_count(request_form)
+    paged_practice_centers = practice_center_repository.get_all(request_form, offset, per_page)
 
-    return render_template('practice_centers.html', practice_centers=all_practice_centers,
-                           form=form)
+    pagination = Pagination(page=page, per_page=per_page, total=total,
+                            record_name='practice centers', format_total=True, format_number=True)
+    return render_template('practice_centers.html', practice_centers=paged_practice_centers,
+                           page=page, per_page=per_page, pagination=pagination, form=form)
 
 
 @practice_center_blueprint.route('/practice-centers/<practice_center_id>', methods=('GET', 'POST'))

@@ -2,6 +2,7 @@ from abc import abstractmethod, ABCMeta
 
 from flask import render_template, request, Blueprint, session, flash, redirect, url_for
 from flask.views import View
+from flask_paginate import Pagination, get_page_args
 from injector import inject
 
 from app.recommendations.forms import AddRecommendationForm
@@ -16,13 +17,16 @@ sport_blueprint = Blueprint('sports', __name__)
 @sport_blueprint.route('/sports', methods=('GET', 'POST'))
 def sports(sport_repository: SportRepository):
     form = SportSearchForm(request.form)
+    request_form = form if request.method == 'POST' and form.validate_on_submit() else None
 
-    if request.method == 'POST' and form.validate_on_submit():
-        all_sports = sport_repository.get_all(form)
-    else:
-        all_sports = sport_repository.get_all(None)
+    page, per_page, offset = get_page_args()
+    total = sport_repository.get_count(request_form)
+    paged_sports = sport_repository.get_all(request_form, offset, per_page)
 
-    return render_template('sports.html', sports=all_sports, form=form)
+    pagination = Pagination(page=page, per_page=per_page, total=total, record_name='sports',
+                            format_total=True, format_number=True)
+    return render_template('sports.html', sports=paged_sports, page=page, per_page=per_page,
+                           pagination=pagination, form=form)
 
 
 @sport_blueprint.route('/sports/<sport_id>', methods=('GET', 'POST'))

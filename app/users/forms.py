@@ -4,7 +4,7 @@ from wtforms.validators import Length
 from app.search.forms import GeneralSearchForm
 
 
-class UsersSearchForm(GeneralSearchForm):
+class UserSearchForm(GeneralSearchForm):
     username = StringField('Username', validators=[Length(max=50)])
     email = StringField('Email', validators=[Length(max=100)])
     first_name = StringField('First name', validators=[Length(max=50)])

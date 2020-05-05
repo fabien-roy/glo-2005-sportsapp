@@ -5,7 +5,11 @@ class UserRepository:
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def get_all(self, form):
+    def get_all(self, form, offset, per_page):
+        """ abstract method """
+
+    @abstractmethod
+    def get_count(self, form):
         """ abstract method """
 
     @abstractmethod

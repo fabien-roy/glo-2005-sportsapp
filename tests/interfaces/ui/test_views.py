@@ -54,53 +54,71 @@ class ViewTests(BasicTests):
     @staticmethod
     def add_sports():
         sport_repository.get.side_effect = get_sport
-        sport_repository.get_all.side_effect = get_sports_filtered
+        sport_repository.get_count.side_effect = lambda form: len(get_sports_filtered(form))
+        sport_repository.get_all.side_effect = lambda form, offset, per_page: \
+            get_sports_filtered(form)
 
     @staticmethod
     def remove_sports():
         sport_repository.get.side_effect = lambda sport_id: no_sport()
-        sport_repository.get_all.side_effect = lambda form: []
+        sport_repository.get_count.side_effect = lambda form: 0
+        sport_repository.get_all.side_effect = lambda form, offset, per_page: []
 
     @staticmethod
     def add_practice_centers():
         practice_center_repository.get.side_effect = get_practice_center
-        practice_center_repository.get_all.side_effect = get_practice_centers_filtered
+        practice_center_repository.get_count.side_effect = lambda form: \
+            len(get_practice_centers_filtered(form))
+        practice_center_repository.get_all.side_effect = lambda form, offset, per_page: \
+            get_practice_centers_filtered(form)
 
     @staticmethod
     def remove_practice_centers():
         practice_center_repository.get.side_effect = \
             lambda practice_center_id: no_practice_center()
-        practice_center_repository.get_all.side_effect = lambda form: []
+        practice_center_repository.get_count.side_effect = lambda form: 0
+        practice_center_repository.get_all.side_effect = lambda form, offset, per_page: []
 
     @staticmethod
     def add_users():
         user_repository.get.side_effect = get_user
-        user_repository.get_all.side_effect = get_users_filtered
+        user_repository.get_count.side_effect = lambda form: len(get_users_filtered(form))
+        user_repository.get_all.side_effect = lambda form, offset, per_page: \
+            get_users_filtered(form)
 
     @staticmethod
     def remove_users():
         user_repository.get.side_effect = lambda username: no_user()
-        user_repository.get_all.side_effect = lambda form: []
+        user_repository.get_count.side_effect = lambda form: 0
+        user_repository.get_all.side_effect = lambda form, offset, per_page: []
 
     @staticmethod
     def add_shops():
         shop_repository.get.side_effect = get_shop
-        shop_repository.get_all.side_effect = get_shops_filtered
+        shop_repository.get_count.side_effect = lambda form: \
+            len(get_shops_filtered(form))
+        shop_repository.get_all.side_effect = lambda form, offset, per_page: \
+            get_shops_filtered(form)
 
     @staticmethod
     def remove_shops():
         shop_repository.get.side_effect = lambda shop_id: no_shop()
-        shop_repository.get_all.side_effect = lambda form: []
+        shop_repository.get_count.side_effect = lambda form: 0
+        shop_repository.get_all.side_effect = lambda form, offset, per_page: []
 
     @staticmethod
     def add_equipments():
         equipment_repository.get.side_effect = get_equipment
-        equipment_repository.get_all.side_effect = get_equipments_filtered
+        equipment_repository.get_count.side_effect = lambda form: \
+            len(get_equipments_filtered(form))
+        equipment_repository.get_all.side_effect = lambda form, offset, per_page: \
+            get_equipments_filtered(form)
 
     @staticmethod
     def remove_equipments():
         equipment_repository.get.side_effect = lambda equipment_id: no_equipment()
-        equipment_repository.get_all.side_effect = lambda form: []
+        equipment_repository.get_count.side_effect = lambda form: 0
+        equipment_repository.get_all.side_effect = lambda form, offset, per_page: []
 
     @staticmethod
     def add_events():

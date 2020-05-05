@@ -16,6 +16,7 @@
 .details-pane form .btn-search-link {
   color: #fff;
   background-color: #343a40;
+  margin-bottom: 0.5rem;
 }
 
 .details-pane a.btn-search-link:hover,
@@ -32,6 +33,11 @@
   padding: 0;
   border-radius: 0.25rem;
   margin-bottom: 1rem;
+}
+
+.list-pane .nothing {
+  color: #fff;
+  margin: 0.5rem 15px;
 }
 
 .list-pane .nav-tabs {

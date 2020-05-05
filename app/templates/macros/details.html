@@ -34,7 +34,7 @@
     {% if values != None and values|length > 0 %}
         {% for value in values %}
             <a role="button" href="{{ url_for(details_route, sport_id=value.id) }}"
-               class="btn btn-search-link">{{ value.name }}</a>
+               class="btn btn-sm btn-search-link">{{ value.name }}</a>
         {% endfor %}
     {% else %}
         None
@@ -45,7 +45,7 @@
     {% if values != None and values|length > 0 %}
         {% for value in values %}
             <button name="equipment_type" type="submit" value="{{ value.name }}"
-                    class="btn btn-search-link">{{ value.name }}</button>
+                    class="btn btn-sm btn-search-link">{{ value.name }}</button>
         {% endfor %}
     {% else %}
         None
