@@ -17,6 +17,14 @@ class MySQLEquipmentTypeQuery(MySQLQuery):
 
         return self.build_query(operation, filters, orders)
 
+    def get_by_name(self, name):
+        operation = (f'SELECT {EquipmentTypes.id_col}, {EquipmentTypes.name_col} '
+                     f'FROM {EquipmentTypes.table_name}')
+
+        filters = [MySQLFilter.filter_equal_string(EquipmentTypes.name_col, name)]
+
+        return self.build_query(operation, filters)
+
     def add(self):
         operation = (f'INSERT INTO {EquipmentTypes.table_name}'
                      f'({EquipmentTypes.name_col}) VALUES (%s)')
@@ -30,3 +38,4 @@ class MySQLEquipmentTypeQuery(MySQLQuery):
                      f' VALUES (%s, %s);')
 
         return self.build_query(operation)
+

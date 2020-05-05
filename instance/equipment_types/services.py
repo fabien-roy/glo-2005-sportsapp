@@ -2,7 +2,6 @@ from injector import inject
 
 from app.equipment_types.models import EquipmentType
 from app.equipment_types.repositories import EquipmentTypeRepository
-from instance.equipment_types.fakes import type1, type2, type3
 from instance.resources.helpers import read_elements, equipment_types_csv
 
 

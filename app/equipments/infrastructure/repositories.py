@@ -49,8 +49,6 @@ class MySQLEquipmentRepository(EquipmentRepository):
         return 0
 
     def get(self, equipment_id):
-        equipment = None
-
         try:
             with self.database.connect().cursor() as cur:
                 query = Query().get(equipment_id)
@@ -60,14 +58,11 @@ class MySQLEquipmentRepository(EquipmentRepository):
                 associated_sports = self.sport_repository.get_all_for_equipment_type(
                     equipment_cur[Equipments.type_id_col])
                 announces = self.announce_repository.get_all_for_equipment(equipment_id)
-                equipment = self.build_equipment(equipment_cur, associated_sports, announces)
+                return self.build_equipment(equipment_cur, associated_sports, announces)
         finally:
             cur.close()
 
-        if equipment is None:
-            raise EquipmentNotFoundException
-
-        return equipment
+        raise EquipmentNotFoundException
 
     @staticmethod
     def build_equipment(cur, associated_sports=None, announces=None):
