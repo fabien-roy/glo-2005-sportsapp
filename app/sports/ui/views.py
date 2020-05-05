@@ -19,7 +19,7 @@ def sports(sport_repository: SportRepository):
     form = SportSearchForm(request.form)
     requested_form = form if request.method == 'POST' and form.validate_on_submit() else None
 
-    (page, per_page), offset = get_page_args()
+    page, per_page, offset = get_page_args()
     total = sport_repository.get_count(requested_form)
     paged_sports = sport_repository.get_all(requested_form, offset, per_page)
 

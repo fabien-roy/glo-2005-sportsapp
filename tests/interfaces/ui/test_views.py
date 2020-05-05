@@ -54,12 +54,15 @@ class ViewTests(BasicTests):
     @staticmethod
     def add_sports():
         sport_repository.get.side_effect = get_sport
-        sport_repository.get_all.side_effect = get_sports_filtered
+        sport_repository.get_count.side_effect = lambda form: len(get_sports_filtered(form))
+        sport_repository.get_all.side_effect = lambda form, offset, per_page: \
+            get_sports_filtered(form)
 
     @staticmethod
     def remove_sports():
         sport_repository.get.side_effect = lambda sport_id: no_sport()
-        sport_repository.get_all.side_effect = lambda form: []
+        sport_repository.get_count.side_effect = lambda form: 0
+        sport_repository.get_all.side_effect = lambda form, offset, per_page: []
 
     @staticmethod
     def add_practice_centers():
