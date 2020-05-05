@@ -4,11 +4,10 @@ from app.equipment_types.infrastructure.tables import MySQLSportEquipmentTypeTab
     SportEquipmentTypes
 from app.sports.infrastructure.filters import MySQLSportFilter as Filter
 from app.sports.infrastructure.tables import MySQLSportTable as Sports
-
-all_fields_to_add = Sports.name_col
+from app.climates.infrastructure.tables import MySQLSportClimateTable as SportClimates
 
 select_all_simple_operation = (f'SELECT {Sports.id_col},'
-                               f' {all_fields_to_add}'
+                               f' {Sports.name_col}'
                                f' FROM {Sports.table_name}')
 
 
@@ -17,12 +16,17 @@ class MySQLSportQuery(MySQLQuery):
     fake_count_col = 'count'
     get_average_note = 'get_sport_average_note'
 
-    select_all_operation = (f'SELECT {Sports.id_col},'
-                            f' {all_fields_to_add},'
-                            f' {get_average_note}({Sports.id_col}) AS {fake_average_note_col}'
-                            f' FROM {Sports.table_name}')
+    from_tables = (f" FROM {Sports.table_name} S"
+                   f" LEFT JOIN {SportClimates.table_name} C ON C.{SportClimates.sport_id_col}"
+                   f" = S.{Sports.id_col}")
 
-    select_count_operation = f'SELECT COUNT(*) AS {fake_count_col} FROM {Sports.table_name}'
+    select_all_operation = (f'SELECT DISTINCT S.{Sports.id_col},'
+                            f' S.{Sports.name_col},'
+                            f' {get_average_note}({Sports.id_col}) AS {fake_average_note_col}'
+                            f' {from_tables} ')
+
+    select_count_operation = (f'SELECT COUNT(DISTINCT S.{Sports.id_col}) '
+                              f' AS {fake_count_col} {from_tables}')
 
     def get_all(self, form=None, offset=None, per_page=None):
         filters, inner_filtering = Filter().build_filters(form)
@@ -50,7 +54,7 @@ class MySQLSportQuery(MySQLQuery):
         return self.build_query(operation, filters, orders)
 
     def get(self, sport_id):
-        filters = [MySQLFilter.filter_equal(Sports.id_col, sport_id)]
+        filters = [MySQLFilter.filter_equal(f'S.{Sports.id_col}', sport_id)]
 
         return self.build_query(self.select_all_operation, filters)
 
@@ -60,8 +64,6 @@ class MySQLSportQuery(MySQLQuery):
         return self.build_query(select_all_simple_operation, filters)
 
     def add(self):
-        operation = (f'INSERT INTO {Sports.table_name}'
-                     f' ({all_fields_to_add})'
-                     f' VALUES (%s)')
+        operation = f'INSERT INTO {Sports.table_name} ({Sports.name_col}) VALUES (%s)'
 
         return self.build_query(operation)

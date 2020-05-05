@@ -15,6 +15,10 @@ class MySQLClimateQuery:
                 ');')
 
     @staticmethod
+    def create_btree_index_for_sports():
+        return 'CREATE INDEX sport_climates_index ON sport_climates(climate_name) USING BTREE;'
+
+    @staticmethod
     def drop_practice_center_climates():
         return 'DROP TABLE IF EXISTS practice_center_climates'
 
@@ -28,6 +32,12 @@ class MySQLClimateQuery:
                 'ON DELETE CASCADE,'
                 'FOREIGN KEY (climate_name) REFERENCES climates(name) ON DELETE CASCADE'
                 ');')
+
+    @staticmethod
+    def create_btree_index_for_practice_centers():
+        return ('CREATE INDEX practice_center_climates_index'
+                ' ON practice_center_climates(climate_name)'
+                ' USING BTREE;')
 
     @staticmethod
     def drop_climates():

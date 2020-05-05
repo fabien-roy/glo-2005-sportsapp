@@ -82,3 +82,12 @@ class ShopRepositoryTests(RepositoryTests):
         self.assertIn(shop1, shops)
         self.assertNotIn(shop2, shops)
         self.assertNotIn(shop3, shops)
+
+    def test_get_count_should_get_total_of_shops(self):
+        total = self.repository.get_count()
+        self.assertEqual(3, total)
+
+    def test_get_count_with_form_should_get_total_of_filtered_shops(self):
+        form = FakeShopSearchForm(name=shop1.name)
+        total = self.repository.get_count(form)
+        self.assertEqual(1, total)

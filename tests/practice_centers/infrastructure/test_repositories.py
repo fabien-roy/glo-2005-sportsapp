@@ -1,5 +1,6 @@
 from app.practice_centers.exceptions import PracticeCenterNotFoundException
 from app.practice_centers.infrastructure.repositories import MySQLPracticeCenterRepository
+from tests.climates.fakes import climate1
 from tests.climates.mocks import climate_repository
 from tests.interfaces.infrastructure.database import test_database
 from tests.interfaces.infrastructure.test_repositories import RepositoryTests
@@ -54,48 +55,64 @@ class PracticeCenterRepositoryTests(RepositoryTests):
         practice_center = self.repository.get(center3.id)
         self.assertEqual(center3.average_note, practice_center.average_note)
 
-    def test_get_all_with_no_practice_center_get_no_practice_center(self):
+    def test_get_all_with_no_practice_center_should_get_no_practice_center(self):
         self.recreate_database()
         practice_centers = self.repository.get_all()
         self.assertEqual(0, len(practice_centers))
 
-    def test_get_all_get_practice_centers(self):
+    def test_get_all_should_get_practice_centers(self):
         practice_centers = self.repository.get_all()
         self.assertIn(center1, practice_centers)
         self.assertIn(center2, practice_centers)
         self.assertIn(center3, practice_centers)
 
-    def test_get_all_with_all_filter_practice_centers(self):
+    def test_get_all_with_all_should_filter_practice_centers(self):
         form = FakePracticeCenterSearchForm(any_field=center1.name)
         practice_centers = self.repository.get_all(form)
         self.assertIn(center1, practice_centers)
         self.assertNotIn(center2, practice_centers)
         self.assertNotIn(center3, practice_centers)
 
-    def test_get_all_with_name_filter_practice_centers(self):
+    def test_get_all_with_name_should_filter_practice_centers(self):
         form = FakePracticeCenterSearchForm(name=center1.name)
         practice_centers = self.repository.get_all(form)
         self.assertIn(center1, practice_centers)
         self.assertNotIn(center2, practice_centers)
         self.assertNotIn(center3, practice_centers)
 
-    def test_get_all_with_email_filter_practice_centers(self):
+    def test_get_all_with_email_should_filter_practice_centers(self):
         form = FakePracticeCenterSearchForm(email=center1.email)
         practice_centers = self.repository.get_all(form)
         self.assertIn(center1, practice_centers)
         self.assertNotIn(center2, practice_centers)
         self.assertNotIn(center3, practice_centers)
 
-    def test_get_all_with_web_site_filter_practice_centers(self):
+    def test_get_all_with_web_site_should_filter_practice_centers(self):
         form = FakePracticeCenterSearchForm(web_site=center1.web_site)
         practice_centers = self.repository.get_all(form)
         self.assertIn(center1, practice_centers)
         self.assertNotIn(center2, practice_centers)
         self.assertNotIn(center3, practice_centers)
 
-    def test_get_all_with_phone_number_filter_practice_centers(self):
+    def test_get_all_with_phone_number_should_filter_practice_centers(self):
         form = FakePracticeCenterSearchForm(phone_number=center1.phone_number)
         practice_centers = self.repository.get_all(form)
         self.assertIn(center1, practice_centers)
         self.assertNotIn(center2, practice_centers)
         self.assertNotIn(center3, practice_centers)
+
+    def test_get_all_with_climate_should_filter_practice_centers(self):
+        form = FakePracticeCenterSearchForm(climate=climate1.name)
+        practice_centers = self.repository.get_all(form)
+        self.assertIn(center3, practice_centers)
+        self.assertNotIn(center1, practice_centers)
+        self.assertNotIn(center2, practice_centers)
+
+    def test_get_count_should_get_total_of_practice_centers(self):
+        total = self.repository.get_count()
+        self.assertEqual(3, total)
+
+    def test_get_count_with_form_should_get_total_of_filtered_practice_centers(self):
+        form = FakePracticeCenterSearchForm(name=center1.name)
+        total = self.repository.get_count(form)
+        self.assertEqual(1, total)

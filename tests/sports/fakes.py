@@ -12,10 +12,6 @@ sport1.average_note = 5.00
 sport2.average_note = 1.50
 sport3.average_note = 5.00
 
-sport1_no_climates = Sport(sport_id=1, name='Randonnee', climates=[])
-sport2_no_climates = Sport(sport_id=2, name='Escalade', climates=[])
-sport3_no_climates = Sport(sport_id=3, name='Natation', climates=[])
-
 
 def get_sport(sport_id):
     int_id = int(sport_id)

@@ -8,7 +8,8 @@
 {% endblock %}
 
 {% block search_pane %}
-    {{ search_pane_advanced(form, [input('name', 'Name', form.name.data)]) }}
+    {{ search_pane_advanced(form, [input('name', 'Name', form.name.data),
+                                   input('climate', 'Climate', form.climate.data) ]) }}
 {% endblock %}
 
 {% block list_pane %}

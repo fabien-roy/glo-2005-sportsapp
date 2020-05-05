@@ -106,3 +106,12 @@ class UserRepositoryTests(RepositoryTests):
         self.assertIn(user1, users)
         self.assertNotIn(user2, users)
         self.assertNotIn(user3, users)
+
+    def test_get_count_should_get_total_of_users(self):
+        total = self.repository.get_count()
+        self.assertEqual(3, total)
+
+    def test_get_count_with_form_should_get_total_of_filtered_users(self):
+        form = FakeUserSearchForm(username=user1.username)
+        total = self.repository.get_count(form)
+        self.assertEqual(1, total)
