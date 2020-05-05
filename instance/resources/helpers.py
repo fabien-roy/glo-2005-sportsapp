@@ -30,6 +30,10 @@ def climates_csv():
     return absolute_path('csv/climates.csv')
 
 
+def sports_csv():
+    return absolute_path('csv/sports.csv')
+
+
 def absolute_path(file):
     return f'{pathlib.Path(__file__).parent.absolute()}/{file}'
 
