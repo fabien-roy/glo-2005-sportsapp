@@ -53,8 +53,7 @@ class MySQLAnnounceRepository(AnnounceRepository):
 
         try:
             with self.database.connect().cursor() as cur:
-                cur.execute(query, (shop_id, equipment_id, announce.state, announce.price,
-                                    announce.date))
+                cur.execute(query, (equipment_id, announce.state, announce.price, announce.date))
 
                 self.database.connect().commit()
 

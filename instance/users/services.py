@@ -21,4 +21,4 @@ class UserPopulationService:
     @staticmethod
     def build_user(row):
         return User(username=row[0], password=row[1], email=row[2], first_name=row[3],
-                    last_name=row[4], phone_number=[5])
+                    last_name=row[4], phone_number=row[5])

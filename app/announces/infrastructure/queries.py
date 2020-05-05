@@ -4,8 +4,7 @@ from app.interfaces.infrastructure.filters import MySQLFilter
 from app.interfaces.infrastructure.queries import MySQLQuery
 from app.shops.infrastructure.tables import MySQLShopTable as Shops
 
-all_fields_to_add = (f'{Announces.shop_id_col}'
-                     f', {Announces.equipment_id_col}'
+all_fields_to_add = (f'{Announces.equipment_id_col}'
                      f', {Announces.state_col}'
                      f', {Announces.price_col}'
                      f', {Announces.date_col}')
@@ -40,6 +39,6 @@ class MySQLAnnounceQuery(MySQLQuery):
 
     def add(self):
         operation = (f'INSERT INTO {Announces.table_name}'
-                     f'({all_fields_to_add}) VALUES (%s, %s, %s, %s, %s)')
+                     f'({all_fields_to_add}) VALUES (%s, %s, %s, %s)')
 
         return self.build_query(operation)
