@@ -1,7 +1,8 @@
 from injector import inject
 
+from app.climates.models import Climate
 from app.climates.repositories import ClimateRepository
-from instance.climates.fakes import climate1, climate2, climate3
+from instance.resources.helpers import read_elements, climates_csv
 
 
 class ClimatePopulationService:
@@ -10,6 +11,12 @@ class ClimatePopulationService:
         self.climate_repository = climate_repository
 
     def db_populate(self):
-        self.climate_repository.add(climate1)
-        self.climate_repository.add(climate2)
-        self.climate_repository.add(climate3)
+        for climate in self.read_climates():
+            self.climate_repository.add(climate)
+
+    def read_climates(self):
+        return read_elements(climates_csv(), self.build_climate)
+
+    @staticmethod
+    def build_climate(row):
+        return Climate(name=row[0])
