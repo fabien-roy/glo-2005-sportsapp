@@ -6,3 +6,4 @@ from app.search.forms import GeneralSearchForm
 
 class SportSearchForm(GeneralSearchForm):
     name = StringField('Name', validators=[Length(max=50)])
+    climate = StringField('Climate', validators=[Length(max=50)])

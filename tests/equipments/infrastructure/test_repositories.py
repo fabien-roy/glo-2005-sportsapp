@@ -59,46 +59,46 @@ class EquipmentRepositoryTests(RepositoryTests):
         equipment = self.repository.get(equipment3.id)
         self.assertCountEqual(equipment3.announces, equipment.announces)
 
-    def test_get_all_with_no_equipment_get_no_equipment(self):
+    def test_get_all_with_no_equipment_should_get_no_equipment(self):
         self.recreate_database()
         equipments = self.repository.get_all()
         self.assertEqual(0, len(equipments))
 
-    def test_get_all_get_equipments(self):
+    def test_get_all_should_get_equipments(self):
         equipments = self.repository.get_all()
         self.assertIn(equipment1, equipments)
         self.assertIn(equipment2, equipments)
         self.assertIn(equipment3, equipments)
 
-    def test_get_all_with_all_filter_equipments(self):
+    def test_get_all_with_all_should_filter_equipments(self):
         form = FakeEquipmentSearchForm(any_field=equipment1.name)
         equipments = self.repository.get_all(form)
         self.assertIn(equipment1, equipments)
         self.assertNotIn(equipment2, equipments)
         self.assertNotIn(equipment3, equipments)
 
-    def test_get_all_with_manufacturer_filter_equipments(self):
+    def test_get_all_with_manufacturer_should_filter_equipments(self):
         form = FakeEquipmentSearchForm(manufacturer=manufacturer1.name)
         equipments = self.repository.get_all(form)
         self.assertIn(equipment1, equipments)
         self.assertNotIn(equipment2, equipments)
         self.assertNotIn(equipment3, equipments)
 
-    def test_get_all_with_name_filter_equipments(self):
+    def test_get_all_with_name_should_filter_equipments(self):
         form = FakeEquipmentSearchForm(name=equipment1.name)
         equipments = self.repository.get_all(form)
         self.assertIn(equipment1, equipments)
         self.assertNotIn(equipment2, equipments)
         self.assertNotIn(equipment3, equipments)
 
-    def test_get_all_with_category_filter_equipments(self):
+    def test_get_all_with_equipment_type_should_filter_equipments(self):
         form = FakeEquipmentSearchForm(equipment_type=equipment1.type_name)
         equipments = self.repository.get_all(form)
         self.assertIn(equipment1, equipments)
         self.assertNotIn(equipment2, equipments)
         self.assertNotIn(equipment3, equipments)
 
-    def test_get_all_with_description_filter_equipments(self):
+    def test_get_all_with_description_should_filter_equipments(self):
         form = FakeEquipmentSearchForm(description=equipment1.description)
         equipments = self.repository.get_all(form)
         self.assertIn(equipment1, equipments)

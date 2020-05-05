@@ -1,5 +1,6 @@
 from app.sports.exceptions import SportNotFoundException
 from app.sports.infrastructure.repositories import MySQLSportRepository
+from tests.climates.fakes import climate1
 from tests.equipment_types.fakes import type1, type2, type3
 from tests.climates.mocks import climate_repository
 from tests.equipment_types.mocks import equipment_type_repository
@@ -94,6 +95,13 @@ class SportRepositoryTests(RepositoryTests):
 
     def test_get_all_with_name_filter_sports(self):
         form = FakeSportSearchForm(name=sport1.name)
+        sports = self.repository.get_all(form)
+        self.assertIn(sport1, sports)
+        self.assertNotIn(sport2, sports)
+        self.assertNotIn(sport3, sports)
+
+    def test_get_all_with_climate_should_filter_equipments(self):
+        form = FakeSportSearchForm(climate=climate1.name)
         sports = self.repository.get_all(form)
         self.assertIn(sport1, sports)
         self.assertNotIn(sport2, sports)
