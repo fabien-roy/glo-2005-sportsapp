@@ -23,8 +23,8 @@ def equipments(equipment_repository: EquipmentRepository):
 
     pagination = Pagination(page=page, per_page=per_page, total=total, record_name='equipments',
                             format_total=True, format_number=True)
-    return render_template('equipments.html', equipments=paged_equipments, page=page, per_page=per_page,
-                           pagination=pagination, form=form)
+    return render_template('equipments.html', equipments=paged_equipments, page=page,
+                           per_page=per_page, pagination=pagination, form=form)
 
 
 @equipment_blueprint.route('/equipments/<equipment_id>')
