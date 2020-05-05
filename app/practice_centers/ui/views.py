@@ -33,9 +33,11 @@ def practice_centers(practice_center_repository: PracticeCenterRepository):
 def practice_center_details(practice_center_repository: PracticeCenterRepository,
                             recommendation_service: RecommendationService, practice_center_id):
     try:
-        practice_center = practice_center_repository.get(practice_center_id)
+        practice_center = practice_center_repository.get(int(practice_center_id))
+    except ValueError:
+        return not_found()
     except PracticeCenterNotFoundException:
-        return render_template('404.html'), 404
+        return not_found()
 
     form = AddRecommendationForm(request.form)
 
@@ -50,6 +52,11 @@ def practice_center_details(practice_center_repository: PracticeCenterRepository
 
     return render_template('practice_center_details.html', practice_center=practice_center,
                            form=form)
+
+
+def not_found():
+    flash('Practice center not found', 'error')
+    return redirect(url_for('practice_centers.practice_centers'), 303)
 
 
 class PracticeCenterView(View):

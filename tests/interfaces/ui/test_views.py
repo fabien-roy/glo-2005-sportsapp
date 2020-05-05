@@ -50,6 +50,7 @@ class ViewTests(BasicTests):
         practice_center_repository.reset_mock()
         user_repository.reset_mock()
         shop_repository.reset_mock()
+        equipment_repository.reset_mock()
 
     @staticmethod
     def add_sports():
@@ -136,7 +137,7 @@ class ViewTests(BasicTests):
         self.assertIn(self.get_view_title().encode(), response.data)
 
     def assert_page_is_not_found(self, response):
-        self.assertEqual(response.status_code, 404)
+        self.assertIn('not found'.encode(), response.data)
 
     def assert_items_are_listed(self, response, tests):
         for expected_data in tests:

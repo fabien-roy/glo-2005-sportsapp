@@ -1,6 +1,6 @@
 from abc import abstractmethod, ABCMeta
 
-from flask import render_template, request, Blueprint
+from flask import render_template, request, Blueprint, flash, url_for, redirect
 from flask.views import View
 from flask_paginate import get_page_args, Pagination
 from injector import inject
@@ -30,11 +30,18 @@ def equipments(equipment_repository: EquipmentRepository):
 @equipment_blueprint.route('/equipments/<equipment_id>')
 def equipment_details(equipment_repository: EquipmentRepository, equipment_id):
     try:
-        equipment = equipment_repository.get(equipment_id)
+        equipment = equipment_repository.get(int(equipment_id))
+    except ValueError:
+        return not_found()
     except EquipmentNotFoundException:
-        return render_template('404.html'), 404
+        return not_found()
 
     return render_template('equipment_details.html', equipment=equipment)
+
+
+def not_found():
+    flash('Equipment not found', 'error')
+    return redirect(url_for('equipments.equipments'), 303)
 
 
 class EquipmentView(View):

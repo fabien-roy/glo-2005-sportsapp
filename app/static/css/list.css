@@ -99,7 +99,7 @@
   padding: 0.25rem 0.5rem;
 }
 
-.pagination > ul > li > a:hover {
+.pagination > ul > li > a[href]:hover {
   text-decoration: none;
   background-color: #ddd;
 }

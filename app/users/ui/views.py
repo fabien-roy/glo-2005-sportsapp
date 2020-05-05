@@ -1,6 +1,6 @@
 from abc import abstractmethod, ABCMeta
 
-from flask import render_template, request, Blueprint
+from flask import render_template, request, Blueprint, flash, redirect, url_for
 from flask.views import View
 from flask_paginate import get_page_args, Pagination
 from injector import inject
@@ -32,9 +32,14 @@ def user_details(user_repository: UserRepository, username):
     try:
         user = user_repository.get(username)
     except UserNotFoundException:
-        return render_template('404.html'), 404
+        return not_found()
 
     return render_template('user_details.html', user=user)
+
+
+def not_found():
+    flash('User not found', 'error')
+    return redirect(url_for('users.users'), 303)
 
 
 class UserView(View):

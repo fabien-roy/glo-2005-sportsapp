@@ -1,6 +1,6 @@
 from abc import abstractmethod, ABCMeta
 
-from flask import render_template, request, Blueprint
+from flask import render_template, request, Blueprint, url_for, redirect, flash
 from flask.views import View
 from flask_paginate import get_page_args, Pagination
 from injector import inject
@@ -30,11 +30,18 @@ def shops(shop_repository: ShopRepository):
 @shop_blueprint.route('/shops/<shop_id>')
 def shop_details(shop_repository: ShopRepository, shop_id):
     try:
-        shop = shop_repository.get(shop_id)
+        shop = shop_repository.get(int(shop_id))
+    except ValueError:
+        return not_found()
     except ShopNotFoundException:
-        return render_template('404.html'), 404
+        return not_found()
 
     return render_template('shop_details.html', shop=shop)
+
+
+def not_found():
+    flash('Shop not found', 'error')
+    return redirect(url_for('shops.shops'), 303)
 
 
 class ShopView(View):

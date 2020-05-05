@@ -34,8 +34,10 @@ def sport_details(sport_repository: SportRepository,
                   recommendation_service: RecommendationService, sport_id):
     try:
         sport = sport_repository.get(sport_id)
+    except ValueError:
+        return not_found()
     except SportNotFoundException:
-        return render_template('404.html'), 404
+        return not_found()
 
     form = AddRecommendationForm(request.form)
 
@@ -47,6 +49,11 @@ def sport_details(sport_repository: SportRepository,
         flash('Error adding recommendation.', 'error')
 
     return render_template('sport_details.html', sport=sport, form=form)
+
+
+def not_found():
+    flash('Sport not found', 'error')
+    return redirect(url_for('sports.sports'), 303)
 
 
 class SportView(View):
