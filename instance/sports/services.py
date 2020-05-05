@@ -20,4 +20,5 @@ class SportPopulationService:
 
     @staticmethod
     def build_sport(row):
-        return Sport(sport_id=None, name=row[1], climates=[Climate(row[0])])
+        climate = Climate(row[0])
+        return Sport(sport_id=None, name=row[1], climates=[climate])
