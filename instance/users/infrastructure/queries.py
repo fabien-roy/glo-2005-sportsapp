@@ -19,7 +19,7 @@ class MySQLUserQuery:
     @staticmethod
     def create_btree_index():
         return ('CREATE INDEX user_index'
-                ' ON users(username, email, first_name, last_name, phone_number)'
+                ' ON users(email, first_name, last_name, phone_number)'
                 ' USING BTREE;')
 
     @staticmethod
