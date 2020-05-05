@@ -69,6 +69,15 @@
   justify-content: space-evenly;
 }
 
+.pagination > ul > li {
+  width: 100%;
+}
+
+.pagination > ul > li > a {
+  display: flex;
+  justify-content: center;
+}
+
 @media only screen and (max-width: 767px) {
   .search-pane {
     margin-bottom: 1.5rem;
