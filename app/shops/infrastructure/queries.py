@@ -46,4 +46,3 @@ class MySQLShopQuery(MySQLQuery):
                      f'({all_fields_to_add}) VALUES (%s, %s, %s, %s)')
 
         return self.build_query(operation)
-

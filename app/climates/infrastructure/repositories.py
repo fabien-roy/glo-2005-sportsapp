@@ -1,10 +1,8 @@
 from injector import inject
 
-from app.climates.infrastructure.tables import MySQLClimateTable
+from app.climates.infrastructure.queries import MySQLClimateQuery as Query
 from app.climates.models import Climate
 from app.climates.repositories import ClimateRepository
-
-from app.climates.infrastructure.queries import MySQLClimateQuery as Query
 from app.interfaces.database import Database
 
 

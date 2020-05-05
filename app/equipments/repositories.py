@@ -17,7 +17,7 @@ class EquipmentRepository:
         """ abstract method """
 
     @abstractmethod
-    def get_by_name(self, param):
+    def get_by_name(self, name):
         """ abstract method """
 
     @abstractmethod

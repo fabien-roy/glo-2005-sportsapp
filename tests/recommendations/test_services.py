@@ -3,9 +3,11 @@ from instance.practice_centers.fakes import center1
 from instance.recommendations.services import RecommendationPopulationService
 from instance.sports.fakes import sport1
 from instance.users.fakes import user1
+from tests.practice_centers.mocks import practice_center_repository
 from tests.recommendations.forms import FakeAddRecommendationForm
 from tests.recommendations.mocks import recommendation_repository
 from tests.interfaces.test_basic import BasicTests
+from tests.sports.mocks import sport_repository
 
 
 class RecommendationServiceTests(BasicTests):
@@ -28,7 +30,7 @@ class RecommendationPopulationServiceTests(BasicTests):
 
     def setUp(self):
         self.recommendation_population_service = RecommendationPopulationService(
-            recommendation_repository)
+            recommendation_repository, sport_repository, practice_center_repository)
 
     def test_db_populate_adds_fake_sports(self):
         self.recommendation_population_service.db_populate()

@@ -38,4 +38,3 @@ class MySQLEquipmentTypeQuery(MySQLQuery):
                      f' VALUES (%s, %s);')
 
         return self.build_query(operation)
-

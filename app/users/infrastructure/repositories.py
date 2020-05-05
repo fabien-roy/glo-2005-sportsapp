@@ -49,8 +49,6 @@ class MySQLUserRepository(UserRepository):
         return 0
 
     def get(self, username):
-        user = None
-
         try:
             with self.database.connect().cursor() as cur:
                 query = Query().get(username)
@@ -61,15 +59,12 @@ class MySQLUserRepository(UserRepository):
                         .get_all_for_sport_and_user(username)
                     practice_center_recommendations = self.recommendation_repository \
                         .get_all_for_practice_center_and_user(username)
-                    user = self.build_user(user_cur, sport_recommendations,
+                    return self.build_user(user_cur, sport_recommendations,
                                            practice_center_recommendations)
         finally:
             cur.close()
 
-        if user is None:
-            raise UserNotFoundException
-
-        return user
+        raise UserNotFoundException
 
     def get_touch(self, username):
         user = self.get(username)

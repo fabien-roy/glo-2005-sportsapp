@@ -2,7 +2,6 @@ from injector import inject
 
 from app.manufacturers.models import Manufacturer
 from app.manufacturers.repositories import ManufacturerRepository
-from instance.manufacturers.fakes import manufacturer1, manufacturer2, manufacturer3
 from instance.resources.helpers import read_elements, manufacturers_csv
 
 
