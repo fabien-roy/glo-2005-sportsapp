@@ -1,3 +1,4 @@
+from app.admin.infrastructure.repositories import MySQLStatEventRepository
 from app.announces.infrastructure.repositories import MySQLAnnounceRepository
 from app.bindings import configure_modules
 from app.equipment_types.infrastructure.repositories import MySQLEquipmentTypeRepository
@@ -51,6 +52,8 @@ class RepositoryTests(BasicTests):
     shop_repository = MySQLShopRepository(test_database, announce_repository)
 
     user_repository = MySQLUserRepository(test_database, recommendation_repository)
+
+    stat_event_repository = MySQLStatEventRepository(test_database)
 
     @classmethod
     def setUpClass(cls):
