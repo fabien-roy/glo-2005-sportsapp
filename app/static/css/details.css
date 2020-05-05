@@ -3,6 +3,11 @@
   float: right;
 }
 
+.details-pane p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .details-pane form {
   width: 100%;
   display: inherit;
