@@ -20,17 +20,27 @@ select_all_operation = f'SELECT {all_fields} FROM {Users.table_name}'
 
 
 class MySQLUserQuery(MySQLQuery):
+    fake_count_col = 'count'
+
+    select_count_operation = f'SELECT COUNT(*) AS {fake_count_col} FROM {Users.table_name}'
+
     def get(self, username):
         filters = [MySQLFilter.filter_equal_string(Users.username_col, username)]
 
         return self.build_query(select_all_operation, filters)
 
-    def get_all(self, form=None):
+    def get_all(self, form=None, offset=None, per_page=None):
         filters, inner_filtering = Filter().build_filters(form)
 
         orders = [Users.username_col]
 
-        return self.build_query(select_all_operation, filters, orders, inner_filtering)
+        return self.build_query(select_all_operation, filters, orders, inner_filtering, False,
+                                offset, per_page)
+
+    def get_count(self, form=None):
+        filters, inner_filtering = Filter().build_filters(form)
+
+        return self.build_query(self.select_count_operation, filters, None, inner_filtering)
 
     def add(self):
         operation = (f'INSERT INTO {Users.table_name}'
