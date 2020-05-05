@@ -58,8 +58,6 @@ class MySQLSportRepository(SportRepository):
         return sports
 
     def get(self, sport_id):
-        sport = None
-
         try:
             with self.database.connect().cursor() as cur:
                 query = Query().get(sport_id)
@@ -70,15 +68,25 @@ class MySQLSportRepository(SportRepository):
                     required_equipment_types = self.equipment_type_repository.\
                         get_all_for_sport(sport_id)
                     recommendations = self.recommendations_repository.get_all_for_sport(sport_id)
-                    sport = self.build_sport_with_note(sport_cur, climates,
-                                                       required_equipment_types, recommendations)
+                    return self.build_sport_with_note(sport_cur, climates, required_equipment_types,
+                                                      recommendations)
         finally:
             cur.close()
 
-        if sport is None:
-            raise SportNotFoundException
+        raise SportNotFoundException
 
-        return sport
+    def get_by_name(self, name):
+        try:
+            with self.database.connect().cursor() as cur:
+                query = Query().get_by_name(name)
+                cur.execute(query)
+
+                for sport_cur in cur.fetchall():
+                    return self.build_sport(sport_cur)
+        finally:
+            cur.close()
+
+        raise SportNotFoundException
 
     @staticmethod
     def build_sport(cur, climates=None, required_equipment_types=None, recommendations=None):

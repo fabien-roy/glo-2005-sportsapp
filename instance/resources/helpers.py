@@ -38,6 +38,14 @@ def practice_centers_csv():
     return absolute_path('csv/practice_centers.csv')
 
 
+def sport_recommendations_csv():
+    return absolute_path('csv/sport_recommendations.csv')
+
+
+def practice_center_recommendations_csv():
+    return absolute_path('csv/practice_center_recommendations.csv')
+
+
 def absolute_path(file):
     return f'{pathlib.Path(__file__).parent.absolute()}/{file}'
 

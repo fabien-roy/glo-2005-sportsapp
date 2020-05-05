@@ -11,9 +11,10 @@ class UserPopulationService:
         self.user_repository = user_repository
 
     def db_populate(self):
-        users = self.read_users()[:3]  # TODO : Remove sublist (faster for pwd encryption)
-        for user in users:
+        print('Adding users (and encrypt passwords)...')
+        for user in self.read_users():
             self.user_repository.add(user)
+        print('Done adding users!')
 
     def read_users(self):
         return read_elements(users_csv(), self.build_user)
