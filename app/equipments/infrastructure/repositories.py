@@ -19,12 +19,12 @@ class MySQLEquipmentRepository(EquipmentRepository):
         self.sport_repository = sport_repository
         self.announce_repository = announce_repository
 
-    def get_all(self, form=None):
+    def get_all(self, form=None, offset=None, per_page=None):
         all_equipments = []
 
         try:
             with self.database.connect().cursor() as cur:
-                query = Query().get_all(form)
+                query = Query().get_all(form, offset, per_page)
                 cur.execute(query)
 
                 for equipment_cur in cur.fetchall():
@@ -34,6 +34,19 @@ class MySQLEquipmentRepository(EquipmentRepository):
             cur.close()
 
         return all_equipments
+
+    def get_count(self, form=None):
+        try:
+            with self.database.connect().cursor() as cur:
+                query = Query().get_count(form)
+                cur.execute(query)
+
+                for equipment_cur in cur.fetchall():
+                    return equipment_cur[Query.fake_count_col]
+        finally:
+            cur.close()
+
+        return 0
 
     def get(self, equipment_id):
         equipment = None

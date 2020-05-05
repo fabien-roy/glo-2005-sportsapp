@@ -2,6 +2,7 @@ from abc import abstractmethod, ABCMeta
 
 from flask import render_template, request, Blueprint
 from flask.views import View
+from flask_paginate import get_page_args, Pagination
 from injector import inject
 
 from app.equipments.exceptions import EquipmentNotFoundException
@@ -12,21 +13,24 @@ equipment_blueprint = Blueprint('equipments', __name__)
 
 
 @equipment_blueprint.route('/equipments', methods=('GET', 'POST'))
-def equipments(equipments_repository: EquipmentRepository):
+def equipments(equipment_repository: EquipmentRepository):
     form = EquipmentSearchForm(request.form)
+    request_form = form if request.method == 'POST' and form.validate_on_submit() else None
 
-    if request.method == 'POST' and form.validate_on_submit():
-        all_equipments = equipments_repository.get_all(form)
-    else:
-        all_equipments = equipments_repository.get_all(None)
+    page, per_page, offset = get_page_args()
+    total = equipment_repository.get_count(request_form)
+    paged_equipments = equipment_repository.get_all(request_form, offset, per_page)
 
-    return render_template('equipments.html', equipments=all_equipments, form=form)
+    pagination = Pagination(page=page, per_page=per_page, total=total, record_name='equipments',
+                            format_total=True, format_number=True)
+    return render_template('equipments.html', equipments=paged_equipments, page=page, per_page=per_page,
+                           pagination=pagination, form=form)
 
 
 @equipment_blueprint.route('/equipments/<equipment_id>')
-def equipment_details(equipments_repository: EquipmentRepository, equipment_id):
+def equipment_details(equipment_repository: EquipmentRepository, equipment_id):
     try:
-        equipment = equipments_repository.get(equipment_id)
+        equipment = equipment_repository.get(equipment_id)
     except EquipmentNotFoundException:
         return render_template('404.html'), 404
 
