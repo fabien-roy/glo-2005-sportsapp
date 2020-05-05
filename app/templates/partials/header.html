@@ -17,11 +17,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarHeader">
                 <ul class="nav navbar-nav navbar-left">
-                    {{ navlink('sports.sports', 'Sports') }}
-                    {{ navlink('practice_centers.practice_centers', 'Practice Centers') }}
-                    {{ navlink('shops.shops', 'Shops') }}
-                    {{ navlink('equipments.equipments', 'Equipments') }}
-                    {{ navlink('users.users', 'Users') }}
+                    {{ navlink('sports.sports', 'Sports', 'sports') }}
+                    {{ navlink('practice_centers.practice_centers', 'Practice centers',
+                    'practice-centers') }}
+                    {{ navlink('shops.shops', 'Shops', 'shops') }}
+                    {{ navlink('equipments.equipments', 'Equipments', 'equipments') }}
+                    {{ navlink('users.users', 'Users', 'users') }}
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
@@ -39,8 +40,11 @@
 
                         <div aria-labelledby="navbarDropdown" class="dropdown-menu">
                             {% if session['logged_in'] %}
-                                <a class="dropdown-item" href="{{ url_for('users.user_details', username=session['_user_id']) }}">My profile</a>
-                                <a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a>
+                                <a class="dropdown-item"
+                                   href="{{ url_for('users.user_details', username=session['_user_id']) }}">My
+                                    profile</a>
+                                <a class="dropdown-item"
+                                   href="{{ url_for('auth.logout') }}">Logout</a>
                             {% else %}
                                 <a class="dropdown-item"
                                    href="{{ url_for('auth.login') }}">Login</a>
@@ -53,4 +57,7 @@
             </div>
         </div>
     </nav>
+
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='js/header-navlink-active.js') }}"></script>
 {% endblock %}

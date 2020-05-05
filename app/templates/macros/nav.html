@@ -1,17 +1,7 @@
-{% macro navlink_inner(endpoint, name) -%}
-    <a class="nav-link" href="{{ url_for(endpoint) }}">
-        {{ name }}
-    </a>
-{%- endmacro %}
-
-{% macro navlink(endpoint, name) -%}
-    {% if request.endpoint.endswith(endpoint) %}
-        <li class="nav-item active">
-            {{ navlink_inner(endpoint, name) }}
-        </li>
-    {% else %}
-        <li class="nav-item">
-            {{ navlink_inner(endpoint, name) }}
-        </li>
-    {% endif %}
+{% macro navlink(endpoint, name, path) -%}
+    <li class="nav-item">
+        <a id="navlink-{{ path }}" class="nav-link" href="{{ url_for(endpoint) }}">
+            {{ name }}
+        </a>
+    </li>
 {%- endmacro %}
