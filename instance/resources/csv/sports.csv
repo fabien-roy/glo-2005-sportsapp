@@ -1,41 +1,41 @@
-climate,name
-snowy,skiing
-snowy,cross country skiing
-snowy,snowboarding
-snowy,ski jumping
-snowy,biathlon
-icy,curling
-icy,ice hockey
-icy,figure skating
-icy,skating
-icy,speed skating
-icy,bobsled
-icy,luge
-icy,skeleton
-icy,banty
-icy,broomball
-icy,ringuette
-icy,ice climbing
-icy,ice speedway
-icy,ice sailing
-icy,ice swimming
-hot,running
-mountain,hiking
-mountain,mountain climbing
-hot,handball
-hot,basketball
-hot,ultimate frisbee
-hot,omnikin
-hot,football
-hot,soccer
-hot,field hockey
-hot,lacrosse
-hot,rugby
-hot,walking
-hot,fiching
-hot,rollerskating
-hot,camping
-hot,tennis
-hot,badminton
-desert,sand sled
-rainy,sailing
+climate,name,type
+snowy,skiing,helmet
+snowy,cross country skiing,boots
+snowy,snowboarding,jackets
+snowy,ski jumping,outdoors
+snowy,biathlon,skates
+icy,curling,roller skates
+icy,ice hockey,skis
+icy,figure skating,outdoors
+icy,skating,skates
+icy,speed skating,tents
+icy,bobsled,outdoors
+icy,luge,snowboard
+icy,skeleton,outdoors
+icy,banty,tents
+icy,broomballhelmets
+icy,ringuette,soccer balls
+icy,ice climbing,jackets
+icy,ice speedway,outdoors
+icy,ice sailing,soccer balls
+icy,ihelmetsce swimming
+hot,running,outdoors
+mountain,hiking,soccer balls
+mountain,mountain climbing,leggings
+hot,handball,outdoors
+hot,basketball,boots
+hot,ultimate frisbee,base layer
+hot,omnikin,skates
+hot,football,skates
+hot,soccer,golf clubs
+hot,field hockey,golf clubs
+hot,lacrosse,roller skates
+hot,rugby,fleece
+hot,walking,tents
+hot,fiching,tents
+hot,rollerskating,roller skates
+hot,camping,tents
+hot,tennis,golf clubs
+hot,badminton,roller skates
+desert,sand sled,fleece
+rainy,sailing,fleece
