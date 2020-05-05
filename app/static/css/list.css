@@ -12,12 +12,17 @@
   background-color: #fff;
   padding: 0;
   border-radius: 0.25rem;
+  border: 1px solid #dee2e6;
   height: 100%;
 }
 
 .search-pane .nav-tabs {
   background-color: #aaa;
-  border-radius: 0.25rem;
+  border-radius: 0.25rem 0.25rem 0 0;
+}
+
+.search-pane .nav-link.active {
+  border-color: #fff;
 }
 
 .search-pane form {
