@@ -8,4 +8,3 @@ shop2 = Shop(None, name='Sportium', phone_number='418 627-0073',
 shop3 = Shop(None, name='Au Grand Bazar La Source Du Sport', phone_number='450 378-2022',
              email='info@grandbazar.ca',
              web_site='https://grandbazar.ca/fr/')
-shopN = Shop(None, name='Test shop')

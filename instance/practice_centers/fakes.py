@@ -16,6 +16,3 @@ center2 = PracticeCenter(None,
 center3 = PracticeCenter(None,
                          name='Gault Nature Reserve of McGill University',
                          climates=[climate1, climate3])
-centerN = PracticeCenter(None,
-                         name='Test practice center',
-                         climates=[climate1, climate3])

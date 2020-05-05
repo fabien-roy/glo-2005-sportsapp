@@ -21,6 +21,3 @@ equipment3 = Equipment(None, manufacturer_id=manufacturer3.id, manufacturer_name
                                    "Sandal. Crafted with a supportive midsole"
                                    " and a moldable footbed to fit even the"
                                    " most tortured feet.")
-equipmentN = Equipment(None, manufacturer_id=manufacturer3.id, manufacturer_name=manufacturer3.name,
-                       type_id=type3.id, type_name=type3.name,
-                       name="Test equipment")

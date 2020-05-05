@@ -1,7 +1,7 @@
 from injector import inject
 
 from app.shops.repositories import ShopRepository
-from instance.shops.fakes import shop1, shop2, shop3, shopN
+from instance.shops.fakes import shop1, shop2, shop3
 
 
 class ShopPopulationService:
@@ -13,6 +13,3 @@ class ShopPopulationService:
         self.shop_repository.add(shop1)
         self.shop_repository.add(shop2)
         self.shop_repository.add(shop3)
-        # TODO : Remove
-        for i in range(100):
-            self.shop_repository.add(shopN)
