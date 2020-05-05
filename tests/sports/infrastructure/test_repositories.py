@@ -106,3 +106,12 @@ class SportRepositoryTests(RepositoryTests):
         self.assertIn(sport1, sports)
         self.assertNotIn(sport2, sports)
         self.assertNotIn(sport3, sports)
+
+    def test_get_count_should_get_total_of_sports(self):
+        total = self.repository.get_count()
+        self.assertEqual(3, total)
+
+    def test_get_count_with_form_should_get_total_of_filtered_sports(self):
+        form = FakeSportSearchForm(name=sport1.name)
+        total = self.repository.get_count(form)
+        self.assertEqual(1, total)

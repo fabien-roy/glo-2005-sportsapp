@@ -104,3 +104,12 @@ class EquipmentRepositoryTests(RepositoryTests):
         self.assertIn(equipment1, equipments)
         self.assertNotIn(equipment2, equipments)
         self.assertNotIn(equipment3, equipments)
+
+    def test_get_count_should_get_total_of_equipments(self):
+        total = self.repository.get_count()
+        self.assertEqual(3, total)
+
+    def test_get_count_with_form_should_get_total_of_filtered_equipments(self):
+        form = FakeEquipmentSearchForm(name=equipment1.name)
+        total = self.repository.get_count(form)
+        self.assertEqual(1, total)

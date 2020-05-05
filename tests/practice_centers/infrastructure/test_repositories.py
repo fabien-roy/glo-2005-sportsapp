@@ -107,3 +107,12 @@ class PracticeCenterRepositoryTests(RepositoryTests):
         self.assertIn(center3, practice_centers)
         self.assertNotIn(center1, practice_centers)
         self.assertNotIn(center2, practice_centers)
+
+    def test_get_count_should_get_total_of_practice_centers(self):
+        total = self.repository.get_count()
+        self.assertEqual(3, total)
+
+    def test_get_count_with_form_should_get_total_of_filtered_practice_centers(self):
+        form = FakePracticeCenterSearchForm(name=center1.name)
+        total = self.repository.get_count(form)
+        self.assertEqual(1, total)
