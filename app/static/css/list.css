@@ -5,7 +5,7 @@
 }
 
 .box-layout {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .search-pane {
@@ -76,11 +76,32 @@
 
 .pagination > ul > li {
   width: 100%;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  border-right: 1px solid #aaa;
+  background-color: #fff;
+}
+
+.pagination > ul > li:first-child {
+  border-left: 1px solid #aaa;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.pagination > ul > li:last-child {
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
 }
 
 .pagination > ul > li > a {
   display: flex;
   justify-content: center;
+  padding: 0.25rem 0.5rem;
+}
+
+.pagination > ul > li > a:hover {
+  text-decoration: none;
+  background-color: #ddd;
 }
 
 @media only screen and (max-width: 767px) {
