@@ -76,6 +76,24 @@ class MySQLEquipmentRepository(EquipmentRepository):
                          associated_sports,
                          announces)
 
+    def get_by_name(self, name):
+        try:
+            with self.database.connect().cursor() as cur:
+                query = Query().get_by_name(name)
+                cur.execute(query)
+
+            for equipment_cur in cur.fetchall():
+                return self.build_simple_equipment(equipment_cur)
+        finally:
+            cur.close()
+
+        raise EquipmentNotFoundException
+
+    @staticmethod
+    def build_simple_equipment(cur):
+        return Equipment(cur[Equipments.id_col], None, None, None, None, cur[Equipments.name_col],
+                         cur[Equipments.description_col])
+
     def add(self, equipment):
         try:
             with self.database.connect().cursor() as cur:

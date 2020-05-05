@@ -22,6 +22,10 @@ def equipments_csv():
     return absolute_path('csv/equipments.csv')
 
 
+def announces_csv():
+    return absolute_path('csv/announces.csv')
+
+
 def absolute_path(file):
     return f'{pathlib.Path(__file__).parent.absolute()}/{file}'
 

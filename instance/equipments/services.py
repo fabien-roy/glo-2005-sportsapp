@@ -21,9 +21,9 @@ class EquipmentPopulationService:
             self.equipment_repository.add(equipment)
 
     def read_equipments(self):
-        return read_elements(equipments_csv(), self.build_equipment_type)
+        return read_elements(equipments_csv(), self.build_equipment)
 
-    def build_equipment_type(self, row):
+    def build_equipment(self, row):
         manufacturer = self.manufacturer_repository.get_by_name(row[0])
         equipment_type = self.equipment_type_repository.get_by_name(row[1])
         return Equipment(equipment_id=None, manufacturer_id=manufacturer.id,
