@@ -1,6 +1,5 @@
 from injector import inject
 
-from app.users.models import User
 from app.users.repositories import UserRepository
 from instance.users.fakes import user1, user2, user3
 
