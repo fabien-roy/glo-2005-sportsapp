@@ -7,7 +7,7 @@ from app.interfaces.database import Database
 from app.recommendations.repositories import RecommendationRepository
 from app.users.exceptions import UserNotFoundException
 from app.users.infrastructure.queries import MySQLUserQuery as Query
-from app.users.infrastructure.tables import MySQLUserTable as Users
+from app.users.infrastructure.tables import MySQLUserTable as Users, MySQLPasswordTable as Passwords
 from app.users.models import User
 from app.users.repositories import UserRepository
 
@@ -127,8 +127,11 @@ class MySQLUserRepository(UserRepository):
             with self.database.connect().cursor() as cur:
                 query = Query().get_password(username)
                 cur.execute(query)
-                password = cur.fetchall()[0]['password']
+
+                for password_cur in cur.fetchall():
+                    return password_cur[Passwords.password_col]
         finally:
             cur.close()
 
-        return password
+        raise UserNotFoundException
+

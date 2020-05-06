@@ -7,6 +7,7 @@ from injector import inject
 
 from app.admin.services import StatService
 from app.auth.forms import LoginForm, RegisterForm
+from app.users.exceptions import UserNotFoundException
 from app.users.models import User
 from app.users.repositories import UserRepository
 
@@ -34,7 +35,11 @@ def login(user_repository: UserRepository, stat_service: StatService):
     form = LoginForm(request.form)
 
     if form.validate_on_submit():
-        user_password = user_repository.get_password(form.username.data)
+        try:
+            user_password = user_repository.get_password(form.username.data)
+        except UserNotFoundException:
+            return login_unsuccessful()
+
         decoded_password = (bcrypt.hashpw(form.password.data.encode('utf-8'),
                                           user_password.encode('utf-8'))).decode('utf-8')
         if user_password and decoded_password == user_password:
@@ -46,9 +51,14 @@ def login(user_repository: UserRepository, stat_service: StatService):
             stat_service.add_user_login()
             return redirect(url_for('users.user_details', username=user.username), 302)
 
-        flash('Login Unsuccessful. Please check email and password', 'error')
+        return login_unsuccessful()
 
     return render_template('login.html', form=form)
+
+
+def login_unsuccessful():
+    flash('Login Unsuccessful. Please check username and password', 'error')
+    return redirect(url_for('auth.login'), 303)
 
 
 @auth_blueprint.route('/logout', methods=('GET', 'POST'))
