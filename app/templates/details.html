@@ -2,25 +2,27 @@
 
 {% block inner_content %}
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/details.css') }}">
+    {% include 'partials/errors.html' %}
 
-{% block jumbotron %}
-{% endblock %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/details.css') }}">
 
-<div class="box-layout col-md-6 col-sm-12 details-pane">
-{% block details %}
-{% endblock %}
-</div>
+    {% block jumbotron %}
+    {% endblock %}
 
-<div class="box-layout col-md-6 col-sm-12">
-    <div class="box-layout col-md-12 list-pane-title">
-        {% block associated_items_title %}
+    <div class="box-layout col-md-6 col-sm-12 details-pane">
+        {% block details %}
         {% endblock %}
     </div>
-    <div class="box-layout col-md-12 list-pane">
-        {% block associated_items %}
-        {% endblock %}
+
+    <div class="box-layout col-md-6 col-sm-12">
+        <div class="box-layout col-md-12 list-pane-title">
+            {% block associated_items_title %}
+            {% endblock %}
+        </div>
+        <div class="box-layout col-md-12 list-pane">
+            {% block associated_items %}
+            {% endblock %}
+        </div>
     </div>
-</div>
 
 {% endblock %}

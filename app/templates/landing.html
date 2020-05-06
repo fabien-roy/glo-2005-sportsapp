@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
 
     <div class="landing">
+        {% include 'partials/errors.html' %}
+
         {%  block inner_landing %}
         {% endblock %}
     </div>
