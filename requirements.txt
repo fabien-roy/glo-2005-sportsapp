@@ -30,7 +30,7 @@ codecov==2.0.22
 
 # Lint
 pep8==1.7.1
-pyLint==2.5.1
+pyLint==2.5.2
 
 # SQL
 pymysql==0.9.3
