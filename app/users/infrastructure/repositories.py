@@ -2,10 +2,11 @@ from datetime import datetime
 
 from injector import inject
 import bcrypt
+from pymysql import MySQLError
 
 from app.interfaces.database import Database
 from app.recommendations.repositories import RecommendationRepository
-from app.users.exceptions import UserNotFoundException
+from app.users.exceptions import UserNotFoundException, UserAlreadyRegisteredException
 from app.users.infrastructure.queries import MySQLUserQuery as Query
 from app.users.infrastructure.tables import MySQLUserTable as Users, MySQLPasswordTable as Passwords
 from app.users.models import User
@@ -103,6 +104,8 @@ class MySQLUserRepository(UserRepository):
                                     user.phone_number, user.creation_date))
 
                 self.database.connect().commit()
+        except MySQLError:
+            raise UserAlreadyRegisteredException
         finally:
             cur.close()
 
@@ -134,4 +137,3 @@ class MySQLUserRepository(UserRepository):
             cur.close()
 
         raise UserNotFoundException
-

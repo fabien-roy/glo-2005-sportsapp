@@ -7,7 +7,7 @@ from injector import inject
 
 from app.admin.services import StatService
 from app.auth.forms import LoginForm, RegisterForm
-from app.users.exceptions import UserNotFoundException
+from app.users.exceptions import UserNotFoundException, UserAlreadyRegisteredException
 from app.users.models import User
 from app.users.repositories import UserRepository
 
@@ -22,7 +22,11 @@ def register(user_repository: UserRepository):
         user = User(username=form.username.data, email=form.email.data, password=form.password.data,
                     first_name=form.first_name.data, last_name=form.last_name.data,
                     phone_number=form.telephone.data)
-        user_repository.add(user)
+        try:
+            user_repository.add(user)
+        except UserAlreadyRegisteredException:
+            flash('Username or email already exists. Please login or try something else', 'error')
+            return redirect(url_for('auth.register'), 303)
 
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('auth.login'), 302)
