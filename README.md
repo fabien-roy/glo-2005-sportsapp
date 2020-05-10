@@ -5,6 +5,8 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c4e1b95d779e4c1083c8bb3e19d459da)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ExiledNarwal28/glo-2005-sportsapp&amp;utm_campaign=Badge_Grade)
 [![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/)
 
+**This is a school project that was submitted with a report explaining the project and how to use it. Said report was migrated into our [wiki](https://github.com/ExiledNarwal28/glo-2005-sportsapp/wiki) for educational purposes.**
+
 This is our project for course GLO-2005 at Laval University. We are team 8.
 
 This project is about listing sports, practice centers, shops and equipments.
