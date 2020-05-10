@@ -2,7 +2,7 @@
 
 ![Build](https://github.com/ExiledNarwal28/glo-2005-sportsapp/workflows/Build/badge.svg?branch=master)
 [![codecov](https://codecov.io/gh/ExiledNarwal28/glo-2005-sportsapp/branch/master/graph/badge.svg?token=R9AKC1L5PE)](https://codecov.io/gh/ExiledNarwal28/glo-2005-sportsapp)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c4e1b95d779e4c1083c8bb3e19d459da)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ExiledNarwal28/glo-2005-sportsapp&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5716b95dcc114147ac758590d14c22bc)](https://www.codacy.com/manual/ExiledNarwal28/glo-2005-sportsapp?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ExiledNarwal28/glo-2005-sportsapp&amp;utm_campaign=Badge_Grade)
 [![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/)
 
 **This is a school project that was submitted with a report explaining the project and how to use it. Said report was migrated into our [wiki](https://github.com/ExiledNarwal28/glo-2005-sportsapp/wiki) for educational purposes.**
